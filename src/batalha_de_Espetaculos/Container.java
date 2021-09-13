@@ -1,7 +1,6 @@
 package batalha_de_Espetaculos;
 
 import java.awt.Color;
-
 import javax.swing.JFrame;
 
 public class Container extends JFrame{

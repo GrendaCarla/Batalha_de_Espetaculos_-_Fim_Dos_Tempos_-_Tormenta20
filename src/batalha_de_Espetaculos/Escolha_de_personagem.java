@@ -21,113 +21,190 @@ import batalha_de_Espetaculos.Modelo.Icones_interativos;
 import batalha_de_Espetaculos.Modelo.Texto;
 
 public class Escolha_de_personagem extends JPanel implements ActionListener {
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  Escolha_de_personagem é a tela a onde os usuários escolheram qual dos cães das colinas   |
+	|  iram jogar durante todo o jogo.															|
+	\ ---------------------------------------------------------------------------------------- */
 
 	Escolha_de_adversario tela2;
 	
 	private Image fundo;
-	private Icones_interativos texto;
-	private Icones_interativos iconeIgnis;
-	private Icones_interativos iconeAyla;
-	private Icones_interativos iconeRexthor;
-	private Icones_interativos iconeKiki;
-	private Icones_interativos iconeArius;
+	private Timer timer;
 	
-	private Icones_interativos luz;
+	private Icones_interativos contorno = new Icones_interativos(0, 0);
+	private Icones_interativos titulo = new Icones_interativos(1234/2 - 511/2, 20 + 50);
 	
-	private Icones_interativos contorno;
+	// ---------------------------- imagens dos aventureiros ------------------------------------
 	
-	private Icones_interativos teclaEsquerda;
-	private Icones_interativos teclaDireita;
-	private Icones_interativos teclaZ;
-	private Icones_interativos teclaX;
-	private Icones_interativos teclaEsc;
+	private Icones_interativos iconeIgnis = new Icones_interativos(20 - 8, 640 - 20 - 454);
+	private Icones_interativos iconeAyla = new Icones_interativos(20 + 240, 640 - 20 - 454 + 8);
+	private Icones_interativos iconeRexthor = new Icones_interativos(20 + 240 + 240, 640 - 20 - 454 + 8);
+	private Icones_interativos iconeKiki = new Icones_interativos(20 + 240 + 240 + 240, 640 - 20 - 454 + 8);
+	private Icones_interativos iconeArius = new Icones_interativos(20 + 240 + 240 + 240 + 240, 640 - 20 - 454 + 8);
 	
-	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7; 
+	private Icones_interativos luzAven = new Icones_interativos(11, 82);
+	private int contTeclaAven = 0;
 	
-	private Icones_interativos dialogo;
-	private Icones_interativos bntSim;
-	private Icones_interativos bntNao;
+	// ---------------------------- imagens dos botões do teclado --------------------------------
+	
+	private Icones_interativos teclaEsquerda = new Icones_interativos(20 + 10, 640 - 20 - 42 - 20);
+	private Icones_interativos teclaDireita = new Icones_interativos(1234 - 10 - 20 - 37, 640 - 20 - 42 - 20);
+	private Icones_interativos teclaZ = new Icones_interativos(20 + 60,20 + 35);
+	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 60 - 37, 20 + 35);
+	private Icones_interativos teclaEsc = new Icones_interativos(1234 - 20 - 55 + 2, 20 - 4);
+	
+	// -------------------------- imagens e texto do dialogo de aviso ------------------------------
 	
 	private Icones_interativos sombreadorDialogo = new Icones_interativos(0, 0);
-	Texto txtMenVoltar = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
-	Texto txtMenVoltar2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
-	Texto txtMenVoltar3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	private Icones_interativos dialogo = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
+	private Icones_interativos bntSim = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
+	private Icones_interativos bntNao = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
 	
-	private int contTecla = 0;
-	private Boolean botaoSimNao = true;
+	Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
+	Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
+	Texto txtDialogoAviso3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	
+	private TextLayout tl1, tl2, tl3; 
+	private Boolean botaoSimNaoDialogo = true;
+	
+	// ------------------------------------- imagens do menu ---------------------------------------
 	
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,16);
 	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2,80);
 	private Icones_interativos bntRegras = new Icones_interativos(18 + 200/2 - 128/2,80 + 140);
 	
-	
 	boolean mostrarMenu = false;
-	int contMenu = 0;
-	
-	private Timer timer;
-	
+	boolean contMenu = false;
+
+	/* ---------------------------------------------------------------------------------------- \
+	|  							coloca as informações iniciais									|
+	\ ---------------------------------------------------------------------------------------- */
 	public Escolha_de_personagem() {
-		ImageIcon referencia = new ImageIcon("res\\fundoPreto.png");
+		
+		ImageIcon referencia = new ImageIcon("res\\fundo.png");
 		fundo = referencia.getImage();
 		
-		texto = new Icones_interativos(1234/2 - 511/2,20 + 50);
-		texto.load("res\\escolhaDePersonagem\\texto.png");
-		
-		iconeIgnis = new Icones_interativos(20 - 8, 640 - 20 - 454);
-		iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
-		iconeAyla = new Icones_interativos(20 + 240, 640 - 20 - 454 + 8);
-		iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
-		iconeRexthor = new Icones_interativos(20 + 240 + 240, 640 - 20 - 454 + 8);
-		iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
-		iconeKiki = new Icones_interativos(20 + 240 + 240 + 240, 640 - 20 - 454 + 8);
-		iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
-		iconeArius = new Icones_interativos(20 + 240 + 240 + 240 + 240, 640 - 20 - 454 + 8);
-		iconeArius.load("res\\escolhaDePersonagem\\arius.png");
-		
-		
-		luz = new Icones_interativos(11, 82);
-		luz.load("res\\escolhaDePersonagem\\luzIgnis.png");
-		
-		contorno = new Icones_interativos(0, 0);
+		titulo.load("res\\escolhaDePersonagem\\texto.png");
 		contorno.load("res\\contorno.png");
 		
-		teclaEsquerda = new Icones_interativos(20 + 10, 640 - 20 - 42 - 20);
+		iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
+		iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
+		iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
+		iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
+		iconeArius.load("res\\escolhaDePersonagem\\arius.png");
+		
+		luzAven.load("res\\escolhaDePersonagem\\luzIgnis.png");
+		
 		teclaEsquerda.load("res\\escolhaDePersonagem\\setaEsquerda.png");
-		teclaDireita = new Icones_interativos(1234 - 10 - 20 - 37, 640 - 20 - 42 - 20);
 		teclaDireita.load("res\\escolhaDePersonagem\\setaDireita.png");
-		teclaZ = new Icones_interativos(20 + 60,20 + 35);
 		teclaZ.load("res\\escolhaDePersonagem\\teclaZ.png");
-		teclaX = new Icones_interativos(1234 - 20 - 60 - 37, 20 + 35);
 		teclaX.load("res\\escolhaDePersonagem\\teclaX.png");
-		teclaEsc = new Icones_interativos(1234 - 20 - 55 + 2, 20 - 4);
 		teclaEsc.load("res\\escolhaDePersonagem\\teclaEsc.png");
 		
-		dialogo = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
-		bntSim = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
-		bntNao = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
-		
-		txtMenVoltar.setFonte(new Font("Arial", Font.PLAIN, 28));
-		txtMenVoltar.setCorTexto(new Color (235, 230, 233));
-		txtMenVoltar2.setFonte(new Font("Arial", Font.PLAIN, 28));
-		txtMenVoltar3.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
+		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso3.setFonte(new Font("Arial", Font.PLAIN, 28));
 		
 		timer = new Timer(5, this);
 		timer.start();
 	}
 	
+	/* ---------------------------------------------------------------------------------------- \
+	|  		 		mexe e muda as imagens dos personagem conforme ganham foco					|
+	\ ---------------------------------------------------------------------------------------- */
+	public void posicionarPersonagens(int personagemPerdeFoco) {
+		
+		switch(personagemPerdeFoco) {
+			case 0:
+				iconeIgnis.load("res\\escolhaDePersonagem\\ignis.png");
+				iconeIgnis.setX(20);
+				iconeIgnis.setY(640 - 20 - 454 + 8);
+				break;
+			case 1:
+				iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
+				iconeAyla.setX(20 + 240);
+				iconeAyla.setY(640 - 20 - 454 + 8);
+				break;
+			case 2:
+				iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
+				iconeRexthor.setX(20 + 240 + 240);
+				iconeRexthor.setY(640 - 20 - 454 + 8);
+				break;
+			case 3:
+				iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
+				iconeKiki.setX(20 + 240 + 240 + 240);
+				iconeKiki.setY(640 - 20 - 454 + 8);
+				break;
+			case 4:
+				iconeArius.load("res\\escolhaDePersonagem\\arius.png");
+				iconeArius.setX(20 + 240 + 240 + 240 + 240);
+				iconeArius.setY(640 - 20 - 454 + 8);
+				break;
+		}
+			
+		switch(contTeclaAven) {
+			case 0:
+				iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
+				iconeIgnis.setX(20 - 8);
+				iconeIgnis.setY(640 - 20 - 454);
+				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				luzAven.setX(11); luzAven.setY(82);
+				luzAven.load("res\\escolhaDePersonagem\\luzIgnis.png");
+				break;
+			case 1:
+				iconeAyla.load("res\\escolhaDePersonagem\\ayla2.png");
+				iconeAyla.setX(20 + 240 - 8);
+				iconeAyla.setY(640 - 20 - 454);
+				titulo.load("res\\escolhaDePersonagem\\texto2.png");
+				luzAven.setX(98); luzAven.setY(82);
+				luzAven.load("res\\escolhaDePersonagem\\luzAyla.png");
+				break;
+			case 2:
+				iconeRexthor.load("res\\escolhaDePersonagem\\rexthor2.png");
+				iconeRexthor.setX(20 + 240 + 240 - 8);
+				iconeRexthor.setY(640 - 20 - 454);
+				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				luzAven.setX(338); luzAven.setY(82);
+				luzAven.load("res\\escolhaDePersonagem\\luzRexthor.png");
+				break;
+			case 3:
+				iconeKiki.load("res\\escolhaDePersonagem\\kiki2.png");
+				iconeKiki.setX(20 + 240 + 240 + 240 - 8);
+				iconeKiki.setY(640 - 20 - 454);
+				titulo.load("res\\escolhaDePersonagem\\texto2.png");
+				luzAven.setX(578); luzAven.setY(82);
+				luzAven.load("res\\escolhaDePersonagem\\luzKiki.png");
+				break;
+			case 4:
+				iconeArius.load("res\\escolhaDePersonagem\\arius2.png");
+				iconeArius.setX(20 + 240 + 240 + 240 + 240 - 8);
+				iconeArius.setY(640 - 20 - 454);
+				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				luzAven.setX(769); luzAven.setY(82);
+				luzAven.load("res\\escolhaDePersonagem\\luzArius.png");
+				break;
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  		 					dispara quando as teclas são  pressionadas						|
+	\ ---------------------------------------------------------------------------------------- */
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 
 		if(janela != null && janela.getTitle() == "Escolha de Personagem") {
 			int codigo = tecla.getKeyCode();
 			
+			// -------------------- abre e fecha o menu -------------------- \
 			if(codigo == KeyEvent.VK_ESCAPE) {
 				mostrarMenu = !mostrarMenu;
 				teclaEsc.load("res\\escolhaDePersonagem\\teclaEsc2.png");
 				
 				if(mostrarMenu == true) {
-					contMenu = 0;
+					contMenu = false;
 					sombreadorMenu.load("res\\sombreador.png");
 					fundoMenu.load("res\\menu.png");
 					bntMenu.load("res\\bntMenu2.png");
@@ -139,203 +216,64 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					bntMenu.load("");
 					bntRegras.load("");
 				}
-			}else if(codigo == KeyEvent.VK_UP && mostrarMenu == true) {
-				if(contMenu == 0) {
-					contMenu = 1;
-				} else {
-					contMenu --;
-				}
+			// --------------- muda a seleção das opções do menu ------------- \
+			}else if((codigo == KeyEvent.VK_DOWN || codigo == KeyEvent.VK_UP) && mostrarMenu == true) {
 				
-				switch (contMenu) {
-					case 0:
-						bntMenu.load("res\\bntMenu2.png");
-						bntRegras.load("res\\bntRegras1.png");
-						break;
-					case 1:
-						bntRegras.load("res\\bntRegras2.png");
-						bntMenu.load("res\\bntMenu1.png");
-						break;
-				}
-			}else if(codigo == KeyEvent.VK_DOWN && mostrarMenu == true) {
-				if(contMenu == 1) {
-					contMenu = 0;
-				} else {
-					contMenu ++;
-				}
-				
-				switch (contMenu) {
-					case 0:
-						bntMenu.load("res\\bntMenu2.png");
-						bntRegras.load("res\\bntRegras1.png");
-						break;
-					case 1:
-						bntRegras.load("res\\bntRegras2.png");
-						bntMenu.load("res\\bntMenu1.png");
-						break;
-				}
+				contMenu = !contMenu;
+				bntMenu.load("res\\bntMenu" + (contMenu == false ? "2" : "1") + ".png");
+				bntRegras.load("res\\bntRegras" + (contMenu == false ? "1" : "2") + ".png");
+			
+			// ---------- muda a seleção dos personagens para esquerda --------- \
 			}else if(codigo == KeyEvent.VK_LEFT && dialogo.getImagem() == null && mostrarMenu == false) {
 				
 				teclaEsquerda.load("res\\escolhaDePersonagem\\setaEsquerda2.png");
-				if(contTecla == 0) {
-					contTecla = 4;
-				} else {
-					contTecla --;
-				}
 				
-				switch (contTecla) {
+				if(contTeclaAven == 0) {contTeclaAven = 4;} else {contTeclaAven --;}
+				
+				switch (contTeclaAven) {
 					case 0:
-						iconeAyla.setX(20 + 240);
-						iconeAyla.setY(640 - 20 - 454 + 8);
-						iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
-						
-						iconeIgnis.setX(20 - 8);
-						iconeIgnis.setY(640 - 20 - 454);
-						iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(11); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzIgnis.png");
+						posicionarPersonagens(1);
 					    break;
-					    
 					case 1:
-						iconeRexthor.setX(20 + 240 + 240);
-						iconeRexthor.setY(640 - 20 - 454 + 8);
-						iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
-						
-						iconeAyla.setX(20 + 240 - 8);
-						iconeAyla.setY(640 - 20 - 454);
-						iconeAyla.load("res\\escolhaDePersonagem\\ayla2.png");
-						texto.load("res\\escolhaDePersonagem\\texto2.png");
-						
-						luz.setX(98); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzAyla.png");
+						posicionarPersonagens(2);
 					    break;
-					    
 					case 2:
-						iconeKiki.setX(20 + 240 + 240 + 240);
-						iconeKiki.setY(640 - 20 - 454 + 8);
-						iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
-						
-						iconeRexthor.setX(20 + 240 + 240 - 8);
-						iconeRexthor.setY(640 - 20 - 454);
-						iconeRexthor.load("res\\escolhaDePersonagem\\rexthor2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(338); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzRexthor.png");
+						posicionarPersonagens(3);
 					    break;
-					    
 					case 3:
-						iconeArius.setX(20 + 240 + 240 + 240 + 240);
-						iconeArius.setY(640 - 20 - 454 + 8);
-						iconeArius.load("res\\escolhaDePersonagem\\arius.png");
-						
-						iconeKiki.setX(20 + 240 + 240 + 240 - 8);
-						iconeKiki.setY(640 - 20 - 454);
-						iconeKiki.load("res\\escolhaDePersonagem\\kiki2.png");
-						texto.load("res\\escolhaDePersonagem\\texto2.png");
-						
-						luz.setX(578); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzKiki.png");
+						posicionarPersonagens(4);
 					    break;
-					    
 					case 4:
-						iconeIgnis.setX(20);
-						iconeIgnis.setY(640 - 20 - 454 + 8);
-						iconeIgnis.load("res\\escolhaDePersonagem\\ignis.png");
-						
-						iconeArius.setX(20 + 240 + 240 + 240 + 240 - 8);
-						iconeArius.setY(640 - 20 - 454);
-						iconeArius.load("res\\escolhaDePersonagem\\arius2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(769); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzArius.png");
+						posicionarPersonagens(0);
 					    break;
-				}
-					  
-			}
-			else if(codigo == KeyEvent.VK_RIGHT && dialogo.getImagem() == null && mostrarMenu == false) {
+				}	  
+				
+			// ---------- muda a seleção dos personagens para direita --------- \
+			} else if(codigo == KeyEvent.VK_RIGHT && dialogo.getImagem() == null && mostrarMenu == false) {
+				
 				teclaDireita.load("res\\escolhaDePersonagem\\setaDireita2.png");
 				
-				if(contTecla == 4) {
-					contTecla = 0;
-				} else {
-					contTecla ++;
-				}
+				if(contTeclaAven == 4) {contTeclaAven = 0;} else {contTeclaAven ++;}
 				
-				switch (contTecla) {
+				switch (contTeclaAven) {
 					case 0:
-						iconeArius.setX(20 + 240 + 240 + 240 + 240);
-						iconeArius.setY(640 - 20 - 454 + 8);
-						iconeArius.load("res\\escolhaDePersonagem\\arius.png");
-						
-						iconeIgnis.setX(20 - 8);
-						iconeIgnis.setY(640 - 20 - 454);
-						iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(11); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzIgnis.png");
+						posicionarPersonagens(4);
 					    break;
-					    
 					case 1:
-						iconeIgnis.setX(20);
-						iconeIgnis.setY(640 - 20 - 454 + 8);
-						iconeIgnis.load("res\\escolhaDePersonagem\\ignis.png");
-						
-						iconeAyla.setX(20 + 240 - 8);
-						iconeAyla.setY(640 - 20 - 454);
-						iconeAyla.load("res\\escolhaDePersonagem\\ayla2.png");
-						texto.load("res\\escolhaDePersonagem\\texto2.png");
-						
-						luz.setX(98); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzAyla.png");
+						posicionarPersonagens(0);
 					    break;
-					    
 					case 2:
-						iconeAyla.setX(20 + 240);
-						iconeAyla.setY(640 - 20 - 454 + 8);
-						iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
-						
-						iconeRexthor.setX(20 + 240 + 240 - 8);
-						iconeRexthor.setY(640 - 20 - 454);
-						iconeRexthor.load("res\\escolhaDePersonagem\\rexthor2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(338); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzRexthor.png");
+						posicionarPersonagens(1);
 					    break;
-					    
 					case 3:
-						iconeRexthor.setX(20 + 240 + 240);
-						iconeRexthor.setY(640 - 20 - 454 + 8);
-						iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
-					
-						iconeKiki.setX(20 + 240 + 240 + 240 - 8);
-						iconeKiki.setY(640 - 20 - 454);
-						iconeKiki.load("res\\escolhaDePersonagem\\kiki2.png");
-						texto.load("res\\escolhaDePersonagem\\texto2.png");
-						
-						luz.setX(578); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzKiki.png");
+						posicionarPersonagens(2);
 					    break;
-					    
 					case 4:
-						iconeKiki.setX(20 + 240 + 240 + 240);
-						iconeKiki.setY(640 - 20 - 454 + 8);
-						iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
-						
-						iconeArius.setX(20 + 240 + 240 + 240 + 240 - 8);
-						iconeArius.setY(640 - 20 - 454);
-						iconeArius.load("res\\escolhaDePersonagem\\arius2.png");
-						texto.load("res\\escolhaDePersonagem\\texto.png");
-						
-						luz.setX(769); luz.setY(82);
-						luz.load("res\\escolhaDePersonagem\\luzArius.png");
+						posicionarPersonagens(3);
 					    break;
 				}
 			}
+			// --------------- chama o dialogo de aviso ao apertar Z -------------- \
 			else if(codigo == KeyEvent.VK_Z && dialogo.getImagem() == null && mostrarMenu == false) {
 				teclaZ.load("res\\escolhaDePersonagem\\teclaZ2.png");
 				
@@ -343,74 +281,74 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				dialogo.load("res\\dialogo.png");
 				bntSim.load("res\\bntSim.png");
 				bntNao.load("res\\bntNao2.png");
-				botaoSimNao = true;
+				botaoSimNaoDialogo = true;
 				
-				if(contTecla == 0 || contTecla == 2 || contTecla == 4) {
-					txtMenVoltar.setTexto("O aventureiro escolido não poderá ser trocado");
-					txtMenVoltar2.setTexto("durante o jogo.");
-					txtMenVoltar3.setTexto("Deseja continuar?");
+				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
+					txtDialogoAviso.setTexto("O aventureiro escolhido não poderá ser trocado");
 				} else {
-					txtMenVoltar.setTexto("A aventureira escolida não poderá ser trocada");
-					txtMenVoltar2.setTexto("durante o jogo.");
-					txtMenVoltar3.setTexto("Deseja continuar?");
+					txtDialogoAviso.setTexto("A aventureira escolhida não poderá ser trocada");
 				}
+				txtDialogoAviso2.setTexto("durante o jogo.");
+				txtDialogoAviso3.setTexto("Deseja continuar?");
+			
+			// --------------- fecha o dialogo de aviso ao apertar X -------------- \
 			}else if(codigo == KeyEvent.VK_X && mostrarMenu == false) {
 				teclaX.load("res\\escolhaDePersonagem\\teclaX2.png");
-				txtMenVoltar.setTexto(" ");
-				txtMenVoltar2.setTexto(" ");
-				txtMenVoltar3.setTexto(" ");
-				sombreadorDialogo.load("");
-				dialogo.setImagem(null);
-				bntSim.setImagem(null);
-				bntNao.setImagem(null);
 				
-			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogo.getImagem() != null && botaoSimNao == false && mostrarMenu == false) {
+				limparDialogo();
+			
+			// ------------ muda a seleção das opções do dialogo de aviso ---------- \
+			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogo.getImagem() != null && mostrarMenu == false) {
+				
 				dialogo.load("res\\dialogo.png");
-				bntSim.load("res\\bntSim.png");
-				bntNao.load("res\\bntNao2.png");
-				botaoSimNao = true;
-				
-			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogo.getImagem() != null && botaoSimNao == true && mostrarMenu == false) {
-				dialogo.load("res\\dialogo.png");
-				bntSim.load("res\\bntSim2.png");
-				bntNao.load("res\\bntNao.png");
-				botaoSimNao = false;
-				
+				bntSim.load("res\\bntSim" + (botaoSimNaoDialogo == false ? "" : "2") + ".png");
+				bntNao.load("res\\bntNao" + (botaoSimNaoDialogo == false ? "2" : "") + ".png");
+				botaoSimNaoDialogo = (botaoSimNaoDialogo == false ? true : false);
+			
+			// --------------- entra quando pressiona Z no dialogo de aviso ------------- \
 			}else if(codigo == KeyEvent.VK_Z && dialogo.getImagem() != null && mostrarMenu == false) {
 				teclaZ.load("res\\escolhaDePersonagem\\teclaZ2.png");
 				
-				if(botaoSimNao == false) {
-					txtMenVoltar.setTexto(" ");
-					txtMenVoltar2.setTexto(" ");
-					txtMenVoltar3.setTexto(" ");
-					sombreadorDialogo.load("");
-					dialogo.setImagem(null);
-					bntSim.setImagem(null);
-					bntNao.setImagem(null);
-				}
-				else {
-					int [] derrotados = {};
+				// --------------- fecha o dialogo de aviso ------------- \
+				if(botaoSimNaoDialogo == false) {
+					limparDialogo();
+					
+				// ------------ vai para a tela de escolha de adversário ----------- \
+				} else {
 					JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 			        janelaPrincipal.remove(this);
-			        tela2 = new Escolha_de_adversario(contTecla, this);
+			        tela2 = new Escolha_de_adversario(contTeclaAven, this);
 			        janelaPrincipal.add(tela2);
 			        janelaPrincipal.setTitle("Escolha de Adversário");
 			        janelaPrincipal.revalidate();
 			        
-			        txtMenVoltar.setTexto(" ");
-					txtMenVoltar2.setTexto(" ");
-					txtMenVoltar3.setTexto(" ");
-					txtMenVoltar.setTexto(" ");
-					sombreadorDialogo.load("");
-					dialogo.setImagem(null);
-					bntSim.setImagem(null);
-					bntNao.setImagem(null);
+			        limparDialogo();
 				}
 			}
+			
+		// ---------- encaminha todas as teclas pressionadas para a tela de escolha de adversário --------- \
 		} else {
 			tela2.KeyPressed(tecla);
 		}
 	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  		 				limpa as imagens e textos do dialogo de aviso						|
+	\ ---------------------------------------------------------------------------------------- */
+	public void limparDialogo() {
+		
+		sombreadorDialogo.setImagem(null);
+		dialogo.setImagem(null);
+		bntSim.setImagem(null);
+		bntNao.setImagem(null);
+		txtDialogoAviso.setTexto(" ");
+		txtDialogoAviso2.setTexto(" ");
+		txtDialogoAviso3.setTexto(" ");
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  					muda as imagens das teclas enquanto pressionadas						|
+	\ ---------------------------------------------------------------------------------------- */
 	
 	public void KeyReleased (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -434,6 +372,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			else if(codigo == KeyEvent.VK_ESCAPE) {
 				teclaEsc.load("res\\escolhaDePersonagem\\teclaEsc.png");
 			}
+			
+		// ---------- encaminha todas as teclas pressionadas para a tela de escolha de adversário --------- \
 		} else {
 			tela2.KeyReleased(tecla);
 		}
@@ -444,15 +384,15 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
 		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(texto.getImagem(),texto.getX(),texto.getY(), this);
+		graficos.drawImage(titulo.getImagem(),titulo.getX(),titulo.getY(), this);
+		
 		graficos.drawImage(iconeIgnis.getImagem(), iconeIgnis.getX(),iconeIgnis.getY(), this);
 		graficos.drawImage(iconeAyla.getImagem(), iconeAyla.getX(), iconeAyla.getY(), this);
 		graficos.drawImage(iconeRexthor.getImagem(), iconeRexthor.getX(), iconeRexthor.getY(), this);
 		graficos.drawImage(iconeKiki.getImagem(), iconeKiki.getX(), iconeKiki.getY(), this);
 		graficos.drawImage(iconeArius.getImagem(), iconeArius.getX(), iconeArius.getY(), this);
 		
-		
-		graficos.drawImage(luz.getImagem(), luz.getX(), luz.getY(), this);
+		graficos.drawImage(luzAven.getImagem(), luzAven.getX(), luzAven.getY(), this);
 		
 		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY(), this);
 		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getX(), teclaDireita.getY(), this);
@@ -464,13 +404,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		graficos.drawImage(bntSim.getImagem(), bntSim.getX(), bntSim.getY(), this);
 		graficos.drawImage(bntNao.getImagem(), bntNao.getX(), bntNao.getY(), this);
 		
-		graficos.setColor( txtMenVoltar.getCorTexto());
-		tl3 = new TextLayout(txtMenVoltar.getTexto(), txtMenVoltar.getFonte(), frc);
-		tl3.draw(graficos, txtMenVoltar.getX(), txtMenVoltar.getY());
-		tl6 = new TextLayout(txtMenVoltar2.getTexto(), txtMenVoltar2.getFonte(), frc);
-		tl6.draw(graficos, txtMenVoltar2.getX(), txtMenVoltar2.getY());
-		tl7 = new TextLayout(txtMenVoltar3.getTexto(), txtMenVoltar3.getFonte(), frc);
-		tl7.draw(graficos, txtMenVoltar3.getX(), txtMenVoltar3.getY());
+		graficos.setColor(txtDialogoAviso.getCorTexto());
+		tl1 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
+		tl1.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
+		tl2 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso2.getFonte(), frc);
+		tl2.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
+		tl3 = new TextLayout(txtDialogoAviso3.getTexto(), txtDialogoAviso3.getFonte(), frc);
+		tl3.draw(graficos, txtDialogoAviso3.getX(), txtDialogoAviso3.getY());
 		
 		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
 		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
@@ -478,11 +418,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		graficos.drawImage(bntRegras.getImagem(), bntRegras.getX(), bntRegras.getY(), this);
 		
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
-		
 		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY(), this);
-
-		
-
 		
 		g.dispose();
 	}

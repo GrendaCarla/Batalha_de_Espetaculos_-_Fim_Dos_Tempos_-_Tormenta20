@@ -623,7 +623,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					    break;
 					case 2:
 						if(contDialogo == 1) {
-							imagemDoDialogo.setX(1234/2 - 248/2);
+							imagemDoDialogo.setX(1234/2 - 300/2);
 							
 							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
 							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
@@ -811,7 +811,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							txtDialogoLn1.setTexto(" ");
 							txtDialogoLn2.setTexto("Esta batalha está trancada!");
-							txtDialogoLn3.setTexto("Vença primeiro os 5 Cães das Colinas antes de proceguir");
+							txtDialogoLn3.setTexto("Vença primeiro os 5 Cães das Colinas antes de prosseguir");
 							txtDialogoLn4.setTexto(" ");
 						} else {
 							txtDialogoLn1.setX(184);
@@ -820,7 +820,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							imagemDoDialogo.load("res\\escolhaDeAdversario\\cadeadoGrande2.png");
 							
-							txtDialogoLn1.setTexto("Parabéns!!! você conseguil vencer os 5 Cães das Colinas, infelismente o jogo não");
+							txtDialogoLn1.setTexto("Parabéns!!! você conseguiu vencer os 5 Cães das Colinas, infelizmente o jogo não");
 							txtDialogoLn2.setTexto("esta completo ainda e você terá que esperar um pouco mais.");
 							txtDialogoLn3.setTexto(" ");
 							txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");

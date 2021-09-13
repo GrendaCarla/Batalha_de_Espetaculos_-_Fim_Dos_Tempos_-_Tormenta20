@@ -8,15 +8,15 @@ public class Kiki {
 	private int [][] valores = {{4, 5, 2, 1, 1, 4, 3, 5}, {0, 0, 5 , 9, 3, 4, 2, 2}, {-1, -1, 3, 3, 5, 2, 0, 1}, {0, 0, 0, 0, 0, 1, 1, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
-	private String [] NomeApelos = {"Oficio Culinaria", "Cantar", "Enganação", "Mestre das fofocas", "Olhar artodoante", "Desarmar armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
-	private String [][] ConteudoDescricao = {  {"Como é de se esperar, o oficio culanaria salvando o dia novamente.", " ", " ", " "},
+	private String [] NomeApelos = {"Oficio Culinária", "Cantar", "Enganação", "Mestre das fofocas", "Olhar atordoante", "Desarmar armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
+	private String [][] ConteudoDescricao = {  {"Como é de se esperar, o oficio culinária salvando o dia novamente.", " ", " ", " "},
 											   {"Como uma pessoa de puro talento, mostre as colinas e ao mundo sua", "linda voz e maestria com os instrumentos.", " ", " "},
-											   {"Eu, enganando alguem, imagina. Tudo que estou tentando fazer é ajuda-lo a enchegar a verdade ambigua dessa situação em", "que se encontra, para poder gerar uma situação de proveito mutuo, no qual algumas partes ganham", "o beneficio material e as outras o espiritual, no sentindo de não se preocupar com alguma situação que poderia calsar", "incomodo se viese por saber em que se encontra no momento. EU estou lhe dando paz de espirito, denada. afeta o primeiro colocado"},
-											   {"Com sua espetacular e refinada tecnica de propagar historias particulares você é capas", "de retirar o primeiro colocado do seu pedestal calsando uma alta interferencia nele.", " ", " "},
-											   {"use seus olhares penetrantes nos adversarios ao seu redor e faça-os ficarem atordoados.", "afeta um oponente acima e abaixo.", " ", " "},
+											   {"Eu, enganando alguém, imagina. Tudo que estou tentando fazer é ajuda-lo a enxergar a verdade ambígua dessa situação em", "que se encontra, para poder gerar uma situação de proveito mutuo, no qual algumas partes ganham", "o beneficio material e as outras o espiritual, no sentindo de não se preocupar com alguma situação que poderia causar", "incomodo se viesse por saber em que se encontra no momento. EU estou lhe dando paz de espirito, de nada. afeta o primeiro colocado"},
+											   {"Com sua espetacular e refinada técnica de propagar historias particulares você é capas", "de retirar o primeiro colocado do seu pedestal causando uma alta interferência nele.", " ", " "},
+											   {"use seus olhares penetrantes nos adversários ao seu redor e faça-os ficarem atordoados.", "afeta um oponente acima e abaixo.", " ", " "},
 											   {"Então, você não é a melhor nesse quesito, mas o bom é que tem amigos que se joguem na frente delas por você.", "Este poder afeta o oponente acima de você.", " ", " "},
 											   {"Desafie seus oponentes para uma competição e vença-os facilmente. afetará todos acima de você.", " ", " ", " "},
-											   {"Digamos que seu estilo de vida é questionavel, mas graças a isso você desenvolveu uma poderosa", "arma biologica. Esse efeito afetará todos abaixo de você.", " ", " "}};	
+											   {"Digamos que seu estilo de vida é questionável, mas graças a isso você desenvolveu uma poderosa", "arma biológica. Esse efeito afetará todos abaixo de você.", " ", " "}};	
 
 	private String [][] ConteudoEscolhaAdversario = {{"Você gostaria de me enfrentar em um espetáculo?", "Você acha que possui MAIS TALENTO DO QUE EU a ponto de me desafiar?", " ", " "},
 													{"Sério?", "Eu estava brincando com você, adoraria um desafio que obviamente eu iria ganhar, pois sou uma", "pessoa de muitos talentos e habilidades como pode ver.", "Pois bem, nossa disputa será adiada por enquanto, mas ela vai acontecer."},

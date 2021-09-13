@@ -8,7 +8,7 @@ public class Ignis {
 	private int [][] valores = {{7, 0, 6, 5, 4, 3, 3, 8}, {0, 0, 0, 2, 0, 0, 2, 0}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
-	private String [] NomeApelos = {"Discurso no jutsu", "Canalizar Reparos", "Tapa em puristas", "Ignis bonitão", "Intocavel", "Escudada", "Provocação petulante", "Rito"};
+	private String [] NomeApelos = {"Discurso no jutsu", "Canalizar Reparos", "Tapa em puristas", "Ignis bonitão", "Intocável", "Escudada", "Provocação petulante", "Rito"};
 	private String [][] ConteudoDescricao = {{"Faça um discurso moralista e inspirador que incentive seus adversários a", "mudarem de vida.", " ", " "},
 											 {"Se você estiver com apelo negativo o canalizar reparos vai restaurar seus", "pontos para zero.", " ", " "},
 											 {"Você ofereceu-lhes a segunda chance,", "Infelizmente eles recusaram,", "Para o bem de todos", "O tapa em puristas está liberado."}, 
