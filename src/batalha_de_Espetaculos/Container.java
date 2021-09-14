@@ -1,17 +1,24 @@
 package batalha_de_Espetaculos;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 
 public class Container extends JFrame{
 	
 	Escolha_de_personagem tela = new Escolha_de_personagem();
-	
+	 
 	public Container() {
 		add(tela);
 		setTitle("Escolha de Personagem");
-		setSize(1234 + 14, 640 + 39);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setSize(1234 + 14, 640 + 39);
+		setMinimumSize(new Dimension(1234 + 14, 640 + 38));
 		setLocationRelativeTo(null);
 		//this.setResizable(false);
 		setBackground(Color.BLACK);
@@ -25,6 +32,7 @@ public class Container extends JFrame{
     		public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
             }
+    		
     	});
 	}
 
@@ -40,7 +48,5 @@ public class Container extends JFrame{
 		new Container();
 		
 	}
-	
-	
 
 }

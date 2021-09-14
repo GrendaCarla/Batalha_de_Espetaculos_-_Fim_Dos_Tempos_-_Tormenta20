@@ -1,10 +1,12 @@
 package batalha_de_Espetaculos;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,14 +25,17 @@ import batalha_de_Espetaculos.Modelo.Texto;
 public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  Escolha_de_personagem é a tela a onde os usuários escolheram qual dos cães das colinas   |
+	|  Escolha_de_personagem é a tela a onde os jogadores escolheram qual dos cães das colinas   |
 	|  iram jogar durante todo o jogo.															|
 	\ ---------------------------------------------------------------------------------------- */
 
 	Escolha_de_adversario tela2;
 	
 	private Image fundo;
+	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Timer timer;
+	
+	int redimLarg, redimAlt;
 	
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	private Icones_interativos titulo = new Icones_interativos(1234/2 - 511/2, 20 + 50);
@@ -56,10 +61,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	// -------------------------- imagens e texto do dialogo de aviso ------------------------------
 	
-	private Icones_interativos sombreadorDialogo = new Icones_interativos(0, 0);
-	private Icones_interativos dialogo = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
-	private Icones_interativos bntSim = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
-	private Icones_interativos bntNao = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
+	private Icones_interativos sombreadorDialogoAviso = new Icones_interativos(0, 0);
+	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
+	private Icones_interativos bntNaoDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
 	
 	Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
 	Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
@@ -83,8 +88,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	public Escolha_de_personagem() {
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo.png");
+		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
+		fundo2.load("res\\fundo.png");
 		
 		titulo.load("res\\escolhaDePersonagem\\texto.png");
 		contorno.load("res\\contorno.png");
@@ -211,10 +217,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					bntRegras.load("res\\bntRegras1.png");
 					
 				} else {
-					sombreadorMenu.load("");
-					fundoMenu.load("");
-					bntMenu.load("");
-					bntRegras.load("");
+					sombreadorMenu.setImagem(null);
+					fundoMenu.setImagem(null);
+					bntMenu.setImagem(null);
+					bntRegras.setImagem(null);
 				}
 			// --------------- muda a seleção das opções do menu ------------- \
 			}else if((codigo == KeyEvent.VK_DOWN || codigo == KeyEvent.VK_UP) && mostrarMenu == true) {
@@ -224,7 +230,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				bntRegras.load("res\\bntRegras" + (contMenu == false ? "1" : "2") + ".png");
 			
 			// ---------- muda a seleção dos personagens para esquerda --------- \
-			}else if(codigo == KeyEvent.VK_LEFT && dialogo.getImagem() == null && mostrarMenu == false) {
+			}else if(codigo == KeyEvent.VK_LEFT && dialogoAviso.getImagem() == null && mostrarMenu == false) {
 				
 				teclaEsquerda.load("res\\escolhaDePersonagem\\setaEsquerda2.png");
 				
@@ -249,7 +255,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				}	  
 				
 			// ---------- muda a seleção dos personagens para direita --------- \
-			} else if(codigo == KeyEvent.VK_RIGHT && dialogo.getImagem() == null && mostrarMenu == false) {
+			} else if(codigo == KeyEvent.VK_RIGHT && dialogoAviso.getImagem() == null && mostrarMenu == false) {
 				
 				teclaDireita.load("res\\escolhaDePersonagem\\setaDireita2.png");
 				
@@ -274,13 +280,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				}
 			}
 			// --------------- chama o dialogo de aviso ao apertar Z -------------- \
-			else if(codigo == KeyEvent.VK_Z && dialogo.getImagem() == null && mostrarMenu == false) {
+			else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() == null && mostrarMenu == false) {
 				teclaZ.load("res\\escolhaDePersonagem\\teclaZ2.png");
 				
-				sombreadorDialogo.load("res\\sombreador.png");
-				dialogo.load("res\\dialogo.png");
-				bntSim.load("res\\bntSim.png");
-				bntNao.load("res\\bntNao2.png");
+				sombreadorDialogoAviso.load("res\\sombreador.png");
+				dialogoAviso.load("res\\dialogo.png");
+				bntSimDialogoAviso.load("res\\bntSim.png");
+				bntNaoDialogoAviso.load("res\\bntNao2.png");
 				botaoSimNaoDialogo = true;
 				
 				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
@@ -298,15 +304,15 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				limparDialogo();
 			
 			// ------------ muda a seleção das opções do dialogo de aviso ---------- \
-			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogo.getImagem() != null && mostrarMenu == false) {
+			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null && mostrarMenu == false) {
 				
-				dialogo.load("res\\dialogo.png");
-				bntSim.load("res\\bntSim" + (botaoSimNaoDialogo == false ? "" : "2") + ".png");
-				bntNao.load("res\\bntNao" + (botaoSimNaoDialogo == false ? "2" : "") + ".png");
+				dialogoAviso.load("res\\dialogo.png");
+				bntSimDialogoAviso.load("res\\bntSim" + (botaoSimNaoDialogo == false ? "" : "2") + ".png");
+				bntNaoDialogoAviso.load("res\\bntNao" + (botaoSimNaoDialogo == false ? "2" : "") + ".png");
 				botaoSimNaoDialogo = (botaoSimNaoDialogo == false ? true : false);
 			
 			// --------------- entra quando pressiona Z no dialogo de aviso ------------- \
-			}else if(codigo == KeyEvent.VK_Z && dialogo.getImagem() != null && mostrarMenu == false) {
+			}else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() != null && mostrarMenu == false) {
 				teclaZ.load("res\\escolhaDePersonagem\\teclaZ2.png");
 				
 				// --------------- fecha o dialogo de aviso ------------- \
@@ -337,10 +343,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	public void limparDialogo() {
 		
-		sombreadorDialogo.setImagem(null);
-		dialogo.setImagem(null);
-		bntSim.setImagem(null);
-		bntNao.setImagem(null);
+		sombreadorDialogoAviso.setImagem(null);
+		dialogoAviso.setImagem(null);
+		bntSimDialogoAviso.setImagem(null);
+		bntNaoDialogoAviso.setImagem(null);
 		txtDialogoAviso.setTexto(" ");
 		txtDialogoAviso2.setTexto(" ");
 		txtDialogoAviso3.setTexto(" ");
@@ -374,57 +380,62 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			}
 			
 		// ---------- encaminha todas as teclas pressionadas para a tela de escolha de adversário --------- \
-		} else {
-			tela2.KeyReleased(tecla);
 		}
 	}
 	
 	public void paint(Graphics g) {
+		
+		redimLarg = this.getWidth()/2 - 1234/2;
+		redimAlt = this.getHeight()/2 - 640/2;
+		
 		Graphics2D graficos = (Graphics2D) g;
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
 		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(titulo.getImagem(),titulo.getX(),titulo.getY(), this);
+		graficos.drawImage(fundo2.getImagem(), redimLarg + fundo2.getX(), redimAlt + fundo2.getY(), this);
+		graficos.drawImage(titulo.getImagem(), redimLarg + titulo.getX(), redimAlt + titulo.getY(), this);
 		
-		graficos.drawImage(iconeIgnis.getImagem(), iconeIgnis.getX(),iconeIgnis.getY(), this);
-		graficos.drawImage(iconeAyla.getImagem(), iconeAyla.getX(), iconeAyla.getY(), this);
-		graficos.drawImage(iconeRexthor.getImagem(), iconeRexthor.getX(), iconeRexthor.getY(), this);
-		graficos.drawImage(iconeKiki.getImagem(), iconeKiki.getX(), iconeKiki.getY(), this);
-		graficos.drawImage(iconeArius.getImagem(), iconeArius.getX(), iconeArius.getY(), this);
+		graficos.drawImage(iconeIgnis.getImagem(), redimLarg + iconeIgnis.getX(),redimAlt + iconeIgnis.getY(), this);
+		graficos.drawImage(iconeAyla.getImagem(), redimLarg + iconeAyla.getX(), redimAlt + iconeAyla.getY(), this);
+		graficos.drawImage(iconeRexthor.getImagem(), redimLarg + iconeRexthor.getX(), redimAlt + iconeRexthor.getY(), this);
+		graficos.drawImage(iconeKiki.getImagem(), redimLarg + iconeKiki.getX(), redimAlt + iconeKiki.getY(), this);
+		graficos.drawImage(iconeArius.getImagem(), redimLarg + iconeArius.getX(), redimAlt + iconeArius.getY(), this);
 		
-		graficos.drawImage(luzAven.getImagem(), luzAven.getX(), luzAven.getY(), this);
+		graficos.drawImage(luzAven.getImagem(), redimLarg + luzAven.getX(), redimAlt + luzAven.getY(), this);
 		
-		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY(), this);
-		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getX(), teclaDireita.getY(), this);
-		graficos.drawImage(teclaZ.getImagem(), teclaZ.getX(), teclaZ.getY(), this);
-		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY(), this);
+		graficos.drawImage(teclaEsquerda.getImagem(), redimLarg + teclaEsquerda.getX(), redimAlt + teclaEsquerda.getY(), this);
+		graficos.drawImage(teclaDireita.getImagem(), redimLarg + teclaDireita.getX(), redimAlt + teclaDireita.getY(), this);
+		graficos.drawImage(teclaZ.getImagem(), redimLarg + teclaZ.getX(), redimAlt + teclaZ.getY(), this);
+		graficos.drawImage(teclaX.getImagem(), redimLarg + teclaX.getX(), redimAlt + teclaX.getY(), this);
 		
-		graficos.drawImage(sombreadorDialogo.getImagem(), sombreadorDialogo.getX(), sombreadorDialogo.getY(), this);
-		graficos.drawImage(dialogo.getImagem(), dialogo.getX(), dialogo.getY(), this);
-		graficos.drawImage(bntSim.getImagem(), bntSim.getX(), bntSim.getY(), this);
-		graficos.drawImage(bntNao.getImagem(), bntNao.getX(), bntNao.getY(), this);
+		graficos.drawImage(sombreadorDialogoAviso.getImagem(), redimLarg + sombreadorDialogoAviso.getX(), redimAlt + sombreadorDialogoAviso.getY(), this);
+		graficos.drawImage(dialogoAviso.getImagem(), redimLarg + dialogoAviso.getX(), redimAlt + dialogoAviso.getY(), this);
+		graficos.drawImage(bntSimDialogoAviso.getImagem(), redimLarg + bntSimDialogoAviso.getX(), redimAlt + bntSimDialogoAviso.getY(), this);
+		graficos.drawImage(bntNaoDialogoAviso.getImagem(), redimLarg + bntNaoDialogoAviso.getX(), redimAlt + bntNaoDialogoAviso.getY(), this);
 		
 		graficos.setColor(txtDialogoAviso.getCorTexto());
 		tl1 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
-		tl1.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
 		tl2 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso2.getFonte(), frc);
-		tl2.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
 		tl3 = new TextLayout(txtDialogoAviso3.getTexto(), txtDialogoAviso3.getFonte(), frc);
-		tl3.draw(graficos, txtDialogoAviso3.getX(), txtDialogoAviso3.getY());
 		
-		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
-		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
-		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
-		graficos.drawImage(bntRegras.getImagem(), bntRegras.getX(), bntRegras.getY(), this);
+		tl1.draw(graficos, redimLarg + txtDialogoAviso.getX(), redimAlt + txtDialogoAviso.getY());
+		tl2.draw(graficos, redimLarg + txtDialogoAviso2.getX(), redimAlt + txtDialogoAviso2.getY());
+		tl3.draw(graficos, redimLarg + txtDialogoAviso3.getX(), redimAlt + txtDialogoAviso3.getY());
 		
-		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
-		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY(), this);
+		graficos.drawImage(sombreadorMenu.getImagem(), redimLarg + sombreadorMenu.getX(), redimAlt + sombreadorMenu.getY(), this);
+		graficos.drawImage(fundoMenu.getImagem(), redimLarg + fundoMenu.getX(), redimAlt + fundoMenu.getY(), this);
+		graficos.drawImage(bntMenu.getImagem(), redimLarg + bntMenu.getX(), redimAlt + bntMenu.getY(), this);
+		graficos.drawImage(bntRegras.getImagem(), redimLarg + bntRegras.getX(), redimAlt + bntRegras.getY(), this);
+		
+		graficos.drawImage(contorno.getImagem(), redimLarg + contorno.getX(), redimAlt + contorno.getY(), this);
+		graficos.drawImage(teclaEsc.getImagem(), redimLarg + teclaEsc.getX(), redimAlt + teclaEsc.getY(), this);
 		
 		g.dispose();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		repaint();
 	}
 }

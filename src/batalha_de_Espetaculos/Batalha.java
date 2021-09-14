@@ -58,8 +58,8 @@ public class Batalha extends JPanel implements ActionListener {
 
 	private Image fundo;
 	
-	int intervaloAnimacao = 15;
-	int intervaloAnimacaoGif = 200;
+	int intervaloAnimacao = 2; //10;
+	int intervaloAnimacaoGif = 2; //200;
 	int [] dados = {0, 0, 0, 0, 0};
 	boolean vezDados = false;
 	
@@ -749,14 +749,12 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.setTitle("Escolha de Adversário");
 	        
 	        if(matrizAventureiros[0][0] == aventureiro) {
-	        	for(int i=0; i<5; i++) {
-	        		if(paginaAnterior.derrotados[i] == -1 || paginaAnterior.derrotados[i] == adversario) {
-	        			paginaAnterior.derrotados[i] = adversario;
-	        			break;
-	        		}
-	        	}
+        		if(paginaAnterior.derrotados[adversario] == false) {
+        			paginaAnterior.derrotados[adversario] = true;
+        		
+        		}
 	        }
-	        
+
 	        paginaAnterior.mostrarEstrela();
 	        janelaPrincipal.revalidate();
 		
