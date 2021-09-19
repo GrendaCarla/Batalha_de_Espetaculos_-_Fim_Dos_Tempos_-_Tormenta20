@@ -138,7 +138,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\\\escolhaDeAdversario\\fundo.png");
+		fundo2.load("res\\escolhaDeAdversario\\fundo.png");
 		
 		contorno.load("res\\contorno.png");
 		
