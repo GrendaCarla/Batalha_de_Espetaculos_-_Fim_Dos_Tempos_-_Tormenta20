@@ -9,7 +9,7 @@ public class Rexthor {
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3"};
 	private String [] NomeApelos = {"Punho da dor", "Esquiva", "Briga", "Besuntar de óleo", "Flexionar músculos", "Sorte das deusas", "A tanga"};
-	private String [][] ConteudoDescricao = {  {"Um gancho bem dado no queixo", " ", " ", " "},
+	private String [][] ConteudoDescricao = {  {"Um gancho bem dado no queixo.", "Afete um acima de vc ", " ", " "},
 											   {"Uma excelente demonstração de reflexos em combate", " ", " ", " "},
 											   {"Quebra pau, montinho do soco, clube da luta", " ", " ", " "},
 											   {"Rexthor não seria Rexthor sem o seu óleo corporal, faça uma demonstração", "pública do seu belo corpo para incitar a torcida", " ", " "},

@@ -35,7 +35,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Timer timer;
 	
-	int redimLarg, redimAlt;
+	private int redimLarg, redimAlt;
 	
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	private Icones_interativos titulo = new Icones_interativos(1234/2 - 511/2, 20 + 50);
@@ -66,9 +66,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
 	private Icones_interativos bntNaoDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
 	
-	Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
-	Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
-	Texto txtDialogoAviso3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
+	private Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
+	private Texto txtDialogoAviso3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
 	
 	private TextLayout tl1, tl2, tl3; 
 	private Boolean botaoSimNaoDialogo = true;

@@ -38,7 +38,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	
-	int redimLarg, redimAlt;
+	private int redimLarg, redimAlt;
 	
 	// ------------------------ imagens dos ícones aventureiros ------------------------------
 	
@@ -70,10 +70,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos bntNaoDialogo  = new Icones_interativos(1234/2 - 484/2 + 370, 640 - 50 - 40);
 
 	
-	Texto txtDialogoLn1 = new Texto(100, 640 - 185 + 15, " ");
-	Texto txtDialogoLn2 = new Texto(100, 640 - 185 + 50, " ");
-	Texto txtDialogoLn3 = new Texto(100, 640 - 185 + 85, " ");
-	Texto txtDialogoLn4 = new Texto(100, 640 - 185 + 120, " ");
+	private Texto txtDialogoLn1 = new Texto(100, 640 - 185 + 15, " ");
+	private Texto txtDialogoLn2 = new Texto(100, 640 - 185 + 50, " ");
+	private Texto txtDialogoLn3 = new Texto(100, 640 - 185 + 85, " ");
+	private Texto txtDialogoLn4 = new Texto(100, 640 - 185 + 120, " ");
 	
 	private int contDialogo = 0;
 	private boolean mudaCorLn4 = false;
@@ -98,8 +98,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
 	
 	
-	Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 110, 548/2 - 28, " ");
-	Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 110, 548/2 - 28, " ");
+	private Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
 	
@@ -111,8 +111,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos bntRegras = new Icones_interativos(41,202);
 	private Icones_interativos bntVoltar = new Icones_interativos(41,338);
 	
-	boolean mostrarMenu = false;
-	int contMenu = 0;
+	private boolean mostrarMenu = false;
+	private int contMenu = 0;
 	
 	// -------------------- imagens de decoração do diálogo com o boss ---------------------
 	
@@ -258,21 +258,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(contMenu == 2) {contMenu = 0;} else {contMenu ++;}
 				}
 				
+				bntMenu.load("res\\bntMenu1.png");
+				bntRegras.load("res\\bntRegras1.png");
+				bntVoltar.load("res\\bntVoltar1.png");
+				
 				switch (contMenu) {
 					case 0:
 						bntMenu.load("res\\bntMenu2.png");
-						bntRegras.load("res\\bntRegras1.png");
-						bntVoltar.load("res\\bntVoltar1.png");
 						break;
 					case 1:
 						bntRegras.load("res\\bntRegras2.png");
-						bntVoltar.load("res\\bntVoltar1.png");
-						bntMenu.load("res\\bntMenu1.png");
 						break;
 					case 2:
 						bntVoltar.load("res\\bntVoltar2.png");
-						bntMenu.load("res\\bntMenu1.png");
-						bntRegras.load("res\\bntRegras1.png");
 						break;
 				}
 				
