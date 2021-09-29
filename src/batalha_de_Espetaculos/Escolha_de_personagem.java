@@ -63,8 +63,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	private Icones_interativos sombreadorDialogoAviso = new Icones_interativos(0, 0);
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
-	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
-	private Icones_interativos bntNaoDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
+	private Icones_interativos bntNaoDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 480, bntSimDialogoAviso.getY());
 	
 	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
 	private Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");

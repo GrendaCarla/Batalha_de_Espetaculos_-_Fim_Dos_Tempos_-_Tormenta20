@@ -44,10 +44,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private Icones_interativos iconeBoss = new Icones_interativos(510, 16);
 	private Icones_interativos iconeIgnis = new Icones_interativos(240, 200);
-	private Icones_interativos iconeAyla = new Icones_interativos(785, 200);
+	private Icones_interativos iconeAyla = new Icones_interativos(785, iconeIgnis.getY());
 	private Icones_interativos iconeRexthor = new Icones_interativos(45, 400);
-	private Icones_interativos iconeKiki = new Icones_interativos(500, 400);
-	private Icones_interativos iconeArius = new Icones_interativos(980, 400);
+	private Icones_interativos iconeKiki = new Icones_interativos(500, iconeRexthor.getY());
+	private Icones_interativos iconeArius = new Icones_interativos(980, iconeRexthor.getY());
 	
 	private int contTeclaBatalha = 0;
 	
@@ -66,36 +66,41 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos imagemDoDialogo = new Icones_interativos(1234/2 - 248/2, 20);
 	private Icones_interativos objetoDeFundo1 = new Icones_interativos(0,0);
 	private Icones_interativos objetoDeFundo2 = new Icones_interativos(0,0);
+	private Icones_interativos objetoDeFundo3 = new Icones_interativos(0,0);
+	private Icones_interativos objetoDeFundo4 = new Icones_interativos(0,0);
 	private Icones_interativos bntSimDialogo = new Icones_interativos(1234/2 - 484/2, 640 - 50 - 40);
-	private Icones_interativos bntNaoDialogo  = new Icones_interativos(1234/2 - 484/2 + 370, 640 - 50 - 40);
+	private Icones_interativos bntNaoDialogo  = new Icones_interativos(bntSimDialogo.getX() + 370, bntSimDialogo.getY());
 
 	
 	private Texto txtDialogoLn1 = new Texto(100, 640 - 185 + 15, " ");
-	private Texto txtDialogoLn2 = new Texto(100, 640 - 185 + 50, " ");
-	private Texto txtDialogoLn3 = new Texto(100, 640 - 185 + 85, " ");
-	private Texto txtDialogoLn4 = new Texto(100, 640 - 185 + 120, " ");
+	private Texto txtDialogoLn2 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 50, " ");
+	private Texto txtDialogoLn3 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 85, " ");
+	private Texto txtDialogoLn4 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 120, " ");
 	
 	private int contDialogo = 0;
 	private boolean mudaCorLn4 = false;
 	private Random aleatorioTibar = new Random();
 	private boolean tibarCoroa = true;
 	private boolean bntSimNao = true;
+	private int ativarAnimacaoVelaAyla = 0;
+	private int contAnimacaoVelaAyla = 0;
 	
 	// ------------------------ imagens de estrelas para batalhas vencidas ------------------------------
 
-	private Icones_interativos vencido0 = new Icones_interativos(240 + 100 - 31, 200 - 20);
-	private Icones_interativos vencido1 = new Icones_interativos(785 + 100 - 31, 200 + 15);
-	private Icones_interativos vencido2 = new Icones_interativos(45 + 100 - 31, 400 - 26);
-	private Icones_interativos vencido3 = new Icones_interativos(500 + 100 - 31, 400 - 38);
-	private Icones_interativos vencido4 = new Icones_interativos(980 + 100 - 31, 400 - 18);
+	private Icones_interativos vencido0 = new Icones_interativos(iconeIgnis.getX() + 100 - 49, iconeIgnis.getY() - 40);
+	private Icones_interativos vencido1 = new Icones_interativos(iconeAyla.getX() + 100 - 49, iconeAyla.getY() + 10);
+	private Icones_interativos vencido2 = new Icones_interativos(iconeRexthor.getX() + 100 - 40, iconeRexthor.getY() - 50);
+	private Icones_interativos vencido3 = new Icones_interativos(iconeKiki.getX() + 100 - 50, iconeKiki.getY() - 55);
+	private Icones_interativos vencido4 = new Icones_interativos(iconeArius.getX() + 100 - 46, iconeArius.getY() - 40);
 	
-	boolean [] derrotados = {false, false, false, false, false};
+	
+	boolean [] derrotados = {false, false, false, false, false}; //{true, true, true, true, true}; // 
 	
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
-	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, 640/2 - 278/2 + 190);
-	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(1234/2 - 706/2 + 480, 640/2 - 278/2 + 190);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
+	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(dialogoAviso.getX() + 480, bntSimDialogoAviso.getY());
 	
 	
 	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 110, 548/2 - 28, " ");
@@ -108,8 +113,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
 	private Icones_interativos bntMenu = new Icones_interativos(41,66);
-	private Icones_interativos bntRegras = new Icones_interativos(41,202);
-	private Icones_interativos bntVoltar = new Icones_interativos(41,338);
+	private Icones_interativos bntRegras = new Icones_interativos(bntMenu.getX(),202);
+	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(),338);
 	
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
@@ -389,12 +394,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}
 			
 			// --------------- quando o diálogo é fechado ele limpa as imagens e textos --------------- \
-			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && bntSimDialogo.getImagem() == null && ((bntSimNao == false && ((contTeclaBatalha == 0 && contDialogo == 2) || (contTeclaBatalha == 1 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 3 && contDialogo == 3) || (contTeclaBatalha == 4 && contDialogo == 3))) || (contTeclaBatalha == 5 && contDialogo == 1) || (contTeclaBatalha == 0 && contDialogo == 4 && mudaCorLn4 == false))) {
+			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && ((bntSimDialogo.getImagem() != null ? (bntSimNao == false && ((derrotados[0] == true  && contTeclaBatalha == 0  && contDialogo == 1) || (derrotados[1] == true  && contTeclaBatalha == 1  && contDialogo == 1) || (derrotados[2] == true  && contTeclaBatalha == 2  && contDialogo == 1) || (derrotados[3] == true  && contTeclaBatalha == 3  && contDialogo == 1) || (derrotados[4] == true  && contTeclaBatalha == 4  && contDialogo == 1)))  : (bntSimNao == false && ((contTeclaBatalha == 0 && contDialogo == 2) || (contTeclaBatalha == 1 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 3 && contDialogo == 3) || (contTeclaBatalha == 4 && contDialogo == 3))) || (contTeclaBatalha == 5 && contDialogo == 1)|| (contTeclaBatalha == 0 && contDialogo == 4 && mudaCorLn4 == false)))) {
 				limparDialogo();
 			}
 			
 			// ----------------------- diálogo com os cães das colinas ------------------------ \
-			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && ((contTeclaBatalha == 0 && contDialogo < 4) || (contTeclaBatalha == 1 && contDialogo < 2) || (contTeclaBatalha == 2 && (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false))) || (contTeclaBatalha == 3 && contDialogo < 5) || (contTeclaBatalha == 4 && contDialogo < 3) || (contTeclaBatalha == 5 && contDialogo < 1))) {
+			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && ((contTeclaBatalha == 0 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 1 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 3 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 4 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 5 && contDialogo < 1))) {
 				
 				sombreadorDialogo.load("res\\sombreador.png");
 				barraDeDialogo.load("res\\escolhaDeAdversario\\barraDeDialogo.png");
@@ -402,7 +407,26 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				switch (contTeclaBatalha) {
 					case 0: // Rexthor
-						if(contDialogo == 1) {
+						if(derrotados[0] == true && contDialogo == 1) {
+							imagemDoDialogo.setY(69);
+							imagemDoDialogo.setX(1234/2 - 310/2 - 29);
+							objetoDeFundo1.setY(90); objetoDeFundo1.setX(40);
+							objetoDeFundo2.setY(0); objetoDeFundo2.setX(900);
+							
+							txtDialogoLn2.setX(300);
+							
+							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor2.png");
+							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoRexthor3.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoRexthor4.png");
+							
+							txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[6][0]);
+							txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[6][1]);
+							txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[6][2]);
+							txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[6][3]);
+							
+							bntSimDialogo.load("res\\bntSim.png");
+							bntNaoDialogo.load("res\\bntNao2.png");
+						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 400/2 - 30); imagemDoDialogo.setY(70);
 							objetoDeFundo1.setY(90); objetoDeFundo1.setX(30);
 							objetoDeFundo2.setY(200); objetoDeFundo2.setX(880);
@@ -493,7 +517,24 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 					    break;
 					case 1: // Ignis
-						if(contDialogo == 1) {
+						if(contDialogo == 1 && derrotados[1] == true) {
+							imagemDoDialogo.setX(1234/2 - 500/2 - 100);
+							objetoDeFundo2.setX(450);
+							
+							txtDialogoLn2.setX(210);
+							
+							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemIgnis.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoIgnis2.png");
+							
+							txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[3][0]);
+							txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[3][1]);
+							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[3][2]);
+							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[3][3]);
+							
+							bntSimDialogo.load("res\\bntSim.png");
+							bntNaoDialogo.load("res\\bntNao2.png");
+							
+						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 500/2 - 100);
 							objetoDeFundo2.setX(450);
 							objetoDeFundo1.setY(20); objetoDeFundo1.setX(20);
@@ -538,7 +579,26 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} 
 					    break;
 					case 2: // Kiki
-						if(contDialogo == 1) {
+						if(contDialogo == 1 && derrotados[2] == true) {
+							imagemDoDialogo.setX(1234/2 - 300/2);
+							
+							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
+							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
+							txtDialogoLn2.setX(445);
+							
+							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki4.png");
+							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoKiki.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoKiki2.png");
+							
+							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
+							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
+							txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[4][2]);
+							txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[4][3]);
+							
+							bntSimDialogo.load("res\\bntSim.png");
+							bntNaoDialogo.load("res\\bntNao2.png");
+							
+						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 300/2);
 							
 							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
@@ -587,7 +647,33 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 					    break;
 					case 3: // Ayla
-						if(contDialogo == 1) {
+						if(contDialogo == 1 && derrotados[3] == true) {
+							imagemDoDialogo.setX(1234/2 - 480/2);
+							imagemDoDialogo.setY(34);
+							
+							objetoDeFundo1.setX(50); objetoDeFundo1.setY(60);
+							objetoDeFundo2.setX(50); objetoDeFundo2.setY(50);
+							objetoDeFundo3.setX(1234 - 250 - 50); objetoDeFundo3.setY(64);
+							objetoDeFundo4.setX(1234 - 250 - 50); objetoDeFundo4.setY(54);
+							
+							ativarAnimacaoVelaAyla = 1;
+							
+							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemAyla3.png");
+							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoAyla10.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoAyla11.png");
+							objetoDeFundo3.load("res\\escolhaDeAdversario\\objetoAyla20.png");
+							objetoDeFundo4.load("res\\escolhaDeAdversario\\objetoAyla21.png");
+							
+							txtDialogoLn2.setX(365);
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[6][0]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[6][1]);
+							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[6][2]);
+							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[6][3]);
+							
+							bntSimDialogo.load("res\\bntSim.png");
+							bntNaoDialogo.load("res\\bntNao2.png");
+						}else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 840/2);
 							imagemDoDialogo.setY(40);
 							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemMutuca.png");
@@ -633,14 +719,21 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							imagemDoDialogo.setX(1234/2 - 480/2);
 							imagemDoDialogo.setY(40);
 							
-							objetoDeFundo1.setX(10); objetoDeFundo1.setY(163);
-							objetoDeFundo2.setX(1234 - 250 - 10); objetoDeFundo2.setY(160);
+							objetoDeFundo1.setX(50); objetoDeFundo1.setY(60);
+							objetoDeFundo2.setX(50); objetoDeFundo2.setY(50);
+							objetoDeFundo3.setX(1234 - 250 - 50); objetoDeFundo3.setY(64);
+							objetoDeFundo4.setX(1234 - 250 - 50); objetoDeFundo4.setY(54);
 							
-							txtDialogoLn2.setX(100);
+							ativarAnimacaoVelaAyla = 1;
 							
 							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemAyla.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoAyla.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoAyla2.png");
+							
+							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoAyla10.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoAyla11.png");
+							objetoDeFundo3.load("res\\escolhaDeAdversario\\objetoAyla20.png");
+							objetoDeFundo4.load("res\\escolhaDeAdversario\\objetoAyla21.png");
+							
+							txtDialogoLn2.setX(100);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[4][1]);
@@ -660,7 +753,28 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						}
 					    break;
 					case 4: // Arius
-						if(contDialogo == 1) {
+						if(contDialogo == 1 && derrotados[4] == true) {
+							imagemDoDialogo.setX(1234/2 - 462/2);
+							imagemDoDialogo.setY(20);
+							objetoDeFundo1.setX(16); objetoDeFundo1.setY(240);
+							objetoDeFundo2.setX(1234 - 300 - 20 - 30); objetoDeFundo2.setY(30);
+							
+							txtDialogoLn2.setX(330);
+
+							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemArius.png");
+							
+							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoArius.png");
+							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoArius2.png");
+							
+							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[4][0]);
+							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[4][1]);
+							txtDialogoLn3.setTexto(arius.getConteudoEscolhaAdversario()[4][2]);
+							txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[4][3]);
+							
+							bntSimDialogo.load("res\\bntSim.png");
+							bntNaoDialogo.load("res\\bntNao2.png");
+						} else if(contDialogo == 1) {
+							
 							objetoDeFundo1.setX(16); objetoDeFundo1.setY(240);
 							objetoDeFundo2.setX(1234 - 300 - 20 - 30); objetoDeFundo2.setY(30);
 							imagemDoDialogo.setX(1234/2 - 462/2);
@@ -783,12 +897,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		imagemDoDialogo.setImagem(null);
 		imagemDoDialogo.setY(20); imagemDoDialogo.setX(1234/2 - 248/2);
 		bntSimDialogo.setImagem(null);
-		bntSimDialogo.setImagem(null);
+		bntNaoDialogo.setImagem(null);
 		
 		objetoDeFundo1.setX(0); objetoDeFundo1.setY(0);
 		objetoDeFundo2.setX(0); objetoDeFundo2.setY(0);
-		objetoDeFundo1.setImagem(null);
-		objetoDeFundo2.setImagem(null);
+		objetoDeFundo3.setX(0); objetoDeFundo3.setY(0);
+		objetoDeFundo4.setX(0); objetoDeFundo4.setY(0);
+		objetoDeFundo1.setImagem(null); objetoDeFundo2.setImagem(null);
+		objetoDeFundo3.setImagem(null); objetoDeFundo4.setImagem(null);
+		
+		ativarAnimacaoVelaAyla = 0;
 		
 		txtDialogoLn1.setTexto(" ");
 		txtDialogoLn2.setTexto(" ");
@@ -854,6 +972,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(sombreadorDialogo.getImagem(), redimLarg + sombreadorDialogo.getX(), redimAlt + sombreadorDialogo.getY(), this);
 		graficos.drawImage(objetoDeFundo1.getImagem(), redimLarg + objetoDeFundo1.getX(), redimAlt + objetoDeFundo1.getY(), this);
 		graficos.drawImage(objetoDeFundo2.getImagem(), redimLarg + objetoDeFundo2.getX(), redimAlt + objetoDeFundo2.getY(), this);
+		graficos.drawImage(objetoDeFundo3.getImagem(), redimLarg + objetoDeFundo3.getX(), redimAlt + objetoDeFundo3.getY(), this);
+		graficos.drawImage(objetoDeFundo4.getImagem(), redimLarg + objetoDeFundo4.getX(), redimAlt + objetoDeFundo4.getY(), this);
 		graficos.drawImage(imagemDoDialogo.getImagem(), redimLarg + imagemDoDialogo.getX(), redimAlt + imagemDoDialogo.getY(), this);
 		graficos.drawImage(barraDeDialogo.getImagem(), redimLarg + barraDeDialogo.getX(), redimAlt + barraDeDialogo.getY(), this);
 		
@@ -903,6 +1023,34 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if(ativarAnimacaoVelaAyla > 0) {
+			animarVelas();
+		}
+		
 		repaint();
+	}
+	
+	public void animarVelas() {
+		
+		contAnimacaoVelaAyla ++;
+		
+		if(ativarAnimacaoVelaAyla == 1 && contAnimacaoVelaAyla%2 == 0) {
+			objetoDeFundo1.setY(objetoDeFundo1.getY() - 1);
+			objetoDeFundo3.setY(objetoDeFundo3.getY() - 1);
+			objetoDeFundo2.setY(objetoDeFundo2.getY() + 1);
+			objetoDeFundo4.setY(objetoDeFundo4.getY() + 1);
+		} else if(ativarAnimacaoVelaAyla == 2 && contAnimacaoVelaAyla%2 == 0) {
+			objetoDeFundo1.setY(objetoDeFundo1.getY() + 1);
+			objetoDeFundo3.setY(objetoDeFundo3.getY() + 1);
+			objetoDeFundo2.setY(objetoDeFundo2.getY() - 1);
+			objetoDeFundo4.setY(objetoDeFundo4.getY() - 1);
+		}
+		
+		if(objetoDeFundo1.getY() == 60) {
+			ativarAnimacaoVelaAyla = 2;
+		} else if(objetoDeFundo1.getY() == 80) {
+			ativarAnimacaoVelaAyla = 1;
+		} 
+		
 	}
 }
