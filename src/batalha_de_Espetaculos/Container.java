@@ -10,17 +10,17 @@ import javax.swing.JFrame;
 
 public class Container extends JFrame{
 	
-	Escolha_de_personagem tela = new Escolha_de_personagem();
+	Menu menu = new Menu();
 	 
 	public Container() {
-		add(tela);
-		setTitle("Escolha de Personagem");
+		add(menu);
+		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setSize(1234 + 14, 640 + 39);
 		setMinimumSize(new Dimension(1234 + 14, 640 + 38));
 		setLocationRelativeTo(null);
-		//this.setResizable(false);
+		this.setResizable(false);
 		setBackground(Color.BLACK);
 		setVisible(true);
 		
@@ -37,11 +37,11 @@ public class Container extends JFrame{
 	}
 
 	private void formKeyPressed(java.awt.event.KeyEvent evt) {  
-    	tela.KeyPressed(evt);
+    	menu.KeyPressed(evt);
     }
 	
 	private void formKeyReleased(java.awt.event.KeyEvent evt) {     
-		tela.KeyReleased(evt);
+		menu.KeyReleased(evt);
 	}
 	
 	public static void main (String []args) {

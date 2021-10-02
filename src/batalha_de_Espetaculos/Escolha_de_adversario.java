@@ -25,6 +25,7 @@ import aventureiros.Kiki;
 import aventureiros.Rexthor;
 import batalha_de_Espetaculos.Modelo.Icones_interativos;
 import batalha_de_Espetaculos.Modelo.Texto;
+import batalha_de_Espetaculos.Salvar;
 
 public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
@@ -33,12 +34,22 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  iram jogar contra.																		|
 	\ ---------------------------------------------------------------------------------------- */
 
-	Batalha tela3;
-	private Escolha_de_personagem paginaAnterior;
+	private Escolha_de_personagem tela1;
+	private Batalha tela3;
+	private Regras telaRegras;
+	private Menu telaMenu;
+	JFrame janelaPrincipal;
+	
+	
+	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	
-	private int redimLarg, redimAlt;
+	Salvar salvar = new Salvar();
+	private Icones_interativos imgMenSalve = new Icones_interativos(34, 34);
+	private Texto txtSalvar = new Texto(80, 64, " ");
+	
+	private int contMenSalvar = 0;
 	
 	// ------------------------ imagens dos ícones aventureiros ------------------------------
 	
@@ -127,7 +138,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	//---------------------------------------------------------------------------------------
 	
 	private int aventureiro; // numero do aventureiro escolido anteriormente
-	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6;
+	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7;
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
 	private Timer timer;
@@ -136,10 +147,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior) {
+	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu) {
 		
 		aventureiro = numAventureiro;
-		this.paginaAnterior = PaginaAnterior;
+		this.tela1 = PaginaAnterior;
+		this.telaMenu = PaginaMenu;
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
@@ -167,8 +179,50 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		mostrarEstrela();
 		
+		imgMenSalve.load("res\\salvar.png");
+		txtSalvar.setFonte(new Font("Arial", Font.BOLD, 20));
+		txtSalvar.setCorTexto(new Color (255, 255, 255));
+		txtSalvar.setTexto(salvar.SalvarDados(derrotados));
+		
 		timer = new Timer(5, this);
 		timer.start();
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  									Vai para a tela de menu									|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntMenu(int codigo) {
+		// ------------------------ manda para a tela do menu ----------------------- /
+		if(codigo == KeyEvent.VK_Z ) {
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        janelaPrincipal.add(telaMenu);
+	        janelaPrincipal.setTitle("Menu");
+	        telaMenu.Restaurar();
+	        janelaPrincipal.revalidate();
+	        
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  									Vai para a tela de Regras								|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntRegras(int codigo) {
+		// ------------------------ manda para a tela de regras ----------------------- /
+		if(codigo == KeyEvent.VK_Z ) {
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        telaRegras = new Regras();
+	        telaRegras.setTela2(this);
+	        janelaPrincipal.add(telaRegras);
+	        janelaPrincipal.setTitle("Regras2");
+	        janelaPrincipal.revalidate();
+	        
+		}
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -203,9 +257,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				txtDialogoAviso2.setTexto(" ");
 			}
 			else {
-				JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
-		        janelaPrincipal.add(paginaAnterior);
+		        janelaPrincipal.add(tela1);
 		        janelaPrincipal.setTitle("Escolha de Personagem");
 		        janelaPrincipal.revalidate();
 			}
@@ -283,6 +337,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}else if(mostrarMenu == true && contMenu == 2) {
 				dialogoBntVoltar(codigo);
 				
+			// ---------- encaminha para a função que controla o botão do Menu do menu ------\
+			}else if(mostrarMenu == true && contMenu == 0){
+				dialogoBntMenu(codigo);
+			
+			// ---------- encaminha para a função que controla o botão de Regras do menu ------\
+			}else if(mostrarMenu == true && contMenu == 1){
+				dialogoBntRegras(codigo);
+							
 			// ---------- muda a seleção dos ícones dos personagens no mapa para esquerda e direita --------- \
 			} else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
 				
@@ -867,9 +929,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				int [] organizandoAventureiro = {2, 0, 3, 1, 4, 5};
 				
-				JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
-		        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this);
+		        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
 		        janelaPrincipal.add(tela3);
 		        janelaPrincipal.setTitle("Batalha");
 		        janelaPrincipal.revalidate();
@@ -880,11 +942,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		        limpaIconesAdversarios();
 		        iconeRexthor.load("res\\escolhaDeAdversario\\rexthor2.png");
 			}
-		
-		// ------------------------ manda para a tela de batalha ----------------------- /
-		} else {
-			tela3.KeyPressed(tecla);
+			
+		} else{
+			// ------------------------ manda para a tela de Regras ----------------------- /
+			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Regras2") {
+				telaRegras.KeyPressed(tecla);
+			} else {
+				tela3.KeyPressed(tecla);
+			}
 		}
+		
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -947,35 +1014,32 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void paint(Graphics g) {
 		
-		redimLarg = this.getWidth()/2 - 1234/2;
-		redimAlt = this.getHeight()/2 - 640/2;
-		
 		Graphics2D graficos = (Graphics2D) g;
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
 		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(fundo2.getImagem(), redimLarg + fundo2.getX(), redimAlt + fundo2.getY(), this);
+		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
 		
-		graficos.drawImage(iconeBoss.getImagem(), redimLarg + iconeBoss.getX(), redimAlt + iconeBoss.getY(), this);
-		graficos.drawImage(iconeIgnis.getImagem(), redimLarg + iconeIgnis.getX(),redimAlt + iconeIgnis.getY(), this);
-		graficos.drawImage(iconeAyla.getImagem(), redimLarg + iconeAyla.getX(), redimAlt + iconeAyla.getY(), this);
-		graficos.drawImage(iconeRexthor.getImagem(), redimLarg + iconeRexthor.getX(), redimAlt + iconeRexthor.getY(), this);
-		graficos.drawImage(iconeKiki.getImagem(), redimLarg + iconeKiki.getX(), redimAlt + iconeKiki.getY(), this);
-		graficos.drawImage(iconeArius.getImagem(), redimLarg + iconeArius.getX(), redimAlt + iconeArius.getY(), this);
+		graficos.drawImage(iconeBoss.getImagem(), iconeBoss.getX(), iconeBoss.getY(), this);
+		graficos.drawImage(iconeIgnis.getImagem(), iconeIgnis.getX(), iconeIgnis.getY(), this);
+		graficos.drawImage(iconeAyla.getImagem(), iconeAyla.getX(), iconeAyla.getY(), this);
+		graficos.drawImage(iconeRexthor.getImagem(), iconeRexthor.getX(), iconeRexthor.getY(), this);
+		graficos.drawImage(iconeKiki.getImagem(), iconeKiki.getX(), iconeKiki.getY(), this);
+		graficos.drawImage(iconeArius.getImagem(), iconeArius.getX(), iconeArius.getY(), this);
 		
-		graficos.drawImage(vencido0.getImagem(), redimLarg + vencido0.getX(), redimAlt + vencido0.getY(), this);
-		graficos.drawImage(vencido1.getImagem(), redimLarg + vencido1.getX(), redimAlt + vencido1.getY(), this);
-		graficos.drawImage(vencido2.getImagem(), redimLarg + vencido2.getX(), redimAlt + vencido2.getY(), this);
-		graficos.drawImage(vencido3.getImagem(), redimLarg + vencido3.getX(), redimAlt + vencido3.getY(), this);
-		graficos.drawImage(vencido4.getImagem(), redimLarg + vencido4.getX(), redimAlt + vencido4.getY(), this);
+		graficos.drawImage(vencido0.getImagem(), vencido0.getX(), vencido0.getY(), this);
+		graficos.drawImage(vencido1.getImagem(), vencido1.getX(), vencido1.getY(), this);
+		graficos.drawImage(vencido2.getImagem(), vencido2.getX(), vencido2.getY(), this);
+		graficos.drawImage(vencido3.getImagem(), vencido3.getX(), vencido3.getY(), this);
+		graficos.drawImage(vencido4.getImagem(), vencido4.getX(), vencido4.getY(), this);
 		
-		graficos.drawImage(sombreadorDialogo.getImagem(), redimLarg + sombreadorDialogo.getX(), redimAlt + sombreadorDialogo.getY(), this);
-		graficos.drawImage(objetoDeFundo1.getImagem(), redimLarg + objetoDeFundo1.getX(), redimAlt + objetoDeFundo1.getY(), this);
-		graficos.drawImage(objetoDeFundo2.getImagem(), redimLarg + objetoDeFundo2.getX(), redimAlt + objetoDeFundo2.getY(), this);
-		graficos.drawImage(objetoDeFundo3.getImagem(), redimLarg + objetoDeFundo3.getX(), redimAlt + objetoDeFundo3.getY(), this);
-		graficos.drawImage(objetoDeFundo4.getImagem(), redimLarg + objetoDeFundo4.getX(), redimAlt + objetoDeFundo4.getY(), this);
-		graficos.drawImage(imagemDoDialogo.getImagem(), redimLarg + imagemDoDialogo.getX(), redimAlt + imagemDoDialogo.getY(), this);
-		graficos.drawImage(barraDeDialogo.getImagem(), redimLarg + barraDeDialogo.getX(), redimAlt + barraDeDialogo.getY(), this);
+		graficos.drawImage(sombreadorDialogo.getImagem(), sombreadorDialogo.getX(), sombreadorDialogo.getY(), this);
+		graficos.drawImage(objetoDeFundo1.getImagem(), objetoDeFundo1.getX(), objetoDeFundo1.getY(), this);
+		graficos.drawImage(objetoDeFundo2.getImagem(), objetoDeFundo2.getX(), objetoDeFundo2.getY(), this);
+		graficos.drawImage(objetoDeFundo3.getImagem(), objetoDeFundo3.getX(), objetoDeFundo3.getY(), this);
+		graficos.drawImage(objetoDeFundo4.getImagem(), objetoDeFundo4.getX(), objetoDeFundo4.getY(), this);
+		graficos.drawImage(imagemDoDialogo.getImagem(), imagemDoDialogo.getX(), imagemDoDialogo.getY(), this);
+		graficos.drawImage(barraDeDialogo.getImagem(), barraDeDialogo.getX(), barraDeDialogo.getY(), this);
 		
 		graficos.setColor(txtDialogoLn1.getCorTexto());
 		
@@ -984,44 +1048,58 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		tl3 = new TextLayout(txtDialogoLn3.getTexto(), txtDialogoLn3.getFonte(), frc);
 		tl4 = new TextLayout(txtDialogoLn4.getTexto(), txtDialogoLn4.getFonte(), frc);
 		
-		tl1.draw(graficos, redimLarg + txtDialogoLn1.getX(), redimAlt + txtDialogoLn1.getY());
-		tl2.draw(graficos, redimLarg + txtDialogoLn2.getX(), redimAlt + txtDialogoLn2.getY());
-		tl3.draw(graficos, redimLarg + txtDialogoLn3.getX(), redimAlt + txtDialogoLn3.getY());
+		tl1.draw(graficos, txtDialogoLn1.getX(), txtDialogoLn1.getY());
+		tl2.draw(graficos, txtDialogoLn2.getX(), txtDialogoLn2.getY());
+		tl3.draw(graficos, txtDialogoLn3.getX(), txtDialogoLn3.getY());
 		
 		if(mudaCorLn4 == true) {graficos.setColor(txtDialogoLn4.getCorTexto());}
-		tl4.draw(graficos, redimLarg + txtDialogoLn4.getX(), redimAlt + txtDialogoLn4.getY());
+		tl4.draw(graficos, txtDialogoLn4.getX(), txtDialogoLn4.getY());
 		if(mudaCorLn4 == true) {graficos.setColor(txtDialogoLn1.getCorTexto());}
 		
-		graficos.drawImage(bntSimDialogo.getImagem(), redimLarg + bntSimDialogo.getX(), redimAlt + bntSimDialogo.getY(), this);
-		graficos.drawImage(bntNaoDialogo.getImagem(), redimLarg + bntNaoDialogo.getX(), redimAlt + bntNaoDialogo.getY(), this);
-		graficos.drawImage(estrelaFim1.getImagem(), redimLarg + estrelaFim1.getX(), redimAlt + estrelaFim1.getY(), this);
-		graficos.drawImage(estrelaFim2.getImagem(), redimLarg + estrelaFim2.getX(), redimAlt + estrelaFim2.getY(), this);
+		graficos.drawImage(bntSimDialogo.getImagem(), bntSimDialogo.getX(), bntSimDialogo.getY(), this);
+		graficos.drawImage(bntNaoDialogo.getImagem(), bntNaoDialogo.getX(), bntNaoDialogo.getY(), this);
+		graficos.drawImage(estrelaFim1.getImagem(), estrelaFim1.getX(), estrelaFim1.getY(), this);
+		graficos.drawImage(estrelaFim2.getImagem(), estrelaFim2.getX(), estrelaFim2.getY(), this);
 		
-		graficos.drawImage(sombreadorMenu.getImagem(), redimLarg + sombreadorMenu.getX(), redimAlt + sombreadorMenu.getY(), this);
-		graficos.drawImage(fundoMenu.getImagem(), redimLarg + fundoMenu.getX(), redimAlt + fundoMenu.getY(), this);
-		graficos.drawImage(bntMenu.getImagem(), redimLarg + bntMenu.getX(), redimAlt + bntMenu.getY(), this);
-		graficos.drawImage(bntRegras.getImagem(), redimLarg + bntRegras.getX(), redimAlt + bntRegras.getY(), this);
-		graficos.drawImage(bntVoltar.getImagem(),  redimLarg + bntVoltar.getX(),  redimAlt + bntVoltar.getY(), this);
+		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
+		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
+		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
+		graficos.drawImage(bntRegras.getImagem(), bntRegras.getX(), bntRegras.getY(), this);
+		graficos.drawImage(bntVoltar.getImagem(),  bntVoltar.getX(),  bntVoltar.getY(), this);
 		
-		graficos.drawImage(dialogoAviso.getImagem(), redimLarg + dialogoAviso.getX(), redimAlt + dialogoAviso.getY(), this);
-		graficos.drawImage(bntSimDialogoAviso.getImagem(), redimLarg + bntSimDialogoAviso.getX(), redimAlt + bntSimDialogoAviso.getY(), this);
-		graficos.drawImage(bntNaoDialogoAviso.getImagem(), redimLarg + bntNaoDialogoAviso.getX(), redimAlt + bntNaoDialogoAviso.getY(), this);
+		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getX(), dialogoAviso.getY(), this);
+		graficos.drawImage(bntSimDialogoAviso.getImagem(), bntSimDialogoAviso.getX(), bntSimDialogoAviso.getY(), this);
+		graficos.drawImage(bntNaoDialogoAviso.getImagem(), bntNaoDialogoAviso.getX(), bntNaoDialogoAviso.getY(), this);
 		
 		
 		graficos.setColor(txtDialogoAviso.getCorTexto());
 		tl5 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
 		tl6 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso2.getFonte(), frc);
 		
-		tl5.draw(graficos, redimLarg + txtDialogoAviso.getX(), redimAlt + txtDialogoAviso.getY());
-		tl6.draw(graficos, redimLarg + txtDialogoAviso2.getX(), redimAlt + txtDialogoAviso2.getY());
+		tl5.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
+		tl6.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
 		
-		graficos.drawImage(contorno.getImagem(), redimLarg + contorno.getX(), redimAlt + contorno.getY(), this);
+		graficos.drawImage(imgMenSalve.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
+
+		graficos.setColor(txtSalvar.getCorTexto());
+		tl7 = new TextLayout(txtSalvar.getTexto(), txtSalvar.getFonte(), frc);
+		tl7.draw(graficos, txtSalvar.getX(), txtSalvar.getY());
+		
+		
+		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
 		g.dispose();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		contMenSalvar++;
+		
+		if(contMenSalvar == 200) {
+			imgMenSalve.setImagem(null);
+			txtSalvar.setTexto(" ");
+		}
 		
 		if(ativarAnimacaoVelaAyla > 0) {
 			animarVelas();
