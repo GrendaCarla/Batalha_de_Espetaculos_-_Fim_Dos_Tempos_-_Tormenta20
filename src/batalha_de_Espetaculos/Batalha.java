@@ -35,7 +35,7 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	private Escolha_de_adversario tela2;
-	private Regras telaRegras;
+	private Manual telaManual;
 	private Menu telaMenu;
 	JFrame janelaPrincipal;
 	
@@ -55,11 +55,12 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
 	private Icones_interativos bntMenu = new Icones_interativos(41,66);
-	private Icones_interativos bntRegras = new Icones_interativos(41,202);
+	private Icones_interativos bntManual = new Icones_interativos(41,202);
 	private Icones_interativos bntVoltar = new Icones_interativos(41,338);
 	
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
+	private Salvar salvar = new Salvar();
 	
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 
@@ -249,31 +250,31 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 8, apelo.getY() + 4);
 	
-	private Texto apeloQuantidade = new Texto(apelo.getX() + 136, apelo.getY() + 54/2 + 8, "Apelo:");
+	private Texto apeloQuantidade = new Texto(apelo.getX() + 124, apelo.getY() + 54/2 + 8, "Apelo:");
 	
-	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 65, apelo.getY() + 54/2 - 5);
-	private Icones_interativos apeloApelo2 = new Icones_interativos(apeloApelo1.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo3 = new Icones_interativos(apeloApelo2.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo4 = new Icones_interativos(apeloApelo3.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo5 = new Icones_interativos(apeloApelo4.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo6 = new Icones_interativos(apeloApelo5.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo7 = new Icones_interativos(apeloApelo6.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo8 = new Icones_interativos(apeloApelo7.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo9 = new Icones_interativos(apeloApelo8.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo10 = new Icones_interativos(apeloApelo9.getX() + 25, apeloApelo1.getY());
+	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 62, apelo.getY() + 54/2 - 8);
+	private Icones_interativos apeloApelo2 = new Icones_interativos(apeloApelo1.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo3 = new Icones_interativos(apeloApelo2.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo4 = new Icones_interativos(apeloApelo3.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo5 = new Icones_interativos(apeloApelo4.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo6 = new Icones_interativos(apeloApelo5.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo7 = new Icones_interativos(apeloApelo6.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo8 = new Icones_interativos(apeloApelo7.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo9 = new Icones_interativos(apeloApelo8.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo10 = new Icones_interativos(apeloApelo9.getX() + 27, apeloApelo1.getY());
 	
-	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 330, apeloQuantidade.getY(), "Interferencia:");
+	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 340, apeloQuantidade.getY(), "Interferencia:");
 	
-	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 126, apelo.getY() + 54/2 - 5);
-	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf3 = new Icones_interativos(apeloInterf2.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf4 = new Icones_interativos(apeloInterf3.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf5 = new Icones_interativos(apeloInterf4.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf6 = new Icones_interativos(apeloInterf5.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf7 = new Icones_interativos(apeloInterf6.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf8 = new Icones_interativos(apeloInterf7.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf9 = new Icones_interativos(apeloInterf8.getX() + 25, apeloInterf1.getY());
-	private Icones_interativos apeloInterf10 = new Icones_interativos(apeloInterf9.getX() + 25, apeloInterf1.getY());
+	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 122, apelo.getY() + 54/2 - 9);
+	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf3 = new Icones_interativos(apeloInterf2.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf4 = new Icones_interativos(apeloInterf3.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf5 = new Icones_interativos(apeloInterf4.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf6 = new Icones_interativos(apeloInterf5.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf7 = new Icones_interativos(apeloInterf6.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf8 = new Icones_interativos(apeloInterf7.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf9 = new Icones_interativos(apeloInterf8.getX() + 27, apeloInterf1.getY());
+	private Icones_interativos apeloInterf10 = new Icones_interativos(apeloInterf9.getX() + 27, apeloInterf1.getY());
 	
 		// ----------------------- itens relacionado com Descrição -----------------------------------
 
@@ -427,6 +428,7 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.remove(this);
 	        janelaPrincipal.add(telaMenu);
 	        janelaPrincipal.setTitle("Menu");
+	        telaMenu.valorLeituraSave = salvar.LerDados();
 	        telaMenu.Restaurar();
 	        janelaPrincipal.revalidate();
 	        
@@ -434,21 +436,21 @@ public class Batalha extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  									Vai para a tela de Regras								|
+	|  									Vai para a tela de Manual								|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public void dialogoBntRegras(int codigo) {
-		// ------------------------ manda para a tela de regras ----------------------- /
+	public void dialogoBntManual(int codigo) {
+		// ------------------------ manda para a tela de manual ----------------------- /
 		if(codigo == KeyEvent.VK_Z ) {
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaRegras = new Regras();
+	        telaManual = new Manual();
 	        
-	        telaRegras.setTela3(this);
+	        telaManual.setTela3(this);
 	        
-	        janelaPrincipal.add(telaRegras);
-	        janelaPrincipal.setTitle("Regras3");
+	        janelaPrincipal.add(telaManual);
+	        janelaPrincipal.setTitle("Manual3");
 	        janelaPrincipal.revalidate();
 	        
 		}
@@ -461,9 +463,9 @@ public class Batalha extends JPanel implements ActionListener {
 	public void dialogoVoltar(int codigo) {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
-			dialogoAviso.load("res\\dialogo.png");
-			bntSimDialogoAviso.load("res\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\bntNao2.png");
+			dialogoAviso.load("res\\Menu\\dialogo.png");
+			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar a luta será encerrada.");
@@ -472,8 +474,8 @@ public class Batalha extends JPanel implements ActionListener {
 		}else if (codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) {
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
 			
-			bntSimDialogoAviso.load("res\\bntsim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\bntnao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load("res\\Menu\\bntsim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntnao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
 			
 		} else if(dialogoAviso.getImagem() != null && (codigo == KeyEvent.VK_X || (codigo == KeyEvent.VK_Z && bntSimNaoDialgoAviso == false))) {
 			
@@ -571,17 +573,17 @@ public class Batalha extends JPanel implements ActionListener {
 				
 				if(mostrarMenu == true) {
 					contMenu = 0;
-					sombreadorMenu.load("res\\sombreador.png");
-					fundoMenu.load("res\\menu.png");
-					bntMenu.load("res\\bntMenu2.png");
-					bntRegras.load("res\\bntRegras1.png");
-					 bntVoltar.load("res\\bntVoltar1.png");
+					sombreadorMenu.load("res\\Menu\\sombreador.png");
+					fundoMenu.load("res\\Menu\\menu.png");
+					bntMenu.load("res\\Menu\\bntMenu2.png");
+					bntManual.load("res\\Menu\\bntManual1.png");
+					 bntVoltar.load("res\\Menu\\bntVoltar1.png");
 					
 				} else {
 					sombreadorMenu.setImagem(null);
 					fundoMenu.setImagem(null);
 					bntMenu.setImagem(null);
-					bntRegras.setImagem(null);
+					bntManual.setImagem(null);
 					 bntVoltar.setImagem(null);
 				}
 				
@@ -593,19 +595,19 @@ public class Batalha extends JPanel implements ActionListener {
 					if(contMenu == 2) {contMenu = 0;} else {contMenu ++;}
 				}
 				
-				bntMenu.load("res\\bntMenu1.png");
-				bntRegras.load("res\\bntRegras1.png");
-				bntVoltar.load("res\\bntVoltar1.png");
+				bntMenu.load("res\\Menu\\bntMenu1.png");
+				bntManual.load("res\\Menu\\bntManual1.png");
+				bntVoltar.load("res\\Menu\\bntVoltar1.png");
 				
 				switch (contMenu) {
 					case 0:
-						bntMenu.load("res\\bntMenu2.png");
+						bntMenu.load("res\\Menu\\bntMenu2.png");
 						break;
 					case 1:
-						bntRegras.load("res\\bntRegras2.png");
+						bntManual.load("res\\Menu\\bntManual2.png");
 						break;
 					case 2:
-						bntVoltar.load("res\\bntVoltar2.png");
+						bntVoltar.load("res\\Menu\\bntVoltar2.png");
 						break;
 				}
 				
@@ -619,7 +621,7 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 1) {
-				dialogoBntRegras(codigo);
+				dialogoBntManual(codigo);
 							
 			// ---------- muda a seleção dos ícones dos personagens no mapa para cima e para baixo --------- \
 			} else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == false && dialogoAviso.getImagem() == null && comecarAnimacaoCoracao == 0) {
@@ -801,8 +803,8 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        
 		        if(matrizAventureiros[0][0] == aventureiro) {
-	        		if(tela2.derrotados[adversario] == false) {
-	        			tela2.derrotados[adversario] = true;
+	        		if(tela2.getDerrotados()[adversario] == false) {
+	        			tela2.setDerrotados(adversario, true);
 	        		}
 		        }
 	
@@ -811,9 +813,9 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			} 
 		}else{
-		// ------------------------ manda para a tela de Regras ----------------------- /
-			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Regras3") {
-				telaRegras.KeyPressed(tecla);
+		// ------------------------ manda para a tela de Manual ----------------------- /
+			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual3") {
+				telaManual.KeyPressed(tecla);
 			}
 		}
 	}
@@ -1287,7 +1289,7 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
 		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
 		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
-		graficos.drawImage(bntRegras.getImagem(), bntRegras.getX(), bntRegras.getY(), this);
+		graficos.drawImage(bntManual.getImagem(), bntManual.getX(), bntManual.getY(), this);
 		graficos.drawImage( bntVoltar.getImagem(),  bntVoltar.getX(),  bntVoltar.getY(), this);
 		
 		// ------------------------ imagens e textos do diálogo de aviso ------------------------------

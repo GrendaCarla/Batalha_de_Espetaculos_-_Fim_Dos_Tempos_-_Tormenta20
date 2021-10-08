@@ -17,8 +17,8 @@ public class Container extends JFrame{
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setSize(1234 + 14, 640 + 39);
-		setMinimumSize(new Dimension(1234 + 14, 640 + 38));
+		setSize(1234 + 14, 640 + 37);
+		setMinimumSize(new Dimension(1234 + 14, 640 + 37));
 		setLocationRelativeTo(null);
 		this.setResizable(false);
 		setBackground(Color.BLACK);
