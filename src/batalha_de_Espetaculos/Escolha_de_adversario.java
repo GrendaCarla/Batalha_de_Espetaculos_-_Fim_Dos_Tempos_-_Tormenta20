@@ -1159,19 +1159,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(resutado == 1) {
 			
-			if(contMenSalvar > 0 && contMenSalvar < 50) {
-				imgMenSalve.setX(imgMenSalve.getX() + 5);
-				imgMenSalve2.setX(imgMenSalve2.getX() + 5);
+			if(contMenSalvar > 0 && contMenSalvar < 40) {
+				imgMenSalve.setX(imgMenSalve.getX() + 6);
+				imgMenSalve2.setX(imgMenSalve2.getX() + 6);
 				
-				if(contMenSalvar > 15 && contMenSalvar % 2 == 0 && contConteudoSalvar < 12) {
+				if(contMenSalvar > 11 && contMenSalvar % 2 == 0 && contConteudoSalvar < 12) {
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar ++));
 				}
 				
 			}
 			
-			if(contMenSalvar == 44) {
+			if(contMenSalvar == 34) {
 				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar3.png");
-			} else if(contMenSalvar == 46) {
+			} else if(contMenSalvar == 36) {
 				imgMenSalve2.setImagem(null);
 			}
 			
@@ -1186,10 +1186,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 
 			if(contMenSalvar > 102 && contMenSalvar < 152) {
-				imgMenSalve.setX(imgMenSalve.getX() - 5);
-				imgMenSalve2.setX(imgMenSalve2.getX() - 5);
+				imgMenSalve.setX(imgMenSalve.getX() - 6);
+				imgMenSalve2.setX(imgMenSalve2.getX() - 6);
 				
-				if(contMenSalvar > 110 && contMenSalvar % 2 == 0 && contConteudoSalvar > 0) {
+				if(contMenSalvar > 105 && contMenSalvar % 2 == 0 && contConteudoSalvar > 0) {
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar --));
 				}
 				

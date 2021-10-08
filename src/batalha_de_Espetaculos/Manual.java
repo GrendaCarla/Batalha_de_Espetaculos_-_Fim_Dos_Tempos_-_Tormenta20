@@ -35,7 +35,9 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
 	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
-	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26;
+	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27, tl28,
+	tl29, tl30, tl31, tl32, tl33, tl34,  tl35, tl36, tl37, tl38, tl39, tl40, tl41, tl42, tl43,
+	tl44, tl45, tl46, tl47, tl48, tl49, tl50, tl51, tl52, tl53, tl54, tl55;
 	
 	/* ------------------------------- Barra de rolagem ---------------------------------*/
 	
@@ -43,22 +45,6 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Icones_interativos bntBarraBaixo = new Icones_interativos(1180, 590);
 	private Icones_interativos bntBarraCima = new Icones_interativos(1180, 32);
-	
-	
-	/*
-	 Controles
-	 batalha:
-	  5 turnos
-	  ataques
-	  apelo e interferencia
-	  descrição apelo
-	  
-	  campo de batalha ordem de jogada, apelos ganhos e barra apelo
-	  
-	  interferencia de chefe
-	  interferencia por ataque repetido
-	  
-	 */
 	
 	/* ------------------------------- Controles ---------------------------------*/
 	
@@ -98,13 +84,13 @@ public class Manual extends JPanel implements ActionListener {
 	
 		/* ------------------------------- info apelo ---------------------------------*/
 
-	private Texto txtLn10 = new Texto(txtLn7.getX(), 590, "* Os apelos são pontos ganhos pelas apresentações. Quem obtem mais apelos na rodada fica em");
+	private Texto txtLn10 = new Texto(txtLn7.getX(), 610, "* Os apelos são pontos ganhos pelas apresentações. Quem obtem mais apelos na rodada fica em");
 	private Texto txtLn11 = new Texto(txtLn7.getX() + 14, txtLn10.getY() + 25, "1º lugar no próximo turno e quem obtem mais apelos durante toda a batalha ganha a partida.");
 
 	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + 44, "* As interferencias são pontos negativos usados nos seus adversários para faze-los perderem");
 	private Texto txtLn13 = new Texto(txtLn7.getX() + 14, txtLn12.getY() + 25, "os apelos ganhados no turno atual ou nos anteriores.");
 
-	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 730);
+	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 740);
 
 	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 8, apelo.getY() + 4);
 	
@@ -125,8 +111,8 @@ public class Manual extends JPanel implements ActionListener {
 	
 		// ----------------------- Descrição -----------------------------------
 
-	private Texto txtLn14 = new Texto(txtLn7.getX(), 850, "* As descrições das apresentações são puramente enrrolações. A unica coisa importante é a ultima linha colorida,");
-	private Texto txtLn15 = new Texto(txtLn7.getX() + 14, txtLn14.getY() + 25, "nela é descrito o efeito das apresentações que possuem interferencias.");	
+	private Texto txtLn14 = new Texto(txtLn7.getX(), 880, "* As descrições das apresentações são puramente enrrolações. A unica coisa importante é a ultima linha");
+	private Texto txtLn15 = new Texto(txtLn7.getX() + 14, txtLn14.getY() + 25, "colorida, nela é descrito o efeito das apresentações que possuem interferencias.");	
 	
 	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 40);
 	
@@ -137,7 +123,127 @@ public class Manual extends JPanel implements ActionListener {
 			+ " você é capaz deretirar o primeiro colocado do seu pedestal causando uma alta interferência nele."
 			+ "Este poder afeta o primeiro colocado.";
 	
+	// ----------------------------------- campo batalha -----------------------------------
+
+	private Texto txtLn16 = new Texto(txtLn7.getX(), 1210, "* Quando a apresentação for escolhida a batalha começa.");
+	private Texto txtLn17 = new Texto(txtLn7.getX(), txtLn16.getY() + 44, "* A ordem do espetáculo é de cima para baixo.");	
+	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn17.getY() + 44, "* A animação aparece seguida da quantidade de apelo");
+	private Texto txtLn19 = new Texto(txtLn7.getX() + 14, txtLn18.getY() + 25, "ganhada com ela.");
+	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn19.getY() + 44, "* Caso o poder for repetido duas rodadas seguidas 2");
+	private Texto txtLn21 = new Texto(txtLn7.getX() + 14, txtLn20.getY() + 25, "apelos serram retirados do aventureiro como punição.");	
+	private Texto txtLn22 = new Texto(txtLn7.getX(), txtLn21.getY() + 44, "* Caso o ataque cumpra o requisito do efeito do chefe");
+	private Texto txtLn23 = new Texto(txtLn7.getX() + 14, txtLn22.getY() + 25, "da batalha um bônus ou uma punição de 1 apelo");
+	private Texto txtLn24 = new Texto(txtLn7.getX() + 14, txtLn23.getY() + 25, "aparece de acordo com o efeito do chefe.");
+	private Texto txtLn25 = new Texto(txtLn7.getX(), txtLn24.getY() + 44, "* Caso a habilidade tenha interferência ela será quem");
+	private Texto txtLn26 = new Texto(txtLn7.getX() + 14, txtLn25.getY() + 25, "aparece por último na vez do aventureiro que a lançou.");
 	
+	private Icones_interativos campoBatalha1 = new Icones_interativos(1234 - 430 - 80, txtLn16.getY() - 24);
+	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
+	private Icones_interativos campoBatalha3 = new Icones_interativos(campoBatalha1.getX(), campoBatalha2.getY() + 70 + 4);
+	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
+	private Icones_interativos campoBatalha5 = new Icones_interativos(campoBatalha1.getX(), campoBatalha4.getY() + 70 + 4);
+	
+	private Texto txtEfeitoFase = new Texto(campoBatalha1.getX() - 104, campoBatalha3.getY() + 70/2 + 20/2, " ");
+	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 34, txtEfeitoFase.getY() - 17);
+	
+	private Icones_interativos setaCampoBatalha = new Icones_interativos(campoBatalha1.getX() - 34, campoBatalha1.getY() + 70/2 - 23/2);
+	
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha1.getY() + 5);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha2.getY() + 5);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha3.getY() + 5);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha4.getY() + 5);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha5.getY() + 5);
+	
+	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha5.getX() - 3, iconeCampoBatalha5.getY() - 3);
+	
+	// corações que mede o total de apelo e interferência de todas as rodadas 
+	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 70/2);
+	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 70/2);
+	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 70/2);
+	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 70/2);
+	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 70/2);
+	
+	// corações que mede o apelo e interferência da rodada
+	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 10); 
+	private Icones_interativos coracao12 = new Icones_interativos(coracao11.getX() + 25, coracao11.getY()); 
+	private Icones_interativos coracao13 = new Icones_interativos(coracao12.getX() + 25, coracao12.getY()); 
+	private Icones_interativos coracao14 = new Icones_interativos(coracao13.getX() + 25, coracao13.getY()); 
+	private Icones_interativos coracao15 = new Icones_interativos(coracao14.getX() + 25, coracao14.getY()); 
+	private Icones_interativos coracao16 = new Icones_interativos(coracao15.getX() + 25, coracao15.getY()); 
+	private Icones_interativos coracao17 = new Icones_interativos(coracao16.getX() + 25, coracao16.getY()); 
+	private Icones_interativos coracao18 = new Icones_interativos(coracao17.getX() + 25, coracao17.getY()); 
+	private Icones_interativos coracao19 = new Icones_interativos(coracao18.getX() + 25, coracao18.getY()); 
+	private Icones_interativos coracao110 = new Icones_interativos(coracao19.getX() + 25, coracao19.getY()); 
+	
+	private Icones_interativos coracao21 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 10); 
+	private Icones_interativos coracao22 = new Icones_interativos(coracao21.getX() + 25, coracao21.getY()); 
+	private Icones_interativos coracao23 = new Icones_interativos(coracao22.getX() + 25, coracao22.getY()); 
+	private Icones_interativos coracao24 = new Icones_interativos(coracao23.getX() + 25, coracao23.getY()); 
+	private Icones_interativos coracao25 = new Icones_interativos(coracao24.getX() + 25, coracao24.getY()); 
+	private Icones_interativos coracao26 = new Icones_interativos(coracao25.getX() + 25, coracao25.getY()); 
+	private Icones_interativos coracao27 = new Icones_interativos(coracao26.getX() + 25, coracao26.getY()); 
+	private Icones_interativos coracao28 = new Icones_interativos(coracao27.getX() + 25, coracao27.getY()); 
+	private Icones_interativos coracao29 = new Icones_interativos(coracao28.getX() + 25, coracao28.getY()); 
+	private Icones_interativos coracao210 = new Icones_interativos(coracao29.getX() + 25, coracao29.getY()); 
+	
+	private Icones_interativos coracao31 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 10); 
+	private Icones_interativos coracao32 = new Icones_interativos(coracao31.getX() + 25, coracao31.getY()); 
+	private Icones_interativos coracao33 = new Icones_interativos(coracao32.getX() + 25, coracao32.getY()); 
+	private Icones_interativos coracao34 = new Icones_interativos(coracao33.getX() + 25, coracao33.getY()); 
+	private Icones_interativos coracao35 = new Icones_interativos(coracao34.getX() + 25, coracao34.getY()); 
+	private Icones_interativos coracao36 = new Icones_interativos(coracao35.getX() + 25, coracao35.getY()); 
+	private Icones_interativos coracao37 = new Icones_interativos(coracao36.getX() + 25, coracao36.getY()); 
+	private Icones_interativos coracao38 = new Icones_interativos(coracao37.getX() + 25, coracao37.getY()); 
+	private Icones_interativos coracao39 = new Icones_interativos(coracao38.getX() + 25, coracao38.getY()); 
+	private Icones_interativos coracao310 = new Icones_interativos(coracao39.getX() + 25, coracao39.getY()); 
+	
+	private Icones_interativos coracao41 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 10); 
+	private Icones_interativos coracao42 = new Icones_interativos(coracao41.getX() + 25, coracao41.getY()); 
+	private Icones_interativos coracao43 = new Icones_interativos(coracao42.getX() + 25, coracao42.getY()); 
+	private Icones_interativos coracao44 = new Icones_interativos(coracao43.getX() + 25, coracao43.getY()); 
+	private Icones_interativos coracao45 = new Icones_interativos(coracao44.getX() + 25, coracao44.getY()); 
+	private Icones_interativos coracao46 = new Icones_interativos(coracao45.getX() + 25, coracao45.getY()); 
+	private Icones_interativos coracao47 = new Icones_interativos(coracao46.getX() + 25, coracao46.getY()); 
+	private Icones_interativos coracao48 = new Icones_interativos(coracao47.getX() + 25, coracao47.getY()); 
+	private Icones_interativos coracao49 = new Icones_interativos(coracao48.getX() + 25, coracao48.getY()); 
+	private Icones_interativos coracao410 = new Icones_interativos(coracao49.getX() + 25, coracao49.getY()); 
+	
+	private Icones_interativos coracao51 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 10); 
+	private Icones_interativos coracao52 = new Icones_interativos(coracao51.getX() + 25, coracao51.getY()); 
+	private Icones_interativos coracao53 = new Icones_interativos(coracao52.getX() + 25, coracao52.getY()); 
+	private Icones_interativos coracao54 = new Icones_interativos(coracao53.getX() + 25, coracao53.getY()); 
+	private Icones_interativos coracao55 = new Icones_interativos(coracao54.getX() + 25, coracao54.getY()); 
+	private Icones_interativos coracao56 = new Icones_interativos(coracao55.getX() + 25, coracao55.getY()); 
+	private Icones_interativos coracao57 = new Icones_interativos(coracao56.getX() + 25, coracao56.getY()); 
+	private Icones_interativos coracao58 = new Icones_interativos(coracao57.getX() + 25, coracao57.getY()); 
+	private Icones_interativos coracao59 = new Icones_interativos(coracao58.getX() + 25, coracao58.getY()); 
+	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
+
+	private int contTempoCampoBatalha = 0;
+	
+	// ----------------------- Considerações finais -----------------------------------
+
+	private Texto txtLn39 = new Texto(txtLn7.getX(), txtLn26.getY() + 44, "* Depois de cada turno o campo de batalha se reorganiza ficando em ordem decrescente de acordo com os");
+	private Texto txtLn40 = new Texto(txtLn7.getX() + 14, txtLn39.getY() + 25, "pontos no total. No final do 5º turno a batalha acaba e o aventureiro com mais pontos ganha.");
+	
+	// ----------------------- Tabela de efeito de chefe -----------------------------------
+
+	private Texto txtLn27 = new Texto(390, txtLn40.getY() + 90, "-*_ Tabela de efeito de chefe _*-");
+	private Texto txtLn41 = new Texto(340, txtLn27.getY() + 60, "||==================================================.||");
+	private Texto txtLn28 = new Texto(txtLn41.getX(), txtLn41.getY() + 34, "||      ||===========================================||      ||");
+	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em ataques com interferência   _||      ||");
+	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
+	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em ataques sem interferência   _||      ||");
+	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
+	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em ataque físico                       _||      ||");
+	private Texto txtLn34 = new Texto(txtLn28.getX(), txtLn33.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
+	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em ataque com efeito               _||      ||");
+	private Texto txtLn36 = new Texto(txtLn28.getX(), txtLn35.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
+	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em podere sem interferência     -||      ||");
+	private Texto txtLn38 = new Texto(txtLn28.getX(), txtLn37.getY() + 25, "||      ||===========================================||      ||");
+	private Texto txtLn42 = new Texto(txtLn28.getX(), txtLn38.getY() + 34, "||      ||===========================================||      ||");
+	private Texto txtLn43 = new Texto(txtLn28.getX(), txtLn42.getY() + 34, "||___||                                                                                       ||___||");
+
 	
 	
 	public Manual () {
@@ -214,21 +320,70 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao2 = new Texto(textoDescricao1.getX(), textoDescricao1.getY() + 28, " ");
 		textoDescricao3 = new Texto(textoDescricao2.getX(), textoDescricao2.getY() + 28, " ");
 		textoDescricao4 = new Texto(textoDescricao3.getX(), textoDescricao3.getY() + 28, " ");
-		textoDescricao5 = new Texto(textoDescricao4.getX() + 248, textoDescricao4.getY() + 18, "Este poder afeta o primeiro colocado.");
+		textoDescricao5 = new Texto(textoDescricao4.getX() + 238, textoDescricao4.getY() + 18, "Este poder afeta o primeiro colocado.");
 
 		textoDescricao1.setFonte(new Font("Arial", Font.PLAIN, 20));
 		textoDescricao2.setFonte(textoDescricao1.getFonte());
 		textoDescricao3.setFonte(textoDescricao1.getFonte());
 		textoDescricao4.setFonte(textoDescricao1.getFonte());
-		textoDescricao5.setFonte(textoDescricao1.getFonte());
+		textoDescricao5.setFonte(new Font("Arial", Font.PLAIN, 21));
 		
-		textoDescricao1.setCorTexto(new Color (235, 230, 233));
-		textoDescricao5.setCorTexto(new Color (189, 0, 4));
+		textoDescricao1.setCorTexto(new Color (93, 1, 28));
+		textoDescricao5.setCorTexto(new Color (130, 86, 243));
 		
+		// ----------------------------------- campo batalha -----------------------------------
 		
+		campoBatalha1.load("res\\batalha\\campoBatalha.png");
+		campoBatalha2.load("res\\batalha\\campoBatalha.png");
+		campoBatalha3.load("res\\batalha\\campoBatalha.png");
+		campoBatalha4.load("res\\batalha\\campoBatalha.png");
+		campoBatalha5.load("res\\batalha\\campoBatalha.png");
 		
+		efeitoFase.setImagem(null);
 		
+		setaCampoBatalha.load("res\\Manual\\teclaDireita.png");
 		
+		iconeCampoBatalha1.load("res\\batalha\\Ignis\\iconeCampoBatalha.png");
+		iconeCampoBatalha2.load("res\\batalha\\Ayla\\iconeCampoBatalha.png");
+		iconeCampoBatalha3.load("res\\batalha\\Rexthor\\iconeCampoBatalha.png");
+		iconeCampoBatalha4.load("res\\batalha\\Kiki\\iconeCampoBatalha.png");
+		iconeCampoBatalha5.load("res\\batalha\\Arius\\iconeCampoBatalha.png");
+				
+		seletorAventureiro.load("res\\batalha\\seletorAventureiro.png");
+
+		coracao01.load("res\\batalha\\apelo.png");
+		coracao02.load("res\\batalha\\apelo.png");
+		coracao03.load("res\\batalha\\apelo.png");
+		coracao04.load("res\\batalha\\apelo.png");
+		coracao05.load("res\\batalha\\apelo.png");
+		
+		apagarCoracoes();
+		
+		// ----------------------- Tabela de efeito de chefe -----------------------------------
+
+		txtLn27.setFonte(new Font("Arial", Font.BOLD, 30));
+		txtLn28.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn29.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn30.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn31.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn32.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn33.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn34.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn35.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn36.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn37.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn38.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn41.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn42.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn43.setFonte(new Font("Arial", Font.PLAIN, 18));
+		
+		// ----------------------- Considerações finais -----------------------------------
+		
+		txtLn39.setFonte(new Font("Arial", Font.PLAIN, 22));
+		txtLn40.setFonte(new Font("Arial", Font.PLAIN, 22));
+		
+		// ------------------------------------------------------------------------------
+
 		
 		timer = new Timer(5, this);
 		timer.start();
@@ -356,16 +511,129 @@ public class Manual extends JPanel implements ActionListener {
 		
 	}
 	
+	public void AnimarCampoBatalha() {
+		contTempoCampoBatalha ++;
+		
+		if(contTempoCampoBatalha == 820) {
+			contTempoCampoBatalha = -20;
+			apagarCoracoes();
+			setaCampoBatalha.setY(campoBatalha1.getY() + 70/2 - 23/2);
+			
+			coracao01.setX(campoBatalha1.getX() + 100);
+			coracao02.setX(campoBatalha2.getX() + 100);
+			coracao03.setX(campoBatalha3.getX() + 100);
+			coracao04.setX(campoBatalha4.getX() + 100);
+			coracao05.setX(campoBatalha5.getX() + 100);
+		}
+		
+		for(int i=1; i<8; i++) {
+			if(contTempoCampoBatalha == i * 100) {
+				setaCampoBatalha.setY((i == 1 ? campoBatalha2 : (i == 2 ? campoBatalha3 : (i == 3 ? campoBatalha3 : (i == 4 ? campoBatalha4 : campoBatalha5)))).getY() + 70/2 - 23/2);
+			}
+		}
+		
+		for(int i=1; i<6; i++) {
+			if(contTempoCampoBatalha == i * 10) {
+				(i == 1 ? coracao11 : coracao12).load("res\\batalha\\apelo.png");
+			} 
+		}
+		
+		for(int i=1; i<6; i++) {
+			if(contTempoCampoBatalha == i * 10 + 100) {
+				(i == 1 ? coracao21 : (i == 2 ? coracao22 : coracao23)).load("res\\batalha\\apelo.png");
+			} 
+		}
+		
+		for(int i=1; i<7; i++) {
+			if(contTempoCampoBatalha == i * 10 + 200) {
+				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : (i == 4 ? coracao34 : (i == 5 ? coracao35 : coracao36))))).load("res\\batalha\\apelo.png");
+			} 
+		}
+		
+		if(contTempoCampoBatalha == 290) {
+			txtEfeitoFase.setY(campoBatalha3.getY() + 70/2 + 20/2);
+			efeitoFase.setY(txtEfeitoFase.getY() - 17);
+			txtEfeitoFase.setTexto("- 2");
+			efeitoFase.load("res\\batalha\\apelo.png");
+			
+		} else if(contTempoCampoBatalha == 340) {
+			txtEfeitoFase.setTexto(" ");
+			efeitoFase.setImagem(null);
+		}
+		
+		for(int i=5; i<7; i++) {
+			if(contTempoCampoBatalha == i * 10 + 300) {
+				(i == 5 ? coracao36 : coracao35).setImagem(null);
+			} 
+		}
+		
+		for(int i=1; i<7; i++) {
+			if(contTempoCampoBatalha == i * 10 + 400) {
+				(i == 1 ? coracao41 : (i == 2 ? coracao42 : (i == 3 ? coracao43 : coracao44))).load("res\\batalha\\apelo.png");
+			} 
+		}
+		
+		if(contTempoCampoBatalha == 450) {
+			txtEfeitoFase.setY(campoBatalha4.getY() + 70/2 + 20/2);
+			efeitoFase.setY(txtEfeitoFase.getY() - 17);
+			txtEfeitoFase.setTexto("+ 1");
+			efeitoFase.load("res\\batalha\\apelo.png");
+			
+		} else if(contTempoCampoBatalha == 480) {
+			txtEfeitoFase.setTexto(" ");
+			efeitoFase.setImagem(null);
+		}
+
+		if(contTempoCampoBatalha == 490) {
+			coracao45.load("res\\batalha\\apelo.png");
+		} 
+		
+		for(int i=1; i<6; i++) {
+			if(contTempoCampoBatalha == i * 10 + 500) {
+				(i == 1 ? coracao51 : (i == 2 ? coracao52 : (i == 3 ? coracao53 : (i == 4 ? coracao54 : coracao55)))).load("res\\batalha\\apelo.png");
+			} 
+		}
+		
+		for(int i=1; i<5; i++) {
+			if(contTempoCampoBatalha == i * 20 + 600) {
+				(i == 1 ? coracao12 : (i == 2 ? coracao23 : (i == 3 ? coracao34 : coracao45))).setImagem(null);
+			} 
+		}
+		
+		for(int i=2; i<7; i++) {
+			if(contTempoCampoBatalha == (i-1) * 20 + 700) {
+				(i == 2 ? coracao01 : (i == 3 ? coracao02 : (i == 4 ? coracao03 : (i == 5 ? coracao04 : coracao05)))).setX((i == 2 ? campoBatalha1 : (i == 3 ? campoBatalha2 : (i == 4 ? campoBatalha3 : (i == 5 ? campoBatalha4 : campoBatalha5)))).getX() + 100 + (4 * i));
+			}
+		}
+	}
+	
+	public void apagarCoracoes() {
+		coracao11.setImagem(null); coracao12.setImagem(null); coracao13.setImagem(null); coracao14.setImagem(null); coracao15.setImagem(null);
+		coracao16.setImagem(null); coracao17.setImagem(null); coracao18.setImagem(null); coracao19.setImagem(null); coracao110.setImagem(null);
+		
+		coracao21.setImagem(null); coracao22.setImagem(null); coracao23.setImagem(null); coracao24.setImagem(null); coracao25.setImagem(null);
+		coracao26.setImagem(null); coracao27.setImagem(null); coracao28.setImagem(null); coracao29.setImagem(null); coracao210.setImagem(null);
+		
+		coracao31.setImagem(null); coracao32.setImagem(null); coracao33.setImagem(null); coracao34.setImagem(null); coracao35.setImagem(null);
+		coracao36.setImagem(null); coracao37.setImagem(null); coracao38.setImagem(null); coracao39.setImagem(null); coracao310.setImagem(null);
+		
+		coracao41.setImagem(null); coracao42.setImagem(null); coracao43.setImagem(null); coracao44.setImagem(null); coracao45.setImagem(null);
+		coracao46.setImagem(null); coracao47.setImagem(null); coracao48.setImagem(null); coracao49.setImagem(null); coracao410.setImagem(null);
+		
+		coracao51.setImagem(null); coracao52.setImagem(null); coracao53.setImagem(null); coracao54.setImagem(null); coracao55.setImagem(null);
+		coracao56.setImagem(null); coracao57.setImagem(null); coracao58.setImagem(null); coracao59.setImagem(null); coracao510.setImagem(null);
+	}
+	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		
 		int codigo = tecla.getKeyCode();
 		
-		if(codigo == KeyEvent.VK_DOWN) {
-			rolagemTela = rolagemTela - 4;
+		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1550) {
+			rolagemTela = rolagemTela - 5;
 			bntBarraBaixo.load("res\\Manual\\teclaBaixo2.png");
 			
 		}else if(codigo == KeyEvent.VK_UP && rolagemTela < 0) {
-			rolagemTela = rolagemTela + 4;
+			rolagemTela = rolagemTela + 5;
 			bntBarraCima.load("res\\Manual\\teclaCima2.png");
 
 		}else if(codigo == KeyEvent.VK_X) {
@@ -538,15 +806,162 @@ public class Manual extends JPanel implements ActionListener {
 	    tl25.draw(graficos, textoDescricao4.getX(), textoDescricao4.getY() + rolagemTela);
 	    graficos.setColor(textoDescricao5.getCorTexto());
 	    tl26.draw(graficos, textoDescricao5.getX(), textoDescricao5.getY() + rolagemTela);
-	    graficos.setColor(Color.BLACK);
+	    graficos.setColor(txtLn1.getCorTexto());
+	    
+		// ----------------------- campo batalha -----------------------------------
+
+	    tl27 = new TextLayout(txtLn16.getTexto(), txtLn16.getFonte(), frc);
+	    tl28 = new TextLayout(txtLn17.getTexto(), txtLn17.getFonte(), frc);
+	    tl29 = new TextLayout(txtLn18.getTexto(), txtLn18.getFonte(), frc);
+	    tl30 = new TextLayout(txtLn19.getTexto(), txtLn19.getFonte(), frc);
+	    tl31 = new TextLayout(txtLn20.getTexto(), txtLn20.getFonte(), frc);
+	    tl32 = new TextLayout(txtLn21.getTexto(), txtLn21.getFonte(), frc);
+	    tl33 = new TextLayout(txtLn22.getTexto(), txtLn22.getFonte(), frc);
+	    tl34 = new TextLayout(txtLn23.getTexto(), txtLn23.getFonte(), frc);
+	    tl35 = new TextLayout(txtLn24.getTexto(), txtLn24.getFonte(), frc);
+	    tl36 = new TextLayout(txtLn25.getTexto(), txtLn25.getFonte(), frc);
+	    tl37 = new TextLayout(txtLn26.getTexto(), txtLn26.getFonte(), frc);
+
+	    tl27.draw(graficos, txtLn16.getX(), txtLn16.getY() + rolagemTela);
+	    tl28.draw(graficos, txtLn17.getX(), txtLn17.getY() + rolagemTela);
+	    tl29.draw(graficos, txtLn18.getX(), txtLn18.getY() + rolagemTela);
+	    tl30.draw(graficos, txtLn19.getX(), txtLn19.getY() + rolagemTela);
+	    tl31.draw(graficos, txtLn20.getX(), txtLn20.getY() + rolagemTela);
+	    tl32.draw(graficos, txtLn21.getX(), txtLn21.getY() + rolagemTela);
+	    tl33.draw(graficos, txtLn22.getX(), txtLn22.getY() + rolagemTela);
+	    tl34.draw(graficos, txtLn23.getX(), txtLn23.getY() + rolagemTela);
+	    tl35.draw(graficos, txtLn24.getX(), txtLn24.getY() + rolagemTela);
+	    tl36.draw(graficos, txtLn25.getX(), txtLn25.getY() + rolagemTela);
+	    tl37.draw(graficos, txtLn26.getX(), txtLn26.getY() + rolagemTela);
+	    
+	    graficos.drawImage(campoBatalha1.getImagem(), campoBatalha1.getX(), campoBatalha1.getY() + rolagemTela, this);
+		graficos.drawImage(campoBatalha2.getImagem(), campoBatalha2.getX(), campoBatalha2.getY() + rolagemTela, this);
+		graficos.drawImage(campoBatalha3.getImagem(), campoBatalha3.getX(), campoBatalha3.getY() + rolagemTela, this);
+		graficos.drawImage(campoBatalha4.getImagem(), campoBatalha4.getX(), campoBatalha4.getY() + rolagemTela, this);
+		graficos.drawImage(campoBatalha5.getImagem(), campoBatalha5.getX(), campoBatalha5.getY() + rolagemTela, this);
 		
+		graficos.drawImage(setaCampoBatalha.getImagem(), setaCampoBatalha.getX(), setaCampoBatalha.getY() + rolagemTela, this);
+		
+		graficos.drawImage(iconeCampoBatalha1.getImagem(), iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() + rolagemTela, this);
+		graficos.drawImage(iconeCampoBatalha2.getImagem(), iconeCampoBatalha2.getX(), iconeCampoBatalha2.getY() + rolagemTela, this);
+		graficos.drawImage(iconeCampoBatalha3.getImagem(), iconeCampoBatalha3.getX(), iconeCampoBatalha3.getY() + rolagemTela, this);
+		graficos.drawImage(iconeCampoBatalha4.getImagem(), iconeCampoBatalha4.getX(), iconeCampoBatalha4.getY() + rolagemTela, this);
+		graficos.drawImage(iconeCampoBatalha5.getImagem(), iconeCampoBatalha5.getX(), iconeCampoBatalha5.getY() + rolagemTela, this);
+		
+		tl38 = new TextLayout(txtEfeitoFase.getTexto(), txtEfeitoFase.getFonte(), frc);
+	    tl38.draw(graficos, txtEfeitoFase.getX(), txtEfeitoFase.getY() + rolagemTela);
+	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY() + rolagemTela, this);
+
+		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY() + rolagemTela, this);
+		
+		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY() + rolagemTela, this);
+		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY() + rolagemTela, this);
+		graficos.drawImage(coracao03.getImagem(), coracao03.getX(), coracao03.getY() + rolagemTela, this);
+		graficos.drawImage(coracao04.getImagem(), coracao04.getX(), coracao04.getY() + rolagemTela, this);
+		graficos.drawImage(coracao05.getImagem(), coracao05.getX(), coracao05.getY() + rolagemTela, this);
+
+		graficos.drawImage(coracao11.getImagem(), coracao11.getX(), coracao11.getY() + rolagemTela, this);
+		graficos.drawImage(coracao12.getImagem(), coracao12.getX(), coracao12.getY() + rolagemTela, this);
+		graficos.drawImage(coracao13.getImagem(), coracao13.getX(), coracao13.getY() + rolagemTela, this);
+		graficos.drawImage(coracao14.getImagem(), coracao14.getX(), coracao14.getY() + rolagemTela, this);
+		graficos.drawImage(coracao15.getImagem(), coracao15.getX(), coracao15.getY() + rolagemTela, this);
+		graficos.drawImage(coracao16.getImagem(), coracao16.getX(), coracao16.getY() + rolagemTela, this);
+		graficos.drawImage(coracao17.getImagem(), coracao17.getX(), coracao17.getY() + rolagemTela, this);
+		graficos.drawImage(coracao18.getImagem(), coracao18.getX(), coracao18.getY() + rolagemTela, this);
+		graficos.drawImage(coracao19.getImagem(), coracao19.getX(), coracao19.getY() + rolagemTela, this);
+		graficos.drawImage(coracao110.getImagem(), coracao110.getX(), coracao110.getY() + rolagemTela, this);
+		
+		graficos.drawImage(coracao21.getImagem(), coracao21.getX(), coracao21.getY() + rolagemTela, this);
+		graficos.drawImage(coracao22.getImagem(), coracao22.getX(), coracao22.getY() + rolagemTela, this);
+		graficos.drawImage(coracao23.getImagem(), coracao23.getX(), coracao23.getY() + rolagemTela, this);
+		graficos.drawImage(coracao24.getImagem(), coracao24.getX(), coracao24.getY() + rolagemTela, this);
+		graficos.drawImage(coracao25.getImagem(), coracao25.getX(), coracao25.getY() + rolagemTela, this);
+		graficos.drawImage(coracao26.getImagem(), coracao26.getX(), coracao26.getY() + rolagemTela, this);
+		graficos.drawImage(coracao27.getImagem(), coracao27.getX(), coracao27.getY() + rolagemTela, this);
+		graficos.drawImage(coracao28.getImagem(), coracao28.getX(), coracao28.getY() + rolagemTela, this);
+		graficos.drawImage(coracao29.getImagem(), coracao29.getX(), coracao29.getY() + rolagemTela, this);
+		graficos.drawImage(coracao210.getImagem(), coracao210.getX(), coracao210.getY() + rolagemTela, this);
+		
+		graficos.drawImage(coracao31.getImagem(), coracao31.getX(), coracao31.getY() + rolagemTela, this);
+		graficos.drawImage(coracao32.getImagem(), coracao32.getX(), coracao32.getY() + rolagemTela, this);
+		graficos.drawImage(coracao33.getImagem(), coracao33.getX(), coracao33.getY() + rolagemTela, this);
+		graficos.drawImage(coracao34.getImagem(), coracao34.getX(), coracao34.getY() + rolagemTela, this);
+		graficos.drawImage(coracao35.getImagem(), coracao35.getX(), coracao35.getY() + rolagemTela, this);
+		graficos.drawImage(coracao36.getImagem(), coracao36.getX(), coracao36.getY() + rolagemTela, this);
+		graficos.drawImage(coracao37.getImagem(), coracao37.getX(), coracao37.getY() + rolagemTela, this);
+		graficos.drawImage(coracao38.getImagem(), coracao38.getX(), coracao38.getY() + rolagemTela, this);
+		graficos.drawImage(coracao39.getImagem(), coracao39.getX(), coracao39.getY() + rolagemTela, this);
+		graficos.drawImage(coracao310.getImagem(), coracao310.getX(), coracao310.getY() + rolagemTela, this);
+		
+		graficos.drawImage(coracao41.getImagem(), coracao41.getX(), coracao41.getY() + rolagemTela, this);
+		graficos.drawImage(coracao42.getImagem(), coracao42.getX(), coracao42.getY() + rolagemTela, this);
+		graficos.drawImage(coracao43.getImagem(), coracao43.getX(), coracao43.getY() + rolagemTela, this);
+		graficos.drawImage(coracao44.getImagem(), coracao44.getX(), coracao44.getY() + rolagemTela, this);
+		graficos.drawImage(coracao45.getImagem(), coracao45.getX(), coracao45.getY() + rolagemTela, this);
+		graficos.drawImage(coracao46.getImagem(), coracao46.getX(), coracao46.getY() + rolagemTela, this);
+		graficos.drawImage(coracao47.getImagem(), coracao47.getX(), coracao47.getY() + rolagemTela, this);
+		graficos.drawImage(coracao48.getImagem(), coracao48.getX(), coracao48.getY() + rolagemTela, this);
+		graficos.drawImage(coracao49.getImagem(), coracao49.getX(), coracao49.getY() + rolagemTela, this);
+		graficos.drawImage(coracao410.getImagem(), coracao410.getX(), coracao410.getY() + rolagemTela, this);
+		
+		graficos.drawImage(coracao51.getImagem(), coracao51.getX(), coracao51.getY() + rolagemTela, this);
+		graficos.drawImage(coracao52.getImagem(), coracao52.getX(), coracao52.getY() + rolagemTela, this);
+		graficos.drawImage(coracao53.getImagem(), coracao53.getX(), coracao53.getY() + rolagemTela, this);
+		graficos.drawImage(coracao54.getImagem(), coracao54.getX(), coracao54.getY() + rolagemTela, this);
+		graficos.drawImage(coracao55.getImagem(), coracao55.getX(), coracao55.getY() + rolagemTela, this);
+		graficos.drawImage(coracao56.getImagem(), coracao56.getX(), coracao56.getY() + rolagemTela, this);
+		graficos.drawImage(coracao57.getImagem(), coracao57.getX(), coracao57.getY() + rolagemTela, this);
+		graficos.drawImage(coracao58.getImagem(), coracao58.getX(), coracao58.getY() + rolagemTela, this);
+		graficos.drawImage(coracao59.getImagem(), coracao59.getX(), coracao59.getY() + rolagemTela, this);
+		graficos.drawImage(coracao510.getImagem(), coracao510.getX(), coracao510.getY() + rolagemTela, this);
+		
+		// ----------------------- Tabela de efeito de chefe -----------------------------------
+
+		tl39 = new TextLayout(txtLn27.getTexto(), txtLn27.getFonte(), frc);
+	    tl40 = new TextLayout(txtLn28.getTexto(), txtLn28.getFonte(), frc);
+	    tl41 = new TextLayout(txtLn29.getTexto(), txtLn29.getFonte(), frc);
+	    tl42 = new TextLayout(txtLn30.getTexto(), txtLn30.getFonte(), frc);
+	    tl43 = new TextLayout(txtLn31.getTexto(), txtLn31.getFonte(), frc);
+	    tl44 = new TextLayout(txtLn32.getTexto(), txtLn32.getFonte(), frc);
+	    tl45 = new TextLayout(txtLn33.getTexto(), txtLn33.getFonte(), frc);
+	    tl46 = new TextLayout(txtLn34.getTexto(), txtLn34.getFonte(), frc);
+	    tl47 = new TextLayout(txtLn35.getTexto(), txtLn35.getFonte(), frc);
+	    tl48 = new TextLayout(txtLn36.getTexto(), txtLn36.getFonte(), frc);
+	    tl49 = new TextLayout(txtLn37.getTexto(), txtLn37.getFonte(), frc);
+	    tl50 = new TextLayout(txtLn38.getTexto(), txtLn38.getFonte(), frc);
+	    tl53 = new TextLayout(txtLn41.getTexto(), txtLn41.getFonte(), frc);
+	    tl54 = new TextLayout(txtLn42.getTexto(), txtLn42.getFonte(), frc);
+	    tl55 = new TextLayout(txtLn43.getTexto(), txtLn43.getFonte(), frc);
+
+	    tl39.draw(graficos, txtLn27.getX(), txtLn27.getY() + rolagemTela);
+	    tl40.draw(graficos, txtLn28.getX(), txtLn28.getY() + rolagemTela);
+	    tl41.draw(graficos, txtLn29.getX(), txtLn29.getY() + rolagemTela);
+	    tl42.draw(graficos, txtLn30.getX(), txtLn30.getY() + rolagemTela);
+	    tl43.draw(graficos, txtLn31.getX(), txtLn31.getY() + rolagemTela);
+	    tl44.draw(graficos, txtLn32.getX(), txtLn32.getY() + rolagemTela);
+	    tl45.draw(graficos, txtLn33.getX(), txtLn33.getY() + rolagemTela);
+	    tl46.draw(graficos, txtLn34.getX(), txtLn34.getY() + rolagemTela);
+	    tl47.draw(graficos, txtLn35.getX(), txtLn35.getY() + rolagemTela);
+	    tl48.draw(graficos, txtLn36.getX(), txtLn36.getY() + rolagemTela);
+	    tl49.draw(graficos, txtLn37.getX(), txtLn37.getY() + rolagemTela);
+	    tl50.draw(graficos, txtLn38.getX(), txtLn38.getY() + rolagemTela);
+	    tl53.draw(graficos, txtLn41.getX(), txtLn41.getY() + rolagemTela);
+	    tl54.draw(graficos, txtLn42.getX(), txtLn42.getY() + rolagemTela);
+	    tl55.draw(graficos, txtLn43.getX(), txtLn43.getY() + rolagemTela);
+
+
+		// ----------------------- Considerações finais -----------------------------------
+
+	    tl51 = new TextLayout(txtLn39.getTexto(), txtLn39.getFonte(), frc);
+	    tl52 = new TextLayout(txtLn40.getTexto(), txtLn40.getFonte(), frc);
+		
+	    tl51.draw(graficos, txtLn39.getX(), txtLn39.getY() + rolagemTela);
+	    tl52.draw(graficos, txtLn40.getX(), txtLn40.getY() + rolagemTela);
+	    
 		/* ------------------------------- Barra de rolagem ---------------------------------*/
 
 		graficos.drawImage(bntBarraBaixo.getImagem(), bntBarraBaixo.getX(), bntBarraBaixo.getY(), this);
 		graficos.drawImage(bntBarraCima.getImagem(), bntBarraCima.getX(), bntBarraCima.getY(), this);
-		
-		
-		
 		
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
@@ -561,6 +976,7 @@ public class Manual extends JPanel implements ActionListener {
 		AnimarNomeApelo();
 		AnimarInfoApelo();
 		AnimarDescricao();
+		AnimarCampoBatalha();
 		
 		repaint();
 		
