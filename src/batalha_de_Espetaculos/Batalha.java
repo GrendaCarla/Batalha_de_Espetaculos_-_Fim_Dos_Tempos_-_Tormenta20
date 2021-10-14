@@ -98,25 +98,38 @@ public class Batalha extends JPanel implements ActionListener {
 											 kiki.getConteudoDescricao(0), kiki.getConteudoDescricao(1), kiki.getConteudoDescricao(2), kiki.getConteudoDescricao(3),
 											arius.getConteudoDescricao(0), arius.getConteudoDescricao(1), arius.getConteudoDescricao(2), arius.getConteudoDescricao(3)};
 
-	//									   posição aventu,    apelo atual      apelo gerado      dano dado      efeito do dano   pontos atuais   poder anterior usado   tipo do ataque
-	private int [][] matrizAventureiros = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {-1, -1, -1, -1, -1}, {0, 0, 0, 0, 0}}; 
+	//									   posição aventu,*    apelo total*      apelo gerado*      dano dado*     efeito do dano*   pontos atuais*   poder anterior usado   tipo do ataque*
+	//private int [][] matrizAventureiros = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {-1, -1, -1, -1, -1}, {0, 0, 0, 0, 0}}; 
 	
+	private int [] ordemAventVerdadeira = {0, 0, 0, 0, 0};
+	private int [] ordemAventRodada = {0, 0, 0, 0, 0};
+	private int [] valorApelo = {0, 0, 0, 0, 0};
+	private int [] valorInterferencia = {0, 0, 0, 0, 0};
+	private int [] tipoInterferencia = {-1, -1, -1, -1, -1};
+	private int [] tipoAtaque = {0, 0, 0, 0, 0};
 	//quantidade interferência q recebem de cada um  ignis             ayla            rexthor           kiki            arius
 	private int [][] interferenciasRecebidas = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
-
+	private int [] pontosRodada = {0, 0, 0, 0, 0};
+	private int [] pontosAtuaisDaRodada = {0, 0, 0, 0, 0};
+	//										ignis              ayla            rexthor           kiki            arius
+	private int [][] numeroDosAtaques = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
+	private int [] pontosTotais = {0, 0, 0, 0, 0};
+	
+	private int contEtapasBatalha = 0; // conta em que rodada esta
+	
+	
 	private int [] apeloRepetido = {0, 0, 0, 0, 0};
 	
-	private boolean [] somaDeApelo = {false, false, false, false, false};
 	
 	 //       						dano, efeito, posicaoNaLista
-	private int [] valoresInterferencia = {-1,-1,-1};
+	private int [] valorESDaInterferencia = {-1,-1,-1};
 	
 	private int aventureiro;
 	private int adversario;
 	private int posicaoAventureiro;
 	int vezDoAventureiro = 0;
 	
-	private int contEtapasBatalha = 0;
+	
 	
 	private int TerminouLoopEfeitoInterf = 0;
 	
@@ -152,7 +165,7 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	// ------------------------------------------- animação ----------------------------------------
 
-	private int intervaloAnimacao = 5; //10;
+	private int intervaloAnimacao = 5;
 	private int intervaloAnimacaoGif = 100; //200;
 	
 	private int comecarAnimacaoCoracao = 0;
@@ -281,8 +294,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
 	
 	// ------------------------------------------- d20 ----------------------------------------
-
-	private int [] dados = {0, 0, 0, 0, 0};
+	//                            Rexthor           Arius
+	private int [][] dados = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
 	private boolean vezDados = false;
 	
 	private Icones_interativos imgDado1 = new Icones_interativos(tamanhoContorno + 760/2 - 578/2, tamanhoContorno + 30);
@@ -367,19 +380,19 @@ public class Batalha extends JPanel implements ActionListener {
 		for(int i=0; i<4; i++) {
 			switch (aventureiro) {
 				case 0:
-					matrizAventureiros[7][i] = apeloIgnis[3][i];
+					tipoAtaque[i] = apeloIgnis[3][i];
 					break;
 				case 1:
-					matrizAventureiros[7][i] = apeloAyla[3][i];
+					tipoAtaque[i] = apeloAyla[3][i];
 					break;
 				case 2:
-					matrizAventureiros[7][i] = apeloRexthor[3][i];
+					tipoAtaque[i] = apeloRexthor[3][i];
 					break;
 				case 3:
-					matrizAventureiros[7][i] = apeloKiki[3][i];
+					tipoAtaque[i] = apeloKiki[3][i];
 					break;
 				case 4:
-					matrizAventureiros[7][i] = apeloArius[3][i];
+					tipoAtaque[i] = apeloArius[3][i];
 					break;
 			}
 		}
@@ -431,7 +444,7 @@ public class Batalha extends JPanel implements ActionListener {
 	        telaMenu.valorLeituraSave = salvar.LerDados();
 	        telaMenu.Restaurar();
 	        janelaPrincipal.revalidate();
-	        
+	        timer.stop();
 		}
 	}
 	
@@ -471,7 +484,7 @@ public class Batalha extends JPanel implements ActionListener {
 			txtDialogoAviso.setTexto("Se você voltar a luta será encerrada.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
-		}else if (codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) {
+		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && contMenu == 2 && dialogoAviso.getImagem() != null) {
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
 			
 			bntSimDialogoAviso.load("res\\Menu\\bntsim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
@@ -493,7 +506,9 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.remove(this);
 	        janelaPrincipal.add(tela2);
 	        janelaPrincipal.setTitle("Escolha de Adversário");
+	        tela2.LimparTela3();
 	        janelaPrincipal.revalidate();
+	        timer.stop();
 		}
 	}
 	
@@ -502,7 +517,7 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void itensDoApelo() {
-		tipoDoApelo.load("res\\batalha\\" + (matrizAventureiros[7][selecaoNomeHab] == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
+		tipoDoApelo.load("res\\batalha\\" + (tipoAtaque[aventureiro] == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
 		
 		apeloApelo1.setImagem(null); apeloApelo2.setImagem(null); apeloApelo3.setImagem(null); apeloApelo4.setImagem(null); apeloApelo5.setImagem(null);
 		apeloApelo6.setImagem(null); apeloApelo7.setImagem(null); apeloApelo8.setImagem(null); apeloApelo9.setImagem(null); apeloApelo10.setImagem(null);
@@ -675,122 +690,166 @@ public class Batalha extends JPanel implements ActionListener {
 				// --------------------------- pega todas as informações iniciais e coloca as informações de cada cão --------------------
 				for(int i=0; i<5;i++) {
 				
-					matrizAventureiros[2][i] = (matrizAventureiros[0][i] == 0 ? apeloIgnis : (matrizAventureiros[0][i] == 1 ? apeloAyla : (matrizAventureiros[0][i] == 2 ? apeloRexthor : (matrizAventureiros[0][i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					matrizAventureiros[3][i] = (matrizAventureiros[0][i] == 0 ? apeloIgnis : (matrizAventureiros[0][i] == 1 ? apeloAyla : (matrizAventureiros[0][i] == 2 ? apeloRexthor : (matrizAventureiros[0][i] == 3 ? apeloKiki : apeloArius))))[1][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					matrizAventureiros[4][i] = (matrizAventureiros[0][i] == 0 ? apeloIgnis : (matrizAventureiros[0][i] == 1 ? apeloAyla : (matrizAventureiros[0][i] == 2 ? apeloRexthor : (matrizAventureiros[0][i] == 3 ? apeloKiki : apeloArius))))[2][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					matrizAventureiros[5][i] = (matrizAventureiros[0][i] == 0 ? apeloIgnis : (matrizAventureiros[0][i] == 1 ? apeloAyla : (matrizAventureiros[0][i] == 2 ? apeloRexthor : (matrizAventureiros[0][i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab] + matrizAventureiros[5][i];
+					ordemAventRodada[i] = (i == ordemAventVerdadeira[0] ? 0 : (i == ordemAventVerdadeira[1] ? 1  : (i == ordemAventVerdadeira[2] ? 2  : (i == ordemAventVerdadeira[3] ? 3  : 4))));
+					valorApelo[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					valorInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[1][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					tipoInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[2][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					pontosRodada[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab] + pontosRodada[i];
 					
-					apeloRepetido[i] = (matrizAventureiros[6][i] == (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab) ? 1 : 0);
+					if(contEtapasBatalha > 1) {
+						apeloRepetido[ordemAventRodada[i]] = (numeroDosAtaques[contEtapasBatalha-1][ordemAventRodada[i]] == (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab) ? 1 : 0);
+					} else {
+						apeloRepetido[ordemAventRodada[i]] = 0;
+					}
 					
-					matrizAventureiros[6][i] = (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab);
-					matrizAventureiros[7][i] = (matrizAventureiros[0][i] == 0 ? apeloIgnis : (matrizAventureiros[0][i] == 1 ? apeloAyla : (matrizAventureiros[0][i] == 1 ? apeloRexthor : (matrizAventureiros[0][i] == 1 ? apeloKiki : apeloArius))))[3][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					numeroDosAtaques[contEtapasBatalha][ordemAventRodada[i]] = (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab);
+					tipoAtaque[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 1 ? apeloRexthor : (ordemAventRodada[i] == 1 ? apeloKiki : apeloArius))))[3][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
 					
 					// ------------------ coloca o dano de -2 no apelo atual da rodada se a habilidade for repetida -------------
-					if(apeloRepetido[i] == 1) {
-						matrizAventureiros[5][i] = matrizAventureiros[5][i] - 2;
+					if(apeloRepetido[ordemAventRodada[i]] == 1) {
+						for(int i2=1; i2<=5; i2++) {
+							if(contEtapasBatalha - i2 > 0 && numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 1 - i2][ordemAventRodada[i]]) {
+								pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 2;
+							} else {
+								break;
+							}
+						}
 					}
 					
 					// ------------- coloca o dano de -1 no apelo atual da rodada se a habilidade conflitar com o efeitodo chefe da fase ----------------
-					if((adversario == 0 && matrizAventureiros[4][i] != -1) || (adversario == 1 && matrizAventureiros[4][i] == -1) || (adversario == 2 && matrizAventureiros[7][i] == 1) || (adversario == 3 && matrizAventureiros[4][i] != -1) || (adversario == 4 && matrizAventureiros[4][i] == -1)) {
-						efeitoChefeDeFase[i] = 1;
+					if((adversario == 0 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 1 && tipoInterferencia[ordemAventRodada[i]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[i]] == 1) || (adversario == 3 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 4 && tipoInterferencia[ordemAventRodada[i]] == -1)) {
+						efeitoChefeDeFase[ordemAventRodada[i]] = 1;
 						
 						if(adversario == 0 || adversario == 1) {
-							matrizAventureiros[5][i] --;
+							pontosRodada[ordemAventRodada[i]] --;
 						}
 						else {
-							matrizAventureiros[5][i] ++;
+							pontosRodada[ordemAventRodada[i]] ++;
 						}
 					}
 				}
 				
 				// --------------------------- subtrair efeito ----------------------------------
 				
-				for(int i=0; i<5; i++) {
-					
+				for(int i3=0; i3<5; i3++) {
+							
 					//0: todos acima
-					if(matrizAventureiros[4][i] == 0 ) {
-						if(i > 0) {
-							matrizAventureiros[5][0] = matrizAventureiros[5][0] - matrizAventureiros[3][i];
-							if(i > 1) {
-								 matrizAventureiros[5][1] = matrizAventureiros[5][1] - matrizAventureiros[3][i];
-								 if(i > 2) {
-									 matrizAventureiros[5][2] = matrizAventureiros[5][2] - matrizAventureiros[3][i];
-									 if(i > 3) {
-										 matrizAventureiros[5][3] = matrizAventureiros[5][3] - matrizAventureiros[3][i];
-					}}}}}
-					
-					//1: todos abaixo
-					if(matrizAventureiros[4][i] == 1 ) {
-						if(i < 4) {
-							matrizAventureiros[5][4] = matrizAventureiros[5][4] - matrizAventureiros[3][i];
-							if(i < 3) {
-								matrizAventureiros[5][3] = matrizAventureiros[5][3] - matrizAventureiros[3][i];
-								if(i < 2) {
-									matrizAventureiros[5][2] = matrizAventureiros[5][2] - matrizAventureiros[3][i];
-									if(i == 1) {
-										matrizAventureiros[5][1] = matrizAventureiros[5][1] - matrizAventureiros[3][i];
-					}}}}}
-					
-					//2: um acima,
-					if(matrizAventureiros[4][i] == 2 ) {
-						switch (i) {
-							case 1:
-								matrizAventureiros[5][0] = matrizAventureiros[5][0] - matrizAventureiros[3][i];
+					if(tipoInterferencia[ordemAventRodada[i3]] == 0) {
+						
+						for(int i2=0; i2<4; i2++) {
+							if(i3 > i2 ) {
+								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i3]];
+								interferenciasRecebidas[ordemAventRodada[i2]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+							} else {
 								break;
-							case 2:
-								matrizAventureiros[5][1] = matrizAventureiros[5][1] - matrizAventureiros[3][i];
-								break;
-							case 3:
-								matrizAventureiros[5][2] = matrizAventureiros[5][2] - matrizAventureiros[3][i];
-								break;
-							case 4:
-								matrizAventureiros[5][3] = matrizAventureiros[5][3] - matrizAventureiros[3][i];
-								break;
+							}
 						}
 					}
 					
+					//1: todos abaixo
+					if(tipoInterferencia[ordemAventRodada[i3]] == 1 ) {
+						
+						for(int i2=4; i2>0; i2--) {
+							if(i3 < i2 ) {
+								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i3]];
+								interferenciasRecebidas[ordemAventRodada[i2]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+							} else {
+								break;
+							}
+						}
+					}
+					
+					//2: um acima,
+					if(tipoInterferencia[ordemAventRodada[i3]] == 2 ) {
+						
+						for(int i2=1; i2<5; i2++) {
+							if(i3 == i2 ) {
+								pontosRodada[ordemAventRodada[i2 - 1]] = pontosRodada[ordemAventRodada[i2 - 1]] - valorInterferencia[ordemAventRodada[i3]];
+								interferenciasRecebidas[ordemAventRodada[i2 - 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+								                        
+								break;
+							}
+						}
+						
+					}
+					
 					//3: primeiro,
-					if(matrizAventureiros[4][i] == 3 ) {
-						matrizAventureiros[5][0] = matrizAventureiros[5][0] - matrizAventureiros[3][i];
+					if(tipoInterferencia[ordemAventRodada[i3]] == 3 ) {
+						pontosRodada[ordemAventRodada[0]] = pontosRodada[ordemAventRodada[0]] - valorInterferencia[ordemAventRodada[i3]];
+						interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+
 					}
 					
 					//4: zera seus pontos negativos,
-					if(matrizAventureiros[4][i] == 4 && matrizAventureiros[5][i] < 0) {
-						danoEfeito4[i] = matrizAventureiros[5][i]; matrizAventureiros[5][i] = 0;
+					if(tipoInterferencia[ordemAventRodada[i3]] == 4 && pontosRodada[ordemAventRodada[i3]] < 0) {
+						pontosRodada[ordemAventRodada[i3]] = 0;
 					}
 					
 					//5: um acima e um abaixo,
-					if(matrizAventureiros[4][i] == 5 ) {
-						if(i > 0) {
-							matrizAventureiros[5][i - 1] = matrizAventureiros[5][i - 1] - matrizAventureiros[3][i];
-						}else if(i < 4) {
-							matrizAventureiros[5][i + 1] = matrizAventureiros[5][i + 1] - matrizAventureiros[3][i];
+					if(tipoInterferencia[ordemAventRodada[i3]] == 5 ) {
+						if(i3 > 0) {
+							pontosRodada[ordemAventRodada[i3 - 1]] = pontosRodada[ordemAventRodada[i3 - 1]] - valorInterferencia[ordemAventRodada[i3]];
+							interferenciasRecebidas[ordemAventRodada[i3 - 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+							    
+						}
+						
+						if(i3 < 4) {
+							pontosRodada[ordemAventRodada[i3 + 1]] = pontosRodada[ordemAventRodada[i3 + 1]] - valorInterferencia[ordemAventRodada[i3]];
+							interferenciasRecebidas[ordemAventRodada[i3 + 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+							           
+						}
+					}
+					
+					//6: d20
+					if(tipoInterferencia[ordemAventRodada[i3]] == 6) {
+						
+						int temporario;
+						
+						dados[ordemAventRodada[i3] == 2 ? 0 : 1][0]= ordemAventRodada[i3] == 2 ? 20 : 5; //aleatorioHabAdver.nextInt(20)+1; 
+						
+						for(int i2=0; i2<4; i2++) {
+							while(true) {
+								temporario = aleatorioHabAdver.nextInt(20)+1;
+								
+								if(temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][3]) {
+									dados[ordemAventRodada[i3] == 2 ? 0 : 1][i2+1]= temporario;
+									break;
+								}
+							}
+						}
+						
+						System.out.println("valor dados: " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][4]);
+						
+						if((ordemAventRodada[i3] == 2 && (dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[i3] == 4 && (dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][4] == 5))) {
+							pontosRodada[ordemAventRodada[i3]] = pontosRodada[ordemAventRodada[i3]]  + valorInterferencia[ordemAventRodada[i3]]; 
+
 						}
 					}
 				}
 							
 				// --------------------------- soma o apelo atual ----------------------------------
 	
-				matrizAventureiros[1][0] = matrizAventureiros[1][0] + (matrizAventureiros[5][0] < -10 ? -10 : (matrizAventureiros[5][0] > 10 ? 10 : matrizAventureiros[5][0]));
-				matrizAventureiros[1][1] = matrizAventureiros[1][1] + (matrizAventureiros[5][1] < -10 ? -10 : (matrizAventureiros[5][1] > 10 ? 10 : matrizAventureiros[5][1]));
-				matrizAventureiros[1][2] = matrizAventureiros[1][2] + (matrizAventureiros[5][2] < -10 ? -10 : (matrizAventureiros[5][2] > 10 ? 10 : matrizAventureiros[5][2]));
-				matrizAventureiros[1][3] = matrizAventureiros[1][3] + (matrizAventureiros[5][3] < -10 ? -10 : (matrizAventureiros[5][3] > 10 ? 10 : matrizAventureiros[5][3]));
-				matrizAventureiros[1][4] = matrizAventureiros[1][4] + (matrizAventureiros[5][4] < -10 ? -10 : (matrizAventureiros[5][4] > 10 ? 10 : matrizAventureiros[5][4]));
-				
-				matrizAventureiros[1][0] = matrizAventureiros[1][0] < 0 ? (matrizAventureiros[4][0] == 6 ?  matrizAventureiros[1][0] : 0) : matrizAventureiros[1][0]; 
-				matrizAventureiros[1][1] = matrizAventureiros[1][1] < 0 ? (matrizAventureiros[4][1] == 6 ?  matrizAventureiros[1][1] : 0) : matrizAventureiros[1][1]; 
-				matrizAventureiros[1][2] = matrizAventureiros[1][2] < 0 ? (matrizAventureiros[4][2] == 6 ?  matrizAventureiros[1][2] : 0) : matrizAventureiros[1][2]; 
-				matrizAventureiros[1][3] = matrizAventureiros[1][3] < 0 ? (matrizAventureiros[4][3] == 6 ?  matrizAventureiros[1][3] : 0) : matrizAventureiros[1][3]; 
-				matrizAventureiros[1][4] = matrizAventureiros[1][4] < 0 ? (matrizAventureiros[4][4] == 6 ?  matrizAventureiros[1][4] : 0) : matrizAventureiros[1][4]; 
+				pontosTotais[0] = pontosTotais[0] + (pontosRodada[0] < -10 ? -10 : (pontosRodada[0] > 10 ? 10 : pontosRodada[0]));
+				pontosTotais[1] = pontosTotais[1] + (pontosRodada[1] < -10 ? -10 : (pontosRodada[1] > 10 ? 10 : pontosRodada[1]));
+				pontosTotais[2] = pontosTotais[2] + (pontosRodada[2] < -10 ? -10 : (pontosRodada[2] > 10 ? 10 : pontosRodada[2]));
+				pontosTotais[3] = pontosTotais[3] + (pontosRodada[3] < -10 ? -10 : (pontosRodada[3] > 10 ? 10 : pontosRodada[3]));
+				pontosTotais[4] = pontosTotais[4] + (pontosRodada[4] < -10 ? -10 : (pontosRodada[4] > 10 ? 10 : pontosRodada[4]));
 				
 				
-				System.out.println("pessoa: " +matrizAventureiros[0][0] + "  " + matrizAventureiros[0][1] + "  " + matrizAventureiros[0][2] + "  " + matrizAventureiros[0][3] + "  " + matrizAventureiros[0][4]);
-				System.out.println("apelo:  " +matrizAventureiros[2][0] + "  " + matrizAventureiros[2][1] + "  " + matrizAventureiros[2][2] + "  " + matrizAventureiros[2][3] + "  " + matrizAventureiros[2][4]);
-				System.out.println("dano dado:   " + matrizAventureiros[3][0] + "  " + matrizAventureiros[3][1] + "  " + matrizAventureiros[3][2] + "  " + matrizAventureiros[3][3] + "  " + matrizAventureiros[3][4]);
-				System.out.println("efeito dano:   " + matrizAventureiros[4][0] + "  " + matrizAventureiros[4][1] + "  " + matrizAventureiros[4][2] + "  " + matrizAventureiros[4][3] + "  " + matrizAventureiros[4][4]);
+				
+				System.out.println("ordem pessoa: " + ordemAventRodada[0] + "  " + ordemAventRodada[1] + "  " + ordemAventRodada[2] + "  " + ordemAventRodada[3] + "  " + ordemAventRodada[4]);
+				System.out.println("ordem comparacao: " + ordemAventVerdadeira[0] + "  " + ordemAventVerdadeira[1] + "  " + ordemAventVerdadeira[2] + "  " + ordemAventVerdadeira[3] + "  " + ordemAventVerdadeira[4]);
+				System.out.println("valor apelo:  " +valorApelo[0] + "  " + valorApelo[1] + "  " + valorApelo[2] + "  " + valorApelo[3] + "  " + valorApelo[4]);
+				System.out.println("valor interferencia:   " + valorInterferencia[0] + "  " + valorInterferencia[1] + "  " + valorInterferencia[2] + "  " + valorInterferencia[3] + "  " + valorInterferencia[4]);
+				System.out.println("tipo interferencia:   " + tipoInterferencia[0] + "  " + tipoInterferencia[1] + "  " + tipoInterferencia[2] + "  " + tipoInterferencia[3] + "  " + tipoInterferencia[4]);
 				System.out.println("repetido?: " +apeloRepetido[0] + "  " + apeloRepetido[1] + "  " + apeloRepetido[2] + "  " + apeloRepetido[3] + "  " + apeloRepetido[4]);
-				System.out.println("total:  " +matrizAventureiros[1][0] + "  " + matrizAventureiros[1][1] + "  " + matrizAventureiros[1][2] + "  " + matrizAventureiros[1][3] + "  " + matrizAventureiros[1][4]);
+				System.out.println("total:  " +pontosTotais[0] + "  " + pontosTotais[1] + "  " + pontosTotais[2] + "  " + pontosTotais[3] + "  " + pontosTotais[4]);
 	
+				for(int a=0; a<5; a++) {
+					System.out.println("interferencia: " + interferenciasRecebidas[a][0] + "  " + interferenciasRecebidas[a][1] + "  " + interferenciasRecebidas[a][2] + "  " + interferenciasRecebidas[a][3] + "  " + interferenciasRecebidas[a][4]);
+				}
+				
+				
 				comecarAnimacaoCoracao = 1;
 				animacaoFileira = 0;
 				
@@ -802,13 +861,14 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela2);
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        
-		        if(matrizAventureiros[0][0] == aventureiro) {
+		        if(ordemAventRodada[0] == aventureiro) {
 	        		if(tela2.getDerrotados()[adversario] == false) {
 	        			tela2.setDerrotados(adversario, true);
 	        		}
 		        }
 	
 		        tela2.mostrarEstrela();
+		        tela2.LimparTela3();
 		        janelaPrincipal.revalidate();
 			
 			} 
@@ -827,15 +887,16 @@ public class Batalha extends JPanel implements ActionListener {
 	public void interferirNosAdversarios(int dano, int efeito, int posicaoNaLista) {
 		//(-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro)
 		
-		valoresInterferencia[0] = dano; valoresInterferencia[1] = efeito; valoresInterferencia[2] = posicaoNaLista;
+		System.out.println(" posição na lista inter " + posicaoNaLista);
+		valorESDaInterferencia[0] = dano; valorESDaInterferencia[1] = efeito; valorESDaInterferencia[2] = posicaoNaLista;
 		contTempoApelo = 0;
 		contTempoInter = 10;
 	
 		// ------------------ 0: todos acima ------------------------------
 		if(efeito == 0 && posicaoNaLista > 0 && TerminouLoopEfeitoInterf == 0) {
 			for(int i2=0; i2<5; i2++) {
-				if(animacaoEfeitoConcluido[i2] == true) {i2++;}
-				if(animacaoEfeitoConcluido[posicaoNaLista-1] == true && TerminouLoopEfeitoInterf == 0) {
+				if(animacaoEfeitoConcluido[ordemAventRodada[i2]] == true) {i2++;}
+				if(animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista-1]] == true && TerminouLoopEfeitoInterf == 0) {
 					TerminouLoopEfeitoInterf = 1;
 					vezDoAventureiro = vezDoAventureiro +1;
 					animacaoFileira = vezDoAventureiro * 2; 
@@ -847,8 +908,8 @@ public class Batalha extends JPanel implements ActionListener {
 					animacaoEfeitoConcluido[4]=false;
 					break;
 				}
-				if(i2 < posicaoNaLista && animacaoEfeitoConcluido[i2] == false && (i2 - 1 != -1 ? animacaoEfeitoConcluido[i2-1] == true: true)) {
-					interferenciasRecebidas[i2][posicaoNaLista] = dano;
+				if(i2 < posicaoNaLista && animacaoEfeitoConcluido[ordemAventRodada[i2]] == false && (i2 - 1 != -1 ? animacaoEfeitoConcluido[ordemAventRodada[i2-1]] == true: true)) {
+					interferenciasRecebidas[i2][ordemAventRodada[posicaoNaLista]] = dano;
 					switch (i2) {
 						case 0: animacaoFileira = 10; break;
 						case 1: animacaoFileira = 12; break;
@@ -862,8 +923,8 @@ public class Batalha extends JPanel implements ActionListener {
 		// ----------------------------- 1: todos abaixo ---------------------
 		} else if(efeito == 1 && posicaoNaLista < 4 && TerminouLoopEfeitoInterf == 0) {
 			for(int i3=0; i3<5; i3++) {
-				if(animacaoEfeitoConcluido[i3] == true) {i3++;}
-				if(animacaoEfeitoConcluido[4] == true && TerminouLoopEfeitoInterf == 0) {
+				if(animacaoEfeitoConcluido[ordemAventRodada[i3]] == true) {i3++;}
+				if(animacaoEfeitoConcluido[ordemAventRodada[4]] == true && TerminouLoopEfeitoInterf == 0) {
 					TerminouLoopEfeitoInterf = 1;
 					vezDoAventureiro = vezDoAventureiro +1;
 					animacaoFileira = vezDoAventureiro * 2;
@@ -875,8 +936,8 @@ public class Batalha extends JPanel implements ActionListener {
 					animacaoEfeitoConcluido[4]=false;
 					break;
 				}
-				if(i3 > posicaoNaLista && i3 < 5 && animacaoEfeitoConcluido[i3] == false && (i3 - 1 != 0 ? (i3-1 == posicaoNaLista ? true: animacaoEfeitoConcluido[i3-1] == true): true)) {
-					interferenciasRecebidas[i3][posicaoNaLista] = dano;
+				if(i3 > posicaoNaLista && i3 < 5 && animacaoEfeitoConcluido[ordemAventRodada[i3]] == false && (i3 - 1 != 0 ? (i3 - 1 == posicaoNaLista ? true: animacaoEfeitoConcluido[ordemAventRodada[i3-1]] == true): true)) {
+
 					switch (i3) {
 						case 0: animacaoFileira = 10; break;
 						case 1: animacaoFileira = 12; break;
@@ -889,7 +950,7 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// ----------------------------- 2: um acima ----------------------------------
 		} else if(efeito == 2 && posicaoNaLista -1 >= 0  && TerminouLoopEfeitoInterf == 0) {
-			if(animacaoEfeitoConcluido[posicaoNaLista -1] == true && TerminouLoopEfeitoInterf == 0) {
+			if(animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == true && TerminouLoopEfeitoInterf == 0) {
 				animacaoEfeitoConcluido[0]=false;
 				animacaoEfeitoConcluido[1]=false;
 				animacaoEfeitoConcluido[2]=false;
@@ -902,7 +963,6 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoFileira = vezDoAventureiro * 2;
 				if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
 			}else {
-				interferenciasRecebidas[posicaoNaLista -1][posicaoNaLista] = dano;
 				switch (posicaoNaLista -1) {
 					case 0: animacaoFileira = 10; break;
 					case 1: animacaoFileira = 12; break;
@@ -914,7 +974,7 @@ public class Batalha extends JPanel implements ActionListener {
 			
 		// ---------------------------- 3: primeiro ---------------------------------
 		} else if(efeito == 3 && posicaoNaLista != 0  && TerminouLoopEfeitoInterf == 0) {
-			if(animacaoEfeitoConcluido[0] == true && TerminouLoopEfeitoInterf == 0) {
+			if(animacaoEfeitoConcluido[ordemAventRodada[0]] == true && TerminouLoopEfeitoInterf == 0) {
 				animacaoEfeitoConcluido[0]=false;
 				animacaoEfeitoConcluido[1]=false;
 				animacaoEfeitoConcluido[2]=false;
@@ -927,13 +987,12 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoFileira = vezDoAventureiro * 2;
 				if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
 			}else {
-				interferenciasRecebidas[0][posicaoNaLista] = dano;
 				animacaoFileira = 10;
 			}
 		//4: zera seus pontos negativos,
 		}else if(efeito == 4 && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51)))).getImagem() != null && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51))))).getReferencia().toString() == "res\\batalha\\interferencia.png")) { 
-			matrizAventureiros[2][posicaoNaLista] = 0 - (danoEfeito4[posicaoNaLista]);
-			
+			valorApelo[ordemAventRodada[posicaoNaLista]] = 0 - pontosAtuaisDaRodada[ordemAventRodada[posicaoNaLista]];
+
 			switch (posicaoNaLista) {
 				case 0: animacaoFileira = 0; break;
 				case 1: animacaoFileira = 2; break;
@@ -944,7 +1003,8 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// -------------------- 5: um acima e um abaixo -----------------------------
 		} else if(efeito == 5 && TerminouLoopEfeitoInterf == 0) {
-			if((posicaoNaLista -1 >= 0 ? animacaoEfeitoConcluido[posicaoNaLista -1] == true : true) && (posicaoNaLista + 1 <= 4 ? animacaoEfeitoConcluido[posicaoNaLista +1] == true : true) && TerminouLoopEfeitoInterf == 0) {
+			if((posicaoNaLista -1 >= 0 ? animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == true : true) && (posicaoNaLista + 1 <= 4 ? animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista +1]] == true : true) && TerminouLoopEfeitoInterf == 0) {
+				
 				
 				TerminouLoopEfeitoInterf = 1; 
 				vezDoAventureiro = vezDoAventureiro +1;
@@ -956,8 +1016,7 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoEfeitoConcluido[3]=false;
 				animacaoEfeitoConcluido[4]=false;
 				
-			} else if(posicaoNaLista -1 >= 0 && animacaoEfeitoConcluido[posicaoNaLista -1] == false) {
-				interferenciasRecebidas[posicaoNaLista -1][posicaoNaLista] = dano;
+			} else if(posicaoNaLista -1 >= 0 && animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == false) {
 				switch (posicaoNaLista -1) {
 					case 0: animacaoFileira = 10; break;
 					case 1: animacaoFileira = 12; break;
@@ -965,8 +1024,7 @@ public class Batalha extends JPanel implements ActionListener {
 					case 3: animacaoFileira = 16; break;
 					case 4: animacaoFileira = 18; break;
 				}
-			} else if(posicaoNaLista + 1 <= 4 && animacaoEfeitoConcluido[posicaoNaLista +1] == false) {
-				interferenciasRecebidas[posicaoNaLista +1][posicaoNaLista] = dano;
+			} else if(posicaoNaLista + 1 <= 4 && animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista +1]] == false) {
 				switch (posicaoNaLista +1) {
 					case 0: animacaoFileira = 10; break;
 					case 1: animacaoFileira = 12; break;
@@ -977,38 +1035,14 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 						
 		// ------------------------------- 6: jogar d20 ----------------------------------
-		}else if(efeito == 6 && (Efeito6[matrizAventureiros[0][posicaoNaLista] == 2 ? 0 : 1] == 0)) {
-			Efeito6[matrizAventureiros[0][posicaoNaLista] == 2 ? 0 : 1] = 1;
+		}else if(efeito == 6 && (Efeito6[ordemAventRodada[posicaoNaLista] == 2 ? 0 : 1] == 0)) {
+			Efeito6[ordemAventRodada[posicaoNaLista] == 2 ? 0 : 1] = 1;
 
-			dados[0] = 0; dados[1] = 0; dados[2] = 0; dados[3] = 0; dados[4] = 0;
-			int temporario;
-			int conta = 0;
-			
-			dados[0]= aleatorioHabAdver.nextInt(20)+1; 
-			
-			for(int i=0; i<4; i++) {
-				conta = 0;
-				
-				while(conta == 0) {
-					temporario = aleatorioHabAdver.nextInt(20)+1;
-					
-					if(temporario != dados[0] && temporario != dados[1] && temporario != dados[2] && temporario != dados[3]) {
-						dados[i+1]= temporario;
-						conta = 1;
-					}
-				}
-			}
-			
-			System.out.println(dados[0] + " " + dados[1] + " " + dados[2] + " " + dados[3] + " " + dados[4]);
-			
 			vezDados = true;
-			
-			if((matrizAventureiros[0][posicaoNaLista] == 2 && (dados[0] == 20 || dados[1] == 20 || dados[2] == 20 || dados[3] == 20 || dados[4] == 20)) || (matrizAventureiros[0][posicaoNaLista] == 4 && (dados[0] == 5 || dados[1] == 5 || dados[2] == 5 || dados[3] == 5 || dados[4] == 5))) {
+						
+			if((ordemAventRodada[posicaoNaLista] == 2 && (dados[0][0] == 20 || dados[0][1] == 20 || dados[0][2] == 20 || dados[0][3] == 20 || dados[0][4] == 20)) || (ordemAventRodada[posicaoNaLista] == 4 && (dados[1][0] == 5 || dados[1][1] == 5 || dados[1][2] == 5 || dados[1][3] == 5 || dados[1][4] == 5))) {
 				
-				matrizAventureiros[2][posicaoNaLista] = matrizAventureiros[3][posicaoNaLista];
-				matrizAventureiros[1][posicaoNaLista] = matrizAventureiros[1][posicaoNaLista] + matrizAventureiros[3][posicaoNaLista];
-				matrizAventureiros[5][posicaoNaLista] = matrizAventureiros[5][posicaoNaLista] + matrizAventureiros[3][posicaoNaLista];
-				matrizAventureiros[1][posicaoNaLista] = matrizAventureiros[1][posicaoNaLista] < 0 ? 0 : matrizAventureiros[1][posicaoNaLista]; 
+				valorApelo[ordemAventRodada[posicaoNaLista]] = valorInterferencia[ordemAventRodada[posicaoNaLista]];
 				
 				switch (posicaoNaLista) {
 					case 0: animacaoFileira = 0; break;
@@ -1030,7 +1064,7 @@ public class Batalha extends JPanel implements ActionListener {
 			
 		// ------------------------- -1 nenhum --------------------------------
 		} else if(TerminouLoopEfeitoInterf == 0 || (efeito == 4 && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51)))).getImagem() == null))){
-			System.out.println("efeito -1");
+
 			animacaoEfeitoConcluido[0]=false;
 			animacaoEfeitoConcluido[1]=false;
 			animacaoEfeitoConcluido[2]=false;
@@ -1052,7 +1086,7 @@ public class Batalha extends JPanel implements ActionListener {
 	public void repintarCampoBatalha() {
 		
 		for(int i=0; i<5; i++) {
-			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[matrizAventureiros[0][i]] + "\\iconeCampoBatalha.png");
+			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
 		}
 		
 		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 3);		
@@ -1085,12 +1119,13 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void arrumarListaAventureiros() {
 		
+		
 		if(aventureiro == adversario) {
-			matrizAventureiros[0][0] = aventureiro;
-			matrizAventureiros[0][1] = adversario + 1 < 5 ? adversario + 1 : adversario + 1 - 5 ;
-			matrizAventureiros[0][2] = adversario + 2 < 5 ? adversario + 2 : adversario + 2 - 5 ;
-			matrizAventureiros[0][3] = adversario + 3 < 5 ? adversario + 3 : adversario + 3 - 5 ;
-			matrizAventureiros[0][4] = adversario != 0 ? adversario - 1 : 4;
+			ordemAventRodada[0] = aventureiro;
+			ordemAventRodada[1] = adversario + 1 < 5 ? adversario + 1 : adversario + 1 - 5 ;
+			ordemAventRodada[2] = adversario + 2 < 5 ? adversario + 2 : adversario + 2 - 5 ;
+			ordemAventRodada[3] = adversario + 3 < 5 ? adversario + 3 : adversario + 3 - 5 ;
+			ordemAventRodada[4] = adversario != 0 ? adversario - 1 : 4;
 			posicaoAventureiro = 0;
 			
 		} else {
@@ -1098,7 +1133,7 @@ public class Batalha extends JPanel implements ActionListener {
 			int ave = aventureiro;
 			
 			for(int i=0; i<4; i++) {
-				matrizAventureiros[0][i] = adv;
+				ordemAventRodada[i] = adv;
 				
 				adv = adv + 1 < 5 ? adv +1 : adv + 1 - 5;
 				if(adv == ave) {
@@ -1106,9 +1141,13 @@ public class Batalha extends JPanel implements ActionListener {
 				}
 			}
 			
-			matrizAventureiros[0][4] = ave;
+			ordemAventRodada[4] = ave;
 			posicaoAventureiro = 4;
 		}		
+		
+		for(int i=0; i<5; i++) {
+			ordemAventVerdadeira[i] = (ordemAventRodada[0] == i ? 0 : (ordemAventRodada[1] == i ? 1 :  (ordemAventRodada[2] == i ? 2 : (ordemAventRodada[3] == i ? 3 :  4))));
+		}
 	}
 
 	public void paint(Graphics g) {
@@ -1313,11 +1352,13 @@ public class Batalha extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
+		System.out.println("fileira : " + animacaoFileira);
 		// ----------- aparece os d20 ou começa a mostrar os apelos ganhos ----------------
 		if(vezDados == true) {
 			aparecerDados();
-		}else if(animacaoFileira != -1 && animacaoFileira < 10) {
+		}
+		else if(animacaoFileira != -1 && animacaoFileira < 10) {
 			aparecerCoracoes();
 		}
 		
@@ -1331,13 +1372,19 @@ public class Batalha extends JPanel implements ActionListener {
 			mexerMedidorApelos();
 		}
 		
-		// -------------- organiza os cães de acordo com a performance  na batalha ----------------
+		// -------------- organiza os valores das posições de acordo com a performance  na batalha ----------------
 		if(animacaoFileira == 21) {
+			OrganizarValores();
+		}
+		
+		// -------------- organiza os cães de acordo com a performance  na batalha ----------------
+		if(animacaoFileira == 22) {
 			OrganizarCampos();
 		}
 		
 		// -------------- mostra a parabenizarão no final da batalha ----------------
-		if(animacaoFileira == 22) {
+		if(animacaoFileira == 23) {
+
 			vencedor();
 		}
 		
@@ -1373,7 +1420,7 @@ public class Batalha extends JPanel implements ActionListener {
 	public void aparecerDados() {
 		
 		for(int i=0; i<5; i++) {
-			(i == 0 ? imgDado1 : (i == 1 ? imgDado2 : (i == 2 ? imgDado3 : (i == 3 ? imgDado4 : imgDado5)))).load("res\\batalha\\" + (matrizAventureiros[0][vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[i] + ".png");
+			(i == 0 ? imgDado1 : (i == 1 ? imgDado2 : (i == 2 ? imgDado3 : (i == 3 ? imgDado4 : imgDado5)))).load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[(ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1)][i] + ".png");
 		}
 		
 		imgDado1.setDx(imgDado1.getDx() + comecarAnimacaoCoracao);
@@ -1390,80 +1437,88 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void aparecerCoracoes() {
-	
-		if((animacaoFileira == 0 && (matrizAventureiros[2][0] > 0 || matrizAventureiros[4][0] == 4 || matrizAventureiros[4][0] == 6)) || animacaoFileira % 2 == 0) {
+		
+		if((animacaoFileira == 0 && (valorApelo[ordemAventRodada[0]] > 0 || tipoInterferencia[ordemAventRodada[0]] == 4 || tipoInterferencia[ordemAventRodada[0]] == 6)) || animacaoFileira % 2 == 0) {
 			contTempoApelo = 0;
-			
-			if(efeitoChefeDeFase[vezDoAventureiro] == 3 || apeloRepetido[vezDoAventureiro] == 3) {
+
+			if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 3 || apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 				(animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).setDx(intervaloAnimacao);
 			}else {
 				
 				TerminouLoopEfeitoInterf =0;
 				
-				if(matrizAventureiros[4][vezDoAventureiro] == 4 && animacao.getDx() == 0) {Efeito4 ++;}
+				if(tipoInterferencia[(ordemAventRodada[0] == vezDoAventureiro ? 0 : (ordemAventRodada[1] == vezDoAventureiro ? 1 : (ordemAventRodada[2] == vezDoAventureiro ? 2 : (ordemAventRodada[3] == vezDoAventureiro ? 3 : 4))))] == 4 && animacao.getDx() == 0) {Efeito4 ++;}
 				
 				animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
 
-				if(animacao.getDx() >= 20 && (matrizAventureiros[4][vezDoAventureiro] == 4 ? Efeito4 == 1 : true)) {
-					gifApresentacao(matrizAventureiros[0][animacaoFileira == 0 ? 0 : animacaoFileira/2], (animacaoFileira == 0 ? 0 : animacaoFileira/2) != posicaoAventureiro ? arrayAleatorioHabAdver[animacaoFileira == 0 ? 0 : animacaoFileira/2] : selecaoNomeHab);
+				if(animacao.getDx() >= 20 && (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 ? Efeito4 == 1 : true)) {
+					gifApresentacao(ordemAventRodada[vezDoAventureiro], (vezDoAventureiro != posicaoAventureiro ? arrayAleatorioHabAdver[ordemAventRodada[vezDoAventureiro]] : selecaoNomeHab));
 				}
 				
-				if(animacao.getDx() >= intervaloAnimacaoGif || (matrizAventureiros[4][vezDoAventureiro] == 4 && Efeito4 == 3)) {
+				if(animacao.getDx() >= intervaloAnimacaoGif || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 && Efeito4 == 3)) {
 					(animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).setDx((animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).getDx() + comecarAnimacaoCoracao);
 					animacao.load("res\\batalha\\animacao.png");
 					if(Efeito4 ==1) {Efeito4 ++;}
 					
-					if(matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 0 && animacao.getDx() >= intervaloAnimacaoGif) {
-						interferirNosAdversarios(matrizAventureiros[3][vezDoAventureiro], matrizAventureiros[4][vezDoAventureiro], vezDoAventureiro);	
+					if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && Efeito6[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1] == 0 && animacao.getDx() >= intervaloAnimacaoGif) {
+
+						interferirNosAdversarios(valorInterferencia[ordemAventRodada[vezDoAventureiro]], tipoInterferencia[ordemAventRodada[vezDoAventureiro]], vezDoAventureiro);	
 					}
 				}
 			}
 			
 			//------------------------------------- limpa interferecia --------------------------------------------
 			
-			switch (animacaoFileira) {
-				case 0:
-					if((matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 1) || matrizAventureiros[4][vezDoAventureiro] != 6) {
-						
+			if((tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && Efeito6[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1] == 1) || tipoInterferencia[ordemAventRodada[vezDoAventureiro] ] != 6) {
+				
+				switch (animacaoFileira) {
+					case 0:
 						(contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
-
-						if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][0] > 0) {
-							
-							if(contTempoInter!= 1) {
-								matrizAventureiros[2][0] = matrizAventureiros[2][0] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setImagem(null);
+	
+							if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[0]] > 0) {
+								
+								if(contTempoInter!= 1) {
+									valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									
+									if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setImagem(null);
+									}
+									(contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
+								} else {
+									valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+											
+									if(coracao11.getImagem() != null && coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										coracao11.setImagem(null);
+									} 
+									animacaoFileira=1;
+									zerarDx();
 								}
-								(contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
-							} else {
-								matrizAventureiros[2][0] = matrizAventureiros[2][0] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if(coracao11.getImagem() != null && coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									coracao11.setImagem(null);
-								} 
-								animacaoFileira=1;
-								zerarDx();
+								contTempoInter--;
 							}
-							contTempoInter--;
-						}
-						if(matrizAventureiros[2][0] == 0 && Efeito4 != 1) {animacaoFileira = 1; zerarDx();}
-					}
-					break;
-				case 2:
-
-					if((matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 1) || matrizAventureiros[4][vezDoAventureiro] != 6) {
+							if(valorApelo[ordemAventRodada[0]] == 0 && Efeito4 != 1) {animacaoFileira = 1; zerarDx();}
 						
+						break;
+						
+					case 2:	
+
 						(contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
 					
-						if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][1] > 0) {
+						if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[1]] > 0) {
 							
 							if(contTempoInter!= 1) {
-								matrizAventureiros[2][1] = matrizAventureiros[2][1] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+								valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+								pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+								
 								if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
 									(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setImagem(null);
 								}
 								(contTempoInter== 10 ? coracao29 : (contTempoInter== 9 ? coracao28 : (contTempoInter== 8 ? coracao27 : (contTempoInter== 7 ? coracao26 : (contTempoInter== 6 ? coracao25 : (contTempoInter== 5 ? coracao24 : (contTempoInter== 4 ? coracao23 : (contTempoInter== 3 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 10 ? coracao29 : (contTempoInter== 9 ? coracao28 : (contTempoInter== 8 ? coracao27 : (contTempoInter== 7 ? coracao26 : (contTempoInter== 6 ? coracao25 : (contTempoInter== 5 ? coracao24 : (contTempoInter== 4 ? coracao23 : (contTempoInter== 3 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
 							} else {
-								matrizAventureiros[2][1] = matrizAventureiros[2][1] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+								valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+								pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+
 								if(coracao21.getImagem() != null && coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png") {
 									coracao21.setImagem(null);
 								} 
@@ -1472,99 +1527,106 @@ public class Batalha extends JPanel implements ActionListener {
 							}
 							contTempoInter--;
 						}
-						if(matrizAventureiros[2][1] == 0 && Efeito4 != 1) {animacaoFileira = 3; zerarDx();}
-					}
+						if(valorApelo[ordemAventRodada[1]] == 0 && Efeito4 != 1) {animacaoFileira = 3; zerarDx();}
 					
-					break;
-				case 4:
-
-					if((matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 1) || matrizAventureiros[4][vezDoAventureiro] != 6) {
-						
+					
+						break;
+					case 4:
 						(contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
+	
+							if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[2]] > 0) {
+								
+								if(contTempoInter!= 1) {
+									valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									
+									if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setImagem(null);
+									}
+									(contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
+								} else {
+									valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
 
-						if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][2] > 0) {
-							
-							if(contTempoInter!= 1) {
-								matrizAventureiros[2][2] = matrizAventureiros[2][2] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setImagem(null);
+									if(coracao31.getImagem() != null && coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										coracao31.setImagem(null);
+									} 
+									animacaoFileira=5;
+									zerarDx();
 								}
-								(contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
-							} else {
-								matrizAventureiros[2][2] = matrizAventureiros[2][2] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if(coracao31.getImagem() != null && coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									coracao31.setImagem(null);
-								} 
-								animacaoFileira=5;
-								zerarDx();
+								contTempoInter--;
 							}
-							contTempoInter--;
-						}
-						if(matrizAventureiros[2][2] == 0 && Efeito4 != 1) {animacaoFileira = 5; zerarDx();}
-					}		
-					
-					break;
-				case 6:
-
-					if((matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 1) || matrizAventureiros[4][vezDoAventureiro] != 6) {
+							if(valorApelo[ordemAventRodada[2]] == 0 && Efeito4 != 1) {animacaoFileira = 5; zerarDx();}
 						
-						(contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
-
-						if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][3] > 0) {
-							
-							if(contTempoInter!= 1) {
-								matrizAventureiros[2][3] = matrizAventureiros[2][3] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setImagem(null);
-								}
-								(contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
-							} else {
-								matrizAventureiros[2][3] = matrizAventureiros[2][3] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if(coracao41.getImagem() != null && coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									coracao41.setImagem(null);
-								} 
-								animacaoFileira=7;
-								zerarDx();
-							}
-							contTempoInter--;
-						}
-						if(matrizAventureiros[2][3] == 0 && Efeito4 != 1) {animacaoFileira = 7; zerarDx();}
-					}	
-					
-					break;
-				case 8:
-					if((matrizAventureiros[4][vezDoAventureiro] == 6 && Efeito6[matrizAventureiros[0][vezDoAventureiro] == 2 ? 0 : 1] == 1) || matrizAventureiros[4][vezDoAventureiro] != 6) {
 						
-						(contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
+						break;
+					case 6:
+							(contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
+	
+							if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[3]] > 0) {
+								
+								if(contTempoInter!= 1) {
+									valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									
+									if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setImagem(null);
+									}
+									(contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
+								} else {
+									valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
 
-						if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][4] > 0) {
-							
-							if(contTempoInter!= 1) {
-								matrizAventureiros[2][4] = matrizAventureiros[2][4] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setImagem(null);
+									if(coracao41.getImagem() != null && coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										coracao41.setImagem(null);
+									} 
+									animacaoFileira=7;
+									zerarDx();
 								}
-								(contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
-							} else {
-								matrizAventureiros[2][4] = matrizAventureiros[2][4] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								if(coracao51.getImagem() != null && coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									coracao51.setImagem(null);
-								} 
-								animacaoFileira=9;
-								zerarDx();
+								contTempoInter--;
 							}
-							contTempoInter--;
-						}
-						if(matrizAventureiros[2][4] == 0 && Efeito4 != 1) {animacaoFileira = 9; zerarDx();}
-					}			
-					break;
+							if(valorApelo[ordemAventRodada[3]] == 0 && Efeito4 != 1) {animacaoFileira = 7; zerarDx();}
+						
+						
+						break;
+					case 8:
+							
+							(contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
+	
+							if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[4]] > 0) {
+								
+								if(contTempoInter!= 1) {
+									valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									
+									if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setImagem(null);
+									}
+									(contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
+								} else {
+									valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+									
+									if(coracao51.getImagem() != null && coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png") {
+										coracao51.setImagem(null);
+									} 
+									animacaoFileira=9;
+									zerarDx();
+								}
+								contTempoInter--;
+							}
+							if(valorApelo[ordemAventRodada[4]] == 0 && Efeito4 != 1) {animacaoFileira = 9; zerarDx();}
+						
+						break;
+				}
 			}
-		} else if((animacaoFileira == 1 || (animacaoFileira - 1) % 2 == 0) || matrizAventureiros[2][animacaoFileira == 1 ? 0 : ((animacaoFileira - 1) % 2)] == 0) {
+			
+		} else if((animacaoFileira == 1 || (animacaoFileira - 1) % 2 == 0) || valorApelo[ordemAventRodada[animacaoFileira == 1 ? 0 : ((animacaoFileira - 1) % 2)]] == 0) {
 			
 			contTempoInter = 10;
 
-			if(efeitoChefeDeFase[vezDoAventureiro] == 3) {efeitoChefeDeFase[vezDoAventureiro] = 0;}
-			if(apeloRepetido[vezDoAventureiro] == 3) {apeloRepetido[vezDoAventureiro] = 0;}
+			if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 3) {efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] = 0;}
+			if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {apeloRepetido[ordemAventRodada[vezDoAventureiro]] = 0;}
 			
 			Iniciargif = false; animacao.setDx(0);
 			
@@ -1575,13 +1637,17 @@ public class Batalha extends JPanel implements ActionListener {
 				
 					(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][0] > 0) {
+					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[0]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							matrizAventureiros[2][0] = matrizAventureiros[2][0] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : 0);
+							valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : 0);
+							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : 0);
+							
 							(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\apelo.png");
 						} else {
-							 matrizAventureiros[2][0] = matrizAventureiros[2][0] - (coracao110.getImagem() == null ? 1 : 0);
+							 valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - (coracao110.getImagem() == null ? 1 : 0);
+							 pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + (coracao110.getImagem() == null ? 1 : 0);
+							 
 							 coracao110.load("res\\batalha\\apelo.png");
 						}
 						
@@ -1592,13 +1658,17 @@ public class Batalha extends JPanel implements ActionListener {
 				case 3:
 					(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).setDx((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][1] > 0) {
+					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[1]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							matrizAventureiros[2][1] = matrizAventureiros[2][1] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : 0);
+							valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : 0);
+							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : 0);
+							
 							(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\apelo.png");
 						} else {
-							 matrizAventureiros[2][1] = matrizAventureiros[2][1] - (coracao210.getImagem() == null ? 1 : 0);
+							 valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - (coracao210.getImagem() == null ? 1 : 0);
+							 pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + (coracao210.getImagem() == null ? 1 : 0);
+
 							 coracao210.load("res\\batalha\\apelo.png");
 						}
 						
@@ -1610,13 +1680,17 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).setDx((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][2] > 0) {
+					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[2]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							matrizAventureiros[2][2] = matrizAventureiros[2][2] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : 0);
+							valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : 0);
+							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : 0);
+							
 							(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\apelo.png");
 						} else {
-							 matrizAventureiros[2][2] = matrizAventureiros[2][2] - (coracao310.getImagem() == null ? 1 : 0);
+							 valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - (coracao310.getImagem() == null ? 1 : 0);
+							 pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + (coracao310.getImagem() == null ? 1 : 0);
+								
 							 coracao310.load("res\\batalha\\apelo.png");
 						}
 						
@@ -1625,16 +1699,20 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					break;
 				case 7:
-					
+
 					(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).setDx((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][3] > 0) {
+					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[3]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							matrizAventureiros[2][3] = matrizAventureiros[2][3] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : 0);
+							valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : 0);
+							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : 0);
+							
 							(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\apelo.png");
 						} else {
-							 matrizAventureiros[2][3] = matrizAventureiros[2][3] - (coracao410.getImagem() == null ? 1 : 0);
+							 valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - (coracao410.getImagem() == null ? 1 : 0);
+							 pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + (coracao410.getImagem() == null ? 1 : 0);
+								
 							 coracao410.load("res\\batalha\\apelo.png");
 						}
 						
@@ -1646,13 +1724,17 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).setDx((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && matrizAventureiros[2][4] > 0) {
+					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[4]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							matrizAventureiros[2][4] = matrizAventureiros[2][4] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : 0);
+							valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : 0);
+							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : 0);
+									
 							(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\apelo.png");
 						} else {
-							 matrizAventureiros[2][4] = matrizAventureiros[2][4] - (coracao510.getImagem() == null ? 1 : 0);
+							 valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - (coracao510.getImagem() == null ? 1 : 0);
+							 pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + (coracao510.getImagem() == null ? 1 : 0);
+								
 							 coracao510.load("res\\batalha\\apelo.png");
 						}
 						
@@ -1661,11 +1743,15 @@ public class Batalha extends JPanel implements ActionListener {
 					break;
 			}
 			
-			if((matrizAventureiros[2][animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)] == 0 && TerminouLoopEfeitoInterf != 1) ||contTempoApelo== 10) { 
+			if((valorApelo[ordemAventRodada[animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)]] == 0 && TerminouLoopEfeitoInterf != 1) ||contTempoApelo== 10) { 
 				
-				if(apeloRepetido[vezDoAventureiro] == 1) {habilidadeRepetido(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));} 
-				else if(efeitoChefeDeFase[animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)] == 1) {efeitoChefeDeFase(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));} 
-				else{interferirNosAdversarios(matrizAventureiros[3][animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)], matrizAventureiros[4][animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)], animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)); zerarDx();}
+				if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 1) {
+					habilidadeRepetido(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));
+				}else if(efeitoChefeDeFase[ordemAventRodada[animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)]] == 1) {
+					efeitoChefeDeFase(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));
+				} else{
+					interferirNosAdversarios(valorInterferencia[ordemAventRodada[animacaoFileira - 1 == 0 ? 0: ((animacaoFileira - 1)/2)]], tipoInterferencia[ordemAventRodada[animacaoFileira - 1 == 0 ? 0: ((animacaoFileira - 1)/2)]], animacaoFileira -1 == 0 ? 0: ((animacaoFileira - 1)/2)); zerarDx();
+				}
 			}
 				
 		}
@@ -1707,19 +1793,25 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			//------------------------------------- limpa apelo --------------------------------------------
 			switch (animacaoFileira) {
+			
 				case 10:
+					System.out.println("entrou no 10");
 					(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setDx((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[0][vezDoAventureiro] > 0) {
+					if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoInter!= 1) {
-							interferenciasRecebidas[0][vezDoAventureiro] = interferenciasRecebidas[0][vezDoAventureiro] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() != null && (contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setImagem(null);
 								} 
 							(contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[0][vezDoAventureiro] = interferenciasRecebidas[0][vezDoAventureiro] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+
 							if(coracao11.getImagem() != null && coracao11.getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								coracao11.setImagem(null);
 							}
@@ -1732,16 +1824,20 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setDx((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[1][vezDoAventureiro] > 0) {
+					if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoInter!= 1) {
-							interferenciasRecebidas[1][vezDoAventureiro] = interferenciasRecebidas[1][vezDoAventureiro] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() != null && (contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setImagem(null);
-								} 
+							} 
 							(contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[1][vezDoAventureiro] = interferenciasRecebidas[1][vezDoAventureiro] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+
 							if(coracao21.getImagem() != null && coracao21.getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								coracao21.setImagem(null);
 							}
@@ -1752,19 +1848,23 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					break;
 				case 14:
-					
 					(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setDx((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[2][vezDoAventureiro] > 0) {
-						
+					if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] > 0) {
+
 						if(contTempoInter!= 1) {
-							interferenciasRecebidas[2][vezDoAventureiro] = interferenciasRecebidas[2][vezDoAventureiro] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+
+							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() != null && (contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setImagem(null);
-								} 
+							} 
 							(contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[2][vezDoAventureiro] = interferenciasRecebidas[2][vezDoAventureiro] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+						
 							if(coracao31.getImagem() != null && coracao31.getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								coracao31.setImagem(null);
 							}
@@ -1775,23 +1875,27 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					break;
 				case 16:
-					
+
 					(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setDx((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[3][vezDoAventureiro] > 0) {
+					if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoInter!= 1) {
-							interferenciasRecebidas[3][vezDoAventureiro] = interferenciasRecebidas[3][vezDoAventureiro] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() != null && (contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setImagem(null);
-								} 
+							} 
 							(contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[3][vezDoAventureiro] = interferenciasRecebidas[3][vezDoAventureiro] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if(coracao41.getImagem() != null && coracao41.getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								coracao41.setImagem(null);
 							}
-							animacaoFileira=17; zerarDx();
+							animacaoFileira= 17; zerarDx();
 						}
 						contTempoInter--;
 					}
@@ -1801,16 +1905,20 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setDx((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[4][vezDoAventureiro] > 0) {
+					if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoInter!= 1) {
-							interferenciasRecebidas[4][vezDoAventureiro] = interferenciasRecebidas[4][vezDoAventureiro] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							
 							if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() != null && (contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setImagem(null);
-								} 
+							} 
 							(contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[4][vezDoAventureiro] = interferenciasRecebidas[4][vezDoAventureiro] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
+
 							if(coracao51.getImagem() != null && coracao51.getReferencia().toString() != "res\\batalha\\interferencia.png") {
 								coracao51.setImagem(null);
 							}
@@ -1821,7 +1929,11 @@ public class Batalha extends JPanel implements ActionListener {
 					break;
 			}
 			
-			if(interferenciasRecebidas[animacaoFileira - 10 == 0 ? 0 : (animacaoFileira-10)/2][vezDoAventureiro] == 0) {animacaoFileira ++; zerarDx();}
+			if(interferenciasRecebidas[ordemAventRodada[animacaoFileira - 10 == 0 ? 0 : (animacaoFileira-10)/2]][ordemAventRodada[vezDoAventureiro]] == 0) {
+				animacaoFileira ++;
+				contTempoInter = 10;
+				zerarDx();
+			}
 			
 		}else if(animacaoFileira - 11 == 0 || (animacaoFileira - 11) % 2 == 0) {
 			contTempoInter = 10;
@@ -1833,21 +1945,26 @@ public class Batalha extends JPanel implements ActionListener {
 				
 					(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[0][vezDoAventureiro] > 0) {
+					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[0][vezDoAventureiro] = interferenciasRecebidas[0][vezDoAventureiro] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
+									
 							(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\interferencia.png");
 							(contTempoApelo== 0 ? coracao12 : (contTempoApelo== 1 ? coracao13 : (contTempoApelo== 2 ? coracao14 : (contTempoApelo== 3 ? coracao15 : (contTempoApelo== 4 ? coracao16 : (contTempoApelo== 5 ? coracao17 : (contTempoApelo== 6 ? coracao18 : (contTempoApelo== 7 ? coracao19 : coracao110)))))))).setDx((contTempoApelo== 0 ? coracao12 : (contTempoApelo== 1 ? coracao13 : (contTempoApelo== 2 ? coracao14 : (contTempoApelo== 3 ? coracao15 : (contTempoApelo== 4 ? coracao16 : (contTempoApelo== 5 ? coracao17 : (contTempoApelo== 6 ? coracao18 : (contTempoApelo== 7 ? coracao19 : coracao110)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[0][vezDoAventureiro] = interferenciasRecebidas[0][vezDoAventureiro] - (coracao110.getImagem() == null ? 1 : (coracao110.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = 0;	
+							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - (coracao110.getImagem() == null ? 1 : (coracao110.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							coracao110.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[0] = true;
+							animacaoEfeitoConcluido[ordemAventRodada[0]] = true;
 							zerarDx();
-							if(apeloRepetido[vezDoAventureiro] == 3) {
+							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 								animacaoFileira = 1;
 							} else{
-								interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 							}
 						}
 						
@@ -1859,21 +1976,26 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).setDx((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[1][vezDoAventureiro] > 0) {
+					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[1][vezDoAventureiro] = interferenciasRecebidas[1][vezDoAventureiro] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\interferencia.png");
 							(contTempoApelo== 0 ? coracao22 : (contTempoApelo== 1 ? coracao23 : (contTempoApelo== 2 ? coracao24 : (contTempoApelo== 3 ? coracao25 : (contTempoApelo== 4 ? coracao26 : (contTempoApelo== 5 ? coracao27 : (contTempoApelo== 6 ? coracao28 : (contTempoApelo== 7 ? coracao29 : coracao210)))))))).setDx((contTempoApelo== 0 ? coracao22 : (contTempoApelo== 1 ? coracao23 : (contTempoApelo== 2 ? coracao24 : (contTempoApelo== 3 ? coracao25 : (contTempoApelo== 4 ? coracao26 : (contTempoApelo== 5 ? coracao27 : (contTempoApelo== 6 ? coracao28 : (contTempoApelo== 7 ? coracao29 : coracao210)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[1][vezDoAventureiro] = interferenciasRecebidas[1][vezDoAventureiro] - (coracao210.getImagem() == null ? 1 : (coracao210.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = 0;	
+							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - (coracao210.getImagem() == null ? 1 : (coracao210.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							coracao210.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[1] = true;
+							animacaoEfeitoConcluido[ordemAventRodada[1]] = true;
 							zerarDx();
-							if(apeloRepetido[vezDoAventureiro] == 3) {
+							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 								animacaoFileira = 3;
 							} else{
-								interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+
+								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 							}
 						}
 						
@@ -1885,21 +2007,26 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).setDx((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[2][vezDoAventureiro] > 0) {
+					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[2][vezDoAventureiro] = interferenciasRecebidas[2][vezDoAventureiro] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\interferencia.png");
 							(contTempoApelo== 0 ? coracao32 : (contTempoApelo== 1 ? coracao33 : (contTempoApelo== 2 ? coracao34 : (contTempoApelo== 3 ? coracao35 : (contTempoApelo== 4 ? coracao36 : (contTempoApelo== 5 ? coracao37 : (contTempoApelo== 6 ? coracao38 : (contTempoApelo== 7 ? coracao39 : coracao310)))))))).setDx((contTempoApelo== 0 ? coracao32 : (contTempoApelo== 1 ? coracao33 : (contTempoApelo== 2 ? coracao34 : (contTempoApelo== 3 ? coracao35 : (contTempoApelo== 4 ? coracao36 : (contTempoApelo== 5 ? coracao37 : (contTempoApelo== 6 ? coracao38 : (contTempoApelo== 7 ? coracao39 : coracao310)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[2][vezDoAventureiro] = interferenciasRecebidas[2][vezDoAventureiro] - (coracao310.getImagem() == null ? 1 : (coracao310.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = 0;
+							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - (coracao310.getImagem() == null ? 1 : (coracao310.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							coracao310.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[2] = true;
+							animacaoEfeitoConcluido[ordemAventRodada[2]] = true;
 							zerarDx();
-							if(apeloRepetido[vezDoAventureiro] == 3) {
+							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 								animacaoFileira = 5;
 							} else{
-								interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+
+								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 							}
 						}
 						
@@ -1908,24 +2035,29 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					break;
 				case 17:
-					
+
 					(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).setDx((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[3][vezDoAventureiro] > 0) {
+					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[3][vezDoAventureiro] = interferenciasRecebidas[3][vezDoAventureiro] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\interferencia.png");
 							(contTempoApelo== 0 ? coracao42 : (contTempoApelo== 1 ? coracao43 : (contTempoApelo== 2 ? coracao44 : (contTempoApelo== 3 ? coracao45 : (contTempoApelo== 4 ? coracao46 : (contTempoApelo== 5 ? coracao47 : (contTempoApelo== 6 ? coracao48 : (contTempoApelo== 7 ? coracao49 : coracao410)))))))).setDx((contTempoApelo== 0 ? coracao42 : (contTempoApelo== 1 ? coracao43 : (contTempoApelo== 2 ? coracao44 : (contTempoApelo== 3 ? coracao45 : (contTempoApelo== 4 ? coracao46 : (contTempoApelo== 5 ? coracao47 : (contTempoApelo== 6 ? coracao48 : (contTempoApelo== 7 ? coracao49 : coracao410)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[3][vezDoAventureiro] = interferenciasRecebidas[3][vezDoAventureiro] - (coracao410.getImagem() == null ? 1 : (coracao410.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = 0;
+							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - (coracao410.getImagem() == null ? 1 : (coracao410.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							coracao410.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[3] = true;
+							animacaoEfeitoConcluido[ordemAventRodada[3]] = true;
 							zerarDx();
-							if(apeloRepetido[vezDoAventureiro] == 3) {
+							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 								animacaoFileira = 7;
 							} else{
-								interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+
+								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 							}
 						}
 						
@@ -1937,21 +2069,26 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).setDx((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[4][vezDoAventureiro] > 0) {
+					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] > 0) {
 						
 						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[4][vezDoAventureiro] = interferenciasRecebidas[4][vezDoAventureiro] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\interferencia.png");
 							(contTempoApelo== 0 ? coracao52 : (contTempoApelo== 1 ? coracao53 : (contTempoApelo== 2 ? coracao54 : (contTempoApelo== 3 ? coracao55 : (contTempoApelo== 4 ? coracao56 : (contTempoApelo== 5 ? coracao57 : (contTempoApelo== 6 ? coracao58 : (contTempoApelo== 7 ? coracao59 : coracao510)))))))).setDx((contTempoApelo== 0 ? coracao52 : (contTempoApelo== 1 ? coracao53 : (contTempoApelo== 2 ? coracao54 : (contTempoApelo== 3 ? coracao55 : (contTempoApelo== 4 ? coracao56 : (contTempoApelo== 5 ? coracao57 : (contTempoApelo== 6 ? coracao58 : (contTempoApelo== 7 ? coracao59 : coracao510)))))))).getDx() + comecarAnimacaoCoracao);
 						} else {
-							interferenciasRecebidas[4][vezDoAventureiro] = interferenciasRecebidas[4][vezDoAventureiro] - (coracao510.getImagem() == null ? 1 : (coracao510.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = 0;
+							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - (coracao510.getImagem() == null ? 1 : (coracao510.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
+
 							coracao510.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[4] = true;
+							animacaoEfeitoConcluido[ordemAventRodada[4]] = true;
 							zerarDx();
-							if(apeloRepetido[vezDoAventureiro] == 3) {
+							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 								animacaoFileira = 9;
 							} else{
-								interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+
+								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 							}
 						}
 						contTempoApelo++;
@@ -1959,15 +2096,15 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					break;
 			}
-			
-			if(interferenciasRecebidas[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2][vezDoAventureiro] == 0 && TerminouLoopEfeitoInterf != 1) {
-				animacaoEfeitoConcluido[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2] = true;
+
+			if(animacaoFileira > 10 && (interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] == 0 && TerminouLoopEfeitoInterf != 1)) {
+				animacaoEfeitoConcluido[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] = true;
 				zerarDx();
 				
-				if(apeloRepetido[vezDoAventureiro] == 3) {
+				if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
 					animacaoFileira = animacaoFileira - 10;
 				} else{
-					interferirNosAdversarios(valoresInterferencia[0], valoresInterferencia[1], valoresInterferencia[2]);
+					interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
 				}
 			}
 		}
@@ -1980,26 +2117,36 @@ public class Batalha extends JPanel implements ActionListener {
 	public void habilidadeRepetido(int posicaoCao) {
 		efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
 		
-		if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 150) {
-			txtEfeitoFase.setTexto("- 2");
+		if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 60) {
+			
+			int valorRepetido = 0;
+			
+			for(int i2=1; i2<=5; i2++) {
+				if(contEtapasBatalha - i2 > 0 && numeroDosAtaques[ordemAventRodada[contEtapasBatalha]][ordemAventRodada[posicaoCao]] == numeroDosAtaques[ordemAventRodada[contEtapasBatalha - i2]][ordemAventRodada[posicaoCao]]) {
+					valorRepetido = valorRepetido + 2;
+				} else {
+					break;
+				}
+			}
+			txtEfeitoFase.setTexto("- " + valorRepetido);
 			efeitoFase.load("res\\batalha\\apelo.png");
 			txtEfeitoFase.setY((posicaoCao == 0 ? campoBatalha1.getY() : (posicaoCao == 1 ? campoBatalha2.getY() : (posicaoCao == 2 ? campoBatalha3.getY() : (posicaoCao == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 		}
 		
-		if(efeitoFase.getDx() == 150) {
+		if(efeitoFase.getDx() == 60) {
 			 
 			efeitoFase.setImagem(null);
 			txtEfeitoFase.setTexto(" ");
-			valoresInterferencia[0] = matrizAventureiros[3][posicaoCao];
-			valoresInterferencia[1] = matrizAventureiros[4][posicaoCao];
-			valoresInterferencia[2] = posicaoCao;
+			valorESDaInterferencia[0] = valorInterferencia[ordemAventRodada[posicaoCao]];
+			valorESDaInterferencia[1] = tipoInterferencia[ordemAventRodada[posicaoCao]];
+			valorESDaInterferencia[2] = posicaoCao;
 			
 			TerminouLoopEfeitoInterf =0;
-			apeloRepetido[posicaoCao] = 3;
+			apeloRepetido[ordemAventRodada[posicaoCao]] = 3;
 			zerarDx();
 			
-			interferenciasRecebidas[posicaoCao][vezDoAventureiro] = interferenciasRecebidas[posicaoCao][vezDoAventureiro] + 2;
+			interferenciasRecebidas[ordemAventRodada[posicaoCao]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[posicaoCao]][ordemAventRodada[vezDoAventureiro]] + 2;
 			animacaoFileira = 10 + posicaoCao*2;
 		}
 	}
@@ -2009,42 +2156,44 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void efeitoChefeDeFase (int posicaoCao) {
-
-		if(((adversario == 0 || adversario == 3) && matrizAventureiros[4][posicaoCao] != -1) || ((adversario == 1 || adversario == 4) && matrizAventureiros[4][posicaoCao] == -1) || (adversario == 2 && matrizAventureiros[7][posicaoCao] == 1)) {
+		if(((adversario == 0 || adversario == 3) && tipoInterferencia[ordemAventRodada[posicaoCao]] != -1) || ((adversario == 1 || adversario == 4) && tipoInterferencia[ordemAventRodada[posicaoCao]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[posicaoCao]] == 1)) {
 
 			int efeitoBoss = (adversario == 0 || adversario == 1? -1 : 1);
 			
 			efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
 			
-			if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 150) {
+			if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 60) {
 				
 				txtEfeitoFase.setTexto((efeitoBoss == -1 ? "- 1" : "+ 1"));
 				efeitoFase.load("res\\batalha\\apelo.png");
 				txtEfeitoFase.setY((posicaoCao == 0 ? campoBatalha1.getY() : (posicaoCao == 1 ? campoBatalha2.getY() : (posicaoCao == 2 ? campoBatalha3.getY() : (posicaoCao == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 				efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			}
-			if(efeitoFase.getDx() == 150) {
+			if(efeitoFase.getDx() == 60) {
 
 				efeitoFase.setImagem(null);
 				txtEfeitoFase.setTexto(" ");
-				valoresInterferencia[0] = matrizAventureiros[3][posicaoCao];
-				valoresInterferencia[1] = matrizAventureiros[4][posicaoCao];
-				valoresInterferencia[2] = posicaoCao;
+				valorESDaInterferencia[0] = valorInterferencia[ordemAventRodada[posicaoCao]];
+				valorESDaInterferencia[1] = tipoInterferencia[ordemAventRodada[posicaoCao]];
+				valorESDaInterferencia[2] = posicaoCao;
 				
 					
-				efeitoChefeDeFase[posicaoCao] = 3;
+				efeitoChefeDeFase[ordemAventRodada[posicaoCao]] = 3;
 				zerarDx();
 				TerminouLoopEfeitoInterf =0;
 				
 				for(int i=0; i<5; i++) {
 					if(posicaoCao == i) {
 						if(efeitoBoss < 0) {
-							interferenciasRecebidas[i][vezDoAventureiro] = interferenciasRecebidas[i][vezDoAventureiro] - efeitoBoss;
-							matrizAventureiros[2][vezDoAventureiro] = matrizAventureiros[2][vezDoAventureiro] - efeitoBoss;
+							interferenciasRecebidas[i][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[i][ordemAventRodada[vezDoAventureiro]] - efeitoBoss;
+							valorApelo[ordemAventRodada[vezDoAventureiro]] = valorApelo[ordemAventRodada[vezDoAventureiro]] - efeitoBoss;
 							
 							animacaoFileira = 10 + i*2;
+							
+							System.out.println("fileira :" + animacaoFileira);
 						} else {
-							matrizAventureiros[2][vezDoAventureiro] = matrizAventureiros[2][vezDoAventureiro] + efeitoBoss;
+							System.out.println("efeito bos + 1");
+							valorApelo[ordemAventRodada[vezDoAventureiro]] = valorApelo[ordemAventRodada[vezDoAventureiro]] + efeitoBoss;
 							animacaoFileira = 0 + i*2;
 						}
 					}
@@ -2058,14 +2207,12 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void mexerMedidorApelos() {
-	
-		
 		
 		for(int i=0; i<5;) {
 			(i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).setDx((i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).getDx() + comecarAnimacaoCoracao);
 
 			if((i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).getDx() >= intervaloAnimacao) {
-				(i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).setX((i == 0 ? campoBatalha1 : (i == 1 ? campoBatalha2 : (i == 2 ? campoBatalha3 : (i == 3 ? campoBatalha4 : campoBatalha5)))).getX() + 100 + (4 * matrizAventureiros[1][i] < 0? 0 : 4 * matrizAventureiros[1][i]));
+				(i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).setX((i == 0 ? campoBatalha1 : (i == 1 ? campoBatalha2 : (i == 2 ? campoBatalha3 : (i == 3 ? campoBatalha4 : campoBatalha5)))).getX() + 100 + (4 * pontosTotais[ordemAventRodada[i]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[i]]));
 				if(i < 4) {
 					(i == 0 ? coracao02 : (i == 1 ? coracao03 : (i == 2 ? coracao04 : coracao05))).setDx((i == 0 ? coracao02 : (i == 1 ? coracao03 : (i == 2 ? coracao04 : coracao05))).getDx() + comecarAnimacaoCoracao);
 				} else {
@@ -2075,7 +2222,41 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 		}
 	
-		System.out.println("total real: " + matrizAventureiros[1][0] + ", " + matrizAventureiros[1][1] + ", " + matrizAventureiros[1][2] + ", " + matrizAventureiros[1][3] + ", " + matrizAventureiros[1][4] + "\n");
+		System.out.println("total real: " + pontosTotais[ordemAventRodada[0]] + ", " + pontosTotais[ordemAventRodada[1]] + ", " + pontosTotais[ordemAventRodada[2]] + ", " + pontosTotais[ordemAventRodada[3]] + ", " + pontosTotais[ordemAventRodada[4]] + "\n");
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  			organiza os Valores de acordo com sua performance na rodada da batalha			|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void  OrganizarValores() {
+
+		int [] listaProvisoria = new int [5];
+		int [] listaProvisoriaTotal = new int [5];
+					
+		for(int i=0; i<5; i++) {
+			listaProvisoria[i] = ordemAventRodada[i];
+			listaProvisoriaTotal[i] = pontosTotais[ordemAventRodada[i]];
+		}
+		System.out.println("reorganização: " +  ordemAventRodada[0] + " " +  ordemAventRodada[1] + " " +  ordemAventRodada[2] + " " +  ordemAventRodada[3] + " " +  ordemAventRodada[4]);
+
+		for(int i2=0; i2<5; i2++) {
+			for(int i=0; i<5; i++) {
+				if(listaProvisoriaTotal[listaProvisoria[i]] >= listaProvisoriaTotal[listaProvisoria[0]] && listaProvisoriaTotal[listaProvisoria[i]] >= listaProvisoriaTotal[listaProvisoria[1]] && listaProvisoriaTotal[listaProvisoria[i]] >= listaProvisoriaTotal[listaProvisoria[2]] && listaProvisoriaTotal[listaProvisoria[i]] >= listaProvisoriaTotal[listaProvisoria[3]] && listaProvisoriaTotal[listaProvisoria[i]] >= listaProvisoriaTotal[listaProvisoria[4]]) {
+					ordemAventRodada[i2] = listaProvisoria[i];
+					listaProvisoriaTotal[listaProvisoria[i]] = -100;
+					break;
+				}
+			}	
+		}
+				
+		for(int i=0; i<5; i++) {
+			ordemAventVerdadeira[i] = (ordemAventRodada[0] == i ? 0 : (ordemAventRodada[1] == i ? 1 :  (ordemAventRodada[2] == i ? 2 : (ordemAventRodada[3] == i ? 3 :  4))));
+		}
+	
+		System.out.println("reorganização: " +  ordemAventRodada[0] + " " +  ordemAventRodada[1] + " " +  ordemAventRodada[2] + " " +  ordemAventRodada[3] + " " +  ordemAventRodada[4]);
+		
+		animacaoFileira = 22;
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -2084,42 +2265,50 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void OrganizarCampos() {
 
-		int [][] listaProvisoria = new int[3][5];
-					
-		for(int i=0; i<5; i++) {
-			listaProvisoria[0][i] = matrizAventureiros[0][i];
-			listaProvisoria[1][i] = matrizAventureiros[1][i];
-			listaProvisoria[2][i] = matrizAventureiros[6][i];
-		}
-		
-		for(int i2=0; i2<5; i2++) {
-			for(int i=0; i<5; i++) {
-				if(listaProvisoria[1][i] >= listaProvisoria[1][0] && listaProvisoria[1][i] >= listaProvisoria[1][1] && listaProvisoria[1][i] >= listaProvisoria[1][2] && listaProvisoria[1][i] >= listaProvisoria[1][3] && listaProvisoria[1][i] >= listaProvisoria[1][4]) {
-					matrizAventureiros[0][i2] = listaProvisoria[0][i];
-					matrizAventureiros[1][i2] = listaProvisoria[1][i];
-					matrizAventureiros[6][i2] = listaProvisoria[2][i];
-					listaProvisoria[1][i] = -100;
-					break;
-				}
-			}	
-		}
-	
 		coracao11.setDx(coracao11.getDx() + comecarAnimacaoCoracao);
 		
 		if(coracao11.getDx() >= intervaloAnimacao * 2) {
 			apagarCoracoes();
-			coracao01.setX(campoBatalha1.getX() + 100 + (4 * matrizAventureiros[1][0] < 0? 0 : 4 * matrizAventureiros[1][0]));
-			coracao02.setX(campoBatalha2.getX() + 100 + (4 * matrizAventureiros[1][1] < 0? 0 : 4 * matrizAventureiros[1][1]));
-			coracao03.setX(campoBatalha3.getX() + 100 + (4 * matrizAventureiros[1][2] < 0? 0 : 4 * matrizAventureiros[1][2]));
-			coracao04.setX(campoBatalha4.getX() + 100 + (4 * matrizAventureiros[1][3] < 0? 0 : 4 * matrizAventureiros[1][3]));
-			coracao05.setX(campoBatalha5.getX() + 100 + (4 * matrizAventureiros[1][4] < 0? 0 : 4 * matrizAventureiros[1][4]));
+			coracao01.setX(campoBatalha1.getX() + 100 + (4 * pontosTotais[ordemAventRodada[0]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[0]]));
+			coracao02.setX(campoBatalha2.getX() + 100 + (4 * pontosTotais[ordemAventRodada[1]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[1]]));
+			coracao03.setX(campoBatalha3.getX() + 100 + (4 * pontosTotais[ordemAventRodada[2]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[2]]));
+			coracao04.setX(campoBatalha4.getX() + 100 + (4 * pontosTotais[ordemAventRodada[3]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[3]]));
+			coracao05.setX(campoBatalha5.getX() + 100 + (4 * pontosTotais[ordemAventRodada[4]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[4]]));
 			
-			System.out.println("total  5 : " + matrizAventureiros[5][0] + " " + matrizAventureiros[5][1] + " " + matrizAventureiros[5][2] + " " + matrizAventureiros[5][3] + " " + matrizAventureiros[5][4]);
+			System.out.println("total  5 : " + pontosRodada[ordemAventRodada[0]] + " " + pontosRodada[ordemAventRodada[1]] + " " + pontosRodada[ordemAventRodada[2]] + " " + pontosRodada[ordemAventRodada[3]] + " " + pontosRodada[ordemAventRodada[4]]);
 
-			posicaoAventureiro = (matrizAventureiros[0][0] == aventureiro ? 0 : (matrizAventureiros[0][1] == aventureiro ? 1 : (matrizAventureiros[0][2] == aventureiro ? 2 : (matrizAventureiros[0][3] == aventureiro ? 3 : 4)))); comecarAnimacaoCoracao = 0;
-			matrizAventureiros[5][0] = 0; matrizAventureiros[5][1] = 0; matrizAventureiros[5][2] = 0; matrizAventureiros[5][3] = 0; matrizAventureiros[5][4] = 0;
-			danoEfeito4[0]=0; danoEfeito4[1]=0; danoEfeito4[2]=0; danoEfeito4[3]=0; danoEfeito4[4]=0;
-			System.out.println("total  5 : " + matrizAventureiros[5][0] + " " + matrizAventureiros[5][1] + " " + matrizAventureiros[5][2] + " " + matrizAventureiros[5][3] + " " + matrizAventureiros[5][4]);
+			//----------------------------------------------------------------------------
+			comecarAnimacaoCoracao = 0;
+			for(int i=0; i<5; i++) {
+				if(ordemAventRodada[i] == aventureiro) {
+					posicaoAventureiro = i;
+				}
+				
+				valorApelo[i] = 0;
+				valorInterferencia[i] = 0;
+				tipoInterferencia[i] = -1;
+				tipoAtaque[i] = 0;
+				
+				for(int i2=0; i2<5; i2++) {
+					interferenciasRecebidas[i][i2] = 0;
+				}
+				
+				pontosRodada[i] = 0;
+				pontosAtuaisDaRodada[i] = 0;
+				
+				danoEfeito4[i]=0; 
+				efeitoChefeDeFase[i] = 0;
+				
+				valorESDaInterferencia[0] = -1; valorESDaInterferencia[1] = -1; valorESDaInterferencia[2] = -1;
+				
+				TerminouLoopEfeitoInterf = 0;
+				
+				Efeito4 = 0;
+				Efeito6[0] = 0; Efeito6[1] = 0;
+
+			}
+			
+			//----------------------------------------------------------------------------
 
 			zerarDx();
 			
@@ -2127,7 +2316,7 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			if(contEtapasBatalha == 5) {
 				vezDoAventureiro=0;
-				animacaoFileira = 22;
+				animacaoFileira = 23;
 				
 			} else {
 				animacaoFileira = -1;
@@ -2173,7 +2362,7 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(coracao11.getDx() >= intervaloAnimacao * 5) {
 			
-			parabenizacaoVencedor.load("res\\batalha\\" + nomeAventureiro[matrizAventureiros[0][0]] + (matrizAventureiros[0][0] == aventureiro ? "\\vencedor.png" : "\\perdedor.png") );
+			parabenizacaoVencedor.load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + (ordemAventRodada[0] == aventureiro ? "\\vencedor.png" : "\\perdedor.png") );
 			
 			coracao12.setDx(coracao12.getDx() + comecarAnimacaoCoracao);
 			if(coracao11.getDx() >= intervaloAnimacao * 5) {

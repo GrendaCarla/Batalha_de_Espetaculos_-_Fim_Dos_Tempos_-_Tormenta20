@@ -140,6 +140,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		
 	}
+
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  		 					dispara quando as teclas são  pressionadas						|
@@ -211,27 +212,13 @@ public class Menu extends JPanel implements ActionListener {
 					
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 					
-					salvar.LerDados();
-					
-					tela1 = new Escolha_de_personagem(this);
-			        
-			        JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-			        janelaPrincipal.remove(this);
-			        tela2 = new Escolha_de_adversario(salvar.getAventureiro(), tela1, this, salvar.getVitorias());
-			        janelaPrincipal.add(tela2);
-			        janelaPrincipal.setTitle("Escolha de Adversário");
-				    janelaPrincipal.revalidate();
+					chamarTela1(false);
 					
 				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 1) {
 					
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 	
-					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-			        janelaPrincipal.remove(this);
-			        tela1 = new Escolha_de_personagem(this);
-			        janelaPrincipal.add(tela1);
-			        janelaPrincipal.setTitle("Escolha de Personagem");
-			        janelaPrincipal.revalidate();
+					chamarTela1(true);
 			        
 				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 2) {
 					
@@ -252,7 +239,6 @@ public class Menu extends JPanel implements ActionListener {
 				}
 			}
 		}else {
-			
 			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
 				tela1.KeyPressed(tecla);
 				
@@ -359,6 +345,27 @@ public class Menu extends JPanel implements ActionListener {
 		
 		repaint();
 		
+	}
+	
+	
+	public void chamarTela1(boolean NovoJogo) {
+		
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        tela1 = new Escolha_de_personagem(this, NovoJogo);
+        janelaPrincipal.add(tela1);
+        janelaPrincipal.setTitle("Escolha de Personagem");
+        
+        if(NovoJogo == false) {
+        	salvar.LerDados();
+        	tela1.chamarTela2(salvar.getAventureiro(), salvar.getVitorias());
+        }
+        
+        janelaPrincipal.revalidate();
+	}
+	
+	public void LimparTela1() {
+		tela1 = null;
 	}
 
 }

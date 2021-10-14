@@ -35,11 +35,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 
 	private Escolha_de_personagem tela1;
-	private Batalha tela3;
+	private Batalha2 tela3;
 	private Manual telaManual;
 	private Menu telaMenu;
 	JFrame janelaPrincipal;
-	
+	boolean novoJogo;
 	
 	
 	private Image fundo;
@@ -156,12 +156,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados) {
+	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo) {
 		
 		aventureiro = numAventureiro;
 		this.tela1 = PaginaAnterior;
 		this.telaMenu = PaginaMenu;
 		this.derrotados = Derrotados;
+		this.novoJogo = NovoJogo;
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
@@ -192,10 +193,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		txtSalvar.setFonte(new Font("Arial", Font.BOLD, 20));
 		txtSalvar.setCorTexto(new Color (255, 255, 255));
 		
+		contMenSalvar = 0;
 		SalvarJogo();
 		
 		timer = new Timer(5, this);
 		timer.start();
+		
 	}
 	
 	public void setDerrotados(int posicao, boolean derrotados) {
@@ -240,7 +243,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	        telaMenu.valorLeituraSave = salvar.LerDados();
 	        telaMenu.Restaurar();
 	        janelaPrincipal.revalidate();
-	        
+	        timer.stop();
 		}
 	}
 	
@@ -295,11 +298,22 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				txtDialogoAviso2.setTexto(" ");
 			}
 			else {
-				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-		        janelaPrincipal.remove(this);
-		        janelaPrincipal.add(tela1);
-		        janelaPrincipal.setTitle("Escolha de Personagem");
-		        janelaPrincipal.revalidate();
+				
+				if(novoJogo ==  true) {
+					chamarTela1();
+		        
+				}else{
+					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+			        janelaPrincipal.remove(this);
+			        janelaPrincipal.add(telaMenu);
+			        janelaPrincipal.setTitle("Menu");
+			        telaMenu.valorLeituraSave = salvar.LerDados();
+			        telaMenu.chamarTela1(true);
+			        telaMenu.Restaurar();
+			        janelaPrincipal.revalidate();
+			        timer.stop();
+			        
+		        }
 			}
 		}
 	}
@@ -327,10 +341,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(janela != null && janela.getTitle() == "Escolha de Adversário") {
 			int codigo = tecla.getKeyCode();
 			
-			if(saveAviso.getImagem() == null && imgMenSalve.getImagem() == null) {
 				
 				// -------------------- abre e fecha o menu -------------------- \
-				if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null) {
+				if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
 					mostrarMenu = !mostrarMenu;
 					
 					if(mostrarMenu == true) {
@@ -501,7 +514,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 				
 				// ----------------------- diálogo com os cães das colinas ------------------------ \
-				else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && ((contTeclaBatalha == 0 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 1 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 3 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 4 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 5 && contDialogo < 1))) {
+				else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && imgMenSalve.getImagem() == null && ((contTeclaBatalha == 0 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 1 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 3 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 4 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 5 && contDialogo < 1))) {
 					
 					sombreadorDialogo.load("res\\Menu\\sombreador.png");
 					barraDeDialogo.load("res\\escolhaDeAdversario\\barraDeDialogo.png");
@@ -971,7 +984,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 			        janelaPrincipal.remove(this);
-			        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
+			        tela3 = new Batalha2(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
 			        janelaPrincipal.add(tela3);
 			        janelaPrincipal.setTitle("Batalha");
 			        janelaPrincipal.revalidate();
@@ -982,7 +995,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			        limpaIconesAdversarios();
 			        iconeRexthor.load("res\\escolhaDeAdversario\\rexthor2.png");
 				}
-			}
+			
 			
 		} else{
 			// ------------------------ manda para a tela de Manual ----------------------- /
@@ -1102,6 +1115,20 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(estrelaFim1.getImagem(), estrelaFim1.getX(), estrelaFim1.getY(), this);
 		graficos.drawImage(estrelaFim2.getImagem(), estrelaFim2.getX(), estrelaFim2.getY(), this);
 		
+		graficos.drawImage(imgMenSalve.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
+		
+		graficos.setColor(txtSalvar.getCorTexto());
+		tl7 = new TextLayout(txtSalvar.getTexto(), txtSalvar.getFonte(), frc);
+		tl7.draw(graficos, txtSalvar.getX(), txtSalvar.getY());
+		
+		graficos.drawImage(imgMenSalve2.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
+		graficos.drawImage(sombreadorSaveAviso.getImagem(), sombreadorSaveAviso.getX(), sombreadorSaveAviso.getY(), this);
+		graficos.drawImage(saveAviso.getImagem(), saveAviso.getX(), saveAviso.getY(), this);
+
+		graficos.setColor(txtSaveAviso.getCorTexto());
+		tl8 = new TextLayout(txtSaveAviso.getTexto(), txtSaveAviso.getFonte(), frc);
+		tl8.draw(graficos, txtSaveAviso.getX(), txtSaveAviso.getY());
+		
 		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
 		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
 		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
@@ -1120,21 +1147,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		tl5.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
 		tl6.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
 		
-		graficos.drawImage(imgMenSalve.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
-
-		graficos.setColor(txtSalvar.getCorTexto());
-		tl7 = new TextLayout(txtSalvar.getTexto(), txtSalvar.getFonte(), frc);
-		tl7.draw(graficos, txtSalvar.getX(), txtSalvar.getY());
 		
-		graficos.drawImage(imgMenSalve2.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
-
-		
-		graficos.drawImage(sombreadorSaveAviso.getImagem(), sombreadorSaveAviso.getX(), sombreadorSaveAviso.getY(), this);
-		graficos.drawImage(saveAviso.getImagem(), saveAviso.getX(), saveAviso.getY(), this);
-
-		graficos.setColor(txtSaveAviso.getCorTexto());
-		tl7 = new TextLayout(txtSaveAviso.getTexto(), txtSaveAviso.getFonte(), frc);
-		tl7.draw(graficos, txtSaveAviso.getX(), txtSaveAviso.getY());
 		
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
@@ -1159,37 +1172,38 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(resutado == 1) {
 			
-			if(contMenSalvar > 0 && contMenSalvar < 40) {
-				imgMenSalve.setX(imgMenSalve.getX() + 6);
-				imgMenSalve2.setX(imgMenSalve2.getX() + 6);
+			if(contMenSalvar > 0 && contMenSalvar < 36) {
+				imgMenSalve.setX(imgMenSalve.getX() + 7);
+				imgMenSalve2.setX(imgMenSalve2.getX() + 7);
 				
-				if(contMenSalvar > 11 && contMenSalvar % 2 == 0 && contConteudoSalvar < 12) {
-					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar ++));
+				if(contMenSalvar > 11 && contMenSalvar % 2 == 0 && contConteudoSalvar < 11) {
+					contConteudoSalvar ++;
+					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar));
 				}
 				
 			}
 			
-			if(contMenSalvar == 34) {
+			if(contMenSalvar == 30) {
 				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar3.png");
-			} else if(contMenSalvar == 36) {
+			} else if(contMenSalvar == 34) {
 				imgMenSalve2.setImagem(null);
 			}
 			
-			if(contMenSalvar == 100) {
+			if(contMenSalvar == 70) {
 				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar3.png");
 			}
 			
-			if(contMenSalvar == 102) {
+			if(contMenSalvar == 72) {
 				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar2.png");
 				contConteudoSalvar --;
 			}
 			
 
-			if(contMenSalvar > 102 && contMenSalvar < 152) {
-				imgMenSalve.setX(imgMenSalve.getX() - 6);
-				imgMenSalve2.setX(imgMenSalve2.getX() - 6);
+			if(contMenSalvar > 72 && contMenSalvar < 122) {
+				imgMenSalve.setX(imgMenSalve.getX() - 7);
+				imgMenSalve2.setX(imgMenSalve2.getX() - 7);
 				
-				if(contMenSalvar > 105 && contMenSalvar % 2 == 0 && contConteudoSalvar > 0) {
+				if(contMenSalvar > 75 && contMenSalvar % 2 == 0 && contConteudoSalvar > 0) {
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar --));
 				}
 				
@@ -1197,12 +1211,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtSalvar.setTexto(" ");
 				}
 			}
-			if(contMenSalvar > 151) {
+			if(contMenSalvar > 121) {
 				imgMenSalve.setImagem(null);
 			}
 			
 		} else {
-			if(contMenSalvar == 120) {
+			if(contMenSalvar == 100) {
 				sombreadorSaveAviso.setImagem(null);
 				saveAviso.setImagem(null);
 				txtSaveAviso.setTexto(" ");
@@ -1234,4 +1248,21 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		} 
 		
 	}
+	
+	public void chamarTela1() {
+		
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        janelaPrincipal.add(tela1);
+        janelaPrincipal.setTitle("Escolha de Personagem");
+        tela1.LimparTela2();
+        janelaPrincipal.revalidate();
+        
+       
+	}
+	
+	public void LimparTela3() {
+		tela3 = null;
+	}
+	
 }

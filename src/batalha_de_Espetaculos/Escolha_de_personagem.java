@@ -32,6 +32,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
 	private Menu telaMenu;
+	boolean novoJogo;
 	
 	JFrame janelaPrincipal;
 	
@@ -88,8 +89,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
-	public Escolha_de_personagem(Menu PaginaAnterior) {
+	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo) {
 		this.telaMenu = PaginaAnterior;
+		this.novoJogo = NovoJogo;
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
@@ -216,8 +218,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	        janelaPrincipal.add(telaMenu);
 	        janelaPrincipal.setTitle("Menu");
 	        telaMenu.Restaurar();
+	        telaMenu.LimparTela1();
 	        janelaPrincipal.revalidate();
-	        
+	        timer.stop();
 		}
 	}
 	
@@ -376,12 +379,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				} else {
 					boolean [] derrotados = {false, false, false, false, false};
 					
-					JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-			        janelaPrincipal.remove(this);
-			        tela2 = new Escolha_de_adversario(contTeclaAven, this, telaMenu, derrotados);
-			        janelaPrincipal.add(tela2);
-			        janelaPrincipal.setTitle("Escolha de Adversário");
-			        janelaPrincipal.revalidate();
+			        chamarTela2(contTeclaAven, derrotados);
 			        
 			        limparDialogo();
 				}
@@ -389,10 +387,12 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			
 		// ---------- encaminha todas as teclas pressionadas para as telas  --------- \
 		} else {
+
 			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual1") {
 				telaManual.KeyPressed(tecla);
 			
 			} else {
+				
 				tela2.KeyPressed(tecla);
 			}
 		}
@@ -501,5 +501,19 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		repaint();
+	}
+	
+	public void chamarTela2(int ContTeclaAven, boolean [] Derrotados) {
+		
+		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo);
+        janelaPrincipal.add(tela2);
+        janelaPrincipal.setTitle("Escolha de Adversário");
+        janelaPrincipal.revalidate();
+	}
+	
+	public void LimparTela2() {
+		tela2 = null;
 	}
 }
