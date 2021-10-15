@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Arius {
 	//                                 apelo,              interferencia,           tipo interferencia (0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, -1: sem efeito)
-	private int [][] valores = {{10,10,10,10,10,10,10,10}, {3, 0, 0, 0, 4, 10, 0, 3}, {2, 4, -1, -1, 3, 6, -1, 1}, {1, 0, 0, 0, 0, 0, 1, 1}}; //tipo apelo 0= nao fisico, 1= fisico
+	private int [][] valores = {{4, 2, 5, 6, 3, 0, 2, 4}, {3, 0, 0, 2, 4, 10, 0, 3}, {2, -1, -1, 0, 3, 6, -1, 1}, {1, 0, 0, 0, 0, 0, 1, 1}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
 	private String [] NomeApelos = {"Chifrada", "Compreensão", "Strip-tease Tático", "Olimpíadas artonianas", "Diplomacia", "5 é 20", "Gládio e escudo", "Afanação de gorad"};

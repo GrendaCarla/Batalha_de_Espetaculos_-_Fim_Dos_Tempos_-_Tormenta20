@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,9 +23,6 @@ import aventureiros.Ayla;
 import aventureiros.Ignis;
 import aventureiros.Kiki;
 import aventureiros.Rexthor;
-
-import java.util.Random;
-
 import batalha_de_Espetaculos.Modelo.Icones_interativos;
 import batalha_de_Espetaculos.Modelo.Texto;
 
@@ -98,9 +96,6 @@ public class Batalha extends JPanel implements ActionListener {
 											 kiki.getConteudoDescricao(0), kiki.getConteudoDescricao(1), kiki.getConteudoDescricao(2), kiki.getConteudoDescricao(3),
 											arius.getConteudoDescricao(0), arius.getConteudoDescricao(1), arius.getConteudoDescricao(2), arius.getConteudoDescricao(3)};
 
-	//									   posição aventu,*    apelo total*      apelo gerado*      dano dado*     efeito do dano*   pontos atuais*   poder anterior usado   tipo do ataque*
-	//private int [][] matrizAventureiros = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {-1, -1, -1, -1, -1}, {0, 0, 0, 0, 0}}; 
-	
 	private int [] ordemAventVerdadeira = {0, 0, 0, 0, 0};
 	private int [] ordemAventRodada = {0, 0, 0, 0, 0};
 	private int [] valorApelo = {0, 0, 0, 0, 0};
@@ -115,14 +110,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private int [][] numeroDosAtaques = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
 	private int [] pontosTotais = {0, 0, 0, 0, 0};
 	
-	private int contEtapasBatalha = 0; // conta em que rodada esta
+	private int contEtapasBatalha = 0; // conta em que rodada esta > começa com 1 e vai ate o 5
 	
-	
-	private int [] apeloRepetido = {0, 0, 0, 0, 0};
-	
-	
-	 //       						dano, efeito, posicaoNaLista
-	private int [] valorESDaInterferencia = {-1,-1,-1};
 	
 	private int aventureiro;
 	private int adversario;
@@ -130,16 +119,9 @@ public class Batalha extends JPanel implements ActionListener {
 	int vezDoAventureiro = 0;
 	
 	
-	
-	private int TerminouLoopEfeitoInterf = 0;
-	
-	private int [] efeitoChefeDeFase = {0, 0, 0 ,0 ,0};
-	
-	private int [] danoEfeito4 = {0, 0, 0, 0, 0};
-	private int Efeito4 = 0;
-	
-						// rex , arius
-	private int [] Efeito6 = {0, 0};
+	private int [] efeitoChefeDeFase = {0, 0, 0, 0, 0}; // 3 estados, 0 entrou no pos1,1 entrou no else , 2 ta la mas nao pode entrar
+	private int [] efeitoApeloRepetido = {0, 0, 0, 0, 0}; // 3 estados, 0 entrou no pos1,1 entrou no else , 2 ta la mas nao pode entrar
+	private int [] efeitoInterferencias = {0, 0, 0, 0, 0}; // 3 estados, 0 entrou no pos1,1 entrou no else , 2 ta la mas nao pode entrar
 
 	private Random aleatorioHabAdver = new Random();
 	private int [] arrayAleatorioHabAdver = {aleatorioHabAdver.nextInt(4), aleatorioHabAdver.nextInt(4), aleatorioHabAdver.nextInt(4), aleatorioHabAdver.nextInt(4), aleatorioHabAdver.nextInt(4)};
@@ -165,15 +147,11 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	// ------------------------------------------- animação ----------------------------------------
 
-	private int intervaloAnimacao = 5;
+	private int intervaloAnimacao = 10;
 	private int intervaloAnimacaoGif = 100; //200;
 	
 	private int comecarAnimacaoCoracao = 0;
 	private int animacaoFileira = -1;
-	
-	private boolean Iniciargif = false;
-	
-	private boolean [] animacaoEfeitoConcluido = {false, false, false, false, false};
 
 	// --------------------------------- campo batalha e habilidades usadas -----------------------------------------
 	
@@ -296,7 +274,6 @@ public class Batalha extends JPanel implements ActionListener {
 	// ------------------------------------------- d20 ----------------------------------------
 	//                            Rexthor           Arius
 	private int [][] dados = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
-	private boolean vezDados = false;
 	
 	private Icones_interativos imgDado1 = new Icones_interativos(tamanhoContorno + 760/2 - 578/2, tamanhoContorno + 30);
 	private Icones_interativos imgDado2 = new Icones_interativos(imgDado1.getX() + 120, imgDado1.getY());
@@ -362,6 +339,7 @@ public class Batalha extends JPanel implements ActionListener {
 		seletorAventureiro.load("res\\batalha\\seletorAventureiro.png");
 		
 		apagarCoracoes();
+		//mostrarCoracoes();
 		coracao01.load("res\\batalha\\apelo.png");
 		coracao02.load("res\\batalha\\apelo.png");
 		coracao03.load("res\\batalha\\apelo.png");
@@ -428,6 +406,96 @@ public class Batalha extends JPanel implements ActionListener {
 		timer.start();
 		
 	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  						apaga os apelos adquiridos no campo de batalha						|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void apagarCoracoes() {
+		coracao11.setImagem(null); coracao12.setImagem(null); coracao13.setImagem(null); coracao14.setImagem(null); coracao15.setImagem(null);
+		coracao16.setImagem(null); coracao17.setImagem(null); coracao18.setImagem(null); coracao19.setImagem(null); coracao110.setImagem(null);
+		
+		coracao21.setImagem(null); coracao22.setImagem(null); coracao23.setImagem(null); coracao24.setImagem(null); coracao25.setImagem(null);
+		coracao26.setImagem(null); coracao27.setImagem(null); coracao28.setImagem(null); coracao29.setImagem(null); coracao210.setImagem(null);
+		
+		coracao31.setImagem(null); coracao32.setImagem(null); coracao33.setImagem(null); coracao34.setImagem(null); coracao35.setImagem(null);
+		coracao36.setImagem(null); coracao37.setImagem(null); coracao38.setImagem(null); coracao39.setImagem(null); coracao310.setImagem(null);
+		
+		coracao41.setImagem(null); coracao42.setImagem(null); coracao43.setImagem(null); coracao44.setImagem(null); coracao45.setImagem(null);
+		coracao46.setImagem(null); coracao47.setImagem(null); coracao48.setImagem(null); coracao49.setImagem(null); coracao410.setImagem(null);
+		
+		coracao51.setImagem(null); coracao52.setImagem(null); coracao53.setImagem(null); coracao54.setImagem(null); coracao55.setImagem(null);
+		coracao56.setImagem(null); coracao57.setImagem(null); coracao58.setImagem(null); coracao59.setImagem(null); coracao510.setImagem(null);
+	}
+	
+	public void mostrarCoracoes() {
+		coracao11.load("res\\batalha\\interferencia.png"); coracao12.load("res\\batalha\\interferencia.png"); coracao13.load("res\\batalha\\interferencia.png"); coracao14.load("res\\batalha\\interferencia.png"); coracao15.load("res\\batalha\\interferencia.png");
+		coracao16.load("res\\batalha\\interferencia.png"); coracao17.load("res\\batalha\\interferencia.png"); coracao18.load("res\\batalha\\interferencia.png"); coracao19.load("res\\batalha\\interferencia.png"); coracao110.load("res\\batalha\\interferencia.png");
+		
+		coracao21.load("res\\batalha\\interferencia.png"); coracao22.load("res\\batalha\\interferencia.png"); coracao23.load("res\\batalha\\interferencia.png"); coracao24.load("res\\batalha\\interferencia.png"); coracao25.load("res\\batalha\\interferencia.png");
+		coracao26.load("res\\batalha\\interferencia.png"); coracao27.load("res\\batalha\\interferencia.png"); coracao28.load("res\\batalha\\interferencia.png"); coracao29.load("res\\batalha\\interferencia.png"); coracao210.load("res\\batalha\\interferencia.png");
+		
+		coracao31.load("res\\batalha\\interferencia.png"); coracao32.load("res\\batalha\\interferencia.png"); coracao33.load("res\\batalha\\interferencia.png"); coracao34.load("res\\batalha\\interferencia.png"); coracao35.load("res\\batalha\\interferencia.png");
+		coracao36.load("res\\batalha\\interferencia.png"); coracao37.load("res\\batalha\\interferencia.png"); coracao38.load("res\\batalha\\interferencia.png"); coracao39.load("res\\batalha\\interferencia.png"); coracao310.load("res\\batalha\\interferencia.png");
+		
+		coracao41.load("res\\batalha\\interferencia.png"); coracao42.load("res\\batalha\\interferencia.png"); coracao43.load("res\\batalha\\interferencia.png"); coracao44.load("res\\batalha\\interferencia.png"); coracao45.load("res\\batalha\\interferencia.png");
+		coracao46.load("res\\batalha\\interferencia.png"); coracao47.load("res\\batalha\\interferencia.png"); coracao48.load("res\\batalha\\interferencia.png"); coracao49.load("res\\batalha\\interferencia.png"); coracao410.load("res\\batalha\\interferencia.png");
+		
+		coracao51.load("res\\batalha\\interferencia.png"); coracao52.load("res\\batalha\\interferencia.png"); coracao53.load("res\\batalha\\interferencia.png"); coracao54.load("res\\batalha\\interferencia.png"); coracao55.load("res\\batalha\\interferencia.png");
+		coracao56.load("res\\batalha\\interferencia.png"); coracao57.load("res\\batalha\\interferencia.png"); coracao58.load("res\\batalha\\interferencia.png"); coracao59.load("res\\batalha\\interferencia.png"); coracao510.load("res\\batalha\\interferencia.png");
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  						coloca as imagens dos Cães na ordem correta							|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void repintarCampoBatalha() {
+		
+		for(int i=0; i<5; i++) {
+			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
+		}
+		
+		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 3);		
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+   	|  								organiza os Cães antes da batalha							|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void arrumarListaAventureiros() {
+		
+		
+		if(aventureiro == adversario) {
+			ordemAventRodada[0] = aventureiro;
+			ordemAventRodada[1] = adversario + 1 < 5 ? adversario + 1 : adversario + 1 - 5 ;
+			ordemAventRodada[2] = adversario + 2 < 5 ? adversario + 2 : adversario + 2 - 5 ;
+			ordemAventRodada[3] = adversario + 3 < 5 ? adversario + 3 : adversario + 3 - 5 ;
+			ordemAventRodada[4] = adversario != 0 ? adversario - 1 : 4;
+			posicaoAventureiro = 0;
+			
+		} else {
+			int adv = adversario;
+			int ave = aventureiro;
+			
+			for(int i=0; i<4; i++) {
+				ordemAventRodada[i] = adv;
+				
+				adv = adv + 1 < 5 ? adv +1 : adv + 1 - 5;
+				if(adv == ave) {
+					adv = adv+1 < 5 ? adv+1 : adv+1 -5;
+				}
+			}
+			
+			ordemAventRodada[4] = ave;
+			posicaoAventureiro = 4;
+		}		
+		
+		for(int i=0; i<5; i++) {
+			ordemAventVerdadeira[i] = (ordemAventRodada[0] == i ? 0 : (ordemAventRodada[1] == i ? 1 :  (ordemAventRodada[2] == i ? 2 : (ordemAventRodada[3] == i ? 3 :  4))));
+		}
+	}
+
+	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  									Vai para a tela de menu									|
@@ -580,7 +648,6 @@ public class Batalha extends JPanel implements ActionListener {
 		if(janela != null && janela.getTitle() == "Batalha") {
 			
 			int codigo = tecla.getKeyCode();
-			Efeito6[0] = 0; Efeito6[1] = 0;
 			
 			// -------------------- abre e fecha o menu -------------------- \
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null) {
@@ -637,7 +704,6 @@ public class Batalha extends JPanel implements ActionListener {
 			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 1) {
 				dialogoBntManual(codigo);
-							
 			// ---------- muda a seleção dos ícones dos personagens no mapa para cima e para baixo --------- \
 			} else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == false && dialogoAviso.getImagem() == null && comecarAnimacaoCoracao == 0) {
 				
@@ -688,37 +754,58 @@ public class Batalha extends JPanel implements ActionListener {
 				// ------------------------------- soma pontos ---------------------------------
 	
 				// --------------------------- pega todas as informações iniciais e coloca as informações de cada cão --------------------
-				for(int i=0; i<5;i++) {
+				for(int i=0; i<5; i++) {
 				
+					// ------------------------------- limpar variavel ---------------------------------
+
+					efeitoChefeDeFase[ordemAventRodada[i]] = 0;
+					efeitoApeloRepetido[ordemAventRodada[i]] = 0;
+					efeitoInterferencias[ordemAventRodada[i]] = 0;
+					
+					// ------------------------------- ----------------------------------------------
+
+					
 					ordemAventRodada[i] = (i == ordemAventVerdadeira[0] ? 0 : (i == ordemAventVerdadeira[1] ? 1  : (i == ordemAventVerdadeira[2] ? 2  : (i == ordemAventVerdadeira[3] ? 3  : 4))));
+					
 					valorApelo[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
 					valorInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[1][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					
 					tipoInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[2][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					pontosRodada[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab] + pontosRodada[i];
-					
-					if(contEtapasBatalha > 1) {
-						apeloRepetido[ordemAventRodada[i]] = (numeroDosAtaques[contEtapasBatalha-1][ordemAventRodada[i]] == (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab) ? 1 : 0);
-					} else {
-						apeloRepetido[ordemAventRodada[i]] = 0;
-					}
-					
-					numeroDosAtaques[contEtapasBatalha][ordemAventRodada[i]] = (i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab);
 					tipoAtaque[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 1 ? apeloRexthor : (ordemAventRodada[i] == 1 ? apeloKiki : apeloArius))))[3][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+
+					pontosRodada[ordemAventRodada[i]] = valorApelo[ordemAventRodada[i]];
+										
+					numeroDosAtaques[contEtapasBatalha -1][ordemAventRodada[i]] = (ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab);
 					
-					// ------------------ coloca o dano de -2 no apelo atual da rodada se a habilidade for repetida -------------
-					if(apeloRepetido[ordemAventRodada[i]] == 1) {
-						for(int i2=1; i2<=5; i2++) {
-							if(contEtapasBatalha - i2 > 0 && numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 1 - i2][ordemAventRodada[i]]) {
-								pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 2;
-							} else {
-								break;
-							}
+					
+					
+				// ------------------ coloca o dano de -2 no apelo atual da rodada se a habilidade for repetida -------------
+					if(contEtapasBatalha - 1 > 0 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])) {
+						
+						if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[i]])) {
+							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 8;
+							
+						} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[i]])) {
+							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 6;
+							
+						} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
+								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])) {
+							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 4;
+							
+						} else {
+							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 2;
 						}
+						
 					}
 					
-					// ------------- coloca o dano de -1 no apelo atual da rodada se a habilidade conflitar com o efeitodo chefe da fase ----------------
+					
+				// ------------- coloca o dano de -1 no apelo atual da rodada se a habilidade conflitar com o efeitodo chefe da fase ----------------
 					if((adversario == 0 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 1 && tipoInterferencia[ordemAventRodada[i]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[i]] == 1) || (adversario == 3 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 4 && tipoInterferencia[ordemAventRodada[i]] == -1)) {
-						efeitoChefeDeFase[ordemAventRodada[i]] = 1;
 						
 						if(adversario == 0 || adversario == 1) {
 							pontosRodada[ordemAventRodada[i]] --;
@@ -727,113 +814,101 @@ public class Batalha extends JPanel implements ActionListener {
 							pontosRodada[ordemAventRodada[i]] ++;
 						}
 					}
+				
 				}
 				
-				// --------------------------- subtrair efeito ----------------------------------
-				
-				for(int i3=0; i3<5; i3++) {
-							
+				for(int i=0; i<5; i++) {
+					// --------------------------- subtrair efeito ----------------------------------
+					
 					//0: todos acima
-					if(tipoInterferencia[ordemAventRodada[i3]] == 0) {
+					if(tipoInterferencia[ordemAventRodada[i]] == 0) {
 						
 						for(int i2=0; i2<4; i2++) {
-							if(i3 > i2 ) {
-								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i3]];
-								interferenciasRecebidas[ordemAventRodada[i2]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
-							} else {
-								break;
-							}
+							if(i > i2) {
+								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i]];
+							} 
 						}
 					}
 					
+					
 					//1: todos abaixo
-					if(tipoInterferencia[ordemAventRodada[i3]] == 1 ) {
+					else if(tipoInterferencia[ordemAventRodada[i]] == 1) {
 						
-						for(int i2=4; i2>0; i2--) {
-							if(i3 < i2 ) {
-								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i3]];
-								interferenciasRecebidas[ordemAventRodada[i2]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
-							} else {
-								break;
-							}
+						for(int i2=1; i2<5; i2++) {
+							if(i < i2) {
+								pontosRodada[ordemAventRodada[i2]] = pontosRodada[ordemAventRodada[i2]] - valorInterferencia[ordemAventRodada[i]];
+							} 
 						}
 					}
 					
 					//2: um acima,
-					if(tipoInterferencia[ordemAventRodada[i3]] == 2 ) {
-						
-						for(int i2=1; i2<5; i2++) {
-							if(i3 == i2 ) {
-								pontosRodada[ordemAventRodada[i2 - 1]] = pontosRodada[ordemAventRodada[i2 - 1]] - valorInterferencia[ordemAventRodada[i3]];
-								interferenciasRecebidas[ordemAventRodada[i2 - 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
-								                        
-								break;
-							}
+					else if(tipoInterferencia[ordemAventRodada[i]] == 2 ) {
+					
+						if(i > 0) {
+							pontosRodada[ordemAventRodada[i - 1]] = pontosRodada[ordemAventRodada[i - 1]] - valorInterferencia[ordemAventRodada[i]];
 						}
-						
 					}
 					
 					//3: primeiro,
-					if(tipoInterferencia[ordemAventRodada[i3]] == 3 ) {
-						pontosRodada[ordemAventRodada[0]] = pontosRodada[ordemAventRodada[0]] - valorInterferencia[ordemAventRodada[i3]];
-						interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+					else if(tipoInterferencia[ordemAventRodada[i]] == 3 ) {
 
+						if(i > 0) {
+							pontosRodada[ordemAventRodada[0]] = pontosRodada[ordemAventRodada[0]] - valorInterferencia[ordemAventRodada[i]];
+						}
 					}
 					
 					//4: zera seus pontos negativos,
-					if(tipoInterferencia[ordemAventRodada[i3]] == 4 && pontosRodada[ordemAventRodada[i3]] < 0) {
-						pontosRodada[ordemAventRodada[i3]] = 0;
+					if(tipoInterferencia[ordemAventRodada[i]] == 4 && pontosRodada[ordemAventRodada[i]] < 0) {
+						pontosRodada[ordemAventRodada[i]] = 0;
 					}
 					
 					//5: um acima e um abaixo,
-					if(tipoInterferencia[ordemAventRodada[i3]] == 5 ) {
-						if(i3 > 0) {
-							pontosRodada[ordemAventRodada[i3 - 1]] = pontosRodada[ordemAventRodada[i3 - 1]] - valorInterferencia[ordemAventRodada[i3]];
-							interferenciasRecebidas[ordemAventRodada[i3 - 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+					if(tipoInterferencia[ordemAventRodada[i]] == 5 ) {
+						if(i > 0) {
+							pontosRodada[ordemAventRodada[i - 1]] = pontosRodada[ordemAventRodada[i - 1]] - valorInterferencia[ordemAventRodada[i]];
 							    
 						}
 						
-						if(i3 < 4) {
-							pontosRodada[ordemAventRodada[i3 + 1]] = pontosRodada[ordemAventRodada[i3 + 1]] - valorInterferencia[ordemAventRodada[i3]];
-							interferenciasRecebidas[ordemAventRodada[i3 + 1]][ordemAventRodada[i3]] = valorInterferencia[ordemAventRodada[i3]];
+						if(i < 4) {
+							pontosRodada[ordemAventRodada[i + 1]] = pontosRodada[ordemAventRodada[i + 1]] - valorInterferencia[ordemAventRodada[i]];
 							           
 						}
 					}
 					
 					//6: d20
-					if(tipoInterferencia[ordemAventRodada[i3]] == 6) {
+					if(tipoInterferencia[ordemAventRodada[i]] == 6) {
 						
 						int temporario;
 						
-						dados[ordemAventRodada[i3] == 2 ? 0 : 1][0]= ordemAventRodada[i3] == 2 ? 20 : 5; //aleatorioHabAdver.nextInt(20)+1; 
+						dados[ordemAventRodada[i] == 2 ? 0 : 1][0] = aleatorioHabAdver.nextInt(20)+1; 
 						
 						for(int i2=0; i2<4; i2++) {
 							while(true) {
 								temporario = aleatorioHabAdver.nextInt(20)+1;
 								
-								if(temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] && temporario != dados[ordemAventRodada[i3] == 2 ? 0 : 1][3]) {
-									dados[ordemAventRodada[i3] == 2 ? 0 : 1][i2+1]= temporario;
+								if(temporario != dados[ordemAventRodada[i] == 2 ? 0 : 1][0] && temporario != dados[ordemAventRodada[i] == 2 ? 0 : 1][1] && temporario != dados[ordemAventRodada[i] == 2 ? 0 : 1][2] && temporario != dados[ordemAventRodada[i] == 2 ? 0 : 1][3]) {
+									dados[ordemAventRodada[i] == 2 ? 0 : 1][i2+1]= temporario;
 									break;
 								}
 							}
 						}
 						
-						System.out.println("valor dados: " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] + " " + dados[ordemAventRodada[i3] == 2 ? 0 : 1][4]);
+						System.out.println("valor dados: " + dados[ordemAventRodada[i] == 2 ? 0 : 1][0] + " " + dados[ordemAventRodada[i] == 2 ? 0 : 1][1] + " " + dados[ordemAventRodada[i] == 2 ? 0 : 1][2] + " " + dados[ordemAventRodada[i] == 2 ? 0 : 1][3] + " " + dados[ordemAventRodada[i] == 2 ? 0 : 1][4]);
 						
-						if((ordemAventRodada[i3] == 2 && (dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[i3] == 4 && (dados[ordemAventRodada[i3] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[i3] == 2 ? 0 : 1][4] == 5))) {
-							pontosRodada[ordemAventRodada[i3]] = pontosRodada[ordemAventRodada[i3]]  + valorInterferencia[ordemAventRodada[i3]]; 
-
+						if((ordemAventRodada[i] == 2 && (dados[ordemAventRodada[i] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[i] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[i] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[i] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[i] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[i] == 4 && (dados[ordemAventRodada[i] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[i] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[i] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[i] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[i] == 2 ? 0 : 1][4] == 5))) {
+							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]]  + valorInterferencia[ordemAventRodada[i]]; 
+	
 						}
 					}
 				}
 							
 				// --------------------------- soma o apelo atual ----------------------------------
 	
-				pontosTotais[0] = pontosTotais[0] + (pontosRodada[0] < -10 ? -10 : (pontosRodada[0] > 10 ? 10 : pontosRodada[0]));
-				pontosTotais[1] = pontosTotais[1] + (pontosRodada[1] < -10 ? -10 : (pontosRodada[1] > 10 ? 10 : pontosRodada[1]));
-				pontosTotais[2] = pontosTotais[2] + (pontosRodada[2] < -10 ? -10 : (pontosRodada[2] > 10 ? 10 : pontosRodada[2]));
-				pontosTotais[3] = pontosTotais[3] + (pontosRodada[3] < -10 ? -10 : (pontosRodada[3] > 10 ? 10 : pontosRodada[3]));
-				pontosTotais[4] = pontosTotais[4] + (pontosRodada[4] < -10 ? -10 : (pontosRodada[4] > 10 ? 10 : pontosRodada[4]));
+				pontosTotais[0] = (pontosTotais[0] + (pontosRodada[0] > 10 ? 10 : (pontosRodada[0] < -10 ? -10 : pontosRodada[0])) < 0 ? 0 : (pontosTotais[0] + (pontosRodada[0] > 10 ? 10 : (pontosRodada[0] < -10 ? -10 : pontosRodada[0]))));
+				pontosTotais[1] = (pontosTotais[1] + (pontosRodada[1] > 10 ? 10 : (pontosRodada[1] < -10 ? -10 : pontosRodada[1])) < 0 ? 0 : (pontosTotais[1] + (pontosRodada[1] > 10 ? 10 : (pontosRodada[1] < -10 ? -10 : pontosRodada[1]))));
+				pontosTotais[2] = (pontosTotais[2] + (pontosRodada[2] > 10 ? 10 : (pontosRodada[2] < -10 ? -10 : pontosRodada[2])) < 0 ? 0 : (pontosTotais[2] + (pontosRodada[2] > 10 ? 10 : (pontosRodada[2] < -10 ? -10 : pontosRodada[2]))));
+				pontosTotais[3] = (pontosTotais[3] + (pontosRodada[3] > 10 ? 10 : (pontosRodada[3] < -10 ? -10 : pontosRodada[3])) < 0 ? 0 : (pontosTotais[3] + (pontosRodada[3] > 10 ? 10 : (pontosRodada[3] < -10 ? -10 : pontosRodada[3]))));
+				pontosTotais[4] = (pontosTotais[4] + (pontosRodada[4] > 10 ? 10 : (pontosRodada[4] < -10 ? -10 : pontosRodada[4])) < 0 ? 0 : (pontosTotais[4] + (pontosRodada[4] > 10 ? 10 : (pontosRodada[4] < -10 ? -10 : pontosRodada[4]))));
 				
 				
 				
@@ -842,13 +917,20 @@ public class Batalha extends JPanel implements ActionListener {
 				System.out.println("valor apelo:  " +valorApelo[0] + "  " + valorApelo[1] + "  " + valorApelo[2] + "  " + valorApelo[3] + "  " + valorApelo[4]);
 				System.out.println("valor interferencia:   " + valorInterferencia[0] + "  " + valorInterferencia[1] + "  " + valorInterferencia[2] + "  " + valorInterferencia[3] + "  " + valorInterferencia[4]);
 				System.out.println("tipo interferencia:   " + tipoInterferencia[0] + "  " + tipoInterferencia[1] + "  " + tipoInterferencia[2] + "  " + tipoInterferencia[3] + "  " + tipoInterferencia[4]);
-				System.out.println("repetido?: " +apeloRepetido[0] + "  " + apeloRepetido[1] + "  " + apeloRepetido[2] + "  " + apeloRepetido[3] + "  " + apeloRepetido[4]);
-				System.out.println("total:  " +pontosTotais[0] + "  " + pontosTotais[1] + "  " + pontosTotais[2] + "  " + pontosTotais[3] + "  " + pontosTotais[4]);
+				System.out.println("Pontos da partida?: " +pontosRodada[0] + "  " + pontosRodada[1] + "  " + pontosRodada[2] + "  " + pontosRodada[3] + "  " + pontosRodada[4]);
+				System.out.println("total:  " +pontosTotais[0] + "  " + pontosTotais[1] + "  " + pontosTotais[2] + "  " + pontosTotais[3] + "  " + pontosTotais[4] + "\n");
 	
 				for(int a=0; a<5; a++) {
 					System.out.println("interferencia: " + interferenciasRecebidas[a][0] + "  " + interferenciasRecebidas[a][1] + "  " + interferenciasRecebidas[a][2] + "  " + interferenciasRecebidas[a][3] + "  " + interferenciasRecebidas[a][4]);
 				}
 				
+				for(int a=0; a<5; a++) {
+					System.out.println("ataques: " + numeroDosAtaques[a][0] + "  " + numeroDosAtaques[a][1] + "  " + numeroDosAtaques[a][2] + "  " + numeroDosAtaques[a][3] + "  " + numeroDosAtaques[a][4]);
+				}
+				
+				
+				System.out.println("etapa da batalha:  " + contEtapasBatalha);
+
 				
 				comecarAnimacaoCoracao = 1;
 				animacaoFileira = 0;
@@ -870,6 +952,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        tela2.mostrarEstrela();
 		        tela2.LimparTela3();
 		        janelaPrincipal.revalidate();
+		        timer.stop();
 			
 			} 
 		}else{
@@ -879,277 +962,9 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 		}
 	}
-
-	/* ---------------------------------------------------------------------------------------- \
-	|  							coloca os efeitos nos cães										|
-	\ ---------------------------------------------------------------------------------------- */
 	
-	public void interferirNosAdversarios(int dano, int efeito, int posicaoNaLista) {
-		//(-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro)
-		
-		System.out.println(" posição na lista inter " + posicaoNaLista);
-		valorESDaInterferencia[0] = dano; valorESDaInterferencia[1] = efeito; valorESDaInterferencia[2] = posicaoNaLista;
-		contTempoApelo = 0;
-		contTempoInter = 10;
 	
-		// ------------------ 0: todos acima ------------------------------
-		if(efeito == 0 && posicaoNaLista > 0 && TerminouLoopEfeitoInterf == 0) {
-			for(int i2=0; i2<5; i2++) {
-				if(animacaoEfeitoConcluido[ordemAventRodada[i2]] == true) {i2++;}
-				if(animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista-1]] == true && TerminouLoopEfeitoInterf == 0) {
-					TerminouLoopEfeitoInterf = 1;
-					vezDoAventureiro = vezDoAventureiro +1;
-					animacaoFileira = vezDoAventureiro * 2; 
-					if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-					animacaoEfeitoConcluido[0]=false;
-					animacaoEfeitoConcluido[1]=false;
-					animacaoEfeitoConcluido[2]=false;
-					animacaoEfeitoConcluido[3]=false;
-					animacaoEfeitoConcluido[4]=false;
-					break;
-				}
-				if(i2 < posicaoNaLista && animacaoEfeitoConcluido[ordemAventRodada[i2]] == false && (i2 - 1 != -1 ? animacaoEfeitoConcluido[ordemAventRodada[i2-1]] == true: true)) {
-					interferenciasRecebidas[i2][ordemAventRodada[posicaoNaLista]] = dano;
-					switch (i2) {
-						case 0: animacaoFileira = 10; break;
-						case 1: animacaoFileira = 12; break;
-						case 2: animacaoFileira = 14; break;
-						case 3: animacaoFileira = 16; break;
-						case 4: animacaoFileira = 18; break;
-					}
-				}
-			}
-		
-		// ----------------------------- 1: todos abaixo ---------------------
-		} else if(efeito == 1 && posicaoNaLista < 4 && TerminouLoopEfeitoInterf == 0) {
-			for(int i3=0; i3<5; i3++) {
-				if(animacaoEfeitoConcluido[ordemAventRodada[i3]] == true) {i3++;}
-				if(animacaoEfeitoConcluido[ordemAventRodada[4]] == true && TerminouLoopEfeitoInterf == 0) {
-					TerminouLoopEfeitoInterf = 1;
-					vezDoAventureiro = vezDoAventureiro +1;
-					animacaoFileira = vezDoAventureiro * 2;
-					if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-					animacaoEfeitoConcluido[0]=false;
-					animacaoEfeitoConcluido[1]=false;
-					animacaoEfeitoConcluido[2]=false;
-					animacaoEfeitoConcluido[3]=false;
-					animacaoEfeitoConcluido[4]=false;
-					break;
-				}
-				if(i3 > posicaoNaLista && i3 < 5 && animacaoEfeitoConcluido[ordemAventRodada[i3]] == false && (i3 - 1 != 0 ? (i3 - 1 == posicaoNaLista ? true: animacaoEfeitoConcluido[ordemAventRodada[i3-1]] == true): true)) {
-
-					switch (i3) {
-						case 0: animacaoFileira = 10; break;
-						case 1: animacaoFileira = 12; break;
-						case 2: animacaoFileira = 14; break;
-						case 3: animacaoFileira = 16; break;
-						case 4: animacaoFileira = 18; break;
-					}
-				}
-			}
-		
-		// ----------------------------- 2: um acima ----------------------------------
-		} else if(efeito == 2 && posicaoNaLista -1 >= 0  && TerminouLoopEfeitoInterf == 0) {
-			if(animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == true && TerminouLoopEfeitoInterf == 0) {
-				animacaoEfeitoConcluido[0]=false;
-				animacaoEfeitoConcluido[1]=false;
-				animacaoEfeitoConcluido[2]=false;
-				animacaoEfeitoConcluido[3]=false;
-				animacaoEfeitoConcluido[4]=false;
-				
-				TerminouLoopEfeitoInterf = 1; 
-				
-				vezDoAventureiro = vezDoAventureiro +1;
-				animacaoFileira = vezDoAventureiro * 2;
-				if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-			}else {
-				switch (posicaoNaLista -1) {
-					case 0: animacaoFileira = 10; break;
-					case 1: animacaoFileira = 12; break;
-					case 2: animacaoFileira = 14; break;
-					case 3: animacaoFileira = 16; break;
-					case 4: animacaoFileira = 18; break;
-				}
-			}
-			
-		// ---------------------------- 3: primeiro ---------------------------------
-		} else if(efeito == 3 && posicaoNaLista != 0  && TerminouLoopEfeitoInterf == 0) {
-			if(animacaoEfeitoConcluido[ordemAventRodada[0]] == true && TerminouLoopEfeitoInterf == 0) {
-				animacaoEfeitoConcluido[0]=false;
-				animacaoEfeitoConcluido[1]=false;
-				animacaoEfeitoConcluido[2]=false;
-				animacaoEfeitoConcluido[3]=false;
-				animacaoEfeitoConcluido[4]=false;
-				
-				TerminouLoopEfeitoInterf = 1; 
-				
-				vezDoAventureiro = vezDoAventureiro +1;
-				animacaoFileira = vezDoAventureiro * 2;
-				if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-			}else {
-				animacaoFileira = 10;
-			}
-		//4: zera seus pontos negativos,
-		}else if(efeito == 4 && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51)))).getImagem() != null && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51))))).getReferencia().toString() == "res\\batalha\\interferencia.png")) { 
-			valorApelo[ordemAventRodada[posicaoNaLista]] = 0 - pontosAtuaisDaRodada[ordemAventRodada[posicaoNaLista]];
-
-			switch (posicaoNaLista) {
-				case 0: animacaoFileira = 0; break;
-				case 1: animacaoFileira = 2; break;
-				case 2: animacaoFileira = 4; break;
-				case 3: animacaoFileira = 6; break;
-				case 4: animacaoFileira = 8; break;
-			}
-		
-		// -------------------- 5: um acima e um abaixo -----------------------------
-		} else if(efeito == 5 && TerminouLoopEfeitoInterf == 0) {
-			if((posicaoNaLista -1 >= 0 ? animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == true : true) && (posicaoNaLista + 1 <= 4 ? animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista +1]] == true : true) && TerminouLoopEfeitoInterf == 0) {
-				
-				
-				TerminouLoopEfeitoInterf = 1; 
-				vezDoAventureiro = vezDoAventureiro +1;
-				animacaoFileira = vezDoAventureiro * 2;
-				if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-				animacaoEfeitoConcluido[0]=false;
-				animacaoEfeitoConcluido[1]=false;
-				animacaoEfeitoConcluido[2]=false;
-				animacaoEfeitoConcluido[3]=false;
-				animacaoEfeitoConcluido[4]=false;
-				
-			} else if(posicaoNaLista -1 >= 0 && animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista -1]] == false) {
-				switch (posicaoNaLista -1) {
-					case 0: animacaoFileira = 10; break;
-					case 1: animacaoFileira = 12; break;
-					case 2: animacaoFileira = 14; break;
-					case 3: animacaoFileira = 16; break;
-					case 4: animacaoFileira = 18; break;
-				}
-			} else if(posicaoNaLista + 1 <= 4 && animacaoEfeitoConcluido[ordemAventRodada[posicaoNaLista +1]] == false) {
-				switch (posicaoNaLista +1) {
-					case 0: animacaoFileira = 10; break;
-					case 1: animacaoFileira = 12; break;
-					case 2: animacaoFileira = 14; break;
-					case 3: animacaoFileira = 16; break;
-					case 4: animacaoFileira = 18; break;
-				}
-			}
-						
-		// ------------------------------- 6: jogar d20 ----------------------------------
-		}else if(efeito == 6 && (Efeito6[ordemAventRodada[posicaoNaLista] == 2 ? 0 : 1] == 0)) {
-			Efeito6[ordemAventRodada[posicaoNaLista] == 2 ? 0 : 1] = 1;
-
-			vezDados = true;
-						
-			if((ordemAventRodada[posicaoNaLista] == 2 && (dados[0][0] == 20 || dados[0][1] == 20 || dados[0][2] == 20 || dados[0][3] == 20 || dados[0][4] == 20)) || (ordemAventRodada[posicaoNaLista] == 4 && (dados[1][0] == 5 || dados[1][1] == 5 || dados[1][2] == 5 || dados[1][3] == 5 || dados[1][4] == 5))) {
-				
-				valorApelo[ordemAventRodada[posicaoNaLista]] = valorInterferencia[ordemAventRodada[posicaoNaLista]];
-				
-				switch (posicaoNaLista) {
-					case 0: animacaoFileira = 0; break;
-					case 1: animacaoFileira = 2; break;
-					case 2: animacaoFileira = 4; break;
-					case 3: animacaoFileira = 6; break;
-					case 4: animacaoFileira = 8; break;
-				}
-			}
-			else {
-				switch (posicaoNaLista) {
-					case 0: animacaoFileira = 0; break;
-					case 1: animacaoFileira = 2; break;
-					case 2: animacaoFileira = 4; break;
-					case 3: animacaoFileira = 6; break;
-					case 4: animacaoFileira = 8; break;
-				}
-			}
-			
-		// ------------------------- -1 nenhum --------------------------------
-		} else if(TerminouLoopEfeitoInterf == 0 || (efeito == 4 && ((posicaoNaLista == 0 ? coracao11 : (posicaoNaLista == 1 ? coracao21 : (posicaoNaLista == 2 ? coracao31 : (posicaoNaLista == 3 ? coracao41 : coracao51)))).getImagem() == null))){
-
-			animacaoEfeitoConcluido[0]=false;
-			animacaoEfeitoConcluido[1]=false;
-			animacaoEfeitoConcluido[2]=false;
-			animacaoEfeitoConcluido[3]=false;
-			animacaoEfeitoConcluido[4]=false;
-			
-			TerminouLoopEfeitoInterf = 1;
-			Efeito4 =0;
-			vezDoAventureiro = vezDoAventureiro +1;
-			animacaoFileira = vezDoAventureiro*2;
-			if(vezDoAventureiro == 5) {vezDoAventureiro = 0; animacaoFileira = 20;}
-		}
-	}
 	
-	/* ---------------------------------------------------------------------------------------- \
-	|  						coloca as imagens dos Cães na ordem correta							|
-	\ ---------------------------------------------------------------------------------------- */
-	
-	public void repintarCampoBatalha() {
-		
-		for(int i=0; i<5; i++) {
-			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
-		}
-		
-		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 3);		
-	}
-	
-	/* ---------------------------------------------------------------------------------------- \
-	|  						apaga os apelos adquiridos no campo de batalha						|
-	\ ---------------------------------------------------------------------------------------- */
-	
-	public void apagarCoracoes() {
-		coracao11.setImagem(null); coracao12.setImagem(null); coracao13.setImagem(null); coracao14.setImagem(null); coracao15.setImagem(null);
-		coracao16.setImagem(null); coracao17.setImagem(null); coracao18.setImagem(null); coracao19.setImagem(null); coracao110.setImagem(null);
-		
-		coracao21.setImagem(null); coracao22.setImagem(null); coracao23.setImagem(null); coracao24.setImagem(null); coracao25.setImagem(null);
-		coracao26.setImagem(null); coracao27.setImagem(null); coracao28.setImagem(null); coracao29.setImagem(null); coracao210.setImagem(null);
-		
-		coracao31.setImagem(null); coracao32.setImagem(null); coracao33.setImagem(null); coracao34.setImagem(null); coracao35.setImagem(null);
-		coracao36.setImagem(null); coracao37.setImagem(null); coracao38.setImagem(null); coracao39.setImagem(null); coracao310.setImagem(null);
-		
-		coracao41.setImagem(null); coracao42.setImagem(null); coracao43.setImagem(null); coracao44.setImagem(null); coracao45.setImagem(null);
-		coracao46.setImagem(null); coracao47.setImagem(null); coracao48.setImagem(null); coracao49.setImagem(null); coracao410.setImagem(null);
-		
-		coracao51.setImagem(null); coracao52.setImagem(null); coracao53.setImagem(null); coracao54.setImagem(null); coracao55.setImagem(null);
-		coracao56.setImagem(null); coracao57.setImagem(null); coracao58.setImagem(null); coracao59.setImagem(null); coracao510.setImagem(null);
-	}
-	
-	/* ---------------------------------------------------------------------------------------- \
-   	|  								organiza os Cães antes da batalha							|
-	\ ---------------------------------------------------------------------------------------- */
-	
-	public void arrumarListaAventureiros() {
-		
-		
-		if(aventureiro == adversario) {
-			ordemAventRodada[0] = aventureiro;
-			ordemAventRodada[1] = adversario + 1 < 5 ? adversario + 1 : adversario + 1 - 5 ;
-			ordemAventRodada[2] = adversario + 2 < 5 ? adversario + 2 : adversario + 2 - 5 ;
-			ordemAventRodada[3] = adversario + 3 < 5 ? adversario + 3 : adversario + 3 - 5 ;
-			ordemAventRodada[4] = adversario != 0 ? adversario - 1 : 4;
-			posicaoAventureiro = 0;
-			
-		} else {
-			int adv = adversario;
-			int ave = aventureiro;
-			
-			for(int i=0; i<4; i++) {
-				ordemAventRodada[i] = adv;
-				
-				adv = adv + 1 < 5 ? adv +1 : adv + 1 - 5;
-				if(adv == ave) {
-					adv = adv+1 < 5 ? adv+1 : adv+1 -5;
-				}
-			}
-			
-			ordemAventRodada[4] = ave;
-			posicaoAventureiro = 4;
-		}		
-		
-		for(int i=0; i<5; i++) {
-			ordemAventVerdadeira[i] = (ordemAventRodada[0] == i ? 0 : (ordemAventRodada[1] == i ? 1 :  (ordemAventRodada[2] == i ? 2 : (ordemAventRodada[3] == i ? 3 :  4))));
-		}
-	}
-
 	public void paint(Graphics g) {
 		
 		Graphics2D graficos = (Graphics2D) g;
@@ -1352,13 +1167,9 @@ public class Batalha extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		System.out.println("fileira : " + animacaoFileira);
-		// ----------- aparece os d20 ou começa a mostrar os apelos ganhos ----------------
-		if(vezDados == true) {
-			aparecerDados();
-		}
-		else if(animacaoFileira != -1 && animacaoFileira < 10) {
+		
+		//System.out.println(animacaoFileira);
+		if(animacaoFileira != -1 && animacaoFileira < 10) {
 			aparecerCoracoes();
 		}
 		
@@ -1369,68 +1180,34 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// -------------- mexe o medidor de ganho de apelo das etapa da batalha ----------------
 		if(animacaoFileira == 20) {
+			posApelo();
+		}
+		
+		// -------------- mexe o medidor de ganho de apelo das etapa da batalha ----------------
+		if(animacaoFileira == 21) {
 			mexerMedidorApelos();
 		}
 		
 		// -------------- organiza os valores das posições de acordo com a performance  na batalha ----------------
-		if(animacaoFileira == 21) {
+		if(animacaoFileira == 22) {
 			OrganizarValores();
 		}
 		
 		// -------------- organiza os cães de acordo com a performance  na batalha ----------------
-		if(animacaoFileira == 22) {
+		if(animacaoFileira == 23) {
 			OrganizarCampos();
 		}
 		
 		// -------------- mostra a parabenizarão no final da batalha ----------------
-		if(animacaoFileira == 23) {
+		if(animacaoFileira == 24) {
 
 			vencedor();
 		}
 		
 		repaint();
+		
 	}
 	
-	/* ---------------------------------------------------------------------------------------- \
-	|  								aciona as animações das habilidades							|
-	\ ---------------------------------------------------------------------------------------- */
-	
-	public void gifApresentacao(int avent, int numApelo) {
-		if(Iniciargif == false) {
-			Iniciargif = true;
-			
-			if(avent == 0) {
-				animacao.load("res\\batalha\\Ignis\\animacao\\" + (numApelo == 0? gifApelos[0][0] : (numApelo == 1? gifApelos[0][1] : (numApelo == 2? gifApelos[0][2] : gifApelos[0][3]))) + ".gif");
-			}else if(avent == 1) {
-				animacao.load("res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
-			}else if(avent == 2) {
-				animacao.load("res\\batalha\\Rexthor\\animacao\\" + (numApelo == 0? gifApelos[2][0] : (numApelo == 1? gifApelos[2][1] : (numApelo == 2? gifApelos[2][2] : gifApelos[2][3]))) + ".gif");
-			}else if(avent == 3) {
-				animacao.load("res\\batalha\\Kiki\\animacao\\" + (numApelo == 0? gifApelos[3][0] : (numApelo == 1? gifApelos[3][1] : (numApelo == 2? gifApelos[3][2] : gifApelos[3][3]))) + ".gif");
-			}else if(avent == 4) {
-				animacao.load("res\\batalha\\Arius\\animacao\\" + (numApelo == 0? gifApelos[4][0] : (numApelo == 1? gifApelos[4][1] : (numApelo == 2? gifApelos[4][2] : gifApelos[4][3]))) + ".gif");
-			}
-		}
-	}
-	
-	/* ---------------------------------------------------------------------------------------- \
-	|  										mostra os d20										|
-	\ ---------------------------------------------------------------------------------------- */
-	
-	public void aparecerDados() {
-		
-		for(int i=0; i<5; i++) {
-			(i == 0 ? imgDado1 : (i == 1 ? imgDado2 : (i == 2 ? imgDado3 : (i == 3 ? imgDado4 : imgDado5)))).load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[(ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1)][i] + ".png");
-		}
-		
-		imgDado1.setDx(imgDado1.getDx() + comecarAnimacaoCoracao);
-		
-		if(imgDado1.getDx() > 150) {
-			imgDado1.setImagem(null); imgDado2.setImagem(null); imgDado3.setImagem(null); imgDado4.setImagem(null); imgDado5.setImagem(null);
-			imgDado1.setDx(0);
-			vezDados = false;
-		}
-	}
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  									mostra os apelos ganhos									|
@@ -1438,322 +1215,94 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void aparecerCoracoes() {
 		
-		if((animacaoFileira == 0 && (valorApelo[ordemAventRodada[0]] > 0 || tipoInterferencia[ordemAventRodada[0]] == 4 || tipoInterferencia[ordemAventRodada[0]] == 6)) || animacaoFileira % 2 == 0) {
+		if(animacaoFileira == 0 || animacaoFileira % 2 == 0) {
 			contTempoApelo = 0;
 
-			if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 3 || apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-				(animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).setDx(intervaloAnimacao);
-			}else {
-				
-				TerminouLoopEfeitoInterf =0;
-				
-				if(tipoInterferencia[(ordemAventRodada[0] == vezDoAventureiro ? 0 : (ordemAventRodada[1] == vezDoAventureiro ? 1 : (ordemAventRodada[2] == vezDoAventureiro ? 2 : (ordemAventRodada[3] == vezDoAventureiro ? 3 : 4))))] == 4 && animacao.getDx() == 0) {Efeito4 ++;}
-				
-				animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
+			//------------------------------------- gif --------------------------------------------
 
-				if(animacao.getDx() >= 20 && (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 ? Efeito4 == 1 : true)) {
-					gifApresentacao(ordemAventRodada[vezDoAventureiro], (vezDoAventureiro != posicaoAventureiro ? arrayAleatorioHabAdver[ordemAventRodada[vezDoAventureiro]] : selecaoNomeHab));
-				}
-				
-				if(animacao.getDx() >= intervaloAnimacaoGif || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 && Efeito4 == 3)) {
-					(animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).setDx((animacaoFileira == 0 ? coracao110 : (animacaoFileira == 2 ? coracao210 : (animacaoFileira == 4 ? coracao310 : (animacaoFileira == 6 ? coracao410 : coracao510)))).getDx() + comecarAnimacaoCoracao);
-					animacao.load("res\\batalha\\animacao.png");
-					if(Efeito4 ==1) {Efeito4 ++;}
-					
-					if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && Efeito6[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1] == 0 && animacao.getDx() >= intervaloAnimacaoGif) {
+			animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
 
-						interferirNosAdversarios(valorInterferencia[ordemAventRodada[vezDoAventureiro]], tipoInterferencia[ordemAventRodada[vezDoAventureiro]], vezDoAventureiro);	
-					}
-				}
+			if(animacao.getDx() == 20 && efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0) {
+				gifApresentacao(ordemAventRodada[vezDoAventureiro], (vezDoAventureiro != posicaoAventureiro ? arrayAleatorioHabAdver[ordemAventRodada[vezDoAventureiro]] : selecaoNomeHab));
 			}
+			
+			if(animacao.getDx() >= intervaloAnimacaoGif || efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 1) {
+				coracao110.setDx(coracao110.getDx() + comecarAnimacaoCoracao);
+				animacao.load("res\\batalha\\animacao.png");					
+			}
+		
 			
 			//------------------------------------- limpa interferecia --------------------------------------------
 			
-			if((tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && Efeito6[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1] == 1) || tipoInterferencia[ordemAventRodada[vezDoAventureiro] ] != 6) {
-				
-				switch (animacaoFileira) {
-					case 0:
+			if(coracao110.getDx() > 0) {
+				if(valorApelo[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] > 0 && pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] < 0) {
+					
+					if(contTempoInter < 10) {
 						(contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
-	
-							if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[0]] > 0) {
-								
-								if(contTempoInter!= 1) {
-									valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									
-									if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setImagem(null);
-									}
-									(contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 10 ? coracao19 : (contTempoInter== 9 ? coracao18 : (contTempoInter== 8 ? coracao17 : (contTempoInter== 7 ? coracao16 : (contTempoInter== 6 ? coracao15 : (contTempoInter== 5 ? coracao14 : (contTempoInter== 4 ? coracao13 : (contTempoInter== 3 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
-								} else {
-									valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-											
-									if(coracao11.getImagem() != null && coracao11.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										coracao11.setImagem(null);
-									} 
-									animacaoFileira=1;
-									zerarDx();
-								}
-								contTempoInter--;
-							}
-							if(valorApelo[ordemAventRodada[0]] == 0 && Efeito4 != 1) {animacaoFileira = 1; zerarDx();}
-						
-						break;
-						
-					case 2:	
-
-						(contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
+					}
 					
-						if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[1]] > 0) {
-							
-							if(contTempoInter!= 1) {
-								valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								
-								if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setImagem(null);
-								}
-								(contTempoInter== 10 ? coracao29 : (contTempoInter== 9 ? coracao28 : (contTempoInter== 8 ? coracao27 : (contTempoInter== 7 ? coracao26 : (contTempoInter== 6 ? coracao25 : (contTempoInter== 5 ? coracao24 : (contTempoInter== 4 ? coracao23 : (contTempoInter== 3 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 10 ? coracao29 : (contTempoInter== 9 ? coracao28 : (contTempoInter== 8 ? coracao27 : (contTempoInter== 7 ? coracao26 : (contTempoInter== 6 ? coracao25 : (contTempoInter== 5 ? coracao24 : (contTempoInter== 4 ? coracao23 : (contTempoInter== 3 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
-							} else {
-								valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-								pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-
-								if(coracao21.getImagem() != null && coracao21.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-									coracao21.setImagem(null);
-								} 
-								animacaoFileira=3;
-								zerarDx();
-							}
-							contTempoInter--;
+					if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao) {
+						
+						if(animacaoFileira == 0) {
+								(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -10 ? coracao110 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -9 ? coracao19 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -8 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -7 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -6 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -5 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -4 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -3 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -2 ? coracao12 : coracao11))))))))).setImagem(null);
+						} else if(animacaoFileira == 2) {			
+								(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -10 ? coracao210 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -9 ? coracao29 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -8 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -7 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -6 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -5 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -4 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -3 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -2 ? coracao22 : coracao21))))))))).setImagem(null);
+						} else if(animacaoFileira == 4) {	
+								(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -10 ? coracao310 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -9 ? coracao39 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -8 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -7 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -6 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -5 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -4 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -3 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -2 ? coracao32 : coracao31))))))))).setImagem(null);
+						} else if(animacaoFileira == 6) {	
+								(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -10 ? coracao410 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -9 ? coracao49 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -8 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -7 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -6 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -5 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -4 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -3 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -2 ? coracao42 : coracao41))))))))).setImagem(null);
+						} else if(animacaoFileira == 8) {	
+								(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -10 ? coracao510 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -9 ? coracao59 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -8 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -7 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -6 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -5 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -4 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -3 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] == -2 ? coracao52 : coracao51))))))))).setImagem(null);
 						}
-						if(valorApelo[ordemAventRodada[1]] == 0 && Efeito4 != 1) {animacaoFileira = 3; zerarDx();}
-					
-					
-						break;
-					case 4:
-						(contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
-	
-							if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[2]] > 0) {
-								
-								if(contTempoInter!= 1) {
-									valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									
-									if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setImagem(null);
-									}
-									(contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 10 ? coracao39 : (contTempoInter== 9 ? coracao38 : (contTempoInter== 8 ? coracao37 : (contTempoInter== 7 ? coracao36 : (contTempoInter== 6 ? coracao35 : (contTempoInter== 5 ? coracao34 : (contTempoInter== 4 ? coracao33 : (contTempoInter== 3 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
-								} else {
-									valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
 
-									if(coracao31.getImagem() != null && coracao31.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										coracao31.setImagem(null);
-									} 
-									animacaoFileira=5;
-									zerarDx();
-								}
-								contTempoInter--;
-							}
-							if(valorApelo[ordemAventRodada[2]] == 0 && Efeito4 != 1) {animacaoFileira = 5; zerarDx();}
-						
-						
-						break;
-					case 6:
-							(contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
-	
-							if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[3]] > 0) {
-								
-								if(contTempoInter!= 1) {
-									valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									
-									if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setImagem(null);
-									}
-									(contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 10 ? coracao49 : (contTempoInter== 9 ? coracao48 : (contTempoInter== 8 ? coracao47 : (contTempoInter== 7 ? coracao46 : (contTempoInter== 6 ? coracao45 : (contTempoInter== 5 ? coracao44 : (contTempoInter== 4 ? coracao43 : (contTempoInter== 3 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
-								} else {
-									valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
+						valorApelo[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] = valorApelo[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] - 1;
+						pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] = pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira == 0 ? 0 : animacaoFileira/2)]] + 1;
 
-									if(coracao41.getImagem() != null && coracao41.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										coracao41.setImagem(null);
-									} 
-									animacaoFileira=7;
-									zerarDx();
-								}
-								contTempoInter--;
-							}
-							if(valorApelo[ordemAventRodada[3]] == 0 && Efeito4 != 1) {animacaoFileira = 7; zerarDx();}
-						
-						
-						break;
-					case 8:
-							
-							(contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
-	
-							if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[4]] > 0) {
-								
-								if(contTempoInter!= 1) {
-									valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									
-									if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() != null &&(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setImagem(null);
-									}
-									(contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 10 ? coracao59 : (contTempoInter== 9 ? coracao58 : (contTempoInter== 8 ? coracao57 : (contTempoInter== 7 ? coracao56 : (contTempoInter== 6 ? coracao55 : (contTempoInter== 5 ? coracao54 : (contTempoInter== 4 ? coracao53 : (contTempoInter== 3 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
-								} else {
-									valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 1 : 0));
-									
-									if(coracao51.getImagem() != null && coracao51.getReferencia().toString() == "res\\batalha\\interferencia.png") {
-										coracao51.setImagem(null);
-									} 
-									animacaoFileira=9;
-									zerarDx();
-								}
-								contTempoInter--;
-							}
-							if(valorApelo[ordemAventRodada[4]] == 0 && Efeito4 != 1) {animacaoFileira = 9; zerarDx();}
-						
-						break;
+						contTempoInter --;
+					}
+				} else {
+					animacaoFileira ++;
+					zerarDx();
 				}
 			}
-			
-		} else if((animacaoFileira == 1 || (animacaoFileira - 1) % 2 == 0) || valorApelo[ordemAventRodada[animacaoFileira == 1 ? 0 : ((animacaoFileira - 1) % 2)]] == 0) {
-			
+		} else if(animacaoFileira == 1 || (animacaoFileira - 1) % 2 == 0) {
 			contTempoInter = 10;
-
-			if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 3) {efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] = 0;}
-			if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {apeloRepetido[ordemAventRodada[vezDoAventureiro]] = 0;}
-			
-			Iniciargif = false; animacao.setDx(0);
-			
+			animacao.setDx(0);
 			
 			//------------------------------------- aparece apelos  --------------------------------------------
-			switch (animacaoFileira) {
-				case 1:
+			if(valorApelo[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] > 0) {
 				
-					(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
+				(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[0]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : 0);
-							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : 0);
-							
-							(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\apelo.png");
-						} else {
-							 valorApelo[ordemAventRodada[0]] = valorApelo[ordemAventRodada[0]] - (coracao110.getImagem() == null ? 1 : 0);
-							 pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] + (coracao110.getImagem() == null ? 1 : 0);
-							 
-							 coracao110.load("res\\batalha\\apelo.png");
+				if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao) {
+
+					if(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] < 10) {
+						if(animacaoFileira == 1) {
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\apelo.png");
+						} else if(animacaoFileira == 3) {
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\apelo.png");
+						} else if(animacaoFileira == 5) {	
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\apelo.png");
+						} else if(animacaoFileira == 7) {
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\apelo.png");
+						} else if(animacaoFileira == 9) {		
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\apelo.png");
 						}
 						
-						contTempoApelo++;
-					}
-					break;
-			
-				case 3:
-					(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).setDx((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[1]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : 0);
-							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : 0);
-							
-							(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\apelo.png");
-						} else {
-							 valorApelo[ordemAventRodada[1]] = valorApelo[ordemAventRodada[1]] - (coracao210.getImagem() == null ? 1 : 0);
-							 pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] + (coracao210.getImagem() == null ? 1 : 0);
-
-							 coracao210.load("res\\batalha\\apelo.png");
-						}
-						
-						contTempoApelo++;
+						pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] = pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] + 1;
 					}
 					
-					break;
-				case 5:
-					
-					(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).setDx((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[2]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : 0);
-							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : 0);
-							
-							(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\apelo.png");
-						} else {
-							 valorApelo[ordemAventRodada[2]] = valorApelo[ordemAventRodada[2]] - (coracao310.getImagem() == null ? 1 : 0);
-							 pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] + (coracao310.getImagem() == null ? 1 : 0);
-								
-							 coracao310.load("res\\batalha\\apelo.png");
-						}
-						
-						contTempoApelo++;
-					}
-					
-					break;
-				case 7:
-
-					(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).setDx((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[3]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : 0);
-							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : 0);
-							
-							(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\apelo.png");
-						} else {
-							 valorApelo[ordemAventRodada[3]] = valorApelo[ordemAventRodada[3]] - (coracao410.getImagem() == null ? 1 : 0);
-							 pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] + (coracao410.getImagem() == null ? 1 : 0);
-								
-							 coracao410.load("res\\batalha\\apelo.png");
-						}
-						
-						contTempoApelo++;
-					}
-					
-					break;
-				case 9:
-					
-					(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).setDx((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && valorApelo[ordemAventRodada[4]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : 0);
-							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : 0);
-									
-							(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\apelo.png");
-						} else {
-							 valorApelo[ordemAventRodada[4]] = valorApelo[ordemAventRodada[4]] - (coracao510.getImagem() == null ? 1 : 0);
-							 pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] + (coracao510.getImagem() == null ? 1 : 0);
-								
-							 coracao510.load("res\\batalha\\apelo.png");
-						}
-						
-						contTempoApelo++;
-					} 
-					break;
-			}
-			
-			if((valorApelo[ordemAventRodada[animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)]] == 0 && TerminouLoopEfeitoInterf != 1) ||contTempoApelo== 10) { 
-				
-				if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 1) {
-					habilidadeRepetido(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));
-				}else if(efeitoChefeDeFase[ordemAventRodada[animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2)]] == 1) {
-					efeitoChefeDeFase(animacaoFileira == 0 ? 0: ((animacaoFileira - 1)/2));
-				} else{
-					interferirNosAdversarios(valorInterferencia[ordemAventRodada[animacaoFileira - 1 == 0 ? 0: ((animacaoFileira - 1)/2)]], tipoInterferencia[ordemAventRodada[animacaoFileira - 1 == 0 ? 0: ((animacaoFileira - 1)/2)]], animacaoFileira -1 == 0 ? 0: ((animacaoFileira - 1)/2)); zerarDx();
+					valorApelo[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] = valorApelo[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] - 1;
+					contTempoApelo ++;
 				}
-			}
 				
+			} else {
+				//vezDoAventureiro ++;
+				//animacaoFileira ++;
+				zerarDx();
+				animacaoFileira = 20;
+			}
+			
 		}
 	}
 	
@@ -1779,7 +1328,7 @@ public class Batalha extends JPanel implements ActionListener {
 		coracao51.setDx(0);coracao52.setDx(0);coracao53.setDx(0);coracao54.setDx(0);coracao55.setDx(0);
 		coracao56.setDx(0);coracao57.setDx(0);coracao58.setDx(0);coracao59.setDx(0);coracao510.setDx(0);
 		
-		efeitoFase.setDx(0);
+		efeitoFase.setDx(0); 
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -1791,416 +1340,338 @@ public class Batalha extends JPanel implements ActionListener {
 		if(animacaoFileira - 10 == 0 || (animacaoFileira - 10) % 2 == 0) {
 			contTempoApelo = 0;
 			
+			
 			//------------------------------------- limpa apelo --------------------------------------------
-			switch (animacaoFileira) {
 			
-				case 10:
-					System.out.println("entrou no 10");
-					(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setDx((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() + comecarAnimacaoCoracao);
+			if(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] > 0 && interferenciasRecebidas[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]][ordemAventRodada[vezDoAventureiro]] > 0) {
+				
+				(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setDx((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() + comecarAnimacaoCoracao);
 
-					if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoInter!= 1) {
-							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getImagem() != null && (contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								(contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).setImagem(null);
-								} 
-							(contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).setDx((contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - (coracao11.getImagem() == null ? 0 : (coracao11.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-
-							if(coracao11.getImagem() != null && coracao11.getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								coracao11.setImagem(null);
-							}
-							animacaoFileira=11; zerarDx();
-						}
-						contTempoInter--;
-					}
-					break;
-				case 12:
+				if((contTempoInter== 10 ? coracao110 : (contTempoInter== 9 ? coracao19 : (contTempoInter== 8 ? coracao18 : (contTempoInter== 7 ? coracao17 : (contTempoInter== 6 ? coracao16 : (contTempoInter== 5 ? coracao15 : (contTempoInter== 4 ? coracao14 : (contTempoInter== 3 ? coracao13 : (contTempoInter== 2 ? coracao12 : coracao11))))))))).getDx() >= intervaloAnimacao) {
 					
-					(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setDx((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoInter!= 1) {
-							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if((contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getImagem() != null && (contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								(contTempoInter== 10 ? coracao210 : (contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21))))))))).setImagem(null);
-							} 
-							(contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).setDx((contTempoInter== 9 ? coracao29 : (contTempoInter== 8 ? coracao28 : (contTempoInter== 7 ? coracao27 : (contTempoInter== 6 ? coracao26 : (contTempoInter== 5 ? coracao25 : (contTempoInter== 4 ? coracao24 : (contTempoInter== 3 ? coracao23 : (contTempoInter== 2 ? coracao22 : coracao21)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - (coracao21.getImagem() == null ? 0 : (coracao21.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-
-							if(coracao21.getImagem() != null && coracao21.getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								coracao21.setImagem(null);
-							}
-							animacaoFileira=13; zerarDx();
-						}
-						contTempoInter--;
+					if(animacaoFileira == 10) {
+						(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 10 ? coracao110 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 9 ? coracao19 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 8 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 7 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 6 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 5 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 4 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 3 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 2 ? coracao12 : coracao11))))))))).setImagem(null);
+					} else if(animacaoFileira == 12) {
+						(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 10 ? coracao210 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 9 ? coracao29 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 8 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 7 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 6 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 5 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 4 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 3 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 2 ? coracao22 : coracao21))))))))).setImagem(null);
+					} else if(animacaoFileira == 14) {
+						(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 10 ? coracao310 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 9 ? coracao39 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 8 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 7 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 6 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 5 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 4 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 3 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 2 ? coracao32 : coracao31))))))))).setImagem(null);
+					} else if(animacaoFileira == 16) {
+						(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 10 ? coracao410 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 9 ? coracao49 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 8 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 7 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 6 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 5 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 4 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 3 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 2 ? coracao42 : coracao41))))))))).setImagem(null);
+					} else if(animacaoFileira == 18) {
+						(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 10 ? coracao510 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 9 ? coracao59 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 8 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 7 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 6 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 5 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 4 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 3 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] == 2 ? coracao52 : coracao51))))))))).setImagem(null);
 					}
 					
-					break;
-				case 14:
-					(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setDx((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() + comecarAnimacaoCoracao);
+					interferenciasRecebidas[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]][ordemAventRodada[vezDoAventureiro]] - 1;
+					pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] = pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 10 == 0 ? 0 : (animacaoFileira - 10)/2)]] - 1;
 
-					if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] > 0) {
+					contTempoInter --;
+				}
+				
+			} else {
 
-						if(contTempoInter!= 1) {
-
-							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if((contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getImagem() != null && (contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								(contTempoInter== 10 ? coracao310 : (contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31))))))))).setImagem(null);
-							} 
-							(contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).setDx((contTempoInter== 9 ? coracao39 : (contTempoInter== 8 ? coracao38 : (contTempoInter== 7 ? coracao37 : (contTempoInter== 6 ? coracao36 : (contTempoInter== 5 ? coracao35 : (contTempoInter== 4 ? coracao34 : (contTempoInter== 3 ? coracao33 : (contTempoInter== 2 ? coracao32 : coracao31)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - (coracao31.getImagem() == null ? 0 : (coracao31.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-						
-							if(coracao31.getImagem() != null && coracao31.getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								coracao31.setImagem(null);
-							}
-							animacaoFileira=15; zerarDx();
-						}
-						contTempoInter--;
-					}
-					
-					break;
-				case 16:
-
-					(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setDx((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoInter!= 1) {
-							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if((contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getImagem() != null && (contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								(contTempoInter== 10 ? coracao410 : (contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41))))))))).setImagem(null);
-							} 
-							(contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).setDx((contTempoInter== 9 ? coracao49 : (contTempoInter== 8 ? coracao48 : (contTempoInter== 7 ? coracao47 : (contTempoInter== 6 ? coracao46 : (contTempoInter== 5 ? coracao45 : (contTempoInter== 4 ? coracao44 : (contTempoInter== 3 ? coracao43 : (contTempoInter== 2 ? coracao42 : coracao41)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - (coracao41.getImagem() == null ? 0 : (coracao41.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if(coracao41.getImagem() != null && coracao41.getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								coracao41.setImagem(null);
-							}
-							animacaoFileira= 17; zerarDx();
-						}
-						contTempoInter--;
-					}
-					
-					break;
-				case 18:
-					
-					(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setDx((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getDx() >= intervaloAnimacao  && interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoInter!= 1) {
-							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() == null ? 0 : ((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							
-							if((contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getImagem() != null && (contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								(contTempoInter== 10 ? coracao510 : (contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51))))))))).setImagem(null);
-							} 
-							(contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).setDx((contTempoInter== 9 ? coracao59 : (contTempoInter== 8 ? coracao58 : (contTempoInter== 7 ? coracao57 : (contTempoInter== 6 ? coracao56 : (contTempoInter== 5 ? coracao55 : (contTempoInter== 4 ? coracao54 : (contTempoInter== 3 ? coracao53 : (contTempoInter== 2 ? coracao52 : coracao51)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - (coracao51.getImagem() == null ? 0 : (coracao51.getReferencia().toString() == "res\\batalha\\apelo.png" ? 1 : 0));
-
-							if(coracao51.getImagem() != null && coracao51.getReferencia().toString() != "res\\batalha\\interferencia.png") {
-								coracao51.setImagem(null);
-							}
-							animacaoFileira=19; zerarDx();
-						}
-						contTempoInter--;
-					}
-					break;
-			}
-			
-			if(interferenciasRecebidas[ordemAventRodada[animacaoFileira - 10 == 0 ? 0 : (animacaoFileira-10)/2]][ordemAventRodada[vezDoAventureiro]] == 0) {
 				animacaoFileira ++;
 				contTempoInter = 10;
 				zerarDx();
 			}
 			
+			
 		}else if(animacaoFileira - 11 == 0 || (animacaoFileira - 11) % 2 == 0) {
 			contTempoInter = 10;
-			
+
 			//------------------------------------- aparece interferencia  --------------------------------------------
 			
-			switch (animacaoFileira) {
-				case 11:
+			if(interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] > 0) {
 				
-					(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-									
-							(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\interferencia.png");
-							(contTempoApelo== 0 ? coracao12 : (contTempoApelo== 1 ? coracao13 : (contTempoApelo== 2 ? coracao14 : (contTempoApelo== 3 ? coracao15 : (contTempoApelo== 4 ? coracao16 : (contTempoApelo== 5 ? coracao17 : (contTempoApelo== 6 ? coracao18 : (contTempoApelo== 7 ? coracao19 : coracao110)))))))).setDx((contTempoApelo== 0 ? coracao12 : (contTempoApelo== 1 ? coracao13 : (contTempoApelo== 2 ? coracao14 : (contTempoApelo== 3 ? coracao15 : (contTempoApelo== 4 ? coracao16 : (contTempoApelo== 5 ? coracao17 : (contTempoApelo== 6 ? coracao18 : (contTempoApelo== 7 ? coracao19 : coracao110)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = 0;	
-							pontosAtuaisDaRodada[ordemAventRodada[0]] = pontosAtuaisDaRodada[ordemAventRodada[0]] - (coracao110.getImagem() == null ? 1 : (coracao110.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							coracao110.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[ordemAventRodada[0]] = true;
-							zerarDx();
-							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-								animacaoFileira = 1;
-							} else{
-								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
-							}
-						}
-						
-						contTempoApelo++;
-					}
+				(contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).setDx((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() + comecarAnimacaoCoracao);
 				
-					break;
-				case 13:
+				if((contTempoApelo== 0 ? coracao11 : (contTempoApelo== 1 ? coracao12 : (contTempoApelo== 2 ? coracao13 : (contTempoApelo== 3 ? coracao14 : (contTempoApelo== 4 ? coracao15 : (contTempoApelo== 5 ? coracao16 : (contTempoApelo== 6 ? coracao17 : (contTempoApelo== 7 ? coracao18 : (contTempoApelo== 8 ? coracao19 : coracao110))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] > 0) {
 					
-					(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).setDx((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							(contTempoApelo== 0 ? coracao21 : (contTempoApelo== 1 ? coracao22 : (contTempoApelo== 2 ? coracao23 : (contTempoApelo== 3 ? coracao24 : (contTempoApelo== 4 ? coracao25 : (contTempoApelo== 5 ? coracao26 : (contTempoApelo== 6 ? coracao27 : (contTempoApelo== 7 ? coracao28 : (contTempoApelo== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\interferencia.png");
-							(contTempoApelo== 0 ? coracao22 : (contTempoApelo== 1 ? coracao23 : (contTempoApelo== 2 ? coracao24 : (contTempoApelo== 3 ? coracao25 : (contTempoApelo== 4 ? coracao26 : (contTempoApelo== 5 ? coracao27 : (contTempoApelo== 6 ? coracao28 : (contTempoApelo== 7 ? coracao29 : coracao210)))))))).setDx((contTempoApelo== 0 ? coracao22 : (contTempoApelo== 1 ? coracao23 : (contTempoApelo== 2 ? coracao24 : (contTempoApelo== 3 ? coracao25 : (contTempoApelo== 4 ? coracao26 : (contTempoApelo== 5 ? coracao27 : (contTempoApelo== 6 ? coracao28 : (contTempoApelo== 7 ? coracao29 : coracao210)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[1]][ordemAventRodada[vezDoAventureiro]] = 0;	
-							pontosAtuaisDaRodada[ordemAventRodada[1]] = pontosAtuaisDaRodada[ordemAventRodada[1]] - (coracao210.getImagem() == null ? 1 : (coracao210.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							coracao210.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[ordemAventRodada[1]] = true;
-							zerarDx();
-							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-								animacaoFileira = 3;
-							} else{
-
-								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
-							}
+					if(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] > -10) {
+						if(animacaoFileira == 11) {
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao19 : coracao110))))))))).load("res\\batalha\\interferencia.png");
+						} else if(animacaoFileira == 13) {
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao29 : coracao210))))))))).load("res\\batalha\\interferencia.png");
+						} else if(animacaoFileira == 15) {
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao39 : coracao310))))))))).load("res\\batalha\\interferencia.png");
+						} else if(animacaoFileira == 17) {
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao49 : coracao410))))))))).load("res\\batalha\\interferencia.png");
+						} else if(animacaoFileira == 19) {
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao59 : coracao510))))))))).load("res\\batalha\\interferencia.png");
 						}
 						
-						contTempoApelo++;
+						pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] = pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] - 1;
 					}
 					
-					break;
-				case 15:
-					
-					(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).setDx((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							(contTempoApelo== 0 ? coracao31 : (contTempoApelo== 1 ? coracao32 : (contTempoApelo== 2 ? coracao33 : (contTempoApelo== 3 ? coracao34 : (contTempoApelo== 4 ? coracao35 : (contTempoApelo== 5 ? coracao36 : (contTempoApelo== 6 ? coracao37 : (contTempoApelo== 7 ? coracao38 : (contTempoApelo== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\interferencia.png");
-							(contTempoApelo== 0 ? coracao32 : (contTempoApelo== 1 ? coracao33 : (contTempoApelo== 2 ? coracao34 : (contTempoApelo== 3 ? coracao35 : (contTempoApelo== 4 ? coracao36 : (contTempoApelo== 5 ? coracao37 : (contTempoApelo== 6 ? coracao38 : (contTempoApelo== 7 ? coracao39 : coracao310)))))))).setDx((contTempoApelo== 0 ? coracao32 : (contTempoApelo== 1 ? coracao33 : (contTempoApelo== 2 ? coracao34 : (contTempoApelo== 3 ? coracao35 : (contTempoApelo== 4 ? coracao36 : (contTempoApelo== 5 ? coracao37 : (contTempoApelo== 6 ? coracao38 : (contTempoApelo== 7 ? coracao39 : coracao310)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[2]][ordemAventRodada[vezDoAventureiro]] = 0;
-							pontosAtuaisDaRodada[ordemAventRodada[2]] = pontosAtuaisDaRodada[ordemAventRodada[2]] - (coracao310.getImagem() == null ? 1 : (coracao310.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							coracao310.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[ordemAventRodada[2]] = true;
-							zerarDx();
-							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-								animacaoFileira = 5;
-							} else{
-
-								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
-							}
-						}
-						
-						contTempoApelo++;
-					}
-					
-					break;
-				case 17:
-
-					(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).setDx((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							(contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\interferencia.png");
-							(contTempoApelo== 0 ? coracao42 : (contTempoApelo== 1 ? coracao43 : (contTempoApelo== 2 ? coracao44 : (contTempoApelo== 3 ? coracao45 : (contTempoApelo== 4 ? coracao46 : (contTempoApelo== 5 ? coracao47 : (contTempoApelo== 6 ? coracao48 : (contTempoApelo== 7 ? coracao49 : coracao410)))))))).setDx((contTempoApelo== 0 ? coracao42 : (contTempoApelo== 1 ? coracao43 : (contTempoApelo== 2 ? coracao44 : (contTempoApelo== 3 ? coracao45 : (contTempoApelo== 4 ? coracao46 : (contTempoApelo== 5 ? coracao47 : (contTempoApelo== 6 ? coracao48 : (contTempoApelo== 7 ? coracao49 : coracao410)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[3]][ordemAventRodada[vezDoAventureiro]] = 0;
-							pontosAtuaisDaRodada[ordemAventRodada[3]] = pontosAtuaisDaRodada[ordemAventRodada[3]] - (coracao410.getImagem() == null ? 1 : (coracao410.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							coracao410.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[ordemAventRodada[3]] = true;
-							zerarDx();
-							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-								animacaoFileira = 7;
-							} else{
-
-								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
-							}
-						}
-						
-						contTempoApelo++;
-					}
-					
-					break;
-				case 19:
-					
-					(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).setDx((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() + comecarAnimacaoCoracao);
-
-					if((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getDx() >= intervaloAnimacao && interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] > 0) {
-						
-						if(contTempoApelo!= 9) {
-							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] - ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getImagem() == null ? 1 : ((contTempoApelo== 0 ? coracao41 : (contTempoApelo== 1 ? coracao42 : (contTempoApelo== 2 ? coracao43 : (contTempoApelo== 3 ? coracao44 : (contTempoApelo== 4 ? coracao45 : (contTempoApelo== 5 ? coracao46 : (contTempoApelo== 6 ? coracao47 : (contTempoApelo== 7 ? coracao48 : (contTempoApelo== 8 ? coracao49 : coracao410))))))))).getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							(contTempoApelo== 0 ? coracao51 : (contTempoApelo== 1 ? coracao52 : (contTempoApelo== 2 ? coracao53 : (contTempoApelo== 3 ? coracao54 : (contTempoApelo== 4 ? coracao55 : (contTempoApelo== 5 ? coracao56 : (contTempoApelo== 6 ? coracao57 : (contTempoApelo== 7 ? coracao58 : (contTempoApelo== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\interferencia.png");
-							(contTempoApelo== 0 ? coracao52 : (contTempoApelo== 1 ? coracao53 : (contTempoApelo== 2 ? coracao54 : (contTempoApelo== 3 ? coracao55 : (contTempoApelo== 4 ? coracao56 : (contTempoApelo== 5 ? coracao57 : (contTempoApelo== 6 ? coracao58 : (contTempoApelo== 7 ? coracao59 : coracao510)))))))).setDx((contTempoApelo== 0 ? coracao52 : (contTempoApelo== 1 ? coracao53 : (contTempoApelo== 2 ? coracao54 : (contTempoApelo== 3 ? coracao55 : (contTempoApelo== 4 ? coracao56 : (contTempoApelo== 5 ? coracao57 : (contTempoApelo== 6 ? coracao58 : (contTempoApelo== 7 ? coracao59 : coracao510)))))))).getDx() + comecarAnimacaoCoracao);
-						} else {
-							interferenciasRecebidas[ordemAventRodada[4]][ordemAventRodada[vezDoAventureiro]] = 0;
-							pontosAtuaisDaRodada[ordemAventRodada[4]] = pontosAtuaisDaRodada[ordemAventRodada[4]] - (coracao510.getImagem() == null ? 1 : (coracao510.getReferencia().toString() == "res\\batalha\\interferencia.png" ? 0 : 1));
-
-							coracao510.load("res\\batalha\\interferencia.png");
-							animacaoEfeitoConcluido[ordemAventRodada[4]] = true;
-							zerarDx();
-							if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-								animacaoFileira = 9;
-							} else{
-
-								interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
-							}
-						}
-						contTempoApelo++;
-					}
-					
-					break;
-			}
-
-			if(animacaoFileira > 10 && (interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] == 0 && TerminouLoopEfeitoInterf != 1)) {
-				animacaoEfeitoConcluido[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] = true;
-				zerarDx();
-				
-				if(apeloRepetido[ordemAventRodada[vezDoAventureiro]] == 3) {
-					animacaoFileira = animacaoFileira - 10;
-				} else{
-					interferirNosAdversarios(valorESDaInterferencia[0], valorESDaInterferencia[1], valorESDaInterferencia[2]);
+					interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]][ordemAventRodada[vezDoAventureiro]] - 1;
+					contTempoApelo ++;
 				}
+				
+			} else{
+				zerarDx();
+				animacaoFileira = 20;
 			}
 		}
 	}
+	
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  			                   	diz o que fazer apos colocar os apelos						|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void posApelo() {
+
+		if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0 && (((adversario == 0 || adversario == 3) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] != -1) || ((adversario == 1 || adversario == 4) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[vezDoAventureiro]] == 1))) {
+
+			efeitoChefeDeFase();
+			
+		} else if(efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] == 0 && (contEtapasBatalha - 1 == 0 ? false : (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]]))) {
+
+			habilidadeRepetido();
+			
+		} else if((tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 0 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 4)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 1 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 5)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 2 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 && vezDoAventureiro > 0)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 3 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 && vezDoAventureiro > 0)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 && pontosAtuaisDaRodada[ordemAventRodada[vezDoAventureiro]] < 0)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 5 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 2)
+			   || (tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1)) {
+		
+			interferirNosAdversarios();
+			
+		} else if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 1 || !(((adversario == 0 || adversario == 3) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] != -1) || ((adversario == 1 || adversario == 4) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[vezDoAventureiro]] == 1))
+				|| efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] == 1 || !(contEtapasBatalha - 1 == 0 ? false : (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]]))
+				|| (!(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 0 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 4)
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 1 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 5)
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 2 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 && vezDoAventureiro > 0)
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 3 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 && vezDoAventureiro > 0)
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4 && pontosAtuaisDaRodada[ordemAventRodada[vezDoAventureiro]] < 0 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1 )
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 5 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 2)
+				&&  !(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 1))){
+			
+			animacaoFileira = (vezDoAventureiro == 0? 0 : vezDoAventureiro * 2) + 2;
+			
+			efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] = 2;
+			efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] = 2;
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] = 5;
+			
+			vezDoAventureiro ++;
+			
+			if(vezDoAventureiro == 5) {
+				animacaoFileira = 21;
+				vezDoAventureiro = 0;
+			}
+		}
+	}
+	
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  							coloca os efeitos nos cães										|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void interferirNosAdversarios() {
+		//(-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro)
+		
+		// ------------------ 0: todos acima ------------------------------
+		if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 0) {
+			
+			if(vezDoAventureiro > efeitoInterferencias[ordemAventRodada[vezDoAventureiro]]) {
+				
+				interferenciasRecebidas[ordemAventRodada[efeitoInterferencias[ordemAventRodada[vezDoAventureiro]]]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+				animacaoFileira = 10 + 2 * efeitoInterferencias[ordemAventRodada[vezDoAventureiro]];	
+				
+			}
+			
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+		// ----------------------------- 1: todos abaixo ---------------------
+		} else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 1) {
+			
+			if(vezDoAventureiro < efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ) {
+				
+				interferenciasRecebidas[ordemAventRodada[efeitoInterferencias[ordemAventRodada[vezDoAventureiro]]]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+				animacaoFileira = 10 + 2 * efeitoInterferencias[ordemAventRodada[vezDoAventureiro]];	
+				
+			}
+			
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+			
+		// ----------------------------- 2: um acima ----------------------------------
+		} else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 2) {
+			
+			interferenciasRecebidas[ordemAventRodada[vezDoAventureiro - 1]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+			animacaoFileira = 10 + 2 * (vezDoAventureiro - 1);
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+		// ---------------------------- 3: primeiro ---------------------------------
+		} else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 3) {
+
+			interferenciasRecebidas[ordemAventRodada[0]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+			animacaoFileira = 10;
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+		// --------------------- 4: zera seus pontos negativos ---------------------
+		}else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4) { 
+			
+			valorApelo[ordemAventRodada[vezDoAventureiro]] = 0 - pontosAtuaisDaRodada[ordemAventRodada[vezDoAventureiro]];
+			animacaoFileira = vezDoAventureiro * 2;
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+		// -------------------- 5: um acima e um abaixo -----------------------------
+		} else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 5) {
+			
+			if(vezDoAventureiro > 0 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] == 0) {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro - 1]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+				animacaoFileira = 10 + 2 * (vezDoAventureiro - 1);
+				
+			} else if(vezDoAventureiro < 4 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] == 1) {
+				
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro + 1]][ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+				animacaoFileira = 10 + 2 * (vezDoAventureiro + 1);
+				
+			}
+						
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
+						
+		// ------------------------------- 6: jogar d20 ----------------------------------
+		}else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6) {
+			
+			imgDado1.setDx(imgDado1.getDx() + 1);
+			
+			if(imgDado1.getDx() < 110) {
+				imgDado1.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] + ".png");
+				imgDado2.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] + ".png");
+				imgDado3.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] + ".png");
+				imgDado4.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] + ".png");
+				imgDado5.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] + ".png");
+			
+			} else if(imgDado1.getDx() == 110) {
+				imgDado1.setImagem(null);
+				imgDado2.setImagem(null);
+				imgDado3.setImagem(null);
+				imgDado4.setImagem(null);
+				imgDado5.setImagem(null);
+				imgDado1.setDx(0);
+				
+
+				if((ordemAventRodada[vezDoAventureiro] == 2 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[vezDoAventureiro] == 4 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 5))) {
+					
+					valorApelo[ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+					animacaoFileira = vezDoAventureiro * 2;
+				}
+				
+				efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+				
+			}
+		}
+	}
+	
+	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							aciona o efeito de habilidade repetida							|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public void habilidadeRepetido(int posicaoCao) {
+	public void habilidadeRepetido() {
+
 		efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
 		
-		if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 60) {
+		if(efeitoFase.getDx() == 21) {
 			
-			int valorRepetido = 0;
-			
-			for(int i2=1; i2<=5; i2++) {
-				if(contEtapasBatalha - i2 > 0 && numeroDosAtaques[ordemAventRodada[contEtapasBatalha]][ordemAventRodada[posicaoCao]] == numeroDosAtaques[ordemAventRodada[contEtapasBatalha - i2]][ordemAventRodada[posicaoCao]]) {
-					valorRepetido = valorRepetido + 2;
-				} else {
-					break;
-				}
+			if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[vezDoAventureiro]])) {
+				txtEfeitoFase.setTexto("-8");
+				
+			} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])) {
+				txtEfeitoFase.setTexto("-6");
+				
+			} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])) {
+				txtEfeitoFase.setTexto("-4");
+				
+			} else {
+				txtEfeitoFase.setTexto("-2");
 			}
-			txtEfeitoFase.setTexto("- " + valorRepetido);
+			
 			efeitoFase.load("res\\batalha\\apelo.png");
-			txtEfeitoFase.setY((posicaoCao == 0 ? campoBatalha1.getY() : (posicaoCao == 1 ? campoBatalha2.getY() : (posicaoCao == 2 ? campoBatalha3.getY() : (posicaoCao == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
+			txtEfeitoFase.setY((vezDoAventureiro == 0 ? campoBatalha1.getY() : (vezDoAventureiro == 1 ? campoBatalha2.getY() : (vezDoAventureiro == 2 ? campoBatalha3.getY() : (vezDoAventureiro == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
-		}
-		
-		if(efeitoFase.getDx() == 60) {
-			 
+			
+		} else if(efeitoFase.getDx() == 60) {
+
 			efeitoFase.setImagem(null);
 			txtEfeitoFase.setTexto(" ");
-			valorESDaInterferencia[0] = valorInterferencia[ordemAventRodada[posicaoCao]];
-			valorESDaInterferencia[1] = tipoInterferencia[ordemAventRodada[posicaoCao]];
-			valorESDaInterferencia[2] = posicaoCao;
 			
-			TerminouLoopEfeitoInterf =0;
-			apeloRepetido[ordemAventRodada[posicaoCao]] = 3;
+			if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[vezDoAventureiro]])) {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 8;
+				
+			} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])) {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 6;
+				
+			} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
+					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])) {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 4;
+				
+			} else {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 2;
+			}
+			
+			efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] = 1;
+			animacaoFileira = (vezDoAventureiro == 0? 0 : vezDoAventureiro * 2) + 10;	
+			
 			zerarDx();
-			
-			interferenciasRecebidas[ordemAventRodada[posicaoCao]][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[ordemAventRodada[posicaoCao]][ordemAventRodada[vezDoAventureiro]] + 2;
-			animacaoFileira = 10 + posicaoCao*2;
 		}
 	}
+	
+	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							aciona o efeito de do chefe da fase								|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public void efeitoChefeDeFase (int posicaoCao) {
-		if(((adversario == 0 || adversario == 3) && tipoInterferencia[ordemAventRodada[posicaoCao]] != -1) || ((adversario == 1 || adversario == 4) && tipoInterferencia[ordemAventRodada[posicaoCao]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[posicaoCao]] == 1)) {
+	public void efeitoChefeDeFase () {
 
-			int efeitoBoss = (adversario == 0 || adversario == 1? -1 : 1);
+		efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
+		
+		if(efeitoFase.getDx() == 21) {
 			
-			efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
+			txtEfeitoFase.setTexto(adversario == 0 || adversario == 1 ? "-1" : "+1");
+			efeitoFase.load("res\\batalha\\apelo.png");
+			txtEfeitoFase.setY((vezDoAventureiro == 0 ? campoBatalha1.getY() : (vezDoAventureiro == 1 ? campoBatalha2.getY() : (vezDoAventureiro == 2 ? campoBatalha3.getY() : (vezDoAventureiro == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
+			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			
-			if(efeitoFase.getDx() >= 20 && efeitoFase.getDx() < 60) {
-				
-				txtEfeitoFase.setTexto((efeitoBoss == -1 ? "- 1" : "+ 1"));
-				efeitoFase.load("res\\batalha\\apelo.png");
-				txtEfeitoFase.setY((posicaoCao == 0 ? campoBatalha1.getY() : (posicaoCao == 1 ? campoBatalha2.getY() : (posicaoCao == 2 ? campoBatalha3.getY() : (posicaoCao == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
-				efeitoFase.setY(txtEfeitoFase.getY() - 17);
-			}
-			if(efeitoFase.getDx() == 60) {
+		} else if(efeitoFase.getDx() == 60) {
 
-				efeitoFase.setImagem(null);
-				txtEfeitoFase.setTexto(" ");
-				valorESDaInterferencia[0] = valorInterferencia[ordemAventRodada[posicaoCao]];
-				valorESDaInterferencia[1] = tipoInterferencia[ordemAventRodada[posicaoCao]];
-				valorESDaInterferencia[2] = posicaoCao;
-				
-					
-				efeitoChefeDeFase[ordemAventRodada[posicaoCao]] = 3;
-				zerarDx();
-				TerminouLoopEfeitoInterf =0;
-				
-				for(int i=0; i<5; i++) {
-					if(posicaoCao == i) {
-						if(efeitoBoss < 0) {
-							interferenciasRecebidas[i][ordemAventRodada[vezDoAventureiro]] = interferenciasRecebidas[i][ordemAventRodada[vezDoAventureiro]] - efeitoBoss;
-							valorApelo[ordemAventRodada[vezDoAventureiro]] = valorApelo[ordemAventRodada[vezDoAventureiro]] - efeitoBoss;
-							
-							animacaoFileira = 10 + i*2;
-							
-							System.out.println("fileira :" + animacaoFileira);
-						} else {
-							System.out.println("efeito bos + 1");
-							valorApelo[ordemAventRodada[vezDoAventureiro]] = valorApelo[ordemAventRodada[vezDoAventureiro]] + efeitoBoss;
-							animacaoFileira = 0 + i*2;
-						}
-					}
-				}
+			efeitoFase.setImagem(null);
+			txtEfeitoFase.setTexto(" ");
+			
+			if(adversario == 0 || adversario == 1) {
+				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 1;
+				animacaoFileira = (vezDoAventureiro == 0? 0 : vezDoAventureiro * 2) + 10;	
 			}
+			else {
+				valorApelo[ordemAventRodada[vezDoAventureiro]] = 1;
+				animacaoFileira = (vezDoAventureiro == 0? 0 : vezDoAventureiro * 2);
+			}
+			
+			efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] = 1;
+			zerarDx();
 		}
+	
 	}
+	
+	
+	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							mexe o medidor de apelos ganhos da batalha						|
@@ -2208,21 +1679,18 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void mexerMedidorApelos() {
 		
-		for(int i=0; i<5;) {
-			(i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).setDx((i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).getDx() + comecarAnimacaoCoracao);
+		(coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).setDx((coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).getDx() + comecarAnimacaoCoracao);
 
-			if((i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).getDx() >= intervaloAnimacao) {
-				(i == 0 ? coracao01 : (i == 1 ? coracao02 : (i == 2 ? coracao03 : (i == 3 ? coracao04 : coracao05)))).setX((i == 0 ? campoBatalha1 : (i == 1 ? campoBatalha2 : (i == 2 ? campoBatalha3 : (i == 3 ? campoBatalha4 : campoBatalha5)))).getX() + 100 + (4 * pontosTotais[ordemAventRodada[i]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[i]]));
-				if(i < 4) {
-					(i == 0 ? coracao02 : (i == 1 ? coracao03 : (i == 2 ? coracao04 : coracao05))).setDx((i == 0 ? coracao02 : (i == 1 ? coracao03 : (i == 2 ? coracao04 : coracao05))).getDx() + comecarAnimacaoCoracao);
-				} else {
-					animacaoFileira = 21; zerarDx();
-				}
-				i++;
+		if((coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).getDx() >= intervaloAnimacao ) {
+			(coracao05.getDx() >= intervaloAnimacao ? coracao05 : (coracao04.getDx() >= intervaloAnimacao ? coracao04 : (coracao03.getDx() >= intervaloAnimacao ? coracao03 : (coracao02.getDx() >= intervaloAnimacao ? coracao02 : coracao01)))).setX((coracao05.getDx() >= intervaloAnimacao ? campoBatalha5 : (coracao04.getDx() >= intervaloAnimacao ? campoBatalha4 : (coracao03.getDx() >= intervaloAnimacao ? campoBatalha3 : (coracao02.getDx() >= intervaloAnimacao ? campoBatalha2 : campoBatalha1)))).getX() + 100 + (4 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]]));
+			
+			(coracao04.getDx() >= intervaloAnimacao ? coracao05 : (coracao03.getDx() >= intervaloAnimacao ? coracao04 : (coracao02.getDx() >= intervaloAnimacao ? coracao03 : coracao02))).setDx((coracao04.getDx() >= intervaloAnimacao ? coracao05 : (coracao03.getDx() >= intervaloAnimacao ? coracao04 : (coracao02.getDx() >= intervaloAnimacao ? coracao03 : coracao02))).getDx() + 1);
+			
+			if(coracao05.getDx() >= intervaloAnimacao) {
+				animacaoFileira = 22;
+				zerarDx();
 			}
 		}
-	
-		System.out.println("total real: " + pontosTotais[ordemAventRodada[0]] + ", " + pontosTotais[ordemAventRodada[1]] + ", " + pontosTotais[ordemAventRodada[2]] + ", " + pontosTotais[ordemAventRodada[3]] + ", " + pontosTotais[ordemAventRodada[4]] + "\n");
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -2236,8 +1704,9 @@ public class Batalha extends JPanel implements ActionListener {
 					
 		for(int i=0; i<5; i++) {
 			listaProvisoria[i] = ordemAventRodada[i];
-			listaProvisoriaTotal[i] = pontosTotais[ordemAventRodada[i]];
+			listaProvisoriaTotal[i] = pontosTotais[i];
 		}
+		
 		System.out.println("reorganização: " +  ordemAventRodada[0] + " " +  ordemAventRodada[1] + " " +  ordemAventRodada[2] + " " +  ordemAventRodada[3] + " " +  ordemAventRodada[4]);
 
 		for(int i2=0; i2<5; i2++) {
@@ -2256,7 +1725,7 @@ public class Batalha extends JPanel implements ActionListener {
 	
 		System.out.println("reorganização: " +  ordemAventRodada[0] + " " +  ordemAventRodada[1] + " " +  ordemAventRodada[2] + " " +  ordemAventRodada[3] + " " +  ordemAventRodada[4]);
 		
-		animacaoFileira = 22;
+		animacaoFileira = 23;
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -2296,15 +1765,6 @@ public class Batalha extends JPanel implements ActionListener {
 				pontosRodada[i] = 0;
 				pontosAtuaisDaRodada[i] = 0;
 				
-				danoEfeito4[i]=0; 
-				efeitoChefeDeFase[i] = 0;
-				
-				valorESDaInterferencia[0] = -1; valorESDaInterferencia[1] = -1; valorESDaInterferencia[2] = -1;
-				
-				TerminouLoopEfeitoInterf = 0;
-				
-				Efeito4 = 0;
-				Efeito6[0] = 0; Efeito6[1] = 0;
 
 			}
 			
@@ -2316,7 +1776,7 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			if(contEtapasBatalha == 5) {
 				vezDoAventureiro=0;
-				animacaoFileira = 23;
+				animacaoFileira = 24;
 				
 			} else {
 				animacaoFileira = -1;
@@ -2373,4 +1833,25 @@ public class Batalha extends JPanel implements ActionListener {
 		}
 	}
 	
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  								aciona as animações das habilidades							|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void gifApresentacao(int avent, int numApelo) {
+
+		if(avent == 0) {
+			animacao.load("res\\batalha\\Ignis\\animacao\\" + (numApelo == 0? gifApelos[0][0] : (numApelo == 1? gifApelos[0][1] : (numApelo == 2? gifApelos[0][2] : gifApelos[0][3]))) + ".gif");
+		}else if(avent == 1) {
+			animacao.load("res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
+		}else if(avent == 2) {
+			animacao.load("res\\batalha\\Rexthor\\animacao\\" + (numApelo == 0? gifApelos[2][0] : (numApelo == 1? gifApelos[2][1] : (numApelo == 2? gifApelos[2][2] : gifApelos[2][3]))) + ".gif");
+		}else if(avent == 3) {
+			animacao.load("res\\batalha\\Kiki\\animacao\\" + (numApelo == 0? gifApelos[3][0] : (numApelo == 1? gifApelos[3][1] : (numApelo == 2? gifApelos[3][2] : gifApelos[3][3]))) + ".gif");
+		}else if(avent == 4) {
+			animacao.load("res\\batalha\\Arius\\animacao\\" + (numApelo == 0? gifApelos[4][0] : (numApelo == 1? gifApelos[4][1] : (numApelo == 2? gifApelos[4][2] : gifApelos[4][3]))) + ".gif");
+		}
+	
+	}
+
 }

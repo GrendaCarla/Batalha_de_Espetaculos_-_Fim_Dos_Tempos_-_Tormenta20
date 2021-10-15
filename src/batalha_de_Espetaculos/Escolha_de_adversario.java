@@ -35,7 +35,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 
 	private Escolha_de_personagem tela1;
-	private Batalha2 tela3;
+	private Batalha tela3;
 	private Manual telaManual;
 	private Menu telaMenu;
 	JFrame janelaPrincipal;
@@ -984,7 +984,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 			        janelaPrincipal.remove(this);
-			        tela3 = new Batalha2(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
+			        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
 			        janelaPrincipal.add(tela3);
 			        janelaPrincipal.setTitle("Batalha");
 			        janelaPrincipal.revalidate();
