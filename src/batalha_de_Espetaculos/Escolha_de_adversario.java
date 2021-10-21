@@ -44,6 +44,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+
+	private int contEngranagem1 = 1;
+	private boolean contEngranagem2;
 	
 	// ------------------------ imagens dos ícones aventureiros ------------------------------
 	
@@ -103,13 +108,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 	
-	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
+	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
-	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(dialogoAviso.getX() + 480, bntSimDialogoAviso.getY());
+	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
 	
-	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 110, 548/2 - 28, " ");
-	private Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 28 - 40, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 52 - 40, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
 	
@@ -117,10 +122,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
-	private Icones_interativos bntMenu = new Icones_interativos(41,66);
-	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),202);
-	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(),338);
-	
+	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2, 80);
+	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(), bntMenu.getY() + 120);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 120);
+	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(), bntCreditos.getY() + 120);
+
+
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
 	
@@ -132,9 +139,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	// ---------------------------- save ------------------------------------
 
 	Salvar salvar = new Salvar();
-	private Icones_interativos imgMenSalve = new Icones_interativos(-242, 34);
-	private Icones_interativos imgMenSalve2 = new Icones_interativos(0, 34);
-	private Texto txtSalvar = new Texto(84, 90, " ");
+	private Icones_interativos imgMenSalve = new Icones_interativos(-242, 56);
+	private Icones_interativos imgMenSalve2 = new Icones_interativos(0, imgMenSalve.getY());
+	private Texto txtSalvar = new Texto(84, imgMenSalve.getY() + 56, " ");
 	private String  conteudoSalvar = "Jogo salvo!";
 	
 	private int contMenSalvar = 0;
@@ -156,8 +163,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo) {
-		
+	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo, boolean Engrenagem2) {
+		contEngranagem2 = Engrenagem2;
+
 		aventureiro = numAventureiro;
 		this.tela1 = PaginaAnterior;
 		this.telaMenu = PaginaMenu;
@@ -167,7 +175,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
 		fundo2.load("res\\escolhaDeAdversario\\fundo.png");
+		engrenagem1.load("res\\engrenagem1.png");
 		
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+
 		contorno.load("res\\contorno.png");
 		
 		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
@@ -234,17 +245,58 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 	public void dialogoBntMenu(int codigo) {
 		// ------------------------ manda para a tela do menu ----------------------- /
-		if(codigo == KeyEvent.VK_Z ) {
+		
+		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
-			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-	        janelaPrincipal.remove(this);
-	        janelaPrincipal.add(telaMenu);
-	        janelaPrincipal.setTitle("Menu");
-	        telaMenu.valorLeituraSave = salvar.LerDados();
-	        telaMenu.Restaurar();
-	        janelaPrincipal.revalidate();
-	        timer.stop();
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
+			dialogoAviso.load("res\\Menu\\dialogo.png");
+			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			bntSimNaoDialgoAviso = true;
+			
+			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
+			txtDialogoAviso2.setTexto("Deseja continuar?");
+			
+		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
+		
+			if(contEngranagem1== 2) {
+				contEngranagem1= 1;
+			} else {contEngranagem1++;}
+			
+			engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+			
+			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
+			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+		
+		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
+				dialogoAviso.setImagem(null);
+				bntSimDialogoAviso.load(null);
+				bntNaoDialogoAviso.load(null);
+				
+				txtDialogoAviso.setTexto(" ");
+				txtDialogoAviso2.setTexto(" ");
+				
+			} else {
+				
+				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+		        janelaPrincipal.remove(this);
+		        janelaPrincipal.add(telaMenu);
+		        janelaPrincipal.setTitle("Menu");
+		        telaMenu.valorLeituraSave = salvar.LerDados();
+		        telaMenu.Restaurar();
+		        janelaPrincipal.revalidate();
+		        timer.stop();
+			}
 		}
+		
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -255,9 +307,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		// ------------------------ manda para a tela de Manual ----------------------- /
 		if(codigo == KeyEvent.VK_Z ) {
 			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaManual = new Manual();
+	        telaManual = new Manual(contEngranagem2);
 	        telaManual.setTela2(this);
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual2");
@@ -273,6 +328,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void dialogoBntVoltar(int codigo) {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
 			dialogoAviso.load("res\\Menu\\dialogo.png");
 			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
 			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
@@ -283,11 +341,20 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
 		
+			if(contEngranagem1== 2) {
+				contEngranagem1= 1;
+			} else {contEngranagem1++;}
+			
+			engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+			
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
 			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
 			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
 		
 		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
 				dialogoAviso.setImagem(null);
@@ -344,6 +411,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				// -------------------- abre e fecha o menu -------------------- \
 				if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
+					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
 					mostrarMenu = !mostrarMenu;
 					
 					if(mostrarMenu == true) {
@@ -353,26 +424,36 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntMenu.load("res\\Menu\\bntMenu2.png");
 						bntManual.load("res\\Menu\\bntManual1.png");
 						bntVoltar.load("res\\Menu\\bntVoltar1.png");
-						
+						bntCreditos.load("res\\Menu\\bntCreditos1.png");
+
 					} else {
 						sombreadorMenu.setImagem(null);
 						fundoMenu.setImagem(null);
 						bntMenu.setImagem(null);
 						bntManual.setImagem(null);
 						bntVoltar.setImagem(null);
-						
+						bntCreditos.setImagem(null);
+
 					}
 				// ----------------------- muda a seleção das opções do menu -------------------------- \
 				}else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == true && dialogoAviso.getImagem() == null) {
+					
+					if(contEngranagem1== 2) {
+						contEngranagem1= 1;
+					} else {contEngranagem1++;}
+					
+					engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+					
 					if(codigo == KeyEvent.VK_UP) {
-						if(contMenu == 0) {contMenu = 2;} else {contMenu --;}
+						if(contMenu == 0) {contMenu = 3;} else {contMenu --;}
 					}else if(codigo == KeyEvent.VK_DOWN) {
-						if(contMenu == 2) {contMenu = 0;} else {contMenu ++;}
+						if(contMenu == 3) {contMenu = 0;} else {contMenu ++;}
 					}
 					
 					bntMenu.load("res\\Menu\\bntMenu1.png");
 					bntManual.load("res\\Menu\\bntManual1.png");
 					bntVoltar.load("res\\Menu\\bntVoltar1.png");
+					bntCreditos.load("res\\Menu\\bntCreditos1.png");
 					
 					switch (contMenu) {
 						case 0:
@@ -382,12 +463,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							bntManual.load("res\\Menu\\bntManual2.png");
 							break;
 						case 2:
+							bntCreditos.load("res\\Menu\\bntCreditos2.png");
+							break;
+						case 3:
 							bntVoltar.load("res\\Menu\\bntVoltar2.png");
 							break;
 					}
 					
 				// ---------- encaminha para a função que controla o botão voltar do menu --------- \
-				}else if(mostrarMenu == true && contMenu == 2) {
+				}else if(mostrarMenu == true && contMenu == 3) {
 					dialogoBntVoltar(codigo);
 					
 				// ---------- encaminha para a função que controla o botão do Menu do menu ------\
@@ -400,6 +484,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								
 				// ---------- muda a seleção dos ícones dos personagens no mapa para esquerda e direita --------- \
 				} else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
+					
+					if(contEngranagem1== 2) {
+						contEngranagem1= 1;
+					} else {contEngranagem1++;}
+					
+					engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
 					
 					if(codigo == KeyEvent.VK_LEFT) {
 						if(contTeclaBatalha == 0) {contTeclaBatalha = 4;} 
@@ -441,6 +531,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				// ---------- muda a seleção dos ícones dos personagens no mapa para cima e para baixo --------- \
 				} else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
+					
+					if(contEngranagem1== 2) {
+						contEngranagem1= 1;
+					} else {contEngranagem1++;}
+					
+					engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
 					
 					limpaIconesAdversarios ();
 					
@@ -495,6 +591,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				// ---------- muda a seleção dos botões sim, não, coroa e sem coroa na barra de diálogo dos cães --------- \
 				else if((codigo == KeyEvent.VK_RIGHT || codigo == KeyEvent.VK_LEFT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && bntSimDialogo.getImagem() != null) {
 					
+					if(contEngranagem1== 2) {
+						contEngranagem1= 1;
+					} else {contEngranagem1++;}
+					
+					engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+					
 					if(contTeclaBatalha == 0 && contDialogo == 3) {
 						tibarCoroa = !tibarCoroa;
 						bntSimDialogo.load("res\\escolhaDeAdversario\\tibarCoroa" + (tibarCoroa == true ? "3" : "2") + ".png");
@@ -510,11 +612,18 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				// --------------- quando o diálogo é fechado ele limpa as imagens e textos --------------- \
 				else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && ((bntSimDialogo.getImagem() != null ? (bntSimNao == false && ((derrotados[2] == true  && contTeclaBatalha == 0  && contDialogo == 1) || (derrotados[0] == true  && contTeclaBatalha == 1  && contDialogo == 1) || (derrotados[3] == true  && contTeclaBatalha == 2  && contDialogo == 1) || (derrotados[1] == true  && contTeclaBatalha == 3  && contDialogo == 1) || (derrotados[4] == true  && contTeclaBatalha == 4  && contDialogo == 1)))  : (bntSimNao == false && ((contTeclaBatalha == 0 && contDialogo == 2) || (contTeclaBatalha == 1 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 3 && contDialogo == 3) || (contTeclaBatalha == 4 && contDialogo == 3))) || (contTeclaBatalha == 5 && contDialogo == 1)|| (contTeclaBatalha == 0 && contDialogo == 4 && mudaCorLn4 == false)))) {
+					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
 					limparDialogo();
 				}
 				
 				// ----------------------- diálogo com os cães das colinas ------------------------ \
 				else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && imgMenSalve.getImagem() == null && ((contTeclaBatalha == 0 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 1 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 3 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 4 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 5 && contDialogo < 1))) {
+					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 					
 					sombreadorDialogo.load("res\\Menu\\sombreador.png");
 					barraDeDialogo.load("res\\escolhaDeAdversario\\barraDeDialogo.png");
@@ -980,11 +1089,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				// ------------------------ manda para a tela de batalha ----------------------- /
 				else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && bntSimNao == true && barraDeDialogo.getImagem() != null) {
 					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
 					int [] organizandoAventureiro = {2, 0, 3, 1, 4, 5};
 					
 					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 			        janelaPrincipal.remove(this);
-			        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu);
+			        tela3 = new Batalha(aventureiro, organizandoAventureiro[contTeclaBatalha], this, telaMenu, contEngranagem2);
 			        janelaPrincipal.add(tela3);
 			        janelaPrincipal.setTitle("Batalha");
 			        janelaPrincipal.revalidate();
@@ -1134,6 +1246,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
 		graficos.drawImage(bntManual.getImagem(), bntManual.getX(), bntManual.getY(), this);
 		graficos.drawImage(bntVoltar.getImagem(),  bntVoltar.getX(),  bntVoltar.getY(), this);
+		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getX(), bntCreditos.getY(), this);
+
 		
 		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getX(), dialogoAviso.getY(), this);
 		graficos.drawImage(bntSimDialogoAviso.getImagem(), bntSimDialogoAviso.getX(), bntSimDialogoAviso.getY(), this);
@@ -1148,7 +1262,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		tl6.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
 		
 		
-		
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
+
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
 		g.dispose();
@@ -1241,9 +1357,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			objetoDeFundo4.setY(objetoDeFundo4.getY() - 1);
 		}
 		
-		if(objetoDeFundo1.getY() == 60) {
+		if(objetoDeFundo1.getY() <= 60) {
 			ativarAnimacaoVelaAyla = 2;
-		} else if(objetoDeFundo1.getY() == 80) {
+		} else if(objetoDeFundo1.getY() >= 80) {
 			ativarAnimacaoVelaAyla = 1;
 		} 
 		
@@ -1257,12 +1373,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
         janelaPrincipal.setTitle("Escolha de Personagem");
         tela1.LimparTela2();
         janelaPrincipal.revalidate();
-        
-       
 	}
 	
 	public void LimparTela3() {
 		tela3 = null;
+	}
+	
+
+	public void setContEngranagem2(boolean contEngranagem2) {
+		this.contEngranagem2 = contEngranagem2;
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 	}
 	
 }

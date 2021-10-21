@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 public class Container extends JFrame{
 	
-	Menu menu = new Menu();
+	Menu menu = new Menu(false);
 	 
 	public Container() {
 		add(menu);

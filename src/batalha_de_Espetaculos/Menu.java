@@ -35,7 +35,12 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
+	
+	private int contEngranagem1 = 1;
+	private boolean contEngranagem2;
 	
 	private Timer timer;
 	
@@ -51,10 +56,10 @@ public class Menu extends JPanel implements ActionListener {
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
-	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - 128/2, 170);
-	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX(), bntContinuar.getY() + 80);
-	private Icones_interativos bntManual = new Icones_interativos(bntContinuar.getX(), bntNovoJogo.getY() + 80);
-	private Icones_interativos bntCreditos = new Icones_interativos(bntContinuar.getX(), bntManual.getY() + 80);
+	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - 158/2, 160);
+	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX(), bntContinuar.getY() + 90);
+	private Icones_interativos bntManual = new Icones_interativos(bntContinuar.getX(), bntNovoJogo.getY() + 90);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntContinuar.getX(), bntManual.getY() + 90);
 	
 	private int contOpcoes;
 	
@@ -76,13 +81,17 @@ public class Menu extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Menu () {
-	
+	public Menu (boolean Engrenagem2) {
+		contEngranagem2 = Engrenagem2;
+		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
 		fundo2.load("res\\Menu\\fundo.png");
+		engrenagem1.load("res\\engrenagem1.png");		
 		contorno.load("res\\contorno.png");
 		
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+
 		valorLeituraSave = salvar.LerDados();
 		
 		// ------------------------------------------- Controles ---------------------------------------------
@@ -135,8 +144,8 @@ public class Menu extends JPanel implements ActionListener {
 		}
 		
 		
-		bntManual.load("res\\Menu\\bntManual1.png");
-		bntCreditos.load("res\\Menu\\bntCreditos1.png");
+		bntManual.load("res\\Menu\\bntManual3.png");
+		bntCreditos.load("res\\Menu\\bntCreditos3.png");
 		
 		
 	}
@@ -169,6 +178,12 @@ public class Menu extends JPanel implements ActionListener {
 					
 				}else if(codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN){
 					
+					if(contEngranagem1 == 2) {
+						contEngranagem1 = 1;
+					} else {contEngranagem1 ++;}
+					
+					engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+					
 					if(codigo == KeyEvent.VK_UP) {
 						if(contOpcoes == 1 && valorLeituraSave != 0) {
 							contOpcoes = 3;
@@ -191,8 +206,8 @@ public class Menu extends JPanel implements ActionListener {
 					
 					bntContinuar.load("res\\Menu\\bntContinuar1.png");
 					bntNovoJogo.load("res\\Menu\\bntNovoJogo1.png");
-					bntManual.load("res\\Menu\\bntManual1.png");
-					bntCreditos.load("res\\Menu\\bntCreditos1.png");
+					bntManual.load("res\\Menu\\bntManual3.png");
+					bntCreditos.load("res\\Menu\\bntCreditos3.png");
 					
 					switch (contOpcoes) {
 						case 0:
@@ -202,13 +217,16 @@ public class Menu extends JPanel implements ActionListener {
 							bntNovoJogo.load("res\\Menu\\bntNovoJogo2.png");
 							break;
 						case 2:
-							bntManual.load("res\\Menu\\bntManual2.png");
+							bntManual.load("res\\Menu\\bntManual4.png");
 							break;
 						case 3:
-							bntCreditos.load("res\\Menu\\bntCreditos2.png");
+							bntCreditos.load("res\\Menu\\bntCreditos4.png");
 							break;
 					}
 				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 0) {
+					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 					
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 					
@@ -216,17 +234,23 @@ public class Menu extends JPanel implements ActionListener {
 					
 				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 1) {
 					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 	
 					chamarTela1(true);
 			        
 				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 2) {
 					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 	
 					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 			        janelaPrincipal.remove(this);
-			        telaManual = new Manual();
+			        telaManual = new Manual(contEngranagem2);
 			        
 			        telaManual.setTelaMenu(this);
 			        
@@ -317,6 +341,8 @@ public class Menu extends JPanel implements ActionListener {
 		graficos.drawImage(teclaZ.getImagem(), teclaZ.getX(), teclaZ.getY(), this);
 		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY(), this);
 		
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
 		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY(), this);
@@ -352,7 +378,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela1 = new Escolha_de_personagem(this, NovoJogo);
+        tela1 = new Escolha_de_personagem(this, NovoJogo, contEngranagem2);
         janelaPrincipal.add(tela1);
         janelaPrincipal.setTitle("Escolha de Personagem");
         
@@ -368,4 +394,9 @@ public class Menu extends JPanel implements ActionListener {
 		tela1 = null;
 	}
 
+	public void setContEngranagem2(boolean contEngranagem2) {
+		this.contEngranagem2 = contEngranagem2;
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+	}
+	
 }

@@ -31,6 +31,13 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+
+	
+	private int contEngranagem1 = 1;
+	private boolean contEngranagem2;
+
 	private Timer timer;
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
@@ -48,7 +55,7 @@ public class Manual extends JPanel implements ActionListener {
 	
 	/* ------------------------------- Controles ---------------------------------*/
 	
-	private Icones_interativos teclaEsquerda = new Icones_interativos(268, 104);
+	private Icones_interativos teclaEsquerda = new Icones_interativos(268, 124);
 	private Icones_interativos teclaBaixo = new Icones_interativos(teclaEsquerda.getX() + 40, teclaEsquerda.getY() + 46);
 	private Icones_interativos teclaDireita = new Icones_interativos(teclaBaixo.getX() + 46, teclaEsquerda.getY());
 	private Icones_interativos teclaCima = new Icones_interativos(teclaBaixo.getX(), teclaBaixo.getY() - 86);
@@ -57,7 +64,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos teclaEsc = new Icones_interativos(teclaX.getX() + 190, teclaX.getY());
 
 	
-	private Texto txtLn1 = new Texto(60, 80, "Controles");
+	private Texto txtLn1 = new Texto(126, 80, "Controles");
 	private Texto txtLn2 = new Texto(270, 220, "Direcionais");
 	private Texto txtLn3 = new Texto(txtLn2.getX() + 230, txtLn2.getY() - 30, "Selecionar");
 	private Texto txtLn4 = new Texto(txtLn3.getX() + 228, txtLn3.getY(), "Voltar");
@@ -67,7 +74,7 @@ public class Manual extends JPanel implements ActionListener {
 	
 	/* ------------------------------- Batalha ---------------------------------*/
 	
-	private Texto txtLn6 = new Texto(60, 300, "Batalhas");
+	private Texto txtLn6 = new Texto(80, 300, "Batalhas");
 	private Texto txtLn7 = new Texto(90, txtLn6.getY() + 80, "* As batalhas são divididas em cinco turnos.");
 	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + 44, "* Em cada turno você escolhe uma apresentação para ganhar");
 	private Texto txtLn9 = new Texto(txtLn7.getX() + 8, txtLn8.getY() + 25, " pontos com a platéia ou prejudicar seus adversários.");
@@ -246,10 +253,16 @@ public class Manual extends JPanel implements ActionListener {
 
 	
 	
-	public Manual () {
+	public Manual (boolean Engrenagem2) {
+		contEngranagem2 = Engrenagem2;
+		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
 		fundo2.load("res\\Manual\\fundo.png");
+		engrenagem1.load("res\\engrenagem1.png");
+		
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+
 		contorno.load("res\\contorno.png");
 		
 		/* ------------------------------- Barra de rolagem ---------------------------------*/
@@ -629,20 +642,36 @@ public class Manual extends JPanel implements ActionListener {
 		int codigo = tecla.getKeyCode();
 		
 		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1550) {
+			if(contEngranagem1 == 2) {
+				contEngranagem1 = 1;
+			} else {contEngranagem1 ++;}
+			
+			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			
 			rolagemTela = rolagemTela - 5;
 			bntBarraBaixo.load("res\\Manual\\teclaBaixo2.png");
 			
 		}else if(codigo == KeyEvent.VK_UP && rolagemTela < 0) {
+			if(contEngranagem1 == 2) {
+				contEngranagem1 = 1;
+			} else {contEngranagem1 ++;}
+			
+			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			
 			rolagemTela = rolagemTela + 5;
 			bntBarraCima.load("res\\Manual\\teclaCima2.png");
 
 		}else if(codigo == KeyEvent.VK_X) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(tela3 != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(tela3);
 		        janelaPrincipal.setTitle("Batalha");
+		        tela3.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 				
 			} else if(tela2 != null) {
@@ -650,6 +679,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(tela2);
 		        janelaPrincipal.setTitle("Escolha de Adversário");
+		        tela2.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 				
 			} else if(tela1 != null) {
@@ -657,6 +687,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(tela1);
 		        janelaPrincipal.setTitle("Escolha de Personagem");
+		        tela1.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 		        
 			} else if(telaMenu != null) {
@@ -664,6 +695,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
+		        telaMenu.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 				
 			}
@@ -963,6 +995,8 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(bntBarraBaixo.getImagem(), bntBarraBaixo.getX(), bntBarraBaixo.getY(), this);
 		graficos.drawImage(bntBarraCima.getImagem(), bntBarraCima.getX(), bntBarraCima.getY(), this);
 		
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		
 		g.dispose();

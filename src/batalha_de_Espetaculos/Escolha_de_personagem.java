@@ -38,6 +38,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+
+	
+	private int contEngranagem = 1;
+	private boolean contEngranagem2;
+
 	private Timer timer;
 	
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
@@ -58,22 +65,22 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	private Icones_interativos teclaEsquerda = new Icones_interativos(20 + 10, 640 - 20 - 42 - 20);
 	private Icones_interativos teclaDireita = new Icones_interativos(1234 - 10 - 20 - 37, 640 - 20 - 42 - 20);
-	private Icones_interativos teclaZ = new Icones_interativos(20 + 60,20 + 35);
-	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 60 - 37, 20 + 35);
+	private Icones_interativos teclaZ = new Icones_interativos(20 + 110,20 + 36);
+	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 110 - 37, 20 + 36);
 	private Icones_interativos teclaEsc = new Icones_interativos(1234 - 20 - 55 + 2, 20 - 4);
 	
-	// -------------------------- imagens e texto do dialogo de aviso ------------------------------
+	// -------------------------- imagens e texto do dialogo de personagem ------------------------------
 	
-	private Icones_interativos sombreadorDialogoAviso = new Icones_interativos(0, 0);
-	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2);
-	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
-	private Icones_interativos bntNaoDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 480, bntSimDialogoAviso.getY());
+	private Icones_interativos sombreadorDialogoPerso = new Icones_interativos(0, 0);
+	private Icones_interativos dialogoPersonagem = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
+	private Icones_interativos bntSimdialogoPersonagem = new Icones_interativos(dialogoPersonagem.getX() + 110, dialogoPersonagem.getY() + 190);
+	private Icones_interativos bntNaodialogoPersonagem = new Icones_interativos(bntSimdialogoPersonagem.getX() + 370, bntSimdialogoPersonagem.getY());
 	
-	private Texto txtDialogoAviso = new Texto(1234/2 - 706/2 + 60, 548/2 - 28, " ");
-	private Texto txtDialogoAviso2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12, " ");
-	private Texto txtDialogoAviso3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52, " ");
+	private Texto txtdialogoPersonagem = new Texto(1234/2 - 706/2 + 60, 548/2 - 28 - 40, " ");
+	private Texto txtdialogoPersonagem2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12 - 40, " ");
+	private Texto txtdialogoPersonagem3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52 - 40, " ");
 	
-	private TextLayout tl1, tl2, tl3; 
+	private TextLayout tl1, tl2, tl3, tl4, tl5; 
 	private Boolean botaoSimNaoDialogo = true;
 	
 	// ------------------------------------- imagens do menu ---------------------------------------
@@ -81,22 +88,41 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,16);
 	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2,80);
-	private Icones_interativos bntManual = new Icones_interativos(18 + 200/2 - 128/2,80 + 140);
+	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),bntMenu.getY() + 120);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 120);
+
 	
-	boolean mostrarMenu = false;
-	boolean contMenu = false;
+	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
+
+	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
+	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
+	
+	
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 28 - 40, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 52 - 40, " ");
+	
+	private Boolean bntSimNaoDialgoAviso = true;
+	
+	private boolean mostrarMenu = false;
+	private int contMenu = 0;
 
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
-	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo) {
+	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2) {
 		this.telaMenu = PaginaAnterior;
 		this.novoJogo = NovoJogo;
+		
+		contEngranagem2 = Engrenagem2;
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
 		fundo2.load("res\\fundo.png");
-		
+		engrenagem1.load("res\\engrenagem1.png");
+
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+
 		titulo.load("res\\escolhaDePersonagem\\texto.png");
 		contorno.load("res\\contorno.png");
 		
@@ -110,10 +136,16 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		luzAven.load("res\\escolhaDePersonagem\\luzIgnis.png");
 		
+		txtdialogoPersonagem.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtdialogoPersonagem.setCorTexto(new Color (235, 230, 233));
+		txtdialogoPersonagem2.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtdialogoPersonagem3.setFonte(new Font("Arial", Font.PLAIN, 28));
+		
+		// ------------------------ imagens e textos do diálogo de aviso ------------------------------
+
 		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
 		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
 		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 28));
-		txtDialogoAviso3.setFonte(new Font("Arial", Font.PLAIN, 28));
 		
 		// ------------------------------------------- Controles ---------------------------------------------
 
@@ -122,7 +154,6 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		teclaZ.load("res\\Menu\\teclaZ.png");
 		teclaX.load("res\\Menu\\teclaX.png");
 		teclaEsc.load("res\\Menu\\teclaEsc.png");
-		
 		
 		timer = new Timer(5, this);
 		timer.start();
@@ -211,17 +242,61 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	public void dialogoBntMenu(int codigo) {
 		// ------------------------ manda para a tela do menu ----------------------- /
-		if(codigo == KeyEvent.VK_Z ) {
+		
+		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
-			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-	        janelaPrincipal.remove(this);
-	        janelaPrincipal.add(telaMenu);
-	        janelaPrincipal.setTitle("Menu");
-	        telaMenu.Restaurar();
-	        telaMenu.LimparTela1();
-	        janelaPrincipal.revalidate();
-	        timer.stop();
+
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			dialogoAviso.load("res\\Menu\\dialogo.png");
+			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			botaoSimNaoDialogo = true;
+			
+			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
+			txtDialogoAviso2.setTexto("Deseja continuar?");
+			
+		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
+		
+			if(contEngranagem == 2) {
+				contEngranagem = 1;
+			} else {contEngranagem ++;}
+			
+			engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+			
+			botaoSimNaoDialogo = !botaoSimNaoDialogo;
+			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (botaoSimNaoDialogo == true ? "" : "2") + ".png");
+			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (botaoSimNaoDialogo == true ? "2" : "") + ".png");
+		
+		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			if(botaoSimNaoDialogo == false || codigo == KeyEvent.VK_X) {
+				
+				dialogoAviso.setImagem(null);
+				bntSimDialogoAviso.load(null);
+				bntNaoDialogoAviso.load(null);
+				
+				txtDialogoAviso.setTexto(" ");
+				txtDialogoAviso2.setTexto(" ");
+			}
+			else {
+				
+				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+		        janelaPrincipal.remove(this);
+		        janelaPrincipal.add(telaMenu);
+		        janelaPrincipal.setTitle("Menu");
+		        telaMenu.Restaurar();
+		        telaMenu.LimparTela1();
+		        janelaPrincipal.revalidate();
+		        timer.stop();
+			
+			}
 		}
+		
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -231,10 +306,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	public void dialogoBntManual(int codigo) {
 		// ------------------------ manda para a tela de Manual ----------------------- /
 		if(codigo == KeyEvent.VK_Z ) {
+
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaManual = new Manual();
+	        telaManual = new Manual(contEngranagem2);
 	        telaManual.setTela1(this);
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual1");
@@ -253,40 +331,77 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			int codigo = tecla.getKeyCode();
 			
 			// -------------------- abre e fecha o menu -------------------- \
-			if(codigo == KeyEvent.VK_ESCAPE) {
+			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
+
+				contEngranagem2 = !contEngranagem2;
+				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				
 				mostrarMenu = !mostrarMenu;
 				teclaEsc.load("res\\Menu\\teclaEsc2.png");
 				
 				if(mostrarMenu == true) {
-					contMenu = false;
+					contMenu = 0;
 					sombreadorMenu.load("res\\Menu\\sombreador.png");
 					fundoMenu.load("res\\Menu\\menu.png");
 					bntMenu.load("res\\Menu\\bntMenu2.png");
 					bntManual.load("res\\Menu\\bntManual1.png");
+					bntCreditos.load("res\\Menu\\bntCreditos1.png");
 					
 				} else {
 					sombreadorMenu.setImagem(null);
 					fundoMenu.setImagem(null);
 					bntMenu.setImagem(null);
 					bntManual.setImagem(null);
+					bntCreditos.setImagem(null);
 				}
 			// --------------- muda a seleção das opções do menu ------------- \
-			}else if((codigo == KeyEvent.VK_DOWN || codigo == KeyEvent.VK_UP) && mostrarMenu == true) {
+			}else if((codigo == KeyEvent.VK_DOWN || codigo == KeyEvent.VK_UP) && mostrarMenu == true && dialogoAviso.getImagem() == null) {
 				
-				contMenu = !contMenu;
-				bntMenu.load("res\\Menu\\bntMenu" + (contMenu == false ? "2" : "1") + ".png");
-				bntManual.load("res\\Menu\\bntManual" + (contMenu == false ? "1" : "2") + ".png");
-		
+				if(contEngranagem == 2) {
+					contEngranagem = 1;
+				} else {contEngranagem ++;}
+				
+				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+				
+				if(codigo == KeyEvent.VK_UP) {
+					if(contMenu == 0) {contMenu = 2;} else {contMenu --;}
+				}else if(codigo == KeyEvent.VK_DOWN) {
+					if(contMenu == 2) {contMenu = 0;} else {contMenu ++;}
+				}
+				
+				bntMenu.load("res\\Menu\\bntMenu1.png");
+				bntManual.load("res\\Menu\\bntManual1.png");
+				bntCreditos.load("res\\Menu\\bntCreditos1.png");
+				
+				switch (contMenu) {
+					case 0:
+						bntMenu.load("res\\Menu\\bntMenu2.png");
+						break;
+					case 1:
+						bntManual.load("res\\Menu\\bntManual2.png");
+						break;
+					case 2:
+						bntCreditos.load("res\\Menu\\bntCreditos2.png");
+						break;
+				}
+				
 			// ---------- encaminha para a função que controla o botão do Menu do menu ------\
-			}else if(mostrarMenu == true && contMenu == false){
+			}else if(mostrarMenu == true && contMenu == 0){
 				dialogoBntMenu(codigo);
 			
 			// ---------- encaminha para a função que controla o botão de Manual do menu ------\
-			}else if(mostrarMenu == true && contMenu == true){
+			}else if(mostrarMenu == true && contMenu == 1){
 				dialogoBntManual(codigo);
 						
 			// ---------- muda a seleção dos personagens para esquerda --------- \
-			}else if(codigo == KeyEvent.VK_LEFT && dialogoAviso.getImagem() == null && mostrarMenu == false) {
+			}else if(codigo == KeyEvent.VK_LEFT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
+				
+				
+				if(contEngranagem == 2) {
+					contEngranagem = 1;
+				} else {contEngranagem ++;}
+				
+				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
 				
 				teclaEsquerda.load("res\\Menu\\setaEsquerda2.png");
 				
@@ -311,7 +426,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				}	  
 				
 			// ---------- muda a seleção dos personagens para direita --------- \
-			} else if(codigo == KeyEvent.VK_RIGHT && dialogoAviso.getImagem() == null && mostrarMenu == false) {
+			} else if(codigo == KeyEvent.VK_RIGHT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
+				
+				if(contEngranagem == 2) {
+					contEngranagem = 1;
+				} else {contEngranagem ++;}
+				
+				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
 				
 				teclaDireita.load("res\\Menu\\setaDireita2.png");
 				
@@ -336,43 +457,61 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				}
 			}
 			// --------------- chama o dialogo de aviso ao apertar Z -------------- \
-			else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() == null && mostrarMenu == false) {
+			else if(codigo == KeyEvent.VK_Z && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
+
+				contEngranagem2 = !contEngranagem2;
+				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				
 				teclaZ.load("res\\Menu\\teclaZ2.png");
 				
-				sombreadorDialogoAviso.load("res\\Menu\\sombreador.png");
-				dialogoAviso.load("res\\Menu\\dialogo.png");
-				bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-				bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
-				botaoSimNaoDialogo = true;
+				sombreadorDialogoPerso.load("res\\Menu\\sombreador.png");
+				dialogoPersonagem.load("res\\Menu\\dialogo.png");
+				bntSimdialogoPersonagem.load("res\\Menu\\bntSim.png");
+				bntNaodialogoPersonagem.load("res\\Menu\\bntNao2.png");
+				bntSimNaoDialgoAviso = true;
 				
 				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
-					txtDialogoAviso.setTexto("O aventureiro escolhido não poderá ser trocado");
+					txtdialogoPersonagem.setTexto("O aventureiro escolhido não poderá ser trocado");
 				} else {
-					txtDialogoAviso.setTexto("A aventureira escolhida não poderá ser trocada");
+					txtdialogoPersonagem.setTexto("A aventureira escolhida não poderá ser trocada");
 				}
-				txtDialogoAviso2.setTexto("durante o jogo.");
-				txtDialogoAviso3.setTexto("Deseja continuar?");
+				txtdialogoPersonagem2.setTexto("durante o jogo.");
+				txtdialogoPersonagem3.setTexto("Deseja continuar?");
 			
 			// --------------- fecha o dialogo de aviso ao apertar X -------------- \
 			}else if(codigo == KeyEvent.VK_X && mostrarMenu == false) {
+
+				contEngranagem2 = !contEngranagem2;
+				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				
 				teclaX.load("res\\Menu\\teclaX2.png");
 				
 				limparDialogo();
 			
 			// ------------ muda a seleção das opções do dialogo de aviso ---------- \
-			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null && mostrarMenu == false) {
+			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoPersonagem.getImagem() != null && mostrarMenu == false) {
 				
-				dialogoAviso.load("res\\Menu\\dialogo.png");
-				bntSimDialogoAviso.load("res\\Menu\\bntSim" + (botaoSimNaoDialogo == false ? "" : "2") + ".png");
-				bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (botaoSimNaoDialogo == false ? "2" : "") + ".png");
-				botaoSimNaoDialogo = (botaoSimNaoDialogo == false ? true : false);
+				if(contEngranagem == 2) {
+					contEngranagem = 1;
+				} else {contEngranagem ++;}
+				
+				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+				
+				dialogoPersonagem.load("res\\Menu\\dialogo.png");
+				bntSimdialogoPersonagem.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == false ? "" : "2") + ".png");
+				bntNaodialogoPersonagem.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == false ? "2" : "") + ".png");
+				bntSimNaoDialgoAviso = (bntSimNaoDialgoAviso == false ? true : false);
 			
 			// --------------- entra quando pressiona Z no dialogo de aviso ------------- \
-			}else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() != null && mostrarMenu == false) {
+			}else if(codigo == KeyEvent.VK_Z && dialogoPersonagem.getImagem() != null && mostrarMenu == false) {
+				
+				contEngranagem2 = !contEngranagem2;
+				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				
 				teclaZ.load("res\\Menu\\teclaZ2.png");
 				
 				// --------------- fecha o dialogo de aviso ------------- \
-				if(botaoSimNaoDialogo == false) {
+				if(bntSimNaoDialgoAviso == false) {
 					limparDialogo();
 					
 				// ------------ vai para a tela de escolha de adversário ----------- \
@@ -403,13 +542,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	public void limparDialogo() {
 		
-		sombreadorDialogoAviso.setImagem(null);
-		dialogoAviso.setImagem(null);
-		bntSimDialogoAviso.setImagem(null);
-		bntNaoDialogoAviso.setImagem(null);
-		txtDialogoAviso.setTexto(" ");
-		txtDialogoAviso2.setTexto(" ");
-		txtDialogoAviso3.setTexto(" ");
+		sombreadorDialogoPerso.setImagem(null);
+		dialogoPersonagem.setImagem(null);
+		bntSimdialogoPersonagem.setImagem(null);
+		bntNaodialogoPersonagem.setImagem(null);
+		txtdialogoPersonagem.setTexto(" ");
+		txtdialogoPersonagem2.setTexto(" ");
+		txtdialogoPersonagem3.setTexto(" ");
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -468,21 +607,21 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		graficos.drawImage(teclaZ.getImagem(), teclaZ.getX(), teclaZ.getY(), this);
 		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY(), this);
 		
-		// -------------------------- imagens e texto do dialogo de aviso ------------------------------
+		// -------------------------- imagens e texto do dialogo de personagens ------------------------------
 		
-		graficos.drawImage(sombreadorDialogoAviso.getImagem(), sombreadorDialogoAviso.getX(), sombreadorDialogoAviso.getY(), this);
-		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getX(), dialogoAviso.getY(), this);
-		graficos.drawImage(bntSimDialogoAviso.getImagem(), bntSimDialogoAviso.getX(), bntSimDialogoAviso.getY(), this);
-		graficos.drawImage(bntNaoDialogoAviso.getImagem(), bntNaoDialogoAviso.getX(), bntNaoDialogoAviso.getY(), this);
+		graficos.drawImage(sombreadorDialogoPerso.getImagem(), sombreadorDialogoPerso.getX(), sombreadorDialogoPerso.getY(), this);
+		graficos.drawImage(dialogoPersonagem.getImagem(), dialogoPersonagem.getX(), dialogoPersonagem.getY(), this);
+		graficos.drawImage(bntSimdialogoPersonagem.getImagem(), bntSimdialogoPersonagem.getX(), bntSimdialogoPersonagem.getY(), this);
+		graficos.drawImage(bntNaodialogoPersonagem.getImagem(), bntNaodialogoPersonagem.getX(), bntNaodialogoPersonagem.getY(), this);
 		
-		graficos.setColor(txtDialogoAviso.getCorTexto());
-		tl1 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
-		tl2 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso2.getFonte(), frc);
-		tl3 = new TextLayout(txtDialogoAviso3.getTexto(), txtDialogoAviso3.getFonte(), frc);
+		graficos.setColor(txtdialogoPersonagem.getCorTexto());
+		tl1 = new TextLayout(txtdialogoPersonagem.getTexto(), txtdialogoPersonagem.getFonte(), frc);
+		tl2 = new TextLayout(txtdialogoPersonagem2.getTexto(), txtdialogoPersonagem2.getFonte(), frc);
+		tl3 = new TextLayout(txtdialogoPersonagem3.getTexto(), txtdialogoPersonagem3.getFonte(), frc);
 		
-		tl1.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
-		tl2.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
-		tl3.draw(graficos, txtDialogoAviso3.getX(), txtDialogoAviso3.getY());
+		tl1.draw(graficos, txtdialogoPersonagem.getX(), txtdialogoPersonagem.getY());
+		tl2.draw(graficos, txtdialogoPersonagem2.getX(), txtdialogoPersonagem2.getY());
+		tl3.draw(graficos, txtdialogoPersonagem3.getX(), txtdialogoPersonagem3.getY());
 		
 		// ------------------------------------- imagens do menu ---------------------------------------
 
@@ -490,7 +629,25 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
 		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
 		graficos.drawImage(bntManual.getImagem(), bntManual.getX(), bntManual.getY(), this);
+		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getX(), bntCreditos.getY(), this);
+
+		// ------------------------------------- dialogo do menu ---------------------------------------
+
+		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getX(), dialogoAviso.getY(), this);
+		graficos.drawImage(bntSimDialogoAviso.getImagem(), bntSimDialogoAviso.getX(), bntSimDialogoAviso.getY(), this);
+		graficos.drawImage(bntNaoDialogoAviso.getImagem(), bntNaoDialogoAviso.getX(), bntNaoDialogoAviso.getY(), this);
 		
+		
+		graficos.setColor(txtDialogoAviso.getCorTexto());
+		tl4 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
+		tl5 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso2.getFonte(), frc);
+		
+		tl4.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
+		tl5.draw(graficos, txtDialogoAviso2.getX(), txtDialogoAviso2.getY());
+		
+		
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
 		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
 		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY(), this);
 		
@@ -507,7 +664,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo);
+        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo, contEngranagem2);
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
         janelaPrincipal.revalidate();
@@ -515,5 +672,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	public void LimparTela2() {
 		tela2 = null;
+	}
+	
+
+	public void setContEngranagem2(boolean contEngranagem2) {
+		this.contEngranagem2 = contEngranagem2;
+		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 	}
 }
