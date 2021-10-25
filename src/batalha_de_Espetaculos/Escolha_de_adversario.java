@@ -45,7 +45,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
@@ -1373,6 +1373,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
         janelaPrincipal.setTitle("Escolha de Personagem");
         tela1.LimparTela2();
         janelaPrincipal.revalidate();
+        timer.stop();
 	}
 	
 	public void LimparTela3() {

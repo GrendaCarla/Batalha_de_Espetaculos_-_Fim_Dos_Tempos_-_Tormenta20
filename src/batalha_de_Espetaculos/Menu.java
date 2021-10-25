@@ -36,7 +36,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
 	private int contEngranagem1 = 1;

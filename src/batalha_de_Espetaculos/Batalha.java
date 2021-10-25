@@ -40,7 +40,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1096, -9);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 	
 	private int tamanhoContorno = 20;
 	private Icones_interativos parabenizacaoVencedor;
@@ -135,23 +135,23 @@ public class Batalha extends JPanel implements ActionListener {
 
 	// ------------------------ divisões da tela de batalha -------------------------
 	
-	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno);
+	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 4);
 	
-	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, tamanhoContorno);
+	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, animacao.getY());
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
 	private Icones_interativos campoBatalha3 = new Icones_interativos(campoBatalha1.getX(), campoBatalha2.getY() + 70 + 4);
 	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
 	private Icones_interativos campoBatalha5 = new Icones_interativos(campoBatalha1.getX(), campoBatalha4.getY() + 70 + 4);
 		
-	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, animacao.getY() + 366 + 6);
+	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, animacao.getY() + 366 + 2);
 	private Icones_interativos nomeHabilidade2 = new Icones_interativos(tamanhoContorno, nomeHabilidade1.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade3 = new Icones_interativos(tamanhoContorno, nomeHabilidade2.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade4 = new Icones_interativos(tamanhoContorno, nomeHabilidade3.getY() + 54 + 4);
 	
-	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, animacao.getY() + 366 + 6);
+	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, animacao.getY() + 366 + 2);
 	
 	private Icones_interativos descricao = new Icones_interativos(apelo.getX(), apelo.getY() + 54 + 4);
-	
+		
 	// ------------------------------------------- animação ----------------------------------------
 
 	private int intervaloAnimacao = 10;
@@ -165,23 +165,23 @@ public class Batalha extends JPanel implements ActionListener {
 	private Texto txtEfeitoFase = new Texto(tamanhoContorno + 700, campoBatalha1.getY() + 70/2 + 7, " ");
 	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 30, txtEfeitoFase.getY() - 17);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4 + 5, tamanhoContorno + 5);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha1.getY() + 70 + 4 + 5);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha2.getY() + 70 + 4 + 5);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha3.getY() + 70 + 4 + 5);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha4.getY() + 70 + 4 + 5);
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha1.getY() + 5);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha2.getY() + 5);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha3.getY() + 5);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha4.getY() + 5);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha5.getY() + 5);
 	
 	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX() - 3, iconeCampoBatalha1.getY() - 3);
 	
 	// corações que mede o total de apelo e interferência de todas as rodadas 
-	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 70/2);
-	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 70/2);
-	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 70/2);
-	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 70/2);
-	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 70/2);
+	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 120, campoBatalha1.getY() + 70/2);
+	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 120, campoBatalha2.getY() + 70/2);
+	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 120, campoBatalha3.getY() + 70/2);
+	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 120, campoBatalha4.getY() + 70/2);
+	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 120, campoBatalha5.getY() + 70/2);
 	
 	// corações que mede o apelo e interferência da rodada
-	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 10); 
+	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 10); 
 	private Icones_interativos coracao12 = new Icones_interativos(coracao11.getX() + 25, coracao11.getY()); 
 	private Icones_interativos coracao13 = new Icones_interativos(coracao12.getX() + 25, coracao12.getY()); 
 	private Icones_interativos coracao14 = new Icones_interativos(coracao13.getX() + 25, coracao13.getY()); 
@@ -192,7 +192,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao19 = new Icones_interativos(coracao18.getX() + 25, coracao18.getY()); 
 	private Icones_interativos coracao110 = new Icones_interativos(coracao19.getX() + 25, coracao19.getY()); 
 	
-	private Icones_interativos coracao21 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 10); 
+	private Icones_interativos coracao21 = new Icones_interativos(campoBatalha2.getX() + 116, campoBatalha2.getY() + 10); 
 	private Icones_interativos coracao22 = new Icones_interativos(coracao21.getX() + 25, coracao21.getY()); 
 	private Icones_interativos coracao23 = new Icones_interativos(coracao22.getX() + 25, coracao22.getY()); 
 	private Icones_interativos coracao24 = new Icones_interativos(coracao23.getX() + 25, coracao23.getY()); 
@@ -203,7 +203,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao29 = new Icones_interativos(coracao28.getX() + 25, coracao28.getY()); 
 	private Icones_interativos coracao210 = new Icones_interativos(coracao29.getX() + 25, coracao29.getY()); 
 	
-	private Icones_interativos coracao31 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 10); 
+	private Icones_interativos coracao31 = new Icones_interativos(campoBatalha3.getX() + 116, campoBatalha3.getY() + 10); 
 	private Icones_interativos coracao32 = new Icones_interativos(coracao31.getX() + 25, coracao31.getY()); 
 	private Icones_interativos coracao33 = new Icones_interativos(coracao32.getX() + 25, coracao32.getY()); 
 	private Icones_interativos coracao34 = new Icones_interativos(coracao33.getX() + 25, coracao33.getY()); 
@@ -214,7 +214,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao39 = new Icones_interativos(coracao38.getX() + 25, coracao38.getY()); 
 	private Icones_interativos coracao310 = new Icones_interativos(coracao39.getX() + 25, coracao39.getY()); 
 	
-	private Icones_interativos coracao41 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 10); 
+	private Icones_interativos coracao41 = new Icones_interativos(campoBatalha4.getX() + 116, campoBatalha4.getY() + 10); 
 	private Icones_interativos coracao42 = new Icones_interativos(coracao41.getX() + 25, coracao41.getY()); 
 	private Icones_interativos coracao43 = new Icones_interativos(coracao42.getX() + 25, coracao42.getY()); 
 	private Icones_interativos coracao44 = new Icones_interativos(coracao43.getX() + 25, coracao43.getY()); 
@@ -225,7 +225,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao49 = new Icones_interativos(coracao48.getX() + 25, coracao48.getY()); 
 	private Icones_interativos coracao410 = new Icones_interativos(coracao49.getX() + 25, coracao49.getY()); 
 	
-	private Icones_interativos coracao51 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 10); 
+	private Icones_interativos coracao51 = new Icones_interativos(campoBatalha5.getX() + 116, campoBatalha5.getY() + 10); 
 	private Icones_interativos coracao52 = new Icones_interativos(coracao51.getX() + 25, coracao51.getY()); 
 	private Icones_interativos coracao53 = new Icones_interativos(coracao52.getX() + 25, coracao52.getY()); 
 	private Icones_interativos coracao54 = new Icones_interativos(coracao53.getX() + 25, coracao53.getY()); 
@@ -235,6 +235,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao58 = new Icones_interativos(coracao57.getX() + 25, coracao57.getY()); 
 	private Icones_interativos coracao59 = new Icones_interativos(coracao58.getX() + 25, coracao58.getY()); 
 	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
+	
+	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
 
 	// ----------------------- itens relacionado com nome habilidade -----------------------------------
 
@@ -244,13 +246,15 @@ public class Batalha extends JPanel implements ActionListener {
 	private int selecaoNomeHab = 0;
 	private int nomeHabAnterior = 4;
 	
+	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, animacao.getY() + 366);
+	
 	// ----------------------- itens relacionado com Apelo -----------------------------------
 	
-	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 8, apelo.getY() + 4);
+	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 19, apelo.getY() + 2);
 	
-	private Texto apeloQuantidade = new Texto(apelo.getX() + 124, apelo.getY() + 54/2 + 8, "Apelo:");
+	private Texto apeloQuantidade = new Texto(apelo.getX() + 90, apelo.getY() + 54/2 + 8, "Apelo:");
 	
-	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 62, apelo.getY() + 54/2 - 8);
+	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 66, apelo.getY() + 54/2 - 8);
 	private Icones_interativos apeloApelo2 = new Icones_interativos(apeloApelo1.getX() + 27, apeloApelo1.getY());
 	private Icones_interativos apeloApelo3 = new Icones_interativos(apeloApelo2.getX() + 27, apeloApelo1.getY());
 	private Icones_interativos apeloApelo4 = new Icones_interativos(apeloApelo3.getX() + 27, apeloApelo1.getY());
@@ -261,9 +265,9 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos apeloApelo9 = new Icones_interativos(apeloApelo8.getX() + 27, apeloApelo1.getY());
 	private Icones_interativos apeloApelo10 = new Icones_interativos(apeloApelo9.getX() + 27, apeloApelo1.getY());
 	
-	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 340, apeloQuantidade.getY(), "Interferencia:");
+	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 348, apeloQuantidade.getY(), "Interferencia:");
 	
-	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 122, apelo.getY() + 54/2 - 9);
+	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 127, apelo.getY() + 54/2 - 10);
 	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 27, apeloInterf1.getY());
 	private Icones_interativos apeloInterf3 = new Icones_interativos(apeloInterf2.getX() + 27, apeloInterf1.getY());
 	private Icones_interativos apeloInterf4 = new Icones_interativos(apeloInterf3.getX() + 27, apeloInterf1.getY());
@@ -274,9 +278,13 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos apeloInterf9 = new Icones_interativos(apeloInterf8.getX() + 27, apeloInterf1.getY());
 	private Icones_interativos apeloInterf10 = new Icones_interativos(apeloInterf9.getX() + 27, apeloInterf1.getY());
 	
+	private Icones_interativos painel2 = new Icones_interativos(apelo.getX(), apelo.getY() - 2);
+	
 		// ----------------------- itens relacionado com Descrição -----------------------------------
 
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
+	
+	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY() - 4);
 	
 	// ------------------------------------------- d20 ----------------------------------------
 	//                            Rexthor           Arius
@@ -344,7 +352,7 @@ public class Batalha extends JPanel implements ActionListener {
 		apelo.load("res\\batalha\\infoApelo.png");
 
 		descricao.load("res\\batalha\\descricao.png");
-		
+				
 		// ---------------------- itens relacionados com campo de batalha --------------------------
 		
 		repintarCampoBatalha();
@@ -358,19 +366,23 @@ public class Batalha extends JPanel implements ActionListener {
 		coracao04.load("res\\batalha\\apelo.png");
 		coracao05.load("res\\batalha\\apelo.png");
 		
+		painel4.load("res\\batalha\\painel4.png");
+		
 		// ----------------------- itens relacionado com nome habilidade -----------------------------------
 		
-		nomeApelo1 = new Texto(nomeHabilidade1.getX() + 26, nomeHabilidade1.getY() + 54/2 + 8, NomeApelos[aventureiro][0]);
-		nomeApelo2 = new Texto(nomeHabilidade2.getX() + 26, nomeHabilidade2.getY() + 54/2 + 8, NomeApelos[aventureiro][1]);
-		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 26, nomeHabilidade3.getY() + 54/2 + 8, NomeApelos[aventureiro][2]);
-		nomeApelo4 = new Texto(nomeHabilidade4.getX() + 26, nomeHabilidade4.getY() + 54/2 + 8, NomeApelos[aventureiro][3]);
+		nomeApelo1 = new Texto(nomeHabilidade1.getX() + 28, nomeHabilidade1.getY() + 54/2 + 5, NomeApelos[aventureiro][0]);
+		nomeApelo2 = new Texto(nomeHabilidade2.getX() + 28, nomeHabilidade2.getY() + 54/2 + 5, NomeApelos[aventureiro][1]);
+		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 28, nomeHabilidade3.getY() + 54/2 + 5, NomeApelos[aventureiro][2]);
+		nomeApelo4 = new Texto(nomeHabilidade4.getX() + 28, nomeHabilidade4.getY() + 54/2 + 5, NomeApelos[aventureiro][3]);
+		
+		painel1.load("res\\batalha\\painel1.png");
 		
 		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
-		nomeApelo1.setCorTexto((aventureiro == 0 ? (new Color (255, 60, 0)) : (aventureiro == 1 ? (new Color (223, 0, 255)) : (aventureiro == 2 ? (new Color (0, 134, 255)) : (aventureiro == 3 ? (new Color (0, 255, 141)) : (new Color (255, 0, 38)))))));
+		nomeApelo1.setCorTexto((aventureiro == 0 ? (new Color (255, 60, 0)) : (aventureiro == 1 ? (new Color (255, 0, 191)) : (aventureiro == 2 ? (new Color (0, 134, 255)) : (aventureiro == 3 ? (new Color (0, 255, 141)) : (new Color (255, 0, 38)))))));
 		nomeApelo2.setFonte(new Font("Arial", Font.PLAIN, 20));
-		nomeApelo2.setCorTexto(new Color (176, 160, 231));
+		nomeApelo2.setCorTexto(new Color (235, 148, 150));
 		nomeApelo3.setFonte(new Font("Arial", Font.PLAIN, 20));
-		nomeApelo3.setCorTexto(new Color (139, 125, 206));
+		nomeApelo3.setCorTexto(new Color (198, 96, 134));
 		nomeApelo4.setFonte(new Font("Arial", Font.PLAIN, 20));
 		
 		// ----------------------- itens relacionado com Apelo -----------------------------------
@@ -396,7 +408,10 @@ public class Batalha extends JPanel implements ActionListener {
 		}
 				
 		apeloQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
-		InterferenciaQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
+		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
+		InterferenciaQuantidade.setFonte(apeloQuantidade.getFonte());
+
+		painel2.load("res\\batalha\\painel2.png");
 		
 		itensDoApelo();
 		
@@ -414,11 +429,13 @@ public class Batalha extends JPanel implements ActionListener {
 		textoDescricao4.setFonte(textoDescricao1.getFonte());
 		textoDescricao5.setFonte(textoDescricao1.getFonte());
 		
-		textoDescricao1.setCorTexto(new Color (235, 230, 233));
+		textoDescricao1.setCorTexto(new Color (248, 199, 216));
 		textoDescricao2.setCorTexto(textoDescricao1.getCorTexto());
 		textoDescricao3.setCorTexto(textoDescricao1.getCorTexto());
 		textoDescricao4.setCorTexto(textoDescricao1.getCorTexto());
 		textoDescricao5.setCorTexto(new Color (239, 22, 109));
+		
+		painel3.load("res\\batalha\\painel3.png");
 		
 		// ------------------------------------------------------------------------
 
@@ -664,7 +681,7 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void itensDoApelo() {
-		tipoDoApelo.load("res\\batalha\\" + (tipoAtaque[aventureiro] == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
+		tipoDoApelo.load("res\\batalha\\" + ((aventureiro == 0 ? apeloIgnis[3][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[3][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[3][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[3][selecaoNomeHab] : apeloArius[3][selecaoNomeHab])))) == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
 		
 		apeloApelo1.setImagem(null); apeloApelo2.setImagem(null); apeloApelo3.setImagem(null); apeloApelo4.setImagem(null); apeloApelo5.setImagem(null);
 		apeloApelo6.setImagem(null); apeloApelo7.setImagem(null); apeloApelo8.setImagem(null); apeloApelo9.setImagem(null); apeloApelo10.setImagem(null);
@@ -1176,7 +1193,9 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(coracao59.getImagem(), coracao59.getX(), coracao59.getY(), this);
 		graficos.drawImage(coracao510.getImagem(), coracao510.getX(), coracao510.getY(), this);
 		
-		// --------------------------------- campo batalha e habilidades usadas -----------------------------------------
+		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY(), this);
+		
+		// --------------------------------- nome habilidades -----------------------------------------
 
 	    tl1 = new TextLayout(nomeApelo1.getTexto(), nomeApelo1.getFonte(), frc);
 	    tl2 = new TextLayout(nomeApelo2.getTexto(), nomeApelo2.getFonte(), frc);
@@ -1193,13 +1212,14 @@ public class Batalha extends JPanel implements ActionListener {
 	    tl4.draw(graficos, nomeApelo4.getX(), nomeApelo4.getY());
 	    graficos.setColor(Color.BLACK);
 	    
-		
+		graficos.drawImage(painel1.getImagem(), painel1.getX(), painel1.getY(), this);
+
 		// ----------------------- itens relacionado com Apelo -----------------------------------
-		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getX(), tipoDoApelo.getY(), this);
 		
 	    tl6 = new TextLayout(apeloQuantidade.getTexto(), apeloQuantidade.getFonte(), frc);
 	    tl7 = new TextLayout(InterferenciaQuantidade.getTexto(), InterferenciaQuantidade.getFonte(), frc);
 
+	    graficos.setColor(apeloQuantidade.getCorTexto());
 	    tl6.draw(graficos, apeloQuantidade.getX(), apeloQuantidade.getY());
 	    tl7.draw(graficos, InterferenciaQuantidade.getX(), InterferenciaQuantidade.getY());
 	    
@@ -1225,6 +1245,10 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(apeloInterf9.getImagem(), apeloInterf9.getX(), apeloInterf9.getY(), this);
 		graficos.drawImage(apeloInterf10.getImagem(), apeloInterf10.getX(), apeloInterf10.getY(), this);
 		
+		graficos.drawImage(painel2.getImagem(), painel2.getX(), painel2.getY(), this);
+		
+		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getX(), tipoDoApelo.getY(), this);
+		
 		// ----------------------- itens relacionado com Descrição -----------------------------------
 	    tl5 = new TextLayout(textoDescricao1.getTexto(), textoDescricao1.getFonte(), frc);
 	    tl15 = new TextLayout(textoDescricao2.getTexto(), textoDescricao2.getFonte(), frc);
@@ -1241,6 +1265,8 @@ public class Batalha extends JPanel implements ActionListener {
 	    tl19.draw(graficos, textoDescricao5.getX(), textoDescricao5.getY());
 	    graficos.setColor(Color.BLACK);
 	    
+		graficos.drawImage(painel3.getImagem(), painel3.getX(), painel3.getY(), this);
+	    
 		// ------------------------------------------- d20 ----------------------------------------
 		graficos.drawImage(imgDado1.getImagem(), imgDado1.getX(), imgDado1.getY(), this);
 		graficos.drawImage(imgDado2.getImagem(), imgDado2.getX(), imgDado2.getY(), this);
@@ -1256,7 +1282,7 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(fundoMenu.getImagem(), fundoMenu.getX(), fundoMenu.getY(), this);
 		graficos.drawImage(bntMenu.getImagem(), bntMenu.getX(), bntMenu.getY(), this);
 		graficos.drawImage(bntManual.getImagem(), bntManual.getX(), bntManual.getY(), this);
-		graficos.drawImage( bntVoltar.getImagem(),  bntVoltar.getX(),  bntVoltar.getY(), this);
+		graficos.drawImage(bntVoltar.getImagem(),  bntVoltar.getX(),  bntVoltar.getY(), this);
 		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getX(), bntCreditos.getY(), this);
 
 		// ------------------------ imagens e textos do diálogo de aviso ------------------------------
@@ -1797,7 +1823,7 @@ public class Batalha extends JPanel implements ActionListener {
 		(coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).setDx((coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).getDx() + comecarAnimacaoCoracao);
 
 		if((coracao05.getDx() > 0 ? coracao05 : (coracao04.getDx() > 0 ? coracao04 : (coracao03.getDx() > 0 ? coracao03 : (coracao02.getDx() > 0 ? coracao02 : coracao01)))).getDx() >= intervaloAnimacao ) {
-			(coracao05.getDx() >= intervaloAnimacao ? coracao05 : (coracao04.getDx() >= intervaloAnimacao ? coracao04 : (coracao03.getDx() >= intervaloAnimacao ? coracao03 : (coracao02.getDx() >= intervaloAnimacao ? coracao02 : coracao01)))).setX((coracao05.getDx() >= intervaloAnimacao ? campoBatalha5 : (coracao04.getDx() >= intervaloAnimacao ? campoBatalha4 : (coracao03.getDx() >= intervaloAnimacao ? campoBatalha3 : (coracao02.getDx() >= intervaloAnimacao ? campoBatalha2 : campoBatalha1)))).getX() + 100 + (4 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]]));
+			(coracao05.getDx() >= intervaloAnimacao ? coracao05 : (coracao04.getDx() >= intervaloAnimacao ? coracao04 : (coracao03.getDx() >= intervaloAnimacao ? coracao03 : (coracao02.getDx() >= intervaloAnimacao ? coracao02 : coracao01)))).setX((coracao05.getDx() >= intervaloAnimacao ? campoBatalha5 : (coracao04.getDx() >= intervaloAnimacao ? campoBatalha4 : (coracao03.getDx() >= intervaloAnimacao ? campoBatalha3 : (coracao02.getDx() >= intervaloAnimacao ? campoBatalha2 : campoBatalha1)))).getX() + 120 + (5 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[(coracao05.getDx() >= intervaloAnimacao ? 4 : (coracao04.getDx() >= intervaloAnimacao ? 3 : (coracao03.getDx() >= intervaloAnimacao ? 2 : (coracao02.getDx() >= intervaloAnimacao ? 1 : 0))))]]));
 			
 			(coracao04.getDx() >= intervaloAnimacao ? coracao05 : (coracao03.getDx() >= intervaloAnimacao ? coracao04 : (coracao02.getDx() >= intervaloAnimacao ? coracao03 : coracao02))).setDx((coracao04.getDx() >= intervaloAnimacao ? coracao05 : (coracao03.getDx() >= intervaloAnimacao ? coracao04 : (coracao02.getDx() >= intervaloAnimacao ? coracao03 : coracao02))).getDx() + 1);
 			
@@ -1853,11 +1879,11 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(coracao11.getDx() >= intervaloAnimacao * 2) {
 			apagarCoracoes();
-			coracao01.setX(campoBatalha1.getX() + 100 + (4 * pontosTotais[ordemAventRodada[0]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[0]]));
-			coracao02.setX(campoBatalha2.getX() + 100 + (4 * pontosTotais[ordemAventRodada[1]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[1]]));
-			coracao03.setX(campoBatalha3.getX() + 100 + (4 * pontosTotais[ordemAventRodada[2]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[2]]));
-			coracao04.setX(campoBatalha4.getX() + 100 + (4 * pontosTotais[ordemAventRodada[3]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[3]]));
-			coracao05.setX(campoBatalha5.getX() + 100 + (4 * pontosTotais[ordemAventRodada[4]] < 0? 0 : 4 * pontosTotais[ordemAventRodada[4]]));
+			coracao01.setX(campoBatalha1.getX() + 120 + (5 * pontosTotais[ordemAventRodada[0]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[0]]));
+			coracao02.setX(campoBatalha2.getX() + 120 + (5 * pontosTotais[ordemAventRodada[1]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[1]]));
+			coracao03.setX(campoBatalha3.getX() + 120 + (5 * pontosTotais[ordemAventRodada[2]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[2]]));
+			coracao04.setX(campoBatalha4.getX() + 120 + (5 * pontosTotais[ordemAventRodada[3]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[3]]));
+			coracao05.setX(campoBatalha5.getX() + 120 + (5 * pontosTotais[ordemAventRodada[4]] < 0? 0 : 5 * pontosTotais[ordemAventRodada[4]]));
 			
 			System.out.println("total  5 : " + pontosRodada[ordemAventRodada[0]] + " " + pontosRodada[ordemAventRodada[1]] + " " + pontosRodada[ordemAventRodada[2]] + " " + pontosRodada[ordemAventRodada[3]] + " " + pontosRodada[ordemAventRodada[4]]);
 
