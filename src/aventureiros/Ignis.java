@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Ignis {
 	//                                   apelo,                interferencia,          tipo interferencia (0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, -1: sem efeito)
-	private int [][] valores = {{10, 10, 10, 10, 10, 10, 10, 10}, {10, 10, 10, 10, 10, 10, 10, 10}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
+	private int [][] valores = {{7, 0, 6, 5, 4, 3, 3, 8}, {0, 0, 0, 2, 0, 0, 2, 0}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
 	private String [] NomeApelos = {"Discurso no jutsu", "Canalizar Reparos", "Tapa em puristas", "Ignis bonitão", "Intocável", "Pé no peito e escudada na cara", "Provocação petulante", "Meca-Rito"};
@@ -14,7 +14,7 @@ public class Ignis {
 											 {"Você ofereceu-lhes a segunda chance,                                      Crianças, mulheres e idosos,", "Infelizmente o pedido foi recusado.                                             Ninguém conseguirá escapar.", "Para o bem de todos no alcance,                                                Com escudo e fuê apostos,", "O tapa em puristas está liberado.                                                Piedade tentaram clamar.", " "}, 
 											 {"Exiba seu magnífico queixo para o mundo, algo tão perfeito, másculo e gracioso irá", "tocar o coração do reinado. ", " ", " ", "Este poder afeta todos acima de você."},
 											 {"Com seu chassi reformado e um escudo em sua mão, mostre ao público", "que você é intocável.", " ", " ", " "},
-											 {"A melhor defesa é sempre um bom ataque, então defenda-se levando seu escudo ao encontro", "da fusa do seu atacante.", " ", " ", " "},
+											 {"A melhor defesa é sempre um bom ataque, então defenda-se levando seu escudo ao", "encontro da fusa do seu atacante.", " ", " ", " "},
 											 {"Provoque todo mundo ao seu redor e incentive-os a te baterem.", " ", " ", " ", "Este poder afeta um campo acima e abaixo de você."}, 
 											 {"O que seria do paladino das chamas sem seu parceiro animal. Deixe", "a plateia maravilhada com sua dinâmica em dupla.", " ", " ", " "}};
 	

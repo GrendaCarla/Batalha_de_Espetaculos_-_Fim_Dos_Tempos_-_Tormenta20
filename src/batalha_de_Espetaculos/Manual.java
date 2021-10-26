@@ -44,14 +44,14 @@ public class Manual extends JPanel implements ActionListener {
 	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
 	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27, tl28,
 	tl29, tl30, tl31, tl32, tl33, tl34,  tl35, tl36, tl37, tl38, tl39, tl40, tl41, tl42, tl43,
-	tl44, tl45, tl46, tl47, tl48, tl49, tl50, tl51, tl52, tl53, tl54, tl55;
+	tl44, tl45, tl46, tl47, tl48, tl49, tl50, tl51, tl52, tl53, tl54, tl55, tl56;
 	
 	/* ------------------------------- Barra de rolagem ---------------------------------*/
 	
 	private int rolagemTela = 0;
 	
-	private Icones_interativos bntBarraBaixo = new Icones_interativos(1180, 590);
-	private Icones_interativos bntBarraCima = new Icones_interativos(1180, 32);
+	private Icones_interativos bntBarraBaixo = new Icones_interativos(1183, 590);
+	private Icones_interativos bntBarraCima = new Icones_interativos(1183, 32);
 	
 	/* ------------------------------- Controles ---------------------------------*/
 	
@@ -65,8 +65,8 @@ public class Manual extends JPanel implements ActionListener {
 
 	
 	private Texto txtLn1 = new Texto(126, 80, "Controles");
-	private Texto txtLn2 = new Texto(270, 220, "Direcionais");
-	private Texto txtLn3 = new Texto(txtLn2.getX() + 230, txtLn2.getY() - 30, "Selecionar");
+	private Texto txtLn2 = new Texto(270, 248, "Direcionais");
+	private Texto txtLn3 = new Texto(txtLn2.getX() + 230, txtLn2.getY() - 38, "Selecionar");
 	private Texto txtLn4 = new Texto(txtLn3.getX() + 228, txtLn3.getY(), "Voltar");
 	private Texto txtLn5 = new Texto(txtLn4.getX() + 201, txtLn4.getY(), "Menu");
 	
@@ -74,20 +74,22 @@ public class Manual extends JPanel implements ActionListener {
 	
 	/* ------------------------------- Batalha ---------------------------------*/
 	
-	private Texto txtLn6 = new Texto(80, 300, "Batalhas");
-	private Texto txtLn7 = new Texto(90, txtLn6.getY() + 80, "* As batalhas são divididas em cinco turnos.");
+	private Texto txtLn6 = new Texto(80, 310, "Batalhas");
+	private Texto txtLn7 = new Texto(90, txtLn6.getY() + 90, "* As batalhas são divididas em cinco turnos.");
 	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + 44, "* Em cada turno você escolhe uma apresentação para ganhar");
 	private Texto txtLn9 = new Texto(txtLn7.getX() + 8, txtLn8.getY() + 25, " pontos com a platéia ou prejudicar seus adversários.");
 	
 		/* ------------------------------- Nome apelo ---------------------------------*/
 
-	private Icones_interativos nomeHabilidade1 = new Icones_interativos(1234 - 330 - 80, 300);
+	private Icones_interativos nomeHabilidade1 = new Icones_interativos(1234 - 330 - 80, txtLn6.getY());
 	private Icones_interativos nomeHabilidade2 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade1.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade3 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade2.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade4 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade3.getY() + 54 + 4);
 	
 	private int contTempoNomeApelo = 0;
 	private Texto nomeApelo1, nomeApelo2, nomeApelo3, nomeApelo4;
+	
+	private Icones_interativos painel1 = new Icones_interativos(nomeHabilidade1.getX() - 2, nomeHabilidade1.getY() - 2);
 	
 		/* ------------------------------- info apelo ---------------------------------*/
 
@@ -97,31 +99,36 @@ public class Manual extends JPanel implements ActionListener {
 	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + 44, "* As interferencias são pontos negativos usados nos seus adversários para faze-los perderem");
 	private Texto txtLn13 = new Texto(txtLn7.getX() + 14, txtLn12.getY() + 25, "os apelos ganhados no turno atual ou nos anteriores.");
 
-	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 740);
+	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + 44, "* A luz acesa com o símbolo de um punho informa que a habilidade é do tipo físico.");
 
-	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 8, apelo.getY() + 4);
+	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 790);
 	
-	private Texto apeloQuantidade = new Texto(apelo.getX() + 136, apelo.getY() + 54/2 + 8, "Apelo:");
+	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 19, apelo.getY() + 2);
 	
-	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 65, apelo.getY() + 54/2 - 5);
-	private Icones_interativos apeloApelo2 = new Icones_interativos(apeloApelo1.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo3 = new Icones_interativos(apeloApelo2.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo4 = new Icones_interativos(apeloApelo3.getX() + 25, apeloApelo1.getY());
-	private Icones_interativos apeloApelo5 = new Icones_interativos(apeloApelo4.getX() + 25, apeloApelo1.getY());
+	private Texto apeloQuantidade = new Texto(apelo.getX() + 90, apelo.getY() + 54/2 + 8, "Apelo:");
 	
-	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 330, apeloQuantidade.getY(), "Interferencia:");
+	private Icones_interativos apeloApelo1 = new Icones_interativos(apeloQuantidade.getX() + 66, apelo.getY() + 54/2 - 8);
+	private Icones_interativos apeloApelo2 = new Icones_interativos(apeloApelo1.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo3 = new Icones_interativos(apeloApelo2.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo4 = new Icones_interativos(apeloApelo3.getX() + 27, apeloApelo1.getY());
+	private Icones_interativos apeloApelo5 = new Icones_interativos(apeloApelo4.getX() + 27, apeloApelo1.getY());
 	
-	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 126, apelo.getY() + 54/2 - 5);
-	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 25, apeloInterf1.getY());
+	private Texto InterferenciaQuantidade = new Texto(apeloQuantidade.getX() + 348, apeloQuantidade.getY(), "Interferencia:");
+	
+	private Icones_interativos apeloInterf1 = new Icones_interativos(InterferenciaQuantidade.getX() + 127, apelo.getY() + 54/2 - 10);
+	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 27, apeloInterf1.getY());
+	
+	private Icones_interativos painel2 = new Icones_interativos(apelo.getX(), apelo.getY() - 2);
+	
 	
 	private int contTempoInfoApelo = 0;
 	
 		// ----------------------- Descrição -----------------------------------
 
-	private Texto txtLn14 = new Texto(txtLn7.getX(), 880, "* As descrições das apresentações são puramente enrrolações. A unica coisa importante é a ultima linha");
+	private Texto txtLn14 = new Texto(txtLn7.getX(), 930, "* As descrições das apresentações são puramente enrrolações. A unica coisa importante é a ultima linha");
 	private Texto txtLn15 = new Texto(txtLn7.getX() + 14, txtLn14.getY() + 25, "colorida, nela é descrito o efeito das apresentações que possuem interferencias.");	
 	
-	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 40);
+	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 50);
 	
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
 	
@@ -130,9 +137,11 @@ public class Manual extends JPanel implements ActionListener {
 			+ " você é capaz deretirar o primeiro colocado do seu pedestal causando uma alta interferência nele."
 			+ "Este poder afeta o primeiro colocado.";
 	
+	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY() - 4);
+	
 	// ----------------------------------- campo batalha -----------------------------------
 
-	private Texto txtLn16 = new Texto(txtLn7.getX(), 1210, "* Quando a apresentação for escolhida a batalha começa.");
+	private Texto txtLn16 = new Texto(txtLn7.getX(), 1260, "* Quando a apresentação for escolhida a batalha começa.");
 	private Texto txtLn17 = new Texto(txtLn7.getX(), txtLn16.getY() + 44, "* A ordem do espetáculo é de cima para baixo.");	
 	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn17.getY() + 44, "* A animação aparece seguida da quantidade de apelo");
 	private Texto txtLn19 = new Texto(txtLn7.getX() + 14, txtLn18.getY() + 25, "ganhada com ela.");
@@ -155,23 +164,23 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Icones_interativos setaCampoBatalha = new Icones_interativos(campoBatalha1.getX() - 34, campoBatalha1.getY() + 70/2 - 23/2);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha1.getY() + 5);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha2.getY() + 5);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha3.getY() + 5);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha4.getY() + 5);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 5, campoBatalha5.getY() + 5);
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha1.getY() + 5);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha2.getY() + 5);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha3.getY() + 5);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha4.getY() + 5);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha5.getY() + 5);
 	
-	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha5.getX() - 3, iconeCampoBatalha5.getY() - 3);
+	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX() - 3, iconeCampoBatalha1.getY() - 3);
 	
 	// corações que mede o total de apelo e interferência de todas as rodadas 
-	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 70/2);
-	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 70/2);
-	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 70/2);
-	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 70/2);
-	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 70/2);
+	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
+	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 116, campoBatalha2.getY() + 70/2);
+	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 116, campoBatalha3.getY() + 70/2);
+	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 116, campoBatalha4.getY() + 70/2);
+	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 116, campoBatalha5.getY() + 70/2);
 	
 	// corações que mede o apelo e interferência da rodada
-	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 100, campoBatalha1.getY() + 10); 
+	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 128, campoBatalha1.getY() + 10); 
 	private Icones_interativos coracao12 = new Icones_interativos(coracao11.getX() + 25, coracao11.getY()); 
 	private Icones_interativos coracao13 = new Icones_interativos(coracao12.getX() + 25, coracao12.getY()); 
 	private Icones_interativos coracao14 = new Icones_interativos(coracao13.getX() + 25, coracao13.getY()); 
@@ -182,7 +191,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao19 = new Icones_interativos(coracao18.getX() + 25, coracao18.getY()); 
 	private Icones_interativos coracao110 = new Icones_interativos(coracao19.getX() + 25, coracao19.getY()); 
 	
-	private Icones_interativos coracao21 = new Icones_interativos(campoBatalha2.getX() + 100, campoBatalha2.getY() + 10); 
+	private Icones_interativos coracao21 = new Icones_interativos(campoBatalha2.getX() + 128, campoBatalha2.getY() + 10); 
 	private Icones_interativos coracao22 = new Icones_interativos(coracao21.getX() + 25, coracao21.getY()); 
 	private Icones_interativos coracao23 = new Icones_interativos(coracao22.getX() + 25, coracao22.getY()); 
 	private Icones_interativos coracao24 = new Icones_interativos(coracao23.getX() + 25, coracao23.getY()); 
@@ -193,7 +202,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao29 = new Icones_interativos(coracao28.getX() + 25, coracao28.getY()); 
 	private Icones_interativos coracao210 = new Icones_interativos(coracao29.getX() + 25, coracao29.getY()); 
 	
-	private Icones_interativos coracao31 = new Icones_interativos(campoBatalha3.getX() + 100, campoBatalha3.getY() + 10); 
+	private Icones_interativos coracao31 = new Icones_interativos(campoBatalha3.getX() + 128, campoBatalha3.getY() + 10); 
 	private Icones_interativos coracao32 = new Icones_interativos(coracao31.getX() + 25, coracao31.getY()); 
 	private Icones_interativos coracao33 = new Icones_interativos(coracao32.getX() + 25, coracao32.getY()); 
 	private Icones_interativos coracao34 = new Icones_interativos(coracao33.getX() + 25, coracao33.getY()); 
@@ -204,7 +213,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao39 = new Icones_interativos(coracao38.getX() + 25, coracao38.getY()); 
 	private Icones_interativos coracao310 = new Icones_interativos(coracao39.getX() + 25, coracao39.getY()); 
 	
-	private Icones_interativos coracao41 = new Icones_interativos(campoBatalha4.getX() + 100, campoBatalha4.getY() + 10); 
+	private Icones_interativos coracao41 = new Icones_interativos(campoBatalha4.getX() + 128, campoBatalha4.getY() + 10); 
 	private Icones_interativos coracao42 = new Icones_interativos(coracao41.getX() + 25, coracao41.getY()); 
 	private Icones_interativos coracao43 = new Icones_interativos(coracao42.getX() + 25, coracao42.getY()); 
 	private Icones_interativos coracao44 = new Icones_interativos(coracao43.getX() + 25, coracao43.getY()); 
@@ -215,7 +224,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao49 = new Icones_interativos(coracao48.getX() + 25, coracao48.getY()); 
 	private Icones_interativos coracao410 = new Icones_interativos(coracao49.getX() + 25, coracao49.getY()); 
 	
-	private Icones_interativos coracao51 = new Icones_interativos(campoBatalha5.getX() + 100, campoBatalha5.getY() + 10); 
+	private Icones_interativos coracao51 = new Icones_interativos(campoBatalha5.getX() + 128, campoBatalha5.getY() + 10); 
 	private Icones_interativos coracao52 = new Icones_interativos(coracao51.getX() + 25, coracao51.getY()); 
 	private Icones_interativos coracao53 = new Icones_interativos(coracao52.getX() + 25, coracao52.getY()); 
 	private Icones_interativos coracao54 = new Icones_interativos(coracao53.getX() + 25, coracao53.getY()); 
@@ -225,6 +234,8 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao58 = new Icones_interativos(coracao57.getX() + 25, coracao57.getY()); 
 	private Icones_interativos coracao59 = new Icones_interativos(coracao58.getX() + 25, coracao58.getY()); 
 	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
+	
+	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
 
 	private int contTempoCampoBatalha = 0;
 	
@@ -235,18 +246,18 @@ public class Manual extends JPanel implements ActionListener {
 	
 	// ----------------------- Tabela de efeito de chefe -----------------------------------
 
-	private Texto txtLn27 = new Texto(390, txtLn40.getY() + 90, "-*_ Tabela de efeito de chefe _*-");
-	private Texto txtLn41 = new Texto(340, txtLn27.getY() + 60, "||==================================================.||");
+	private Texto txtLn27 = new Texto(390, txtLn40.getY() + 120, "-*_ Tabela de efeito de chefe _*-");
+	private Texto txtLn41 = new Texto(340, txtLn27.getY() + 60, "||==================================================||");
 	private Texto txtLn28 = new Texto(txtLn41.getX(), txtLn41.getY() + 34, "||      ||===========================================||      ||");
-	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em ataques com interferência   _||      ||");
+	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em ataques com interferência     ||      ||");
 	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em ataques sem interferência   _||      ||");
+	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em ataques sem interferência     ||      ||");
 	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em ataque físico                       _||      ||");
+	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em ataques físicos                     ||      ||");
 	private Texto txtLn34 = new Texto(txtLn28.getX(), txtLn33.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em ataque com efeito               _||      ||");
+	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em ataques com efeito               ||      ||");
 	private Texto txtLn36 = new Texto(txtLn28.getX(), txtLn35.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em podere sem interferência     -||      ||");
+	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em ataques sem interferência     ||      ||");
 	private Texto txtLn38 = new Texto(txtLn28.getX(), txtLn37.getY() + 25, "||      ||===========================================||      ||");
 	private Texto txtLn42 = new Texto(txtLn28.getX(), txtLn38.getY() + 34, "||      ||===========================================||      ||");
 	private Texto txtLn43 = new Texto(txtLn28.getX(), txtLn42.getY() + 34, "||___||                                                                                       ||___||");
@@ -290,7 +301,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		/* ------------------------------- Batalha ---------------------------------*/
 		
-		nomeHabilidade1.load("res\\batalha\\nomeHabilidadeSelecionado.png");
+		nomeHabilidade1.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		nomeHabilidade2.load("res\\batalha\\nomeHabilidade.png");
 		nomeHabilidade3.load("res\\batalha\\nomeHabilidade.png");
 		nomeHabilidade4.load("res\\batalha\\nomeHabilidade.png");
@@ -300,10 +311,19 @@ public class Manual extends JPanel implements ActionListener {
 		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 20, nomeHabilidade3.getY() + 54/2 + 8, "Provocação petulante");
 		nomeApelo4 = new Texto(nomeHabilidade4.getX() + 20, nomeHabilidade4.getY() + 54/2 + 8, "Meca-Rito");
 		
+		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
+		nomeApelo1.setCorTexto(new Color (255, 60, 0));
+		nomeApelo2.setFonte(new Font("Arial", Font.PLAIN, 20));
+		nomeApelo2.setCorTexto(new Color (235, 148, 150));
+		nomeApelo3.setFonte(new Font("Arial", Font.PLAIN, 20));
+		nomeApelo4.setFonte(new Font("Arial", Font.PLAIN, 20));
+		
 		txtLn6.setFonte(new Font("Arial", Font.BOLD, 30));
 		txtLn7.setFonte(new Font("Arial", Font.PLAIN, 24));
 		txtLn8.setFonte(new Font("Arial", Font.PLAIN, 24));
 		txtLn9.setFonte(new Font("Arial", Font.PLAIN, 24));
+		
+		painel1.load("res\\batalha\\painel1.png");
 		
 		/* ------------------------------- info apelo ---------------------------------*/
 		
@@ -312,7 +332,8 @@ public class Manual extends JPanel implements ActionListener {
 		apelo.load("res\\batalha\\infoApelo.png");
 
 		apeloQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
-		InterferenciaQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
+		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
+		InterferenciaQuantidade.setFonte(apeloQuantidade.getFonte());
 		
 		tipoDoApelo.load("res\\batalha\\tipoDoApelo1.png");
 		
@@ -324,6 +345,8 @@ public class Manual extends JPanel implements ActionListener {
 		
 		apeloInterf1.load("res\\batalha\\interferencia.png");
 		apeloInterf2.load("res\\batalha\\interferencia.png");
+		
+		painel2.load("res\\batalha\\painel2.png");
 		
 		// ----------------------- Descrição -----------------------------------
 
@@ -339,10 +362,15 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao2.setFonte(textoDescricao1.getFonte());
 		textoDescricao3.setFonte(textoDescricao1.getFonte());
 		textoDescricao4.setFonte(textoDescricao1.getFonte());
-		textoDescricao5.setFonte(new Font("Arial", Font.PLAIN, 21));
+		textoDescricao5.setFonte(textoDescricao1.getFonte());
 		
-		textoDescricao1.setCorTexto(new Color (93, 1, 28));
-		textoDescricao5.setCorTexto(new Color (130, 86, 243));
+		textoDescricao1.setCorTexto(new Color (239, 182, 202));
+		textoDescricao2.setCorTexto(textoDescricao1.getCorTexto());
+		textoDescricao3.setCorTexto(textoDescricao1.getCorTexto());
+		textoDescricao4.setCorTexto(textoDescricao1.getCorTexto()); 
+		textoDescricao5.setCorTexto(new Color (165, 1, 67));
+		
+		painel3.load("res\\batalha\\painel3.png");
 		
 		// ----------------------------------- campo batalha -----------------------------------
 		
@@ -369,6 +397,8 @@ public class Manual extends JPanel implements ActionListener {
 		coracao03.load("res\\batalha\\apelo.png");
 		coracao04.load("res\\batalha\\apelo.png");
 		coracao05.load("res\\batalha\\apelo.png");
+		
+		painel4.load("res\\batalha\\painel4.png");
 		
 		apagarCoracoes();
 		
@@ -452,13 +482,13 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		if(contTempoNomeApelo == 0) {
-			nomeHabilidade1.load("res\\batalha\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade1.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 25) {
-			nomeHabilidade2.load("res\\batalha\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade2.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 50) {
-			nomeHabilidade3.load("res\\batalha\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade3.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 75) {
-			nomeHabilidade4.load("res\\batalha\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade4.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		}
 		
 	}
@@ -472,6 +502,8 @@ public class Manual extends JPanel implements ActionListener {
 		
 		
 		if(contTempoInfoApelo == 0 || contTempoInfoApelo == 40 || contTempoInfoApelo == 80) {
+			tipoDoApelo.load("res\\batalha\\tipoDoApelo1.png");
+
 			apeloApelo1.load("res\\batalha\\apelo.png");
 			apeloApelo2.load("res\\batalha\\apelo.png");
 			apeloApelo3.load("res\\batalha\\apelo.png");
@@ -484,6 +516,8 @@ public class Manual extends JPanel implements ActionListener {
 		
 
 		if(contTempoInfoApelo == 20) {
+			tipoDoApelo.load("res\\batalha\\tipoDoApelo2.png");
+
 			apeloApelo1.load("res\\batalha\\apelo.png");
 			apeloApelo2.setImagem(null);
 			apeloApelo3.load("res\\batalha\\apelo.png");
@@ -495,6 +529,8 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		if(contTempoInfoApelo == 60) {
+			tipoDoApelo.load("res\\batalha\\tipoDoApelo2.png");
+
 			apeloApelo1.setImagem(null);
 			apeloApelo2.load("res\\batalha\\apelo.png");
 			apeloApelo3.setImagem(null);
@@ -532,11 +568,11 @@ public class Manual extends JPanel implements ActionListener {
 			apagarCoracoes();
 			setaCampoBatalha.setY(campoBatalha1.getY() + 70/2 - 23/2);
 			
-			coracao01.setX(campoBatalha1.getX() + 100);
-			coracao02.setX(campoBatalha2.getX() + 100);
-			coracao03.setX(campoBatalha3.getX() + 100);
-			coracao04.setX(campoBatalha4.getX() + 100);
-			coracao05.setX(campoBatalha5.getX() + 100);
+			coracao01.setX(campoBatalha1.getX() + 116);
+			coracao02.setX(campoBatalha2.getX() + 116);
+			coracao03.setX(campoBatalha3.getX() + 116);
+			coracao04.setX(campoBatalha4.getX() + 116);
+			coracao05.setX(campoBatalha5.getX() + 116);
 		}
 		
 		for(int i=1; i<8; i++) {
@@ -615,7 +651,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		for(int i=2; i<7; i++) {
 			if(contTempoCampoBatalha == (i-1) * 20 + 700) {
-				(i == 2 ? coracao01 : (i == 3 ? coracao02 : (i == 4 ? coracao03 : (i == 5 ? coracao04 : coracao05)))).setX((i == 2 ? campoBatalha1 : (i == 3 ? campoBatalha2 : (i == 4 ? campoBatalha3 : (i == 5 ? campoBatalha4 : campoBatalha5)))).getX() + 100 + (4 * i));
+				(i == 2 ? coracao01 : (i == 3 ? coracao02 : (i == 4 ? coracao03 : (i == 5 ? coracao04 : coracao05)))).setX((i == 2 ? campoBatalha1 : (i == 3 ? campoBatalha2 : (i == 4 ? campoBatalha3 : (i == 5 ? campoBatalha4 : campoBatalha5)))).getX() + 116 + (5 * i));
 			}
 		}
 	}
@@ -641,14 +677,14 @@ public class Manual extends JPanel implements ActionListener {
 		
 		int codigo = tecla.getKeyCode();
 		
-		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1550) {
+		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1640) {
 			if(contEngranagem1 == 2) {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
 			
 			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
 			
-			rolagemTela = rolagemTela - 5;
+			rolagemTela = rolagemTela - 7;
 			bntBarraBaixo.load("res\\Manual\\teclaBaixo2.png");
 			
 		}else if(codigo == KeyEvent.VK_UP && rolagemTela < 0) {
@@ -658,7 +694,7 @@ public class Manual extends JPanel implements ActionListener {
 			
 			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
 			
-			rolagemTela = rolagemTela + 5;
+			rolagemTela = rolagemTela + 7;
 			bntBarraCima.load("res\\Manual\\teclaCima2.png");
 
 		}else if(codigo == KeyEvent.VK_X) {
@@ -777,25 +813,33 @@ public class Manual extends JPanel implements ActionListener {
 	    tl11 = new TextLayout(nomeApelo2.getTexto(), nomeApelo2.getFonte(), frc);
 	    tl12 = new TextLayout(nomeApelo3.getTexto(), nomeApelo3.getFonte(), frc);
 	    tl13 = new TextLayout(nomeApelo4.getTexto(), nomeApelo4.getFonte(), frc);
+	
 	    
-	    graficos.setColor(nomeApelo1.getCorTexto());
+	    graficos.setColor(contTempoNomeApelo >= 0 && contTempoNomeApelo < 25 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl10.draw(graficos, nomeApelo1.getX(), nomeApelo1.getY() + rolagemTela);
+	    graficos.setColor(contTempoNomeApelo >= 25 && contTempoNomeApelo < 50 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl11.draw(graficos, nomeApelo2.getX(), nomeApelo2.getY() + rolagemTela);
+	    graficos.setColor(contTempoNomeApelo >= 50 && contTempoNomeApelo < 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl12.draw(graficos, nomeApelo3.getX(), nomeApelo3.getY() + rolagemTela);
+	    graficos.setColor(contTempoNomeApelo >= 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl13.draw(graficos, nomeApelo4.getX(), nomeApelo4.getY() + rolagemTela);
 	    graficos.setColor(txtLn1.getCorTexto());
 		
+		graficos.drawImage(painel1.getImagem(), painel1.getX(), painel1.getY() + rolagemTela, this);
+
 		/* ------------------------------- info apelo ---------------------------------*/
 	    
 	    tl14 = new TextLayout(txtLn10.getTexto(), txtLn10.getFonte(), frc);
 	    tl15 = new TextLayout(txtLn11.getTexto(), txtLn11.getFonte(), frc);
 	    tl16 = new TextLayout(txtLn12.getTexto(), txtLn12.getFonte(), frc);
 	    tl17 = new TextLayout(txtLn13.getTexto(), txtLn13.getFonte(), frc);
+	    tl56 = new TextLayout(txtLn56.getTexto(), txtLn56.getFonte(), frc);
 	    
 		tl14.draw(graficos, txtLn10.getX(), txtLn10.getY() + rolagemTela);
 		tl15.draw(graficos, txtLn11.getX(), txtLn11.getY() + rolagemTela);
 		tl16.draw(graficos, txtLn12.getX(), txtLn12.getY() + rolagemTela);
 		tl17.draw(graficos, txtLn13.getX(), txtLn13.getY() + rolagemTela);
+		tl56.draw(graficos, txtLn56.getX(), txtLn56.getY() + rolagemTela);
 		
 		graficos.drawImage(apelo.getImagem(), apelo.getX(), apelo.getY() + rolagemTela, this);
 		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getX(), tipoDoApelo.getY() + rolagemTela, this);
@@ -803,8 +847,10 @@ public class Manual extends JPanel implements ActionListener {
 	    tl18 = new TextLayout(apeloQuantidade.getTexto(), apeloQuantidade.getFonte(), frc);
 	    tl19 = new TextLayout(InterferenciaQuantidade.getTexto(), InterferenciaQuantidade.getFonte(), frc);
 
+	    graficos.setColor(apeloQuantidade.getCorTexto());
 	    tl18.draw(graficos, apeloQuantidade.getX(), apeloQuantidade.getY() + rolagemTela);
 	    tl19.draw(graficos, InterferenciaQuantidade.getX(), InterferenciaQuantidade.getY() + rolagemTela);
+	    graficos.setColor(txtLn1.getCorTexto());
 	    
 		graficos.drawImage(apeloApelo1.getImagem(), apeloApelo1.getX(), apeloApelo1.getY() + rolagemTela, this);
 		graficos.drawImage(apeloApelo2.getImagem(), apeloApelo2.getX(), apeloApelo2.getY() + rolagemTela, this);
@@ -815,6 +861,8 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(apeloInterf1.getImagem(), apeloInterf1.getX(), apeloInterf1.getY() + rolagemTela, this);
 		graficos.drawImage(apeloInterf2.getImagem(), apeloInterf2.getX(), apeloInterf2.getY() + rolagemTela, this);
 	
+		graficos.drawImage(painel2.getImagem(), painel2.getX(), painel2.getY() + rolagemTela, this);
+
 		// ----------------------- Descrição -----------------------------------
 
 		tl20 = new TextLayout(txtLn14.getTexto(), txtLn14.getFonte(), frc);
@@ -839,6 +887,8 @@ public class Manual extends JPanel implements ActionListener {
 	    graficos.setColor(textoDescricao5.getCorTexto());
 	    tl26.draw(graficos, textoDescricao5.getX(), textoDescricao5.getY() + rolagemTela);
 	    graficos.setColor(txtLn1.getCorTexto());
+	    
+		graficos.drawImage(painel3.getImagem(), painel3.getX(), painel3.getY() + rolagemTela, this);
 	    
 		// ----------------------- campo batalha -----------------------------------
 
@@ -885,6 +935,8 @@ public class Manual extends JPanel implements ActionListener {
 	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY() + rolagemTela, this);
 
 		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY() + rolagemTela, this);
+		
+		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY() + rolagemTela, this);
 		
 		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY() + rolagemTela, this);
 		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY() + rolagemTela, this);
