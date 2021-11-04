@@ -159,18 +159,16 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
 	private Icones_interativos campoBatalha5 = new Icones_interativos(campoBatalha1.getX(), campoBatalha4.getY() + 70 + 4);
 	
-	private Texto txtEfeitoFase = new Texto(campoBatalha1.getX() - 104, campoBatalha3.getY() + 70/2 + 20/2, " ");
+	private Texto txtEfeitoFase = new Texto(campoBatalha1.getX() - 74, campoBatalha3.getY() + 70/2 + 20/2, " ");
 	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 34, txtEfeitoFase.getY() - 17);
 	
-	private Icones_interativos setaCampoBatalha = new Icones_interativos(campoBatalha1.getX() - 34, campoBatalha1.getY() + 70/2 - 23/2);
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha1.getY() + 4);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha2.getY() + 4);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha3.getY() + 4);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha4.getY() + 4);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha5.getY() + 4);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha1.getY() + 5);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha2.getY() + 5);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha3.getY() + 5);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha4.getY() + 5);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha5.getY() + 5);
-	
-	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX() - 3, iconeCampoBatalha1.getY() - 3);
+	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() - 1);
 	
 	// corações que mede o total de apelo e interferência de todas as rodadas 
 	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
@@ -234,6 +232,12 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos coracao58 = new Icones_interativos(coracao57.getX() + 25, coracao57.getY()); 
 	private Icones_interativos coracao59 = new Icones_interativos(coracao58.getX() + 25, coracao58.getY()); 
 	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
+	
+	private Icones_interativos luzCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 88, campoBatalha1.getY() + 12);
+	private Icones_interativos luzCampoBatalha2 = new Icones_interativos(campoBatalha2.getX() + 88, campoBatalha2.getY() + 12);
+	private Icones_interativos luzCampoBatalha3 = new Icones_interativos(campoBatalha3.getX() + 88, campoBatalha3.getY() + 12);
+	private Icones_interativos luzCampoBatalha4 = new Icones_interativos(campoBatalha4.getX() + 88, campoBatalha4.getY() + 12);
+	private Icones_interativos luzCampoBatalha5 = new Icones_interativos(campoBatalha5.getX() + 88, campoBatalha5.getY() + 12);
 	
 	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
 
@@ -380,9 +384,13 @@ public class Manual extends JPanel implements ActionListener {
 		campoBatalha4.load("res\\batalha\\campoBatalha.png");
 		campoBatalha5.load("res\\batalha\\campoBatalha.png");
 		
-		efeitoFase.setImagem(null);
+		luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
 		
-		setaCampoBatalha.load("res\\Manual\\teclaDireita.png");
+		efeitoFase.setImagem(null);
 		
 		iconeCampoBatalha1.load("res\\batalha\\Ignis\\iconeCampoBatalha.png");
 		iconeCampoBatalha2.load("res\\batalha\\Ayla\\iconeCampoBatalha.png");
@@ -566,7 +574,6 @@ public class Manual extends JPanel implements ActionListener {
 		if(contTempoCampoBatalha == 820) {
 			contTempoCampoBatalha = -20;
 			apagarCoracoes();
-			setaCampoBatalha.setY(campoBatalha1.getY() + 70/2 - 23/2);
 			
 			coracao01.setX(campoBatalha1.getX() + 116);
 			coracao02.setX(campoBatalha2.getX() + 116);
@@ -575,10 +582,26 @@ public class Manual extends JPanel implements ActionListener {
 			coracao05.setX(campoBatalha5.getX() + 116);
 		}
 		
-		for(int i=1; i<8; i++) {
-			if(contTempoCampoBatalha == i * 100) {
-				setaCampoBatalha.setY((i == 1 ? campoBatalha2 : (i == 2 ? campoBatalha3 : (i == 3 ? campoBatalha3 : (i == 4 ? campoBatalha4 : campoBatalha5)))).getY() + 70/2 - 23/2);
-			}
+		if(contTempoCampoBatalha > 0 && contTempoCampoBatalha < 100) {
+			luzCampoBatalha1.load("res\\batalha\\Ignis\\luzCampoBatalha2.png");
+		} else if(contTempoCampoBatalha > 100 && contTempoCampoBatalha < 200) {
+			luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha2.load("res\\batalha\\Ayla\\luzCampoBatalha2.png");
+		} else if(contTempoCampoBatalha > 200 && contTempoCampoBatalha < 300) {
+			luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha3.load("res\\batalha\\Rexthor\\luzCampoBatalha2.png");
+		} else if(contTempoCampoBatalha > 400 && contTempoCampoBatalha < 500) {
+			luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha4.load("res\\batalha\\Kiki\\luzCampoBatalha2.png");
+		} else if(contTempoCampoBatalha > 500 && contTempoCampoBatalha < 600) {
+			luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha5.load("res\\batalha\\Arius\\luzCampoBatalha2.png");
+		} else if(contTempoCampoBatalha > 700) {
+			luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
 		}
 		
 		for(int i=1; i<6; i++) {
@@ -651,6 +674,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		for(int i=2; i<7; i++) {
 			if(contTempoCampoBatalha == (i-1) * 20 + 700) {
+
 				(i == 2 ? coracao01 : (i == 3 ? coracao02 : (i == 4 ? coracao03 : (i == 5 ? coracao04 : coracao05)))).setX((i == 2 ? campoBatalha1 : (i == 3 ? campoBatalha2 : (i == 4 ? campoBatalha3 : (i == 5 ? campoBatalha4 : campoBatalha5)))).getX() + 116 + (5 * i));
 			}
 		}
@@ -922,8 +946,6 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(campoBatalha4.getImagem(), campoBatalha4.getX(), campoBatalha4.getY() + rolagemTela, this);
 		graficos.drawImage(campoBatalha5.getImagem(), campoBatalha5.getX(), campoBatalha5.getY() + rolagemTela, this);
 		
-		graficos.drawImage(setaCampoBatalha.getImagem(), setaCampoBatalha.getX(), setaCampoBatalha.getY() + rolagemTela, this);
-		
 		graficos.drawImage(iconeCampoBatalha1.getImagem(), iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() + rolagemTela, this);
 		graficos.drawImage(iconeCampoBatalha2.getImagem(), iconeCampoBatalha2.getX(), iconeCampoBatalha2.getY() + rolagemTela, this);
 		graficos.drawImage(iconeCampoBatalha3.getImagem(), iconeCampoBatalha3.getX(), iconeCampoBatalha3.getY() + rolagemTela, this);
@@ -933,10 +955,9 @@ public class Manual extends JPanel implements ActionListener {
 		tl38 = new TextLayout(txtEfeitoFase.getTexto(), txtEfeitoFase.getFonte(), frc);
 	    tl38.draw(graficos, txtEfeitoFase.getX(), txtEfeitoFase.getY() + rolagemTela);
 	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY() + rolagemTela, this);
-
-		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY() + rolagemTela, this);
 		
 		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY() + rolagemTela, this);
+		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY() + rolagemTela, this);
 		
 		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY() + rolagemTela, this);
 		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY() + rolagemTela, this);
@@ -998,6 +1019,12 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(coracao58.getImagem(), coracao58.getX(), coracao58.getY() + rolagemTela, this);
 		graficos.drawImage(coracao59.getImagem(), coracao59.getX(), coracao59.getY() + rolagemTela, this);
 		graficos.drawImage(coracao510.getImagem(), coracao510.getX(), coracao510.getY() + rolagemTela, this);
+		
+		graficos.drawImage(luzCampoBatalha1.getImagem(), luzCampoBatalha1.getX(), luzCampoBatalha1.getY() + rolagemTela, this);
+		graficos.drawImage(luzCampoBatalha2.getImagem(), luzCampoBatalha2.getX(), luzCampoBatalha2.getY() + rolagemTela, this);
+		graficos.drawImage(luzCampoBatalha3.getImagem(), luzCampoBatalha3.getX(), luzCampoBatalha3.getY() + rolagemTela, this);
+		graficos.drawImage(luzCampoBatalha4.getImagem(), luzCampoBatalha4.getX(), luzCampoBatalha4.getY() + rolagemTela, this);
+		graficos.drawImage(luzCampoBatalha5.getImagem(), luzCampoBatalha5.getX(), luzCampoBatalha5.getY() + rolagemTela, this);
 		
 		// ----------------------- Tabela de efeito de chefe -----------------------------------
 

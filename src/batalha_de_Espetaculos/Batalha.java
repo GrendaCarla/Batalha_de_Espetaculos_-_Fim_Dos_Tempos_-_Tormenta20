@@ -135,20 +135,20 @@ public class Batalha extends JPanel implements ActionListener {
 
 	// ------------------------ divisões da tela de batalha -------------------------
 	
-	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 4);
+	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 	
-	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, animacao.getY());
+	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, animacao.getY() + 4);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
 	private Icones_interativos campoBatalha3 = new Icones_interativos(campoBatalha1.getX(), campoBatalha2.getY() + 70 + 4);
 	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
 	private Icones_interativos campoBatalha5 = new Icones_interativos(campoBatalha1.getX(), campoBatalha4.getY() + 70 + 4);
 		
-	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, animacao.getY() + 366 + 2);
+	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, animacao.getY() + 366 + 6);
 	private Icones_interativos nomeHabilidade2 = new Icones_interativos(tamanhoContorno, nomeHabilidade1.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade3 = new Icones_interativos(tamanhoContorno, nomeHabilidade2.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade4 = new Icones_interativos(tamanhoContorno, nomeHabilidade3.getY() + 54 + 4);
 	
-	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, animacao.getY() + 366 + 2);
+	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, animacao.getY() + 366 + 6);
 	
 	private Icones_interativos descricao = new Icones_interativos(apelo.getX(), apelo.getY() + 54 + 4);
 		
@@ -165,14 +165,12 @@ public class Batalha extends JPanel implements ActionListener {
 	private Texto txtEfeitoFase = new Texto(tamanhoContorno + 700, campoBatalha1.getY() + 70/2 + 7, " ");
 	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 30, txtEfeitoFase.getY() - 17);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha1.getY() + 5);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha2.getY() + 5);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha3.getY() + 5);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha4.getY() + 5);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 30, campoBatalha5.getY() + 5);
-	
-	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX() - 3, iconeCampoBatalha1.getY() - 3);
-	
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha1.getY() + 4);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha2.getY() + 4);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha3.getY() + 4);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha4.getY() + 4);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha5.getY() + 4);
+		
 	// corações que mede o total de apelo e interferência de todas as rodadas 
 	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
 	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 116, campoBatalha2.getY() + 70/2);
@@ -237,6 +235,13 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
 	
 	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
+	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() - 1);
+	
+	private Icones_interativos luzCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 88, campoBatalha1.getY() + 12);
+	private Icones_interativos luzCampoBatalha2 = new Icones_interativos(campoBatalha2.getX() + 88, campoBatalha2.getY() + 12);
+	private Icones_interativos luzCampoBatalha3 = new Icones_interativos(campoBatalha3.getX() + 88, campoBatalha3.getY() + 12);
+	private Icones_interativos luzCampoBatalha4 = new Icones_interativos(campoBatalha4.getX() + 88, campoBatalha4.getY() + 12);
+	private Icones_interativos luzCampoBatalha5 = new Icones_interativos(campoBatalha5.getX() + 88, campoBatalha5.getY() + 12);
 
 	// ----------------------- itens relacionado com nome habilidade -----------------------------------
 
@@ -246,7 +251,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private int selecaoNomeHab = 0;
 	private int nomeHabAnterior = 4;
 	
-	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, animacao.getY() + 366);
+	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, animacao.getY() + 370);
 	
 	// ----------------------- itens relacionado com Apelo -----------------------------------
 	
@@ -358,6 +363,12 @@ public class Batalha extends JPanel implements ActionListener {
 		repintarCampoBatalha();
 		seletorAventureiro.load("res\\batalha\\seletorAventureiro.png");
 		
+		luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
+		
 		apagarCoracoes();
 		//mostrarCoracoes();
 		coracao01.load("res\\batalha\\apelo.png");
@@ -367,6 +378,8 @@ public class Batalha extends JPanel implements ActionListener {
 		coracao05.load("res\\batalha\\apelo.png");
 		
 		painel4.load("res\\batalha\\painel4.png");
+		
+		txtEfeitoFase.setCorTexto(Color.white);
 		
 		// ----------------------- itens relacionado com nome habilidade -----------------------------------
 		
@@ -492,7 +505,7 @@ public class Batalha extends JPanel implements ActionListener {
 			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
 		}
 		
-		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 3);		
+		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 1);		
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -635,7 +648,7 @@ public class Batalha extends JPanel implements ActionListener {
 			txtDialogoAviso.setTexto("Se você voltar a luta será encerrada.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
-		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && contMenu == 2 && dialogoAviso.getImagem() != null) {
+		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
 			
 			if(contEngranagem1 == 2) {
 				contEngranagem1 = 1;
@@ -1121,7 +1134,9 @@ public class Batalha extends JPanel implements ActionListener {
 
 		// --------------------------------- campo batalha e habilidades usadas -----------------------------------------
 		tl8 = new TextLayout(txtEfeitoFase.getTexto(), txtEfeitoFase.getFonte(), frc);
-	    tl8.draw(graficos, txtEfeitoFase.getX(), txtEfeitoFase.getY());
+		graficos.setColor(txtEfeitoFase.getCorTexto());
+		tl8.draw(graficos, txtEfeitoFase.getX(), txtEfeitoFase.getY());
+	    
 	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY(), this);
 		
 		graficos.drawImage(iconeCampoBatalha1.getImagem(), iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY(), this);
@@ -1129,10 +1144,16 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(iconeCampoBatalha3.getImagem(), iconeCampoBatalha3.getX(), iconeCampoBatalha3.getY(), this);
 		graficos.drawImage(iconeCampoBatalha4.getImagem(), iconeCampoBatalha4.getX(), iconeCampoBatalha4.getY(), this);
 		graficos.drawImage(iconeCampoBatalha5.getImagem(), iconeCampoBatalha5.getX(), iconeCampoBatalha5.getY(), this);
-
-		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY(), this);
 		
 		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY(), this);
+		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY(), this);
+		
+		graficos.drawImage(luzCampoBatalha1.getImagem(), luzCampoBatalha1.getX(), luzCampoBatalha1.getY(), this);
+		graficos.drawImage(luzCampoBatalha2.getImagem(), luzCampoBatalha2.getX(), luzCampoBatalha2.getY(), this);
+		graficos.drawImage(luzCampoBatalha3.getImagem(), luzCampoBatalha3.getX(), luzCampoBatalha3.getY(), this);
+		graficos.drawImage(luzCampoBatalha4.getImagem(), luzCampoBatalha4.getX(), luzCampoBatalha4.getY(), this);
+		graficos.drawImage(luzCampoBatalha5.getImagem(), luzCampoBatalha5.getX(), luzCampoBatalha5.getY(), this);
+
 
 		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY(), this);
 		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY(), this);
@@ -1364,6 +1385,7 @@ public class Batalha extends JPanel implements ActionListener {
 			animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
 
 			if(animacao.getDx() == 20 && efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0) {
+				acenderLuzAventureiro();
 				gifApresentacao(ordemAventRodada[vezDoAventureiro], (vezDoAventureiro != posicaoAventureiro ? arrayAleatorioHabAdver[ordemAventRodada[vezDoAventureiro]] : selecaoNomeHab));
 			}
 			
@@ -1598,6 +1620,7 @@ public class Batalha extends JPanel implements ActionListener {
 			vezDoAventureiro ++;
 			
 			if(vezDoAventureiro == 5) {
+				acenderLuzAventureiro();
 				animacaoFileira = 21;
 				vezDoAventureiro = 0;
 			}
@@ -1994,4 +2017,17 @@ public class Batalha extends JPanel implements ActionListener {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 	}
+	
+	public void acenderLuzAventureiro() {
+		
+		luzCampoBatalha1.load("res\\batalha\\" + ( vezDoAventureiro != 0 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha2.load("res\\batalha\\" + ( vezDoAventureiro != 1 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha3.load("res\\batalha\\" + ( vezDoAventureiro != 2 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha4.load("res\\batalha\\" + ( vezDoAventureiro != 3 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha5.load("res\\batalha\\" + ( vezDoAventureiro != 4 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		
+	}
+	
+	
+	
 }
