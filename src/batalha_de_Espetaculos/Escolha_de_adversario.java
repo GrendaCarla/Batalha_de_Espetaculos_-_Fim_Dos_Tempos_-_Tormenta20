@@ -38,6 +38,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Batalha tela3;
 	private Manual telaManual;
 	private Menu telaMenu;
+	private Creditos telaCreditos;
+
 	JFrame janelaPrincipal;
 	boolean novoJogo;
 	
@@ -292,6 +294,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Menu");
 		        telaMenu.valorLeituraSave = salvar.LerDados();
 		        telaMenu.Restaurar();
+		        telaMenu.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 			}
@@ -317,7 +320,29 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual2");
 	        janelaPrincipal.revalidate();
-	        
+	        timer.stop();
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  									Vai para a tela de Créditos								|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntCreditos(int codigo) {
+
+		if(codigo == KeyEvent.VK_Z ) {
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos.setTela2(this);
+	        janelaPrincipal.add(telaCreditos);
+	        janelaPrincipal.setTitle("Creditos2");
+	        janelaPrincipal.revalidate();
+	        timer.stop();
+
 		}
 	}
 	
@@ -377,6 +402,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			        telaMenu.valorLeituraSave = salvar.LerDados();
 			        telaMenu.chamarTela1(true);
 			        telaMenu.Restaurar();
+			        telaMenu.setContEngranagem2(contEngranagem2);
 			        janelaPrincipal.revalidate();
 			        timer.stop();
 			        
@@ -470,10 +496,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							break;
 					}
 					
-				// ---------- encaminha para a função que controla o botão voltar do menu --------- \
-				}else if(mostrarMenu == true && contMenu == 3) {
-					dialogoBntVoltar(codigo);
-					
+				
 				// ---------- encaminha para a função que controla o botão do Menu do menu ------\
 				}else if(mostrarMenu == true && contMenu == 0){
 					dialogoBntMenu(codigo);
@@ -481,7 +504,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				// ---------- encaminha para a função que controla o botão de Manual do menu ------\
 				}else if(mostrarMenu == true && contMenu == 1){
 					dialogoBntManual(codigo);
-								
+				
+					// ---------- encaminha para a função que controla o botão de Manual do menu ------\
+				}else if(mostrarMenu == true && contMenu == 2){
+					dialogoBntCreditos(codigo);
+				
+				// ---------- encaminha para a função que controla o botão voltar do menu --------- \
+				}else if(mostrarMenu == true && contMenu == 3) {
+					dialogoBntVoltar(codigo);
+					
 				// ---------- muda a seleção dos ícones dos personagens no mapa para esquerda e direita --------- \
 				} else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
 					
@@ -1100,6 +1131,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			        janelaPrincipal.add(tela3);
 			        janelaPrincipal.setTitle("Batalha");
 			        janelaPrincipal.revalidate();
+			        timer.stop();
 			        
 			        limparDialogo();
 					
@@ -1113,6 +1145,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			// ------------------------ manda para a tela de Manual ----------------------- /
 			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual2") {
 				telaManual.KeyPressed(tecla);
+			
+			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Creditos2") {
+				telaCreditos.KeyPressed(tecla);
+				
 			} else {
 				tela3.KeyPressed(tecla);
 			}
@@ -1371,6 +1407,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
         janelaPrincipal.remove(this);
         janelaPrincipal.add(tela1);
         janelaPrincipal.setTitle("Escolha de Personagem");
+        tela1.setContEngranagem2(contEngranagem2);
         tela1.LimparTela2();
         janelaPrincipal.revalidate();
         timer.stop();
@@ -1384,6 +1421,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		timer.start();
 	}
 	
 }

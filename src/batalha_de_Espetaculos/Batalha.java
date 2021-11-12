@@ -35,6 +35,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
 	private Menu telaMenu;
+	private Creditos telaCreditos;
+	
 	JFrame janelaPrincipal;
 	
 	private Image fundo;
@@ -598,6 +600,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
+		        telaMenu.setContEngranagem2(contEngranagem2);
 		        telaMenu.valorLeituraSave = salvar.LerDados();
 		        telaMenu.Restaurar();
 		        janelaPrincipal.revalidate();
@@ -626,7 +629,29 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual3");
 	        janelaPrincipal.revalidate();
+	        timer.stop();
 	        
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  									Vai para a tela de Créditos								|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntCreditos(int codigo) {
+
+		if(codigo == KeyEvent.VK_Z ) {
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos.setTela3(this);
+	        janelaPrincipal.add(telaCreditos);
+	        janelaPrincipal.setTitle("Creditos3");
+	        janelaPrincipal.revalidate();
+	        timer.stop();
 		}
 	}
 	
@@ -684,6 +709,7 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.add(tela2);
 	        janelaPrincipal.setTitle("Escolha de Adversário");
 	        tela2.LimparTela3();
+	        tela2.setContEngranagem2(contEngranagem2);
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 		}
@@ -821,17 +847,23 @@ public class Batalha extends JPanel implements ActionListener {
 						break;
 				}
 				
-			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
-			}else if(mostrarMenu == true && contMenu == 3) {
-				dialogoVoltar(codigo);
-				
-			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
+			
+			// ---------- encaminha para a função que controla o botão menu do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 0) {
 				dialogoBntMenu(codigo);
 			
-			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
+			// ---------- encaminha para a função que controla o botão manual do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 1) {
 				dialogoBntManual(codigo);
+			
+			// ---------- encaminha para a função que controla o botão creditos do menu --------- \
+			}else if(mostrarMenu == true && contMenu == 2) {
+				dialogoBntCreditos(codigo);
+				
+			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
+			}else if(mostrarMenu == true && contMenu == 3) {
+				dialogoVoltar(codigo);
+								
 			// ---------- muda a seleção dos ícones dos personagens no mapa para cima e para baixo --------- \
 			} else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == false && dialogoAviso.getImagem() == null && comecarAnimacaoCoracao == 0) {
 				
@@ -1092,14 +1124,19 @@ public class Batalha extends JPanel implements ActionListener {
 	
 		        tela2.mostrarEstrela();
 		        tela2.LimparTela3();
+		        tela2.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 			
 			} 
 		}else{
-		// ------------------------ manda para a tela de Manual ----------------------- /
+			// ------------------------ manda para a tela de Manual ----------------------- /
 			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual3") {
 				telaManual.KeyPressed(tecla);
+			
+			// ------------------------ manda para a tela de Manual ----------------------- /
+			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Creditos3") {
+				telaCreditos.KeyPressed(tecla);
 			}
 		}
 	}
@@ -2016,6 +2053,7 @@ public class Batalha extends JPanel implements ActionListener {
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		timer.start();
 	}
 	
 	public void acenderLuzAventureiro() {

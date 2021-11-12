@@ -31,6 +31,8 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos fundo3 = new Icones_interativos(-20, 10);
+
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 
@@ -273,7 +275,9 @@ public class Manual extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\Manual\\fundo.png");
+		fundo2.load("res\\fundo.png");
+		fundo3.load("res\\Manual\\fundo6.png");
+		
 		engrenagem1.load("res\\engrenagem1.png");
 		
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
@@ -733,6 +737,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Batalha");
 		        tela3.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
+		        timer.stop();
 				
 			} else if(tela2 != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -741,6 +746,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        tela2.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
+		        timer.stop();
 				
 			} else if(tela1 != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -749,6 +755,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Escolha de Personagem");
 		        tela1.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
+		        timer.stop();
 		        
 			} else if(telaMenu != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -757,7 +764,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Menu");
 		        telaMenu.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
-				
+		        timer.stop();
 			}
 		}
 	}
@@ -791,6 +798,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		graficos.drawImage(fundo, 0, 0, null);
 		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
+		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY() + rolagemTela, this);
 		
 		/* ------------------------------- Controles ---------------------------------*/
 		

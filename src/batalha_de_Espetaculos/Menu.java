@@ -30,6 +30,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Escolha_de_personagem tela1;
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
+	private Creditos telaCreditos;
 	
 	JFrame janelaPrincipal;
 	
@@ -257,17 +258,40 @@ public class Menu extends JPanel implements ActionListener {
 			        janelaPrincipal.add(telaManual);
 			        janelaPrincipal.setTitle("ManualM");
 			        janelaPrincipal.revalidate();
+			       
+				} else if(codigo == KeyEvent.VK_Z && contOpcoes == 3) {
+					
+					contEngranagem2 = !contEngranagem2;
+					engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+					
+					teclaZ.load("res\\Menu\\teclaZ2.png");
+	
+					janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+			        janelaPrincipal.remove(this);
+			        telaCreditos = new Creditos(contEngranagem2);
 			        
+			        telaCreditos.setTelaMenu(this);
+			        
+			        janelaPrincipal.add(telaCreditos);
+			        janelaPrincipal.setTitle("CreditosM");
+			        janelaPrincipal.revalidate();
+			      
 				} else if(codigo == KeyEvent.VK_Z) {
 					teclaZ.load("res\\Menu\\teclaZ2.png");
 				}
 			}
 		}else {
-			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
+			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha"
+					|| janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3" 
+					|| janelaPrincipal.getTitle() == "Creditos1" || janelaPrincipal.getTitle() == "Creditos2" || janelaPrincipal.getTitle() == "Creditos3")) {
+				
 				tela1.KeyPressed(tecla);
 				
 			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "ManualM") {
 				telaManual.KeyPressed(tecla);
+			
+			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "CreditosM") {
+				telaCreditos.KeyPressed(tecla);
 				
 			} else if(janelaPrincipal == null) {
 				tela2.KeyPressed(tecla);

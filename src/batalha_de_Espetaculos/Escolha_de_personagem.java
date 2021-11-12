@@ -1,12 +1,10 @@
 package batalha_de_Espetaculos;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -32,6 +30,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
 	private Menu telaMenu;
+	private Creditos telaCreditos;
+	
 	boolean novoJogo;
 	
 	JFrame janelaPrincipal;
@@ -317,7 +317,29 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual1");
 	        janelaPrincipal.revalidate();
+	        timer.stop();
 	        
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  									Vai para a tela de Créditos								|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntCreditos(int codigo) {
+
+		if(codigo == KeyEvent.VK_Z ) {
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos.setTela1(this);
+	        janelaPrincipal.add(telaCreditos);
+	        janelaPrincipal.setTitle("Creditos1");
+	        janelaPrincipal.revalidate();
+	        timer.stop();
 		}
 	}
 	
@@ -392,7 +414,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			// ---------- encaminha para a função que controla o botão de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 1){
 				dialogoBntManual(codigo);
-						
+				
+			// ---------- encaminha para a função que controla o botão de Manual do menu ------\
+			}else if(mostrarMenu == true && contMenu == 2){
+				dialogoBntCreditos(codigo);
+			
 			// ---------- muda a seleção dos personagens para esquerda --------- \
 			}else if(codigo == KeyEvent.VK_LEFT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 				
@@ -530,6 +556,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual1") {
 				telaManual.KeyPressed(tecla);
 			
+			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Creditos1") {
+				telaCreditos.KeyPressed(tecla);
+				
 			} else {
 				
 				tela2.KeyPressed(tecla);
@@ -668,6 +697,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
         janelaPrincipal.revalidate();
+        timer.stop();
 	}
 	
 	public void LimparTela2() {
@@ -678,5 +708,6 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		timer.start();
 	}
 }
