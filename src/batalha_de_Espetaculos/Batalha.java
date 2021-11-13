@@ -97,7 +97,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private int [][] apeloKiki = kiki.getValores();
 	private int [][] apeloArius = arius.getValores();
 	
-	private String [][] gifApelos = {ignis.getGifApelos(), ayla.getGifApelos(), rexthor.getGifApelos(), kiki.getGifApelos(), arius.getGifApelos()};
+	private String [][] gifApelos = {ignis.getApelosEInterferencias(), ayla.getApelosEInterferencias(), rexthor.getApelosEInterferencias(), kiki.getApelosEInterferencias(), arius.getApelosEInterferencias()};
 	private String [][] NomeApelos = {ignis.getNomeApelos(), ayla.getNomeApelos(), rexthor.getNomeApelos(), kiki.getNomeApelos(), arius.getNomeApelos()};
 	private String [][] ConteudoDescricao = {ignis.getConteudoDescricao(0), ignis.getConteudoDescricao(1), ignis.getConteudoDescricao(2), ignis.getConteudoDescricao(3), 
 											 ayla.getConteudoDescricao(0), ayla.getConteudoDescricao(1), ayla.getConteudoDescricao(2), ayla.getConteudoDescricao(3), 
@@ -156,8 +156,12 @@ public class Batalha extends JPanel implements ActionListener {
 		
 	// ------------------------------------------- animação ----------------------------------------
 
+	private Icones_interativos animacaoObj1 = new Icones_interativos(animacao.getX(), animacao.getY());
+	private Icones_interativos animacaoObj2 = new Icones_interativos(animacao.getX(), animacao.getY());
+
+	
 	private int intervaloAnimacao = 10;
-	private int intervaloAnimacaoGif = 100; //200;
+	private int intervaloAnimacaoGif = 210;
 	
 	private int comecarAnimacaoCoracao = 0;
 	private int animacaoFileira = -1;
@@ -1154,6 +1158,13 @@ public class Batalha extends JPanel implements ActionListener {
 		// ------------------------ divisões da tela de batalha -------------------------
 		graficos.drawImage(animacao.getImagem(), animacao.getX(), animacao.getY(), this);
 		
+		// --------------------------------------------- animação ---------------------------------------------
+
+		graficos.drawImage(animacaoObj1.getImagem(), animacaoObj1.getX(), animacaoObj1.getY(), this);
+		graficos.drawImage(animacaoObj2.getImagem(), animacaoObj2.getX(), animacaoObj2.getY(), this);
+		
+		// ----------------------------------------------------------------------------------------
+		
 		graficos.drawImage(campoBatalha1.getImagem(), campoBatalha1.getX(), campoBatalha1.getY(), this);
 		graficos.drawImage(campoBatalha2.getImagem(), campoBatalha2.getX(), campoBatalha2.getY(), this);
 		graficos.drawImage(campoBatalha3.getImagem(), campoBatalha3.getX(), campoBatalha3.getY(), this);
@@ -1169,6 +1180,8 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		graficos.drawImage(descricao.getImagem(), descricao.getX(), descricao.getY(), this);
 
+		
+		
 		// --------------------------------- campo batalha e habilidades usadas -----------------------------------------
 		tl8 = new TextLayout(txtEfeitoFase.getTexto(), txtEfeitoFase.getFonte(), frc);
 		graficos.setColor(txtEfeitoFase.getCorTexto());
@@ -1367,7 +1380,6 @@ public class Batalha extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		//System.out.println(animacaoFileira);
 		if(animacaoFileira != -1 && animacaoFileira < 10) {
 			aparecerCoracoes();
 		}
@@ -1423,11 +1435,16 @@ public class Batalha extends JPanel implements ActionListener {
 
 			if(animacao.getDx() == 20 && efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0) {
 				acenderLuzAventureiro();
+			}
+			
+			if(animacao.getDx() >= 20 && efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0) {
 				gifApresentacao(ordemAventRodada[vezDoAventureiro], (vezDoAventureiro != posicaoAventureiro ? arrayAleatorioHabAdver[ordemAventRodada[vezDoAventureiro]] : selecaoNomeHab));
 			}
 			
 			if(animacao.getDx() >= intervaloAnimacaoGif || efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 1) {
 				coracao110.setDx(coracao110.getDx() + comecarAnimacaoCoracao);
+				animacaoObj1.setImagem(null);
+				animacaoObj2.setImagem(null);
 				animacao.load("res\\batalha\\animacao.png");					
 			}
 		
@@ -2037,7 +2054,26 @@ public class Batalha extends JPanel implements ActionListener {
 	public void gifApresentacao(int avent, int numApelo) {
 
 		if(avent == 0) {
-			animacao.load("res\\batalha\\Ignis\\animacao\\" + (numApelo == 0? gifApelos[0][0] : (numApelo == 1? gifApelos[0][1] : (numApelo == 2? gifApelos[0][2] : gifApelos[0][3]))) + ".gif");
+			if(gifApelos[0][numApelo] == "apelo3") {
+
+				if(animacao.getDx() == 20) {
+					animacao.load("res\\batalha\\Ignis\\animacao\\" + gifApelos[0][numApelo] + ".gif");
+					animacaoObj1.setX(animacao.getX() + 300);
+					animacaoObj2.setX(animacao.getX() - 300);
+					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\2.png");
+					animacaoObj2.load("res\\batalha\\Ignis\\animacao\\apelo3\\1.png");
+				}
+				if(animacao.getDx() >= 20 && animacao.getDx() <= 80) {
+					animacaoObj1.setX(animacaoObj1.getX() - 5);
+					animacaoObj2.setX(animacaoObj2.getX() + 5);
+					
+				} else if(animacao.getDx() >= 100 && animacao.getDx() % 20 == 0) {
+					animacaoObj2.setImagem(null);
+					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 1) + ".png");
+				}
+				
+			}
+			
 		}else if(avent == 1) {
 			animacao.load("res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
 		}else if(avent == 2) {

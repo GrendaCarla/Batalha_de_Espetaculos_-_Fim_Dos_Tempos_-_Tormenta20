@@ -7,7 +7,6 @@ public class Ignis {
 	//                                   apelo,                interferencia,          tipo interferencia (0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, -1: sem efeito)
 	private int [][] valores = {{7, 0, 6, 5, 4, 3, 3, 8}, {0, 0, 0, 2, 0, 0, 2, 0}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
-	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
 	private String [] NomeApelos = {"Discurso no jutsu", "Canalizar Reparos", "Tapa em puristas", "Ignis bonitão", "Intocável", "Pé no peito e escudada na cara", "Provocação petulante", "Meca-Rito"};
 	private String [][] ConteudoDescricao = {{"Faça um discurso moralista e inspirador que incentive seus adversários a", "mudarem de vida.", " ", " ", " "},
 											 {"Esse poder tem a capacidade de zerar suas interferências ganhadas antes da sua ação.", " ", " ", " ", " "},
@@ -46,11 +45,8 @@ public class Ignis {
 				 };
 		return provisorio;
 	}
-	public String[] getGifApelos() {
-		
-		String[] provisorio = {gifApelos[mylist.get(0)], gifApelos[mylist.get(1)], gifApelos[mylist.get(2)], gifApelos[mylist.get(3)]};
-		return provisorio;
-	}
+	
+	
 	public String[] getNomeApelos() {
 		
 		String[] provisorio = {NomeApelos[mylist.get(0)], NomeApelos[mylist.get(1)], NomeApelos[mylist.get(2)], NomeApelos[mylist.get(3)]};
