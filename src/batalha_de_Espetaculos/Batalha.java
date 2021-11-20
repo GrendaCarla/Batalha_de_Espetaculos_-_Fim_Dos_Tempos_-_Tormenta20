@@ -139,29 +139,29 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 	
-	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, animacao.getY() + 4);
+	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, tamanhoContorno + 2 + 4);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
 	private Icones_interativos campoBatalha3 = new Icones_interativos(campoBatalha1.getX(), campoBatalha2.getY() + 70 + 4);
 	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
 	private Icones_interativos campoBatalha5 = new Icones_interativos(campoBatalha1.getX(), campoBatalha4.getY() + 70 + 4);
 		
-	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, animacao.getY() + 366 + 6);
+	private Icones_interativos nomeHabilidade1 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2 + 366 + 6);
 	private Icones_interativos nomeHabilidade2 = new Icones_interativos(tamanhoContorno, nomeHabilidade1.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade3 = new Icones_interativos(tamanhoContorno, nomeHabilidade2.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade4 = new Icones_interativos(tamanhoContorno, nomeHabilidade3.getY() + 54 + 4);
 	
-	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, animacao.getY() + 366 + 6);
+	private Icones_interativos apelo = new Icones_interativos(nomeHabilidade1.getX() + 330 + 4, tamanhoContorno + 2 + 366 + 6);
 	
-	private Icones_interativos descricao = new Icones_interativos(apelo.getX(), apelo.getY() + 54 + 4);
+	private Icones_interativos descricao = new Icones_interativos(apelo.getX(), apelo.getY() + 54);
 		
 	// ------------------------------------------- animação ----------------------------------------
 
-	private Icones_interativos animacaoObj1 = new Icones_interativos(animacao.getX(), animacao.getY());
-	private Icones_interativos animacaoObj2 = new Icones_interativos(animacao.getX(), animacao.getY());
+	private Icones_interativos animacaoObj1 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
+	private Icones_interativos animacaoObj2 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 
 	
 	private int intervaloAnimacao = 10;
-	private int intervaloAnimacaoGif = 210;
+	private int intervaloAnimacaoGif = 240;
 	
 	private int comecarAnimacaoCoracao = 0;
 	private int animacaoFileira = -1;
@@ -257,7 +257,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private int selecaoNomeHab = 0;
 	private int nomeHabAnterior = 4;
 	
-	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, animacao.getY() + 370);
+	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, tamanhoContorno + 2 + 370);
 	
 	// ----------------------- itens relacionado com Apelo -----------------------------------
 	
@@ -295,7 +295,7 @@ public class Batalha extends JPanel implements ActionListener {
 
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
 	
-	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY() - 4);
+	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY());
 	
 	// ------------------------------------------- d20 ----------------------------------------
 	//                            Rexthor           Arius
@@ -1445,6 +1445,8 @@ public class Batalha extends JPanel implements ActionListener {
 				coracao110.setDx(coracao110.getDx() + comecarAnimacaoCoracao);
 				animacaoObj1.setImagem(null);
 				animacaoObj2.setImagem(null);
+				animacao.setX(tamanhoContorno);
+				animacao.setY(tamanhoContorno + 2);
 				animacao.load("res\\batalha\\animacao.png");					
 			}
 		
@@ -2057,21 +2059,40 @@ public class Batalha extends JPanel implements ActionListener {
 			if(gifApelos[0][numApelo] == "apelo3") {
 
 				if(animacao.getDx() == 20) {
-					animacao.load("res\\batalha\\Ignis\\animacao\\" + gifApelos[0][numApelo] + ".gif");
-					animacaoObj1.setX(animacao.getX() + 300);
-					animacaoObj2.setX(animacao.getX() - 300);
+					animacao.load("res\\batalha\\Ignis\\animacao\\apelo3\\0.png");
+				
+				} else if(animacao.getDx() == 90) {
+					animacao.load("res\\batalha\\fundoAnimacao1.png");
+					animacaoObj1.setX(tamanhoContorno + 300);
+					animacaoObj2.setX(tamanhoContorno - 300);
 					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\2.png");
 					animacaoObj2.load("res\\batalha\\Ignis\\animacao\\apelo3\\1.png");
 				}
-				if(animacao.getDx() >= 20 && animacao.getDx() <= 80) {
-					animacaoObj1.setX(animacaoObj1.getX() - 5);
-					animacaoObj2.setX(animacaoObj2.getX() + 5);
+				if(animacao.getDx() >= 90 && animacao.getDx() <= 119) {
+					animacaoObj1.setX(animacaoObj1.getX() - 10);
+					animacaoObj2.setX(animacaoObj2.getX() + 10);
 					
-				} else if(animacao.getDx() >= 100 && animacao.getDx() % 20 == 0) {
-					animacaoObj2.setImagem(null);
-					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 1) + ".png");
-				}
+				} else if(animacao.getDx() >= 140 && animacao.getDx() % 20 == 0) {
+					
+					if(animacao.getDx() == 140) {
+						animacaoObj2.setImagem(null);
+						animacaoObj1.setX(tamanhoContorno);
+						animacao.load("res\\batalha\\fundoAnimacao1.png");
+
+					}else if(animacao.getDx() == 160) {
+						animacao.setY(-126);
+						animacao.setX(760/2 - 1130/2 + 50);
+						animacao.load("res\\batalha\\fundoAnimacao2.png");
+						
+					}else if(animacao.getDx() == 200) {
+						animacao.setY(-30);
+						animacao.setX(760/2 - 1130/2 + 30);
+						animacao.load("res\\batalha\\fundoAnimacao2.png");
+					}
+					
+					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 3) + ".png");
 				
+				}
 			}
 			
 		}else if(avent == 1) {

@@ -36,6 +36,8 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos fundo3 = new Icones_interativos(0, 0);
+	
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
@@ -45,6 +47,15 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	
+	// ------------------------------------------- animação ---------------------------------------------
+
+	private int contAnimacao = 7;
+	private boolean sentidoAnimacao = false;
+	private Icones_interativos ignis = new Icones_interativos(30, 200);
+	private Icones_interativos fundoKiki = new Icones_interativos(200, 200);
+	private Icones_interativos kiki = new Icones_interativos(280, 213);
+
+
 	// ------------------------------------------- Controles ---------------------------------------------
 	
 	private Icones_interativos teclaEsquerda = new Icones_interativos(1234 - 180, 640 - 130);
@@ -87,13 +98,20 @@ public class Menu extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\Menu\\fundo.png");
+		fundo2.load("res\\fundo.png");
+		fundo3.load("res\\Menu\\fundo.png");
 		engrenagem1.load("res\\engrenagem1.png");		
 		contorno.load("res\\contorno.png");
 		
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
 		valorLeituraSave = salvar.LerDados();
+		
+		// ------------------------------------------- animação ---------------------------------------------
+
+		ignis.load("res\\Menu\\animacao\\ignis1.png");
+		fundoKiki.load("res\\Menu\\animacao\\fundo kiki.png");
+		kiki.load("res\\Menu\\animacao\\kiki1.png");
 		
 		// ------------------------------------------- Controles ---------------------------------------------
 
@@ -347,6 +365,13 @@ public class Menu extends JPanel implements ActionListener {
 		
 		graficos.drawImage(fundo, 0, 0, null);
 		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
+		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY(), this);
+
+		// ------------------------------------------- animação ---------------------------------------------
+
+		graficos.drawImage(fundoKiki.getImagem(), fundoKiki.getX(), fundoKiki.getY(), this);
+		graficos.drawImage(ignis.getImagem(), ignis.getX(), ignis.getY(), this);
+		graficos.drawImage(kiki.getImagem(), kiki.getX(), kiki.getY(), this);
 		
 		// ---------------------------- opções do menu ------------------------------------
 		
@@ -393,7 +418,24 @@ public class Menu extends JPanel implements ActionListener {
 			MostrarMensagemDeErro();
 		}
 		
+		Animar();
+		
 		repaint();
+		
+	}
+	
+	public void Animar() {
+		
+		if(sentidoAnimacao == true) {contAnimacao --;} else {contAnimacao++;}
+		
+		if(contAnimacao == 7 || contAnimacao == 21) {sentidoAnimacao = !sentidoAnimacao;}
+		
+		if(contAnimacao % 7 == 0) {
+			
+			ignis.load("res\\Menu\\animacao\\ignis" + (contAnimacao % 21 == 0 ? 3 : (contAnimacao % 14 == 0 ? 2 : 1)) + ".png");
+			kiki.load("res\\Menu\\animacao\\kiki" + (contAnimacao % 21 == 0 ? 3 : (contAnimacao % 14 == 0 ? 2 : 1)) + ".png");
+		
+		}
 		
 	}
 	

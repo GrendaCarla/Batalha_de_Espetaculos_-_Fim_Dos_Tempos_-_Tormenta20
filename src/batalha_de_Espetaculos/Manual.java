@@ -276,7 +276,7 @@ public class Manual extends JPanel implements ActionListener {
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
 		fundo2.load("res\\fundo.png");
-		fundo3.load("res\\Manual\\fundo6.png");
+		fundo3.load("res\\Manual\\fundo.png");
 		
 		engrenagem1.load("res\\engrenagem1.png");
 		
