@@ -49,29 +49,36 @@ public class Menu extends JPanel implements ActionListener {
 	
 	// ------------------------------------------- animação ---------------------------------------------
 
-	private int contAnimacao = 7;
+	private int contAnimacao = 6;
+	private int contAnimacaoAyla = 0;
+	
 	private boolean sentidoAnimacao = false;
-	private Icones_interativos ignis = new Icones_interativos(30, 200);
-	private Icones_interativos fundoKiki = new Icones_interativos(200, 200);
-	private Icones_interativos kiki = new Icones_interativos(280, 213);
+	private boolean sentidoAnimacaoAyla = false;
 
+	private Icones_interativos ignis1 = new Icones_interativos(26, 140);
+	private Icones_interativos ignis2 = new Icones_interativos(1226, 140);
+	
+	private Icones_interativos kiki = new Icones_interativos(250, 163);
+	private Icones_interativos arius = new Icones_interativos(kiki.getX() + 250, 163);
+	private Icones_interativos rexthor = new Icones_interativos(arius.getX() + 220, 180);
+	private Icones_interativos ayla = new Icones_interativos(rexthor.getX() + 140, 40);
 
 	// ------------------------------------------- Controles ---------------------------------------------
 	
-	private Icones_interativos teclaEsquerda = new Icones_interativos(1234 - 180, 640 - 130);
+	private Icones_interativos teclaEsquerda = new Icones_interativos(1234 - 166, 640 - 120);
 	private Icones_interativos teclaBaixo = new Icones_interativos(teclaEsquerda.getX() + 40, teclaEsquerda.getY() + 46);
 	private Icones_interativos teclaDireita = new Icones_interativos(teclaBaixo.getX() + 46, teclaEsquerda.getY());
 	private Icones_interativos teclaCima = new Icones_interativos(teclaBaixo.getX(), teclaBaixo.getY() - 86);
-	private Icones_interativos teclaZ = new Icones_interativos(20 + 50,640 - 20 - 60);
+	private Icones_interativos teclaZ = new Icones_interativos(20 + 20, 640 - 20 - 60);
 	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 60, teclaZ.getY());
 	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
-	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - 158/2, 160);
-	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX(), bntContinuar.getY() + 90);
-	private Icones_interativos bntManual = new Icones_interativos(bntContinuar.getX(), bntNovoJogo.getY() + 90);
-	private Icones_interativos bntCreditos = new Icones_interativos(bntContinuar.getX(), bntManual.getY() + 90);
+	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 490);
+	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX() + 159 + 40, bntContinuar.getY());
+	private Icones_interativos bntManual = new Icones_interativos(bntNovoJogo.getX() + 159 + 40, bntContinuar.getY());
+	private Icones_interativos bntCreditos = new Icones_interativos(bntManual.getX() + 159 + 40, bntContinuar.getY());
 	
 	private int contOpcoes;
 	
@@ -109,10 +116,14 @@ public class Menu extends JPanel implements ActionListener {
 		
 		// ------------------------------------------- animação ---------------------------------------------
 
-		ignis.load("res\\Menu\\animacao\\ignis1.png");
-		fundoKiki.load("res\\Menu\\animacao\\fundo kiki.png");
+		ignis1.load("res\\Menu\\animacao\\ignis1.png");
+		ignis2.load("res\\Menu\\animacao\\ignis1.png");
+
 		kiki.load("res\\Menu\\animacao\\kiki1.png");
-		
+		arius.load("res\\Menu\\animacao\\arius1.png");
+		rexthor.load("res\\Menu\\animacao\\rexthor1.png");
+		ayla.load("res\\Menu\\animacao\\ayla1.png");
+
 		// ------------------------------------------- Controles ---------------------------------------------
 
 		teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
@@ -183,11 +194,11 @@ public class Menu extends JPanel implements ActionListener {
 			if(dialogoAviso.getImagem() == null) {
 				
 				// -------------------- muda a seleção das opções -------------------- \
-				if(codigo == KeyEvent.VK_LEFT) {
-					teclaEsquerda.load("res\\Menu\\setaEsquerda2.png");
+				if(codigo == KeyEvent.VK_UP) {
+					teclaCima.load("res\\Menu\\setaCima2.png");
 	
-				}else if(codigo == KeyEvent.VK_RIGHT) {
-					teclaDireita.load("res\\Menu\\setaDireita2.png");
+				}else if(codigo == KeyEvent.VK_DOWN) {
+					teclaBaixo.load("res\\Menu\\setaBaixo2.png");
 	
 				}else if(codigo == KeyEvent.VK_X) {
 					teclaX.load("res\\Menu\\teclaX2.png");
@@ -195,7 +206,7 @@ public class Menu extends JPanel implements ActionListener {
 				}else if(codigo == KeyEvent.VK_ESCAPE) {
 					teclaEsc.load("res\\Menu\\teclaEsc2.png");
 					
-				}else if(codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN){
+				}else if(codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT){
 					
 					if(contEngranagem1 == 2) {
 						contEngranagem1 = 1;
@@ -203,23 +214,23 @@ public class Menu extends JPanel implements ActionListener {
 					
 					engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
 					
-					if(codigo == KeyEvent.VK_UP) {
+					if(codigo == KeyEvent.VK_LEFT) {
 						if(contOpcoes == 1 && valorLeituraSave != 0) {
 							contOpcoes = 3;
 						}else if(contOpcoes == 0) {
 							contOpcoes = 3;
 						} else {contOpcoes --;}
 						
-						teclaCima.load("res\\Menu\\setaCima2.png");
+						teclaEsquerda.load("res\\Menu\\setaEsquerda2.png");
 						
-					}else if(codigo == KeyEvent.VK_DOWN) {
+					}else if(codigo == KeyEvent.VK_RIGHT) {
 						if(contOpcoes == 3 && valorLeituraSave != 0) {
 							contOpcoes = 1;
 						}else if(contOpcoes == 3) {
 							contOpcoes = 0;
 						} else {contOpcoes ++;}
 						
-						teclaBaixo.load("res\\Menu\\setaBaixo2.png");
+						teclaDireita.load("res\\Menu\\setaDireita2.png");
 						
 					}
 					
@@ -369,9 +380,13 @@ public class Menu extends JPanel implements ActionListener {
 
 		// ------------------------------------------- animação ---------------------------------------------
 
-		graficos.drawImage(fundoKiki.getImagem(), fundoKiki.getX(), fundoKiki.getY(), this);
-		graficos.drawImage(ignis.getImagem(), ignis.getX(), ignis.getY(), this);
+		graficos.drawImage(ignis1.getImagem(), ignis1.getX(), ignis1.getY(), this);
+		graficos.drawImage(ignis2.getImagem(), ignis2.getX(), ignis2.getY(), this);
+
 		graficos.drawImage(kiki.getImagem(), kiki.getX(), kiki.getY(), this);
+		graficos.drawImage(arius.getImagem(), arius.getX(), arius.getY(), this);
+		graficos.drawImage(rexthor.getImagem(), rexthor.getX(), rexthor.getY(), this);
+		graficos.drawImage(ayla.getImagem(), ayla.getX(), ayla.getY(), this);
 		
 		// ---------------------------- opções do menu ------------------------------------
 		
@@ -426,15 +441,48 @@ public class Menu extends JPanel implements ActionListener {
 	
 	public void Animar() {
 		
+		ignis1.setX( (ignis1.getX() <= -300 ? ignis2.getX() + 1200 : ignis1.getX() - 1));
+		ignis2.setX( (ignis2.getX() <= -300 ? ignis1.getX() + 1200 : ignis2.getX() - 1));
+
+		
 		if(sentidoAnimacao == true) {contAnimacao --;} else {contAnimacao++;}
 		
-		if(contAnimacao == 7 || contAnimacao == 21) {sentidoAnimacao = !sentidoAnimacao;}
+		if(contAnimacao == 6 || contAnimacao == 18) {sentidoAnimacao = !sentidoAnimacao;}
 		
-		if(contAnimacao % 7 == 0) {
+		if(contAnimacao % 6 == 0) {
 			
-			ignis.load("res\\Menu\\animacao\\ignis" + (contAnimacao % 21 == 0 ? 3 : (contAnimacao % 14 == 0 ? 2 : 1)) + ".png");
-			kiki.load("res\\Menu\\animacao\\kiki" + (contAnimacao % 21 == 0 ? 3 : (contAnimacao % 14 == 0 ? 2 : 1)) + ".png");
+			ignis1.load("res\\Menu\\animacao\\ignis" + (contAnimacao == 18 ? 3 : (contAnimacao == 12 ? 2 : 1)) + ".png");
+			ignis2.load("res\\Menu\\animacao\\ignis" + (contAnimacao == 18 ? 3 : (contAnimacao == 12 ? 2 : 1)) + ".png");
+
+			kiki.load("res\\Menu\\animacao\\kiki" + (contAnimacao == 18 ? 3 : (contAnimacao == 12 ? 2 : 1)) + ".png");
+			arius.load("res\\Menu\\animacao\\arius" + (contAnimacao == 18 ? 3 : (contAnimacao == 12 ? 2 : 1)) + ".png");
+			rexthor.load("res\\Menu\\animacao\\rexthor" + (contAnimacao == 18 ? 3 : (contAnimacao == 12 ? 2 : 1)) + ".png");
+		}
 		
+		// ------------------------------------------ ayla ---------------------------------
+
+		
+		if(sentidoAnimacaoAyla == true) {contAnimacaoAyla --;} else {contAnimacaoAyla++;}
+		
+		if(contAnimacaoAyla == 0 || contAnimacaoAyla == 20) {sentidoAnimacaoAyla = !sentidoAnimacaoAyla;}
+		
+		if(contAnimacaoAyla == 0 || contAnimacaoAyla % 5 == 0) {
+			ayla.load("res\\Menu\\animacao\\ayla" + (contAnimacaoAyla == 15 ? 3 : (contAnimacaoAyla == 10 || contAnimacaoAyla == 0 ? 2 : 1)) + ".png");
+		}
+		
+		if(contAnimacaoAyla >= 0 && contAnimacaoAyla <= 10) {
+			ayla.setY(ayla.getY() + 1);
+			
+			if(contAnimacaoAyla <= 6) {ayla.setX(ayla.getX() - 1);}
+			
+		} else if((sentidoAnimacaoAyla == true && contAnimacaoAyla >= 12 && contAnimacaoAyla <= 15) || (sentidoAnimacaoAyla == false && contAnimacaoAyla >= 15 && contAnimacaoAyla <= 18)) {
+			ayla.setY(ayla.getY() - 2);
+			ayla.setX(ayla.getX() + 1);
+		}
+		
+		if(contAnimacaoAyla >= 18) {
+			ayla.setY(ayla.getY() - 1);
+			ayla.setX(ayla.getX() + 1);
 		}
 		
 	}
