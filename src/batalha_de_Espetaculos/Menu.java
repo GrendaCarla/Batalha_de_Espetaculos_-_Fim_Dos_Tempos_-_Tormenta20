@@ -55,14 +55,28 @@ public class Menu extends JPanel implements ActionListener {
 	private boolean sentidoAnimacao = false;
 	private boolean sentidoAnimacaoAyla = false;
 
-	private Icones_interativos ignis1 = new Icones_interativos(26, 140);
-	private Icones_interativos ignis2 = new Icones_interativos(1226, 140);
+	private Icones_interativos ignis1 = new Icones_interativos(26, 130);
+	private Icones_interativos ignis2 = new Icones_interativos(1226, 130);
 	
-	private Icones_interativos kiki = new Icones_interativos(250, 163);
-	private Icones_interativos arius = new Icones_interativos(kiki.getX() + 250, 163);
-	private Icones_interativos rexthor = new Icones_interativos(arius.getX() + 220, 180);
-	private Icones_interativos ayla = new Icones_interativos(rexthor.getX() + 140, 40);
+	private Icones_interativos kiki = new Icones_interativos(250, 173);
+	private Icones_interativos arius = new Icones_interativos(kiki.getX() + 250, 173);
+	private Icones_interativos rexthor = new Icones_interativos(arius.getX() + 220, 190);
+	
+	private Icones_interativos ayla = new Icones_interativos(rexthor.getX() + 180, 50);
+	private Icones_interativos sombraAyla = new Icones_interativos(ayla.getX() - 20, 290);
 
+
+	// ------------------------------------------- fundo ---------------------------------------------
+
+	private Icones_interativos camada1 = new Icones_interativos(0, -10);
+	
+	private Icones_interativos camada21 = new Icones_interativos(0, -10);
+	private Icones_interativos camada22 = new Icones_interativos(5992, camada21.getY());
+
+	private Icones_interativos camada31 = new Icones_interativos(0, -10);
+	private Icones_interativos camada32 = new Icones_interativos(5992, camada31.getY());
+
+	
 	// ------------------------------------------- Controles ---------------------------------------------
 	
 	private Icones_interativos teclaEsquerda = new Icones_interativos(1234 - 166, 640 - 120);
@@ -75,7 +89,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
-	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 490);
+	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 500);
 	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX() + 159 + 40, bntContinuar.getY());
 	private Icones_interativos bntManual = new Icones_interativos(bntNovoJogo.getX() + 159 + 40, bntContinuar.getY());
 	private Icones_interativos bntCreditos = new Icones_interativos(bntManual.getX() + 159 + 40, bntContinuar.getY());
@@ -122,8 +136,21 @@ public class Menu extends JPanel implements ActionListener {
 		kiki.load("res\\Menu\\animacao\\kiki1.png");
 		arius.load("res\\Menu\\animacao\\arius1.png");
 		rexthor.load("res\\Menu\\animacao\\rexthor1.png");
+		
 		ayla.load("res\\Menu\\animacao\\ayla1.png");
+		sombraAyla.load("res\\Menu\\animacao\\ayla4.png");
+		
+		// ------------------------------------------- fundo ---------------------------------------------
 
+		camada1.load("res\\Menu\\animacao\\camada1.png");
+
+		camada21.load("res\\Menu\\animacao\\camada2.png");
+		camada22.load("res\\Menu\\animacao\\camada2.png");
+		
+		camada31.load("res\\Menu\\animacao\\camada3.png");
+		camada32.load("res\\Menu\\animacao\\camada3.png");
+
+		
 		// ------------------------------------------- Controles ---------------------------------------------
 
 		teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
@@ -377,6 +404,14 @@ public class Menu extends JPanel implements ActionListener {
 		graficos.drawImage(fundo, 0, 0, null);
 		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
 		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY(), this);
+		
+		// ------------------------------------------- fundo ---------------------------------------------
+
+		graficos.drawImage(camada1.getImagem(), camada1.getX(), camada1.getY(), this);
+
+		graficos.drawImage(camada21.getImagem(), camada21.getX(), camada21.getY(), this);
+		graficos.drawImage(camada22.getImagem(), camada22.getX(), camada22.getY(), this);
+
 
 		// ------------------------------------------- animação ---------------------------------------------
 
@@ -386,7 +421,12 @@ public class Menu extends JPanel implements ActionListener {
 		graficos.drawImage(kiki.getImagem(), kiki.getX(), kiki.getY(), this);
 		graficos.drawImage(arius.getImagem(), arius.getX(), arius.getY(), this);
 		graficos.drawImage(rexthor.getImagem(), rexthor.getX(), rexthor.getY(), this);
+		
 		graficos.drawImage(ayla.getImagem(), ayla.getX(), ayla.getY(), this);
+		graficos.drawImage(sombraAyla.getImagem(), sombraAyla.getX(), sombraAyla.getY(), this);
+
+		graficos.drawImage(camada31.getImagem(), camada31.getX(), camada31.getY(), this);
+		graficos.drawImage(camada32.getImagem(), camada32.getX(), camada32.getY(), this);
 		
 		// ---------------------------- opções do menu ------------------------------------
 		
@@ -441,6 +481,17 @@ public class Menu extends JPanel implements ActionListener {
 	
 	public void Animar() {
 		
+		// ------------------------------------------- fundo ---------------------------------------------
+
+		camada21.setX((camada21.getX() <= -6000 ? camada22.getX() + 5992 : camada21.getX() - 6));
+		camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5992 : camada22.getX() - 6));
+		
+		camada31.setX((camada31.getX() <= -6000 ? camada32.getX() + 5992 : camada31.getX() - 6));
+		camada32.setX((camada32.getX() <= -6000 ? camada31.getX() + 5992 : camada32.getX() - 6));
+		
+		// ----------------------------------------------------------------------------------------
+
+		
 		ignis1.setX( (ignis1.getX() <= -300 ? ignis2.getX() + 1200 : ignis1.getX() - 1));
 		ignis2.setX( (ignis2.getX() <= -300 ? ignis1.getX() + 1200 : ignis2.getX() - 1));
 
@@ -468,21 +519,29 @@ public class Menu extends JPanel implements ActionListener {
 		
 		if(contAnimacaoAyla == 0 || contAnimacaoAyla % 5 == 0) {
 			ayla.load("res\\Menu\\animacao\\ayla" + (contAnimacaoAyla == 15 ? 3 : (contAnimacaoAyla == 10 || contAnimacaoAyla == 0 ? 2 : 1)) + ".png");
+			sombraAyla.load("res\\Menu\\animacao\\ayla" + (contAnimacaoAyla == 15 ? 4 : 5) + ".png");
 		}
 		
 		if(contAnimacaoAyla >= 0 && contAnimacaoAyla <= 10) {
 			ayla.setY(ayla.getY() + 1);
 			
-			if(contAnimacaoAyla <= 6) {ayla.setX(ayla.getX() - 1);}
+			if(contAnimacaoAyla <= 6) {
+				ayla.setX(ayla.getX() - 1);
+				sombraAyla.setX(sombraAyla.getX() - 1);	
+			}
 			
 		} else if((sentidoAnimacaoAyla == true && contAnimacaoAyla >= 12 && contAnimacaoAyla <= 15) || (sentidoAnimacaoAyla == false && contAnimacaoAyla >= 15 && contAnimacaoAyla <= 18)) {
 			ayla.setY(ayla.getY() - 2);
 			ayla.setX(ayla.getX() + 1);
+			
+			sombraAyla.setX(sombraAyla.getX() + 1);
 		}
 		
 		if(contAnimacaoAyla >= 18) {
 			ayla.setY(ayla.getY() - 1);
 			ayla.setX(ayla.getX() + 1);
+			
+			sombraAyla.setX(sombraAyla.getX() + 1);
 		}
 		
 	}
