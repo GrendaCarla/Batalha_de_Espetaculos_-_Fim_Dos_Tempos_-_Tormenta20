@@ -712,7 +712,7 @@ public class Manual extends JPanel implements ActionListener {
 			
 			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
 			
-			rolagemTela = rolagemTela - 7;
+			rolagemTela = rolagemTela - 10;
 			bntBarraBaixo.load("res\\Manual\\teclaBaixo2.png");
 			
 		}else if(codigo == KeyEvent.VK_UP && rolagemTela < 0) {
@@ -722,7 +722,7 @@ public class Manual extends JPanel implements ActionListener {
 			
 			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
 			
-			rolagemTela = rolagemTela + 7;
+			rolagemTela = rolagemTela + 10;
 			bntBarraCima.load("res\\Manual\\teclaCima2.png");
 
 		}else if(codigo == KeyEvent.VK_X) {

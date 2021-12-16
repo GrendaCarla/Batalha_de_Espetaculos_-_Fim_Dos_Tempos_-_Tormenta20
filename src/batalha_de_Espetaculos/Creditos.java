@@ -277,7 +277,7 @@ public class Creditos extends JPanel implements ActionListener {
 	
 	public void AnimarImagens() {
 		
-		if(contTempo % 25 == 0) {
+		if(contTempo % 24 == 0) {
 			mudaImagem = !mudaImagem;
 			
 			aventureiro1.load("res\\Creditos\\leonel" + (mudaImagem == false ? 1 : 2) + ".png");
