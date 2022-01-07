@@ -137,7 +137,7 @@ public class Batalha extends JPanel implements ActionListener {
 
 	// ------------------------ divisões da tela de batalha -------------------------
 	
-	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
+	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 4);
 	
 	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, tamanhoContorno + 2 + 4);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
@@ -714,6 +714,7 @@ public class Batalha extends JPanel implements ActionListener {
 	        janelaPrincipal.setTitle("Escolha de Adversário");
 	        tela2.LimparTela3();
 	        tela2.setContEngranagem2(contEngranagem2);
+	        tela2.setNumAdversarioAnterior(adversario);
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 		}

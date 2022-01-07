@@ -35,12 +35,12 @@ public class Menu extends JPanel implements ActionListener {
 	JFrame janelaPrincipal;
 	
 	private Image fundo;
-	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
-	private Icones_interativos fundo3 = new Icones_interativos(0, 0);
 	
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
+	
+	private Icones_interativos titulo = new Icones_interativos(1234/2 - 530/2, 20);
 	
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
@@ -126,12 +126,11 @@ public class Menu extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\fundo.png");
-		fundo3.load("res\\Menu\\fundo.png");
 		engrenagem1.load("res\\engrenagem1.png");		
 		contorno.load("res\\contorno.png");
-		
 		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		
+		titulo.load("res\\Menu\\titulo.png");
 
 		valorLeituraSave = salvar.LerDados();
 		
@@ -415,8 +414,6 @@ public class Menu extends JPanel implements ActionListener {
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
 		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
-		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY(), this);
 		
 		// ------------------------------------------- fundo ---------------------------------------------
 
@@ -432,6 +429,8 @@ public class Menu extends JPanel implements ActionListener {
 
 		graficos.drawImage(camada21.getImagem(), camada21.getX(), camada21.getY(), this);
 		graficos.drawImage(camada22.getImagem(), camada22.getX(), camada22.getY(), this);
+		
+		graficos.drawImage(titulo.getImagem(), titulo.getX(), titulo.getY(), this);
 
 		// ------------------------------------------- animação ---------------------------------------------
 
@@ -455,7 +454,7 @@ public class Menu extends JPanel implements ActionListener {
 		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getX(), bntCreditos.getY(), this);
 		
 		graficos.drawImage(camada12.getImagem(), camada12.getX(), camada12.getY(), this);
-		
+				
 		// ------------------------------------------- Controles ---------------------------------------------
 		
 		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY(), this);

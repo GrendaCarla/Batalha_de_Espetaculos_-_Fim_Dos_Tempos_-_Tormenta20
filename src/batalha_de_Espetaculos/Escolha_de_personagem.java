@@ -607,6 +607,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				teclaEsc.load("res\\Menu\\teclaEsc.png");
 			}
 			
+		} else  {
+			tela2.KeyReleased(tecla);
 		}
 	}
 	
