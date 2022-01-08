@@ -41,9 +41,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 
-	
 	private int contEngranagem = 1;
 	private boolean contEngranagem2;
+
+	private String caminho;
 
 	private Timer timer;
 	
@@ -110,31 +111,32 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
-	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2) {
+	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
 		this.telaMenu = PaginaAnterior;
 		this.novoJogo = NovoJogo;
+		this.caminho = Caminho;
 		
 		contEngranagem2 = Engrenagem2;
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
+		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\fundo.png");
-		engrenagem1.load("res\\engrenagem1.png");
+		fundo2.load(caminho + "res\\fundo1.png");
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
-		titulo.load("res\\escolhaDePersonagem\\texto.png");
-		contorno.load("res\\contorno.png");
+		titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
+		contorno.load(caminho + "res\\contorno.png");
 		
 		// ---------------------------- imagens dos aventureiros ------------------------------------
 
-		iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
-		iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
-		iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
-		iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
-		iconeArius.load("res\\escolhaDePersonagem\\arius.png");
+		iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis2.png");
+		iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla1.png");
+		iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor1.png");
+		iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
+		iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
 		
-		luzAven.load("res\\escolhaDePersonagem\\luzIgnis.png");
+		luzAven.load(caminho + "res\\escolhaDePersonagem\\luzIgnis.png");
 		
 		txtdialogoPersonagem.setFonte(new Font("Arial", Font.PLAIN, 28));
 		txtdialogoPersonagem.setCorTexto(new Color (235, 230, 233));
@@ -149,11 +151,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		// ------------------------------------------- Controles ---------------------------------------------
 
-		teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
-		teclaDireita.load("res\\Menu\\setaDireita.png");
-		teclaZ.load("res\\Menu\\teclaZ.png");
-		teclaX.load("res\\Menu\\teclaX.png");
-		teclaEsc.load("res\\Menu\\teclaEsc.png");
+		teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
+		teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
+		teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
+		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		
 		timer = new Timer(5, this);
 		timer.start();
@@ -166,27 +168,27 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		switch(personagemPerdeFoco) {
 			case 0:
-				iconeIgnis.load("res\\escolhaDePersonagem\\ignis.png");
+				iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis1.png");
 				iconeIgnis.setX(20);
 				iconeIgnis.setY(640 - 20 - 454 + 8);
 				break;
 			case 1:
-				iconeAyla.load("res\\escolhaDePersonagem\\ayla.png");
+				iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla1.png");
 				iconeAyla.setX(20 + 240);
 				iconeAyla.setY(640 - 20 - 454 + 8);
 				break;
 			case 2:
-				iconeRexthor.load("res\\escolhaDePersonagem\\rexthor.png");
+				iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor1.png");
 				iconeRexthor.setX(20 + 240 + 240);
 				iconeRexthor.setY(640 - 20 - 454 + 8);
 				break;
 			case 3:
-				iconeKiki.load("res\\escolhaDePersonagem\\kiki.png");
+				iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
 				iconeKiki.setX(20 + 240 + 240 + 240);
 				iconeKiki.setY(640 - 20 - 454 + 8);
 				break;
 			case 4:
-				iconeArius.load("res\\escolhaDePersonagem\\arius.png");
+				iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
 				iconeArius.setX(20 + 240 + 240 + 240 + 240);
 				iconeArius.setY(640 - 20 - 454 + 8);
 				break;
@@ -194,44 +196,44 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			
 		switch(contTeclaAven) {
 			case 0:
-				iconeIgnis.load("res\\escolhaDePersonagem\\ignis2.png");
+				iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis2.png");
 				iconeIgnis.setX(20 - 8);
 				iconeIgnis.setY(640 - 20 - 454);
-				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
 				luzAven.setX(11); luzAven.setY(82);
-				luzAven.load("res\\escolhaDePersonagem\\luzIgnis.png");
+				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzIgnis.png");
 				break;
 			case 1:
-				iconeAyla.load("res\\escolhaDePersonagem\\ayla2.png");
+				iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla2.png");
 				iconeAyla.setX(20 + 240 - 8);
 				iconeAyla.setY(640 - 20 - 454);
-				titulo.load("res\\escolhaDePersonagem\\texto2.png");
+				titulo.load(caminho + "res\\escolhaDePersonagem\\texto2.png");
 				luzAven.setX(98); luzAven.setY(82);
-				luzAven.load("res\\escolhaDePersonagem\\luzAyla.png");
+				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzAyla.png");
 				break;
 			case 2:
-				iconeRexthor.load("res\\escolhaDePersonagem\\rexthor2.png");
+				iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor2.png");
 				iconeRexthor.setX(20 + 240 + 240 - 8);
 				iconeRexthor.setY(640 - 20 - 454);
-				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
 				luzAven.setX(338); luzAven.setY(82);
-				luzAven.load("res\\escolhaDePersonagem\\luzRexthor.png");
+				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzRexthor.png");
 				break;
 			case 3:
-				iconeKiki.load("res\\escolhaDePersonagem\\kiki2.png");
+				iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki2.png");
 				iconeKiki.setX(20 + 240 + 240 + 240 - 8);
 				iconeKiki.setY(640 - 20 - 454);
-				titulo.load("res\\escolhaDePersonagem\\texto2.png");
+				titulo.load(caminho + "res\\escolhaDePersonagem\\texto2.png");
 				luzAven.setX(578); luzAven.setY(82);
-				luzAven.load("res\\escolhaDePersonagem\\luzKiki.png");
+				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzKiki.png");
 				break;
 			case 4:
-				iconeArius.load("res\\escolhaDePersonagem\\arius2.png");
+				iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius2.png");
 				iconeArius.setX(20 + 240 + 240 + 240 + 240 - 8);
 				iconeArius.setY(640 - 20 - 454);
-				titulo.load("res\\escolhaDePersonagem\\texto.png");
+				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
 				luzAven.setX(769); luzAven.setY(82);
-				luzAven.load("res\\escolhaDePersonagem\\luzArius.png");
+				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzArius.png");
 				break;
 		}
 	}
@@ -247,11 +249,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			
 
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			dialogoAviso.load("res\\Menu\\dialogo.png");
-			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			botaoSimNaoDialogo = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
@@ -263,22 +265,22 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				contEngranagem = 1;
 			} else {contEngranagem ++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
 			
 			botaoSimNaoDialogo = !botaoSimNaoDialogo;
-			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (botaoSimNaoDialogo == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (botaoSimNaoDialogo == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (botaoSimNaoDialogo == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (botaoSimNaoDialogo == true ? "2" : "1") + ".png");
 		
 		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(botaoSimNaoDialogo == false || codigo == KeyEvent.VK_X) {
 				
 				dialogoAviso.setImagem(null);
-				bntSimDialogoAviso.load(null);
-				bntNaoDialogoAviso.load(null);
+				bntSimDialogoAviso.setImagem(null);
+				bntNaoDialogoAviso.setImagem(null);
 				
 				txtDialogoAviso.setTexto(" ");
 				txtDialogoAviso2.setTexto(" ");
@@ -308,11 +310,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		if(codigo == KeyEvent.VK_Z ) {
 
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaManual = new Manual(contEngranagem2);
+	        telaManual = new Manual(contEngranagem2, caminho);
 	        telaManual.setTela1(this);
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual1");
@@ -330,11 +332,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 
 		if(codigo == KeyEvent.VK_Z ) {
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos = new Creditos(contEngranagem2, caminho);
 	        telaCreditos.setTela1(this);
 	        janelaPrincipal.add(telaCreditos);
 	        janelaPrincipal.setTitle("Creditos1");
@@ -356,18 +358,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
 
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				mostrarMenu = !mostrarMenu;
-				teclaEsc.load("res\\Menu\\teclaEsc2.png");
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
 				
 				if(mostrarMenu == true) {
 					contMenu = 0;
-					sombreadorMenu.load("res\\Menu\\sombreador.png");
-					fundoMenu.load("res\\Menu\\menu.png");
-					bntMenu.load("res\\Menu\\bntMenu2.png");
-					bntManual.load("res\\Menu\\bntManual1.png");
-					bntCreditos.load("res\\Menu\\bntCreditos1.png");
+					sombreadorMenu.load(caminho + "res\\sombreador.png");
+					fundoMenu.load(caminho + "res\\Menu secundario\\menu.png");
+					bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
+					bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+					bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 					
 				} else {
 					sombreadorMenu.setImagem(null);
@@ -383,7 +385,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					contEngranagem = 1;
 				} else {contEngranagem ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
 				
 				if(codigo == KeyEvent.VK_UP) {
 					if(contMenu == 0) {contMenu = 2;} else {contMenu --;}
@@ -391,19 +393,19 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					if(contMenu == 2) {contMenu = 0;} else {contMenu ++;}
 				}
 				
-				bntMenu.load("res\\Menu\\bntMenu1.png");
-				bntManual.load("res\\Menu\\bntManual1.png");
-				bntCreditos.load("res\\Menu\\bntCreditos1.png");
+				bntMenu.load(caminho + "res\\Menu secundario\\bntMenu1.png");
+				bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+				bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 				
 				switch (contMenu) {
 					case 0:
-						bntMenu.load("res\\Menu\\bntMenu2.png");
+						bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
 						break;
 					case 1:
-						bntManual.load("res\\Menu\\bntManual2.png");
+						bntManual.load(caminho + "res\\Menu secundario\\bntManual2.png");
 						break;
 					case 2:
-						bntCreditos.load("res\\Menu\\bntCreditos2.png");
+						bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos2.png");
 						break;
 				}
 				
@@ -427,9 +429,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					contEngranagem = 1;
 				} else {contEngranagem ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
 				
-				teclaEsquerda.load("res\\Menu\\setaEsquerda2.png");
+				teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda2.png");
 				
 				if(contTeclaAven == 0) {contTeclaAven = 4;} else {contTeclaAven --;}
 				
@@ -458,9 +460,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					contEngranagem = 1;
 				} else {contEngranagem ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
 				
-				teclaDireita.load("res\\Menu\\setaDireita2.png");
+				teclaDireita.load(caminho + "res\\Teclado\\setaDireita2.png");
 				
 				if(contTeclaAven == 4) {contTeclaAven = 0;} else {contTeclaAven ++;}
 				
@@ -486,14 +488,14 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			else if(codigo == KeyEvent.VK_Z && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
-				teclaZ.load("res\\Menu\\teclaZ2.png");
+				teclaZ.load(caminho + "res\\Teclado\\teclaZ2.png");
 				
-				sombreadorDialogoPerso.load("res\\Menu\\sombreador.png");
-				dialogoPersonagem.load("res\\Menu\\dialogo.png");
-				bntSimdialogoPersonagem.load("res\\Menu\\bntSim.png");
-				bntNaodialogoPersonagem.load("res\\Menu\\bntNao2.png");
+				sombreadorDialogoPerso.load(caminho + "res\\sombreador.png");
+				dialogoPersonagem.load(caminho + "res\\mensagem aviso\\dialogo.png");
+				bntSimdialogoPersonagem.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+				bntNaodialogoPersonagem.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				bntSimNaoDialgoAviso = true;
 				
 				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
@@ -508,9 +510,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			}else if(codigo == KeyEvent.VK_X && mostrarMenu == false) {
 
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
-				teclaX.load("res\\Menu\\teclaX2.png");
+				teclaX.load(caminho + "res\\Teclado\\teclaX2.png");
 				
 				limparDialogo();
 			
@@ -521,20 +523,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					contEngranagem = 1;
 				} else {contEngranagem ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem + ".png");
-				
-				dialogoPersonagem.load("res\\Menu\\dialogo.png");
-				bntSimdialogoPersonagem.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == false ? "" : "2") + ".png");
-				bntNaodialogoPersonagem.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == false ? "2" : "") + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
+				bntSimdialogoPersonagem.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == false ? "1" : "2") + ".png");
+				bntNaodialogoPersonagem.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == false ? "2" : "1") + ".png");
 				bntSimNaoDialgoAviso = (bntSimNaoDialgoAviso == false ? true : false);
 			
 			// --------------- entra quando pressiona Z no dialogo de aviso ------------- \
 			}else if(codigo == KeyEvent.VK_Z && dialogoPersonagem.getImagem() != null && mostrarMenu == false) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
-				teclaZ.load("res\\Menu\\teclaZ2.png");
+				teclaZ.load(caminho + "res\\Teclado\\teclaZ2.png");
 				
 				// --------------- fecha o dialogo de aviso ------------- \
 				if(bntSimNaoDialgoAviso == false) {
@@ -592,19 +592,19 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			int codigo = tecla.getKeyCode();
 			
 			if(codigo == KeyEvent.VK_LEFT) {
-				teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
+				teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
 			}
 			else if(codigo == KeyEvent.VK_RIGHT) {
-				teclaDireita.load("res\\Menu\\setaDireita.png");
+				teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
 			}
 			else if(codigo == KeyEvent.VK_Z) {
-				teclaZ.load("res\\Menu\\teclaZ.png");
+				teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 			}
 			else if(codigo == KeyEvent.VK_X) {
-				teclaX.load("res\\Menu\\teclaX.png");
+				teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 			}
 			else if(codigo == KeyEvent.VK_ESCAPE) {
-				teclaEsc.load("res\\Menu\\teclaEsc.png");
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 			}
 			
 		} else  {
@@ -695,7 +695,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo, contEngranagem2);
+        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo, contEngranagem2, caminho);
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
         janelaPrincipal.revalidate();
@@ -709,7 +709,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 		timer.start();
 	}
 }

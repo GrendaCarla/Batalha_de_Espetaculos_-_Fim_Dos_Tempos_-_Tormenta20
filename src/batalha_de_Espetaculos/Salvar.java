@@ -11,12 +11,14 @@ public class Salvar {
 	
 	private int aventureiro;
 	private boolean [] vitorias = new boolean[5];
+	private String caminho;
 	
-	public int SalvarDados (boolean [] etapa, int aventureiro) {
+	public int SalvarDados (boolean [] etapa, int aventureiro, String Caminho) {
+		this.caminho = Caminho;
 		
 		try {
 			
-			File file1 = new File("src\\batalha_de_Espetaculos\\Save.txt");
+			File file1 = new File(caminho + "res\\Save.txt");
 			
 			if(!file1.exists()){
 				file1.createNewFile();
@@ -40,10 +42,11 @@ public class Salvar {
 	   
 	}
 		
-	public int LerDados() {
+	public int LerDados(String Caminho) {
+		this.caminho = Caminho;
 			
 		try {
-			File file1 = new File("src\\batalha_de_Espetaculos\\Save.txt");
+			File file1 = new File(caminho + "res\\Save.txt");
 			
 			if(!file1.exists()){
 				return -1;

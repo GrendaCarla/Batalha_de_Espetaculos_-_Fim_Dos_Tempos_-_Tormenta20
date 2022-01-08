@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 
 public class Container extends JFrame{
 	
-	Menu menu = new Menu(false);
+	String caminho = System.getProperty("user.dir").substring(0, (System.getProperty("user.dir").length() - 52));   //System.getProperty("user.dir") + "\\";
+	Menu menu = new Menu(false, caminho);
 	 
 	public Container() {
 		add(menu);

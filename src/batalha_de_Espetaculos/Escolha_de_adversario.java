@@ -51,6 +51,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
 	
+	private String caminho;
+	
 	// ------------------------------------------- fundo ---------------------------------------------
 
 	private Icones_interativos camada11 = new Icones_interativos(0, -10);
@@ -202,8 +204,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo, boolean Engrenagem2) {
+	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
 		contEngranagem2 = Engrenagem2;
+		this.caminho = Caminho;
 
 		aventureiro = numAventureiro;
 		this.tela1 = PaginaAnterior;
@@ -211,30 +214,30 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		this.derrotados = Derrotados;
 		this.novoJogo = NovoJogo;
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
+		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		engrenagem1.load("res\\engrenagem1.png");
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
-		contorno.load("res\\contorno.png");
+		contorno.load(caminho + "res\\contorno.png");
 		
 		// ------------------------------------------- fundo ---------------------------------------------
 
-		camada11.load("res\\EscolhaDeAdversario\\camada0.png");
+		camada11.load(caminho + "res\\Fundo bonequinho\\camada0.png");
 
-		camada21.load("res\\EscolhaDeAdversario\\camada2.png");
-		camada22.load("res\\EscolhaDeAdversario\\camada2.png");
+		camada21.load(caminho + "res\\Fundo bonequinho\\camada2.png");
+		camada22.load(caminho + "res\\Fundo bonequinho\\camada2.png");
 		
-		camada31.load("res\\EscolhaDeAdversario\\camada3.png");
+		camada31.load(caminho + "res\\Fundo bonequinho\\camada3.png");
 		
-		camada41.load("res\\EscolhaDeAdversario\\camada5.png");
-		camada42.load("res\\EscolhaDeAdversario\\camada5.png");
+		camada41.load(caminho + "res\\Fundo bonequinho\\camada5.png");
+		camada42.load(caminho + "res\\Fundo bonequinho\\camada5.png");
 		
-		camada51.load("res\\EscolhaDeAdversario\\camada6.png");
-		camada52.load("res\\EscolhaDeAdversario\\camada6.png");
+		camada51.load(caminho + "res\\Fundo bonequinho\\camada6.png");
+		camada52.load(caminho + "res\\Fundo bonequinho\\camada6.png");
 		
-		camada6.load("res\\EscolhaDeAdversario\\camada7.png");
+		camada6.load(caminho + "res\\Fundo bonequinho\\camada7.png");
 		
 		// -------------------------------- aventureiro ---------------------------------------------
 		
@@ -244,36 +247,36 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			case 0:
 				iconeAventureiro.setY(140);
 				iconeAventureiro.setX(1234/2 - 300/2 - 60);
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ignis0.png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ignis0.png");
 				break;
 			case 1:
 				iconeAventureiro.setY(160);
 				iconeAventureiro.setDy(160);
 				iconeAventureiro.setX(1234/2 - 300/2 + 30);
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla0.png");
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla10.png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla0.png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla10.png");
 				break;
 			case 2:
 				iconeAventureiro.setY(168);
 				iconeAventureiro.setX(1234/2 - 300/2);
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\rexthor0.png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\rexthor0.png");
 				break;
 			case 3:
 				iconeAventureiro.setY(156);
 				iconeAventureiro.setX(1234/2 - 300/2 - 30);
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\kiki0.png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\kiki0.png");
 				break;
 			default:
 				iconeAventureiro.setY(152);
 				iconeAventureiro.setX(1234/2 - 300/2 - 10);
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\arius0.png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\arius0.png");
 				break;
 		}
 		
 		// ------------------------------------------- Controles ---------------------------------------------
 
-		teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
-		teclaDireita.load("res\\Menu\\setaDireita.png");
+		teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
+		teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
 		
 		teclaZ.setImagem(null);
 
@@ -318,16 +321,36 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	public void SalvarJogo() {
-		resutado = salvar.SalvarDados(derrotados, aventureiro);
+		
+		imgMenSalve.setX(-242);
+		imgMenSalve.setY(56);
+		
+		imgMenSalve2.setX(-0);
+		imgMenSalve2.setY(imgMenSalve.getY());
+		
+		txtSalvar.setX(84);
+		txtSalvar.setY(imgMenSalve.getY() + 56);
+		txtSalvar.setTexto(" ");
+		
+		conteudoSalvar = "Jogo salvo!";
+		
+		contMenSalvar = 0;
+		contConteudoSalvar = 0;
+		txtSaveAviso.setX(470);
+		txtSaveAviso.setY(saveAviso.getY() + 140);
+		txtSaveAviso.setTexto(" ");
+		
+		
+		resutado = salvar.SalvarDados(derrotados, aventureiro, caminho);
 		contMenSalvar ++;
 		
 		if(resutado == 1) {
-			imgMenSalve.load("res\\EscolhaDeAdversario\\salvar1.png");
-			imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar2.png");
+			imgMenSalve.load(caminho + "res\\mensagem aviso\\salvar1.png");
+			imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar2.png");
 			
 		} else {
-			sombreadorSaveAviso.load("res\\Menu\\sombreador.png");
-			saveAviso.load("res\\Menu\\dialogo.png");
+			sombreadorSaveAviso.load(caminho + "res\\sombreador.png");
+			saveAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
 			txtSaveAviso.setTexto("Erro ao salvar!!!");
 			
 			txtSaveAviso.setFonte(new Font("Arial", Font.PLAIN, 38));
@@ -346,11 +369,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 					
-			dialogoAviso.load("res\\Menu\\dialogo.png");
-			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
@@ -362,16 +385,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				contEngranagem1= 1;
 			} else {contEngranagem1++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
 			
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
-			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
 		
 		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
 				dialogoAviso.setImagem(null);
@@ -387,7 +410,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
-		        telaMenu.valorLeituraSave = salvar.LerDados();
+		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 		        telaMenu.Restaurar();
 		        telaMenu.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
@@ -406,11 +429,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(codigo == KeyEvent.VK_Z ) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaManual = new Manual(contEngranagem2);
+	        telaManual = new Manual(contEngranagem2, caminho);
 	        telaManual.setTela2(this);
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual2");
@@ -427,11 +450,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 		if(codigo == KeyEvent.VK_Z ) {
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos = new Creditos(contEngranagem2, caminho);
 	        telaCreditos.setTela2(this);
 	        janelaPrincipal.add(telaCreditos);
 	        janelaPrincipal.setTitle("Creditos2");
@@ -449,11 +472,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			dialogoAviso.load("res\\Menu\\dialogo.png");
-			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
@@ -465,16 +488,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				contEngranagem1= 1;
 			} else {contEngranagem1++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
 			
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
-			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
 		
 		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
 				dialogoAviso.setImagem(null);
@@ -494,7 +517,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			        janelaPrincipal.remove(this);
 			        janelaPrincipal.add(telaMenu);
 			        janelaPrincipal.setTitle("Menu");
-			        telaMenu.valorLeituraSave = salvar.LerDados();
+			        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 			        telaMenu.chamarTela1(true);
 			        telaMenu.Restaurar();
 			        telaMenu.setContEngranagem2(contEngranagem2);
@@ -515,7 +538,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			if(iconeAventureiro.getDx() == 0 || iconeAventureiro.getDx() == 10 || iconeAventureiro.getDx() == 20){
 				
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius"))) + (((iconeAventureiro.getDx() + 20)/10) + (direcao == false ? 0 : 5)) + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius"))) + (((iconeAventureiro.getDx() + 20)/10) + (direcao == false ? 0 : 5)) + ".png");
 				
 				if(iconeAventureiro.getDx() == 20 || iconeAventureiro.getDx() == 0) {movimentoAventureiro = !movimentoAventureiro;}
 			}
@@ -526,14 +549,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			if(iconeAventureiro.getDx() == 50 || iconeAventureiro.getDx() == 30){
 				
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (direcao == false ? 4 : 9) + ".png");
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (direcao == false ? 13 : 17) + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (direcao == false ? 4 : 9) + ".png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (direcao == false ? 13 : 17) + ".png");
 				iconeAventureiro.setY(iconeAventureiro.getY() - 12);
 							
 			} else if(iconeAventureiro.getDx() == 40 || iconeAventureiro.getDx() == 24 || iconeAventureiro.getDx() == 18 || iconeAventureiro.getDx() == 12 || iconeAventureiro.getDx() == 6) {
 				
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + ((iconeAventureiro.getDx() == 40 || iconeAventureiro.getDx() == 24 || iconeAventureiro.getDx() == 12 ? 3 : 2) + (direcao == false ? 0 : 5)) + ".png");
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (direcao == false ? 12 : 16) + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + ((iconeAventureiro.getDx() == 40 || iconeAventureiro.getDx() == 24 || iconeAventureiro.getDx() == 12 ? 3 : 2) + (direcao == false ? 0 : 5)) + ".png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (direcao == false ? 12 : 16) + ".png");
 			
 			}
 			
@@ -581,18 +604,18 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				mostrarMenu = !mostrarMenu;
 				
 				if(mostrarMenu == true) {
 					contMenu = 0;
-					sombreadorMenu.load("res\\Menu\\sombreador.png");
-					fundoMenu.load("res\\Menu\\menu.png");
-					bntMenu.load("res\\Menu\\bntMenu2.png");
-					bntManual.load("res\\Menu\\bntManual1.png");
-					bntVoltar.load("res\\Menu\\bntVoltar1.png");
-					bntCreditos.load("res\\Menu\\bntCreditos1.png");
+					sombreadorMenu.load(caminho + "res\\sombreador.png");
+					fundoMenu.load(caminho + "res\\Menu secundario\\menu.png");
+					bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
+					bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+					bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar1.png");
+					bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 
 				} else {
 					sombreadorMenu.setImagem(null);
@@ -610,7 +633,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					contEngranagem1= 1;
 				} else {contEngranagem1++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 				
 				if(codigo == KeyEvent.VK_UP) {
 					if(contMenu == 0) {contMenu = 3;} else {contMenu --;}
@@ -618,23 +641,23 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(contMenu == 3) {contMenu = 0;} else {contMenu ++;}
 				}
 				
-				bntMenu.load("res\\Menu\\bntMenu1.png");
-				bntManual.load("res\\Menu\\bntManual1.png");
-				bntVoltar.load("res\\Menu\\bntVoltar1.png");
-				bntCreditos.load("res\\Menu\\bntCreditos1.png");
+				bntMenu.load(caminho + "res\\Menu secundario\\bntMenu1.png");
+				bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+				bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar1.png");
+				bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 				
 				switch (contMenu) {
 					case 0:
-						bntMenu.load("res\\Menu\\bntMenu2.png");
+						bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
 						break;
 					case 1:
-						bntManual.load("res\\Menu\\bntManual2.png");
+						bntManual.load(caminho + "res\\Menu secundario\\bntManual2.png");
 						break;
 					case 2:
-						bntCreditos.load("res\\Menu\\bntCreditos2.png");
+						bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos2.png");
 						break;
 					case 3:
-						bntVoltar.load("res\\Menu\\bntVoltar2.png");
+						bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar2.png");
 						break;
 				}
 				
@@ -676,7 +699,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				respiracaoAventureiro = false;
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 							
 				if(camada42.getX() == 0) { camada41.setX(esquerda == true ? -4000 : 4000);}
 				else if(camada41.getX() == 0) { camada42.setX(esquerda == true ? -4000 : 4000);}
@@ -688,7 +711,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
 
 					if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || (ativarBoss == true && camada4Atual == -3424) || camada4Atual == -3936) {
-						teclaZ.load("res\\Menu\\teclaZ.png");
+						teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 						contTeclaBatalha --;
 						
 					} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || (ativarBoss == true && camada4Atual == -3076) || camada4Atual == -3548){
@@ -705,7 +728,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
 						if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
 							if(!(ativarBoss == false && camada4Atual > -3424 && camada4Atual < -3076)) {
-								teclaZ.load("res\\Menu\\teclaZ.png");
+								teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 							}
 							
 							if(!((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84))) {
@@ -737,15 +760,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					camada51.setX((camada51.getX() > 1234 ? camada52.getX() - 1992 : camada51.getX() + 1));
 					camada52.setX((camada52.getX() > 1234 ? camada51.getX() - 1992 : camada52.getX() + 1));
 							
-					
-					System.out.println(contTeclaBatalha);
-
-					
 					if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1")) {
 						
-						iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "7.png");
+						iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "7.png");
 						if(aventureiro == 1) {
-							iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla16.png");
+							iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla16.png");
 							iconeAventureiro.setY(iconeAventureiro.getY() - 40);
 						}
 					}
@@ -760,7 +779,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					//faz a tecla Z aparecer quando o personagem chega na montainha
 					if(camada4Atual == -3500 || (ativarBoss == true && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
-						teclaZ.load("res\\Menu\\teclaZ.png");
+						teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 						contTeclaBatalha ++;
 						
 					} else if(camada4Atual == -3896 || (ativarBoss == true && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
@@ -778,7 +797,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
 							
 							if(!(ativarBoss == false && camada4Atual > -3396 && camada4Atual < -3028)) {
-								teclaZ.load("res\\Menu\\teclaZ.png");
+								teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 							}
 								
 							if(!((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548))) {
@@ -810,13 +829,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1992 : camada51.getX() - 1));
 					camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1992 : camada52.getX() - 1));
 					
-					System.out.println(contTeclaBatalha);
-
 					if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6")) {
 						
-						iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "2.png");
+						iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "2.png");
 						if(aventureiro == 1) {
-							iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla12.png");
+							iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla12.png");
 							iconeAventureiro.setY(iconeAventureiro.getY() - 40);
 						}
 					}
@@ -834,7 +851,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					contEngranagem1= 1;
 				} else {contEngranagem1++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
 				
 				iconeAventureiro.setDy(iconeAventureiro.getY());
 				
@@ -860,17 +877,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					contEngranagem1= 1;
 				} else {contEngranagem1++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1+ ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
 				
 				if(contTeclaBatalha == 4 && contDialogo == 3) {
 					tibarCoroa = !tibarCoroa;
-					bntSimDialogo.load("res\\escolhaDeAdversario\\tibarCoroa" + (tibarCoroa == true ? "3" : "2") + ".png");
-					bntNaoDialogo.load("res\\escolhaDeAdversario\\tibarSemCoroa" + (tibarCoroa == true ? "2" : "3") + ".png");
+					bntSimDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\tibarCoroa" + (tibarCoroa == true ? "3" : "2") + ".png");
+					bntNaoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\tibarSemCoroa" + (tibarCoroa == true ? "2" : "3") + ".png");
 					
 				} else {
 					bntSimNao = !bntSimNao;
-					bntSimDialogo.load("res\\Menu\\bntSim" + (bntSimNao == true? "" : "2") + ".png");
-					bntNaoDialogo.load("res\\Menu\\bntNao" + (bntSimNao == true? "2" : "") + ".png");
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNao == true? "1" : "2") + ".png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNao == true? "2" : "1") + ".png");
 					
 				}
 			}
@@ -879,7 +896,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && ((bntSimDialogo.getImagem() != null ? (bntSimNao == false && ((derrotados[2] == true  && contTeclaBatalha == 4  && contDialogo == 1) || (derrotados[0] == true  && contTeclaBatalha == 8  && contDialogo == 1) || (derrotados[3] == true  && contTeclaBatalha == 2  && contDialogo == 1) || (derrotados[1] == true  && contTeclaBatalha == 0  && contDialogo == 1) || (derrotados[4] == true  && contTeclaBatalha == 6  && contDialogo == 1)))  : (bntSimNao == false && ((contTeclaBatalha == 4 && contDialogo == 2) || (contTeclaBatalha == 8 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 0 && contDialogo == 3) || (contTeclaBatalha == 6 && contDialogo == 3))) || (contTeclaBatalha == 12 && contDialogo == 1)|| (contTeclaBatalha == 4 && contDialogo == 4 && mudaCorLn4 == false)))) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				limparDialogo();
 			}
@@ -888,10 +905,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			else if(codigo == KeyEvent.VK_Z && teclaZ.getImagem() != null && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && ((contTeclaBatalha == 4 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 8 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 0 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 6 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 12 && contDialogo < 1))) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
-				sombreadorDialogo.load("res\\Menu\\sombreador.png");
-				barraDeDialogo.load("res\\escolhaDeAdversario\\barraDeDialogo.png");
+				sombreadorDialogo.load(caminho + "res\\sombreador.png");
+				barraDeDialogo.load(caminho + "res\\escolhaDeAdversario\\barraDeDialogo.png");
 				contDialogo++;
 				
 				// rexthor
@@ -906,17 +923,18 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							txtDialogoLn2.setX(300);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor2.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoRexthor3.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoRexthor4.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto3.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto4.png");
 							
 							txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[6][0]);
 							txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[6][1]);
 							txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[6][2]);
 							txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[6][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+							
 						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 400/2 - 30); imagemDoDialogo.setY(70);
 							objetoDeFundo1.setY(90); objetoDeFundo1.setX(30);
@@ -924,17 +942,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							txtDialogoLn2.setX(516);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoRexthor.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoRexthor2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor1.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[0][1]);
 							txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[0][2]);
 							txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[0][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 2){
 							bntSimDialogo.setImagem(null);
@@ -945,7 +963,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								imagemDoDialogo.setX(1234/2 - 400/2 - 30);
 								imagemDoDialogo.setY(70);
 								
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 								
 								txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[2][0]);
 								txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[2][1]);
@@ -953,7 +971,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[2][3]);
 								
 							} else {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor3.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor3.png");
 								
 								txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[1][0]);
 								txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[1][1]);
@@ -969,15 +987,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							bntNaoDialogo.setY(530);
 							
 							txtDialogoLn1.setX(470);
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemRexthor2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 							
 							txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[3][0]);
 							txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[3][1]);
 							txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[3][2]);
 							txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[3][3]);
 							
-							bntSimDialogo.load("res\\escolhaDeAdversario\\tibarCoroa3.png");
-							bntNaoDialogo.load("res\\escolhaDeAdversario\\tibarSemCoroa2.png");
+							bntSimDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\tibarCoroa3.png");
+							bntNaoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\tibarSemCoroa2.png");
 						
 						} else if(contDialogo == 4){
 							imagemDoDialogo.setY(120);
@@ -988,7 +1006,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							boolean tibar = aleatorioTibar.nextInt(2)== 0 ? true : false;
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + ".png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 							
 							if(tibarCoroa == tibar){
 								txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[4][0]);
@@ -1014,16 +1032,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							txtDialogoLn2.setX(210);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemIgnis.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoIgnis2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[3][0]);
 							txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[3][1]);
 							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[3][2]);
 							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[3][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 500/2 - 100);
@@ -1031,17 +1049,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo1.setY(20); objetoDeFundo1.setX(20);
 							txtDialogoLn2.setX(270);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemIgnis.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoIgnis.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoIgnis2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis1.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[0][1]);
 							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[0][2]);
 							txtDialogoLn3.setTexto(ignis.getConteudoEscolhaAdversario()[0][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 2){
 							bntSimDialogo.setImagem(null);
@@ -1049,7 +1067,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn2.setX(100);
 							
 							if(bntSimNao == true){
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemIgnis2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 								
 								txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[1][0]);
 								txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[1][1]);
@@ -1058,7 +1076,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								
 								mudaCorLn4 = true;
 							} else {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemIgnis3.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis3.png");
 								
 								txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[2][0]);
 								txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[2][1]);
@@ -1077,17 +1095,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
 							txtDialogoLn2.setX(445);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki4.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoKiki.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoKiki2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
 							txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[4][2]);
 							txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[4][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 300/2);
@@ -1095,24 +1113,24 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
 							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoKiki.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoKiki2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[0][1]);
 							txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[0][2]);
 							txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[0][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 2){
 							bntSimDialogo.setImagem(null);
 							bntNaoDialogo.setImagem(null);
 							
 							if(bntSimNao == true){
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 								
 								txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[3][0]);
 								txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[3][1]);
@@ -1120,7 +1138,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[3][3]);
 								mudaCorLn4 = true;
 							} else {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki3.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 								
 								txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[1][0]);
 								txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[1][1]);
@@ -1128,7 +1146,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[1][3]);
 							}
 						} else if(contDialogo == 3 && bntSimNao == false){
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemKiki2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 							
 							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[2][0]);
 							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[2][1]);
@@ -1145,15 +1163,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo1.setX(50); objetoDeFundo1.setY(60);
 							objetoDeFundo2.setX(50); objetoDeFundo2.setY(50);
 							objetoDeFundo3.setX(1234 - 250 - 50); objetoDeFundo3.setY(64);
-							objetoDeFundo4.setX(1234 - 250 - 50); objetoDeFundo4.setY(54);
+							objetoDeFundo4.setX(1234 - 250 - 45); objetoDeFundo4.setY(54);
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemAyla3.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoAyla10.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoAyla11.png");
-							objetoDeFundo3.load("res\\escolhaDeAdversario\\objetoAyla20.png");
-							objetoDeFundo4.load("res\\escolhaDeAdversario\\objetoAyla21.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla3.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
+							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
+							objetoDeFundo4.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
 							txtDialogoLn2.setX(365);
 							
@@ -1162,14 +1180,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[6][2]);
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[6][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 						}else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 840/2);
 							imagemDoDialogo.setY(40);
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemMutuca.png");
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoMutuca.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoMutuca2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
 							
 							txtDialogoLn4.setX(1234 - 534);
 							
@@ -1185,8 +1201,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[1][2]);
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[1][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 						} else if(contDialogo == 3) {
 							
 							bntSimDialogo.setImagem(null);
@@ -1199,7 +1215,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[2][3]);
 								
 							} else {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemMutuca2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca2.png");
 								
 								txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][0]);
 								txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[3][1]);
@@ -1213,16 +1229,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo1.setX(50); objetoDeFundo1.setY(60);
 							objetoDeFundo2.setX(50); objetoDeFundo2.setY(50);
 							objetoDeFundo3.setX(1234 - 250 - 50); objetoDeFundo3.setY(64);
-							objetoDeFundo4.setX(1234 - 250 - 50); objetoDeFundo4.setY(54);
+							objetoDeFundo4.setX(1234 - 250 - 45); objetoDeFundo4.setY(54);
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemAyla.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
 							
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoAyla10.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoAyla11.png");
-							objetoDeFundo3.load("res\\escolhaDeAdversario\\objetoAyla20.png");
-							objetoDeFundo4.load("res\\escolhaDeAdversario\\objetoAyla21.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
+							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
+							objetoDeFundo4.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
 							txtDialogoLn2.setX(100);
 							
@@ -1233,7 +1249,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 						} else if(contDialogo == 5) {
 							txtDialogoLn4.setX(100);
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemAyla2.png");	
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");	
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[5][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[5][1]);
@@ -1252,18 +1268,18 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							txtDialogoLn2.setX(330);
 
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemArius.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
 							
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoArius.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoArius2.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[4][1]);
 							txtDialogoLn3.setTexto(arius.getConteudoEscolhaAdversario()[4][2]);
 							txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[4][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 						} else if(contDialogo == 1) {
 							
 							objetoDeFundo1.setX(16); objetoDeFundo1.setY(240);
@@ -1271,10 +1287,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							imagemDoDialogo.setX(1234/2 - 462/2);
 							imagemDoDialogo.setY(20);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemArius.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
 							
-							objetoDeFundo1.load("res\\escolhaDeAdversario\\objetoArius.png");
-							objetoDeFundo2.load("res\\escolhaDeAdversario\\objetoArius2.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto1.png");
+							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[0][1]);
@@ -1289,8 +1305,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn3.setTexto(arius.getConteudoEscolhaAdversario()[1][2]);
 							txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[1][3]);
 							
-							bntSimDialogo.load("res\\Menu\\bntSim.png");
-							bntNaoDialogo.load("res\\Menu\\bntNao2.png");
+							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 							
 						} else if(contDialogo == 3) {
 							bntSimDialogo.setImagem(null);
@@ -1298,7 +1314,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn2.setX(100);
 							
 							if(bntSimNao == true) {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemArius2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
 								
 								txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[2][0]);
 								txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[2][1]);
@@ -1307,7 +1323,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								
 								mudaCorLn4 = true;
 							} else {
-								imagemDoDialogo.load("res\\escolhaDeAdversario\\imagemArius3.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius3.png");
 								
 								txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[3][0]);
 								txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[3][1]);
@@ -1322,31 +1338,21 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						imagemDoDialogo.setX(1234/2 - 400/2);
 						imagemDoDialogo.setY(10);
 						
-						if(derrotados[0] == false || derrotados[1] == false || derrotados[2] == false || derrotados[3] == false || derrotados[4] == false) {
+						if(derrotados[0] == true || derrotados[1] == true || derrotados[2] == true || derrotados[3] == true || derrotados[4] == true) {
 							
-							txtDialogoLn2.setX(470);
-							txtDialogoLn3.setX(312);
-							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\cadeadoGrande1.png");
-							
-							txtDialogoLn1.setTexto(" ");
-							txtDialogoLn2.setTexto("Esta batalha está trancada!");
-							txtDialogoLn3.setTexto("Vença primeiro os 5 Cães das Colinas antes de prosseguir");
-							txtDialogoLn4.setTexto(" ");
-						} else {
 							txtDialogoLn1.setX(184);
 							txtDialogoLn2.setX(296);
 							txtDialogoLn4.setX(290);
 							
-							imagemDoDialogo.load("res\\escolhaDeAdversario\\cadeadoGrande2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\cadeadoGrande1.png");
 							
 							txtDialogoLn1.setTexto("Parabéns!!! você conseguiu vencer os 5 Cães das Colinas, infelizmente o jogo não");
 							txtDialogoLn2.setTexto("esta completo ainda e você terá que esperar um pouco mais.");
 							txtDialogoLn3.setTexto(" ");
 							txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");
 							
-							estrelaFim1.load("res\\escolhaDeAdversario\\estrela2.png");
-							estrelaFim2.load("res\\escolhaDeAdversario\\estrela3.png");
+							estrelaFim1.load(caminho + "res\\Creditos\\estrela3.png");
+							estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
 							
 						}
 					 break;
@@ -1357,13 +1363,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && bntSimNao == true && barraDeDialogo.getImagem() != null) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				int [] organizandoAventureiro = {1, 3, 2, 4, 0, 5};
 				
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
-		        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2);
+		        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho);
 		        janelaPrincipal.add(tela3);
 		        janelaPrincipal.setTitle("Batalha");
 		        janelaPrincipal.revalidate();
@@ -1372,7 +1378,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		        limparDialogo();
 				
 		        contTeclaBatalha = 0;
-		        iconeRexthor.load("res\\escolhaDeAdversario\\rexthor2.png");
 			}
 			
 			
@@ -1435,16 +1440,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 		if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 5) {
-			iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "0.png");
+			iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "0.png");
 			
 			if(aventureiro == 1) {
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla10.png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla10.png");
 			}
 		} else {
-			iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "5.png");
+			iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "5.png");
 			
 			if(aventureiro == 1) {
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla14.png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla14.png");
 			}
 		}
 	}
@@ -1498,19 +1503,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void mostrarEstrela() {
 	
 		if(derrotados[0] == true) {
-			iconeIgnis.load("res\\escolhaDeAdversario\\simbolo ignis.png");
+			iconeIgnis.load(caminho + "res\\Insignia\\simbolo ignis.png");
 		} 
 		if(derrotados[1] == true) {
-			iconeAyla.load("res\\escolhaDeAdversario\\simbolo ayla.png");
+			iconeAyla.load(caminho + "res\\Insignia\\simbolo ayla.png");
 		} 
 		if(derrotados[2] == true) {
-			iconeRexthor.load("res\\escolhaDeAdversario\\simbolo rexthor.png");
+			iconeRexthor.load(caminho + "res\\Insignia\\simbolo rexthor.png");
 		} 
 		if(derrotados[3] == true) {
-			iconeKiki.load("res\\escolhaDeAdversario\\simbolo kiki.png");
+			iconeKiki.load(caminho + "res\\Insignia\\simbolo kiki.png");
 		} 
 		if(derrotados[4] == true) {
-			iconeArius.load("res\\escolhaDeAdversario\\simbolo arius.png");
+			iconeArius.load(caminho + "res\\Insignia\\simbolo arius.png");
 		} 
 			
 		if(derrotados[0] == true && derrotados[1] == true && derrotados[2] == true && derrotados[3] == true && derrotados[4] == true) {
@@ -1663,29 +1668,29 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(aventureiro != 1 && aventureiro != 3) {
 			
 			if(contTempo % 70 == 0) {
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "1" : "6") + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "1" : "6") + ".png");
 			} else if((contTempo - 35) % 70 == 0) {
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "0" : "5") + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "0" : "5") + ".png");
 			}
 		
 		}else if(aventureiro == 3) {
 			
 			if(contTempo % 20 == 0) {
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\kiki" + (num < 5 ? "1" : "6") + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\kiki" + (num < 5 ? "1" : "6") + ".png");
 			}else if((contTempo - 10) % 20 == 0) {
-					iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\kiki" + (num < 5 ? "0" : "5") + ".png");
+					iconeAventureiro.load(caminho + "res\\Bonequinho\\kiki" + (num < 5 ? "0" : "5") + ".png");
 			}
 			
 		} else {
 			
 			if(contTempo % 30 == 0 || (contTempo - 10) % 30 == 0) {
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (num < 5 ? "1" : "6") + ".png");
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (num < 5 ? "11" : "15") + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "1" : "6") + ".png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "11" : "15") + ".png");
 				iconeAventureiro.setY(iconeAventureiro.getY() - 7);
 				
 			} else if((contTempo - 5) % 30 == 0 || (contTempo - 14) % 30 == 0 || (contTempo - 18) % 30 == 0 || (contTempo - 22) % 30 == 0 || (contTempo - 26) % 30 == 0) {
-				iconeAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (num < 5 ? "0" : "5") + ".png");
-				iconeSombraAventureiro.load("res\\EscolhaDeAdversario\\iconeAventureiros\\ayla" + (num < 5 ? "10" : "14") + ".png");
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "0" : "5") + ".png");
+				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "10" : "14") + ".png");
 				
 				if ((contTempo - 5) % 30 == 0) {
 					iconeAventureiro.setY(iconeAventureiro.getY() - 2);
@@ -1707,13 +1712,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			teclaDireita.setX(teclaDireita.getX() + (animarApertoTecla == false ? -5 : 5));
 			
 			if(teclaZ.getImagem() != null) {
-				teclaZ.load("res\\Menu\\teclaZ" + (animarApertoTecla == false ? "" : "2") + ".png");
+				teclaZ.load(caminho + "res\\Teclado\\teclaZ" + (animarApertoTecla == false ? "1" : "2") + ".png");
 			}
 			
 		}
 		
 
-		if(iconeAyla.getImagem() != null) {
+		if(iconeIgnis.getImagem() != null || iconeAyla.getImagem() != null || iconeRexthor.getImagem() != null || iconeKiki.getImagem() != null || iconeArius.getImagem() != null) {
 			
 			if(contTempo % 5 == 0) {
 				iconeIgnis.setY(iconeIgnis.getY() + (animarIconeAventureiro == false ? 1 : -1));
@@ -1750,17 +1755,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}
 			
 			if(contMenSalvar == 30) {
-				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar3.png");
+				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
 			} else if(contMenSalvar == 34) {
 				imgMenSalve2.setImagem(null);
 			}
 			
 			if(contMenSalvar == 70) {
-				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar3.png");
+				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
 			}
 			
 			if(contMenSalvar == 72) {
-				imgMenSalve2.load("res\\EscolhaDeAdversario\\salvar2.png");
+				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar2.png");
 				contConteudoSalvar --;
 			}
 			
@@ -1836,12 +1841,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 		timer.start();
 	}
 	
 	public void setNumAdversarioAnterior(int NumAdversarioAnterior) {
 		this.contTeclaBatalha = (NumAdversarioAnterior == 0 ? 8 : (NumAdversarioAnterior == 1 ? 0 : (NumAdversarioAnterior == 2 ? 4 : (NumAdversarioAnterior == 3 ? 2 : (NumAdversarioAnterior == 4 ? 6 : 12)))));
 	}
+	
 	
 }

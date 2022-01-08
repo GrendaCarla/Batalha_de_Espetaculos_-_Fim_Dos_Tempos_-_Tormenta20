@@ -54,6 +54,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private int contTempoApelo = 0;
 	private int contTempoInter = 10;
 	
+	private String caminho;
+	
 	// ------------------------------------- imagens do menu ---------------------------------------
 	
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
@@ -137,7 +139,7 @@ public class Batalha extends JPanel implements ActionListener {
 
 	// ------------------------ divisões da tela de batalha -------------------------
 	
-	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 4);
+	private Icones_interativos animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 	
 	private Icones_interativos campoBatalha1 = new Icones_interativos(tamanhoContorno + 760 + 4, tamanhoContorno + 2 + 4);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
@@ -257,7 +259,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private int selecaoNomeHab = 0;
 	private int nomeHabAnterior = 4;
 	
-	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, tamanhoContorno + 2 + 370);
+	private Icones_interativos painel1 = new Icones_interativos(tamanhoContorno - 2, tamanhoContorno + 2 + 365);
 	
 	// ----------------------- itens relacionado com Apelo -----------------------------------
 	
@@ -308,6 +310,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos imgDado5 = new Icones_interativos(imgDado4.getX() + 120, imgDado1.getY());
 	
 	// ------------------------------------------------------------------
+	
+	private Icones_interativos mascara = new Icones_interativos(0,0);
 
 	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl15, tl16, tl17, tl19, tl20, tl21;
 	
@@ -317,25 +321,26 @@ public class Batalha extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Batalha(int numAventureiro, int numAdversario, Escolha_de_adversario PaginaAnterior, Menu PaginaMenu, boolean Engrenagem2) {
+	public Batalha(int numAventureiro, int numAdversario, Escolha_de_adversario PaginaAnterior, Menu PaginaMenu, boolean Engrenagem2, String Caminho) {
 		
 		this.tela2 = PaginaAnterior;
 		aventureiro = numAventureiro;
 		adversario = numAdversario;
 		this.telaMenu = PaginaMenu;
 		contEngranagem2 = Engrenagem2;
+		this.caminho = Caminho;
 
 		
 		arrumarListaAventureiros();
 		
-		contorno.load("res\\contorno.png");
+		contorno.load(caminho + "res\\contorno.png");
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
+		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\fundo.png");
-		engrenagem1.load("res\\engrenagem1.png");
+		fundo2.load(caminho + "res\\fundo.png");
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 		
 		parabenizacaoVencedor = new Icones_interativos(16, 16);
 		
@@ -347,43 +352,42 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// ------------------------ divisões da tela de batalha -------------------------
 
-		animacao.load("res\\batalha\\animacao.png");
+		animacao.load(caminho + "res\\batalha\\animacao.png");
 		
-		campoBatalha1.load("res\\batalha\\campoBatalha.png");
-		campoBatalha2.load("res\\batalha\\campoBatalha.png");
-		campoBatalha3.load("res\\batalha\\campoBatalha.png");
-		campoBatalha4.load("res\\batalha\\campoBatalha.png");
-		campoBatalha5.load("res\\batalha\\campoBatalha.png");
+		campoBatalha1.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha2.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha3.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha4.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha5.load(caminho + "res\\batalha\\campoBatalha.png");
 		
-		nomeHabilidade1.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\nomeHabilidadeSelecionado.png");
-		nomeHabilidade2.load("res\\batalha\\nomeHabilidade.png");
-		nomeHabilidade3.load("res\\batalha\\nomeHabilidade.png");
-		nomeHabilidade4.load("res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade1.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\nomeHabilidadeSelecionado.png");
+		nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade3.load(caminho + "res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
 		
-		apelo.load("res\\batalha\\infoApelo.png");
+		apelo.load(caminho + "res\\batalha\\infoApelo.png");
 
-		descricao.load("res\\batalha\\descricao.png");
+		descricao.load(caminho + "res\\batalha\\descricao.png");
 				
 		// ---------------------- itens relacionados com campo de batalha --------------------------
 		
 		repintarCampoBatalha();
-		seletorAventureiro.load("res\\batalha\\seletorAventureiro.png");
+		seletorAventureiro.load(caminho + "res\\batalha\\seletorAventureiro.png");
 		
-		luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha4.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha5.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 		
 		apagarCoracoes();
-		//mostrarCoracoes();
-		coracao01.load("res\\batalha\\apelo.png");
-		coracao02.load("res\\batalha\\apelo.png");
-		coracao03.load("res\\batalha\\apelo.png");
-		coracao04.load("res\\batalha\\apelo.png");
-		coracao05.load("res\\batalha\\apelo.png");
+		coracao01.load(caminho + "res\\batalha\\apelo.png");
+		coracao02.load(caminho + "res\\batalha\\apelo.png");
+		coracao03.load(caminho + "res\\batalha\\apelo.png");
+		coracao04.load(caminho + "res\\batalha\\apelo.png");
+		coracao05.load(caminho + "res\\batalha\\apelo.png");
 		
-		painel4.load("res\\batalha\\painel4.png");
+		painel4.load(caminho + "res\\batalha\\painel4.png");
 		
 		txtEfeitoFase.setCorTexto(Color.white);
 		
@@ -394,7 +398,7 @@ public class Batalha extends JPanel implements ActionListener {
 		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 28, nomeHabilidade3.getY() + 54/2 + 5, NomeApelos[aventureiro][2]);
 		nomeApelo4 = new Texto(nomeHabilidade4.getX() + 28, nomeHabilidade4.getY() + 54/2 + 5, NomeApelos[aventureiro][3]);
 		
-		painel1.load("res\\batalha\\painel1.png");
+		painel1.load(caminho + "res\\batalha\\painel1.png");
 		
 		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
 		nomeApelo1.setCorTexto((aventureiro == 0 ? (new Color (255, 60, 0)) : (aventureiro == 1 ? (new Color (255, 0, 191)) : (aventureiro == 2 ? (new Color (0, 134, 255)) : (aventureiro == 3 ? (new Color (0, 255, 141)) : (new Color (255, 0, 38)))))));
@@ -430,7 +434,7 @@ public class Batalha extends JPanel implements ActionListener {
 		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
 		InterferenciaQuantidade.setFonte(apeloQuantidade.getFonte());
 
-		painel2.load("res\\batalha\\painel2.png");
+		painel2.load(caminho + "res\\batalha\\painel2.png");
 		
 		itensDoApelo();
 		
@@ -454,9 +458,11 @@ public class Batalha extends JPanel implements ActionListener {
 		textoDescricao4.setCorTexto(textoDescricao1.getCorTexto()); 
 		textoDescricao5.setCorTexto(new Color (165, 1, 67));
 		
-		painel3.load("res\\batalha\\painel3.png");
+		painel3.load(caminho + "res\\batalha\\painel3.png");
 		
 		// ------------------------------------------------------------------------
+		
+		mascara.load(caminho + "res\\batalha\\mascara.png");
 
 		timer = new Timer(5, this);
 		timer.start();
@@ -485,20 +491,20 @@ public class Batalha extends JPanel implements ActionListener {
 	}
 	
 	public void mostrarCoracoes() {
-		coracao11.load("res\\batalha\\interferencia.png"); coracao12.load("res\\batalha\\interferencia.png"); coracao13.load("res\\batalha\\interferencia.png"); coracao14.load("res\\batalha\\interferencia.png"); coracao15.load("res\\batalha\\interferencia.png");
-		coracao16.load("res\\batalha\\interferencia.png"); coracao17.load("res\\batalha\\interferencia.png"); coracao18.load("res\\batalha\\interferencia.png"); coracao19.load("res\\batalha\\interferencia.png"); coracao110.load("res\\batalha\\interferencia.png");
+		coracao11.load(caminho + "res\\batalha\\interferencia.png"); coracao12.load(caminho + "res\\batalha\\interferencia.png"); coracao13.load(caminho + "res\\batalha\\interferencia.png"); coracao14.load(caminho + "res\\batalha\\interferencia.png"); coracao15.load(caminho + "res\\batalha\\interferencia.png");
+		coracao16.load(caminho + "res\\batalha\\interferencia.png"); coracao17.load(caminho + "res\\batalha\\interferencia.png"); coracao18.load(caminho + "res\\batalha\\interferencia.png"); coracao19.load(caminho + "res\\batalha\\interferencia.png"); coracao110.load(caminho + "res\\batalha\\interferencia.png");
 		
-		coracao21.load("res\\batalha\\interferencia.png"); coracao22.load("res\\batalha\\interferencia.png"); coracao23.load("res\\batalha\\interferencia.png"); coracao24.load("res\\batalha\\interferencia.png"); coracao25.load("res\\batalha\\interferencia.png");
-		coracao26.load("res\\batalha\\interferencia.png"); coracao27.load("res\\batalha\\interferencia.png"); coracao28.load("res\\batalha\\interferencia.png"); coracao29.load("res\\batalha\\interferencia.png"); coracao210.load("res\\batalha\\interferencia.png");
+		coracao21.load(caminho + "res\\batalha\\interferencia.png"); coracao22.load(caminho + "res\\batalha\\interferencia.png"); coracao23.load(caminho + "res\\batalha\\interferencia.png"); coracao24.load(caminho + "res\\batalha\\interferencia.png"); coracao25.load(caminho + "res\\batalha\\interferencia.png");
+		coracao26.load(caminho + "res\\batalha\\interferencia.png"); coracao27.load(caminho + "res\\batalha\\interferencia.png"); coracao28.load(caminho + "res\\batalha\\interferencia.png"); coracao29.load(caminho + "res\\batalha\\interferencia.png"); coracao210.load(caminho + "res\\batalha\\interferencia.png");
 		
-		coracao31.load("res\\batalha\\interferencia.png"); coracao32.load("res\\batalha\\interferencia.png"); coracao33.load("res\\batalha\\interferencia.png"); coracao34.load("res\\batalha\\interferencia.png"); coracao35.load("res\\batalha\\interferencia.png");
-		coracao36.load("res\\batalha\\interferencia.png"); coracao37.load("res\\batalha\\interferencia.png"); coracao38.load("res\\batalha\\interferencia.png"); coracao39.load("res\\batalha\\interferencia.png"); coracao310.load("res\\batalha\\interferencia.png");
+		coracao31.load(caminho + "res\\batalha\\interferencia.png"); coracao32.load(caminho + "res\\batalha\\interferencia.png"); coracao33.load(caminho + "res\\batalha\\interferencia.png"); coracao34.load(caminho + "res\\batalha\\interferencia.png"); coracao35.load(caminho + "res\\batalha\\interferencia.png");
+		coracao36.load(caminho + "res\\batalha\\interferencia.png"); coracao37.load(caminho + "res\\batalha\\interferencia.png"); coracao38.load(caminho + "res\\batalha\\interferencia.png"); coracao39.load(caminho + "res\\batalha\\interferencia.png"); coracao310.load(caminho + "res\\batalha\\interferencia.png");
 		
-		coracao41.load("res\\batalha\\interferencia.png"); coracao42.load("res\\batalha\\interferencia.png"); coracao43.load("res\\batalha\\interferencia.png"); coracao44.load("res\\batalha\\interferencia.png"); coracao45.load("res\\batalha\\interferencia.png");
-		coracao46.load("res\\batalha\\interferencia.png"); coracao47.load("res\\batalha\\interferencia.png"); coracao48.load("res\\batalha\\interferencia.png"); coracao49.load("res\\batalha\\interferencia.png"); coracao410.load("res\\batalha\\interferencia.png");
+		coracao41.load(caminho + "res\\batalha\\interferencia.png"); coracao42.load(caminho + "res\\batalha\\interferencia.png"); coracao43.load(caminho + "res\\batalha\\interferencia.png"); coracao44.load(caminho + "res\\batalha\\interferencia.png"); coracao45.load(caminho + "res\\batalha\\interferencia.png");
+		coracao46.load(caminho + "res\\batalha\\interferencia.png"); coracao47.load(caminho + "res\\batalha\\interferencia.png"); coracao48.load(caminho + "res\\batalha\\interferencia.png"); coracao49.load(caminho + "res\\batalha\\interferencia.png"); coracao410.load(caminho + "res\\batalha\\interferencia.png");
 		
-		coracao51.load("res\\batalha\\interferencia.png"); coracao52.load("res\\batalha\\interferencia.png"); coracao53.load("res\\batalha\\interferencia.png"); coracao54.load("res\\batalha\\interferencia.png"); coracao55.load("res\\batalha\\interferencia.png");
-		coracao56.load("res\\batalha\\interferencia.png"); coracao57.load("res\\batalha\\interferencia.png"); coracao58.load("res\\batalha\\interferencia.png"); coracao59.load("res\\batalha\\interferencia.png"); coracao510.load("res\\batalha\\interferencia.png");
+		coracao51.load(caminho + "res\\batalha\\interferencia.png"); coracao52.load(caminho + "res\\batalha\\interferencia.png"); coracao53.load(caminho + "res\\batalha\\interferencia.png"); coracao54.load(caminho + "res\\batalha\\interferencia.png"); coracao55.load(caminho + "res\\batalha\\interferencia.png");
+		coracao56.load(caminho + "res\\batalha\\interferencia.png"); coracao57.load(caminho + "res\\batalha\\interferencia.png"); coracao58.load(caminho + "res\\batalha\\interferencia.png"); coracao59.load(caminho + "res\\batalha\\interferencia.png"); coracao510.load(caminho + "res\\batalha\\interferencia.png");
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -508,7 +514,7 @@ public class Batalha extends JPanel implements ActionListener {
 	public void repintarCampoBatalha() {
 		
 		for(int i=0; i<5; i++) {
-			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
+			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
 		}
 		
 		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 1);		
@@ -563,11 +569,11 @@ public class Batalha extends JPanel implements ActionListener {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			dialogoAviso.load("res\\Menu\\dialogo.png");
-			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar a luta será encerrada.");
@@ -579,21 +585,21 @@ public class Batalha extends JPanel implements ActionListener {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 			
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
-			bntSimDialogoAviso.load("res\\Menu\\bntSim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
 		
 		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
 				dialogoAviso.setImagem(null);
-				bntSimDialogoAviso.load(null);
-				bntNaoDialogoAviso.load(null);
+				bntSimDialogoAviso.setImagem(null);
+				bntNaoDialogoAviso.setImagem(null);
 				
 				txtDialogoAviso.setTexto(" ");
 				txtDialogoAviso2.setTexto(" ");
@@ -605,7 +611,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
 		        telaMenu.setContEngranagem2(contEngranagem2);
-		        telaMenu.valorLeituraSave = salvar.LerDados();
+		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 		        telaMenu.Restaurar();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
@@ -622,11 +628,11 @@ public class Batalha extends JPanel implements ActionListener {
 		if(codigo == KeyEvent.VK_Z ) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaManual = new Manual(contEngranagem2);
+	        telaManual = new Manual(contEngranagem2, caminho);
 	        
 	        telaManual.setTela3(this);
 	        
@@ -646,11 +652,11 @@ public class Batalha extends JPanel implements ActionListener {
 
 		if(codigo == KeyEvent.VK_Z ) {
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
-	        telaCreditos = new Creditos(contEngranagem2);
+	        telaCreditos = new Creditos(contEngranagem2, caminho);
 	        telaCreditos.setTela3(this);
 	        janelaPrincipal.add(telaCreditos);
 	        janelaPrincipal.setTitle("Creditos3");
@@ -667,11 +673,11 @@ public class Batalha extends JPanel implements ActionListener {
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			dialogoAviso.load("res\\Menu\\dialogo.png");
-			bntSimDialogoAviso.load("res\\Menu\\bntSim.png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntNao2.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
 			txtDialogoAviso.setTexto("Se você voltar a luta será encerrada.");
@@ -683,17 +689,17 @@ public class Batalha extends JPanel implements ActionListener {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 			
 			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
 			
-			bntSimDialogoAviso.load("res\\Menu\\bntsim" + (bntSimNaoDialgoAviso == true ? "" : "2") + ".png");
-			bntNaoDialogoAviso.load("res\\Menu\\bntnao" + (bntSimNaoDialgoAviso == true ? "2" : "") + ".png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntsim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntnao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
 			
 		} else if(dialogoAviso.getImagem() != null && (codigo == KeyEvent.VK_X || (codigo == KeyEvent.VK_Z && bntSimNaoDialgoAviso == false))) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			dialogoAviso.setImagem(null);
 			bntSimDialogoAviso.setImagem(null);
@@ -706,7 +712,7 @@ public class Batalha extends JPanel implements ActionListener {
 		}else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() != null) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
@@ -725,7 +731,8 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void itensDoApelo() {
-		tipoDoApelo.load("res\\batalha\\" + ((aventureiro == 0 ? apeloIgnis[3][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[3][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[3][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[3][selecaoNomeHab] : apeloArius[3][selecaoNomeHab])))) == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
+		
+		tipoDoApelo.load(caminho + "res\\batalha\\" + ((aventureiro == 0 ? apeloIgnis[3][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[3][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[3][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[3][selecaoNomeHab] : apeloArius[3][selecaoNomeHab])))) == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
 		
 		apeloApelo1.setImagem(null); apeloApelo2.setImagem(null); apeloApelo3.setImagem(null); apeloApelo4.setImagem(null); apeloApelo5.setImagem(null);
 		apeloApelo6.setImagem(null); apeloApelo7.setImagem(null); apeloApelo8.setImagem(null); apeloApelo9.setImagem(null); apeloApelo10.setImagem(null);
@@ -734,47 +741,47 @@ public class Batalha extends JPanel implements ActionListener {
 		apeloInterf6.setImagem(null); apeloInterf7.setImagem(null); apeloInterf8.setImagem(null); apeloInterf9.setImagem(null); apeloInterf10.setImagem(null);
 		
 		if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 1) {
-			apeloApelo1.load("res\\batalha\\apelo.png");
+			apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
 			if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 2) {
-				apeloApelo2.load("res\\batalha\\apelo.png");
+				apeloApelo2.load(caminho + "res\\batalha\\apelo.png");
 				if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 3) {
-					apeloApelo3.load("res\\batalha\\apelo.png");
+					apeloApelo3.load(caminho + "res\\batalha\\apelo.png");
 					if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 4) {
-						apeloApelo4.load("res\\batalha\\apelo.png");
+						apeloApelo4.load(caminho + "res\\batalha\\apelo.png");
 						if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 5) {
-							apeloApelo5.load("res\\batalha\\apelo.png");
+							apeloApelo5.load(caminho + "res\\batalha\\apelo.png");
 							if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 6) {
-								apeloApelo6.load("res\\batalha\\apelo.png");
+								apeloApelo6.load(caminho + "res\\batalha\\apelo.png");
 								if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 7) {
-									apeloApelo7.load("res\\batalha\\apelo.png");
+									apeloApelo7.load(caminho + "res\\batalha\\apelo.png");
 									if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 8) {
-										apeloApelo8.load("res\\batalha\\apelo.png");
+										apeloApelo8.load(caminho + "res\\batalha\\apelo.png");
 										if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 9) {
-											apeloApelo9.load("res\\batalha\\apelo.png");
+											apeloApelo9.load(caminho + "res\\batalha\\apelo.png");
 											if((aventureiro == 0 ? apeloIgnis[0][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[0][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[0][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[0][selecaoNomeHab] : apeloArius[0][selecaoNomeHab])))) >= 10) {
-												apeloApelo10.load("res\\batalha\\apelo.png");
+												apeloApelo10.load(caminho + "res\\batalha\\apelo.png");
 		}}}}}}}}}}
 		
 		if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 1) {
-			apeloInterf1.load("res\\batalha\\interferencia.png");
+			apeloInterf1.load(caminho + "res\\batalha\\interferencia.png");
 			if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 2) {
-				apeloInterf2.load("res\\batalha\\interferencia.png");
+				apeloInterf2.load(caminho + "res\\batalha\\interferencia.png");
 				if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 3) {
-					apeloInterf3.load("res\\batalha\\interferencia.png");
+					apeloInterf3.load(caminho + "res\\batalha\\interferencia.png");
 					if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 4) {
-						apeloInterf4.load("res\\batalha\\interferencia.png");
+						apeloInterf4.load(caminho + "res\\batalha\\interferencia.png");
 						if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 5) {
-							apeloInterf5.load("res\\batalha\\interferencia.png");
+							apeloInterf5.load(caminho + "res\\batalha\\interferencia.png");
 							if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 6) {
-								apeloInterf6.load("res\\batalha\\interferencia.png");
+								apeloInterf6.load(caminho + "res\\batalha\\interferencia.png");
 								if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 7) {
-									apeloInterf7.load("res\\batalha\\interferencia.png");
+									apeloInterf7.load(caminho + "res\\batalha\\interferencia.png");
 									if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 8) {
-										apeloInterf8.load("res\\batalha\\interferencia.png");
+										apeloInterf8.load(caminho + "res\\batalha\\interferencia.png");
 										if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 9) {
-											apeloInterf9.load("res\\batalha\\interferencia.png");
+											apeloInterf9.load(caminho + "res\\batalha\\interferencia.png");
 											if((aventureiro == 0 ? apeloIgnis[1][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[1][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[1][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[1][selecaoNomeHab] : apeloArius[1][selecaoNomeHab])))) >= 10) {
-												apeloInterf10.load("res\\batalha\\interferencia.png");
+												apeloInterf10.load(caminho + "res\\batalha\\interferencia.png");
 		}}}}}}}}}}
 	}
 	
@@ -793,18 +800,18 @@ public class Batalha extends JPanel implements ActionListener {
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				mostrarMenu = !mostrarMenu;
 				
 				if(mostrarMenu == true) {
 					contMenu = 0;
-					sombreadorMenu.load("res\\Menu\\sombreador.png");
-					fundoMenu.load("res\\Menu\\menu.png");
-					bntMenu.load("res\\Menu\\bntMenu2.png");
-					bntManual.load("res\\Menu\\bntManual1.png");
-					bntVoltar.load("res\\Menu\\bntVoltar1.png");
-					bntCreditos.load("res\\Menu\\bntCreditos1.png");
+					sombreadorMenu.load(caminho + "res\\sombreador.png");
+					fundoMenu.load(caminho + "res\\Menu secundario\\menu.png");
+					bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
+					bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+					bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar1.png");
+					bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 					
 				} else {
 					sombreadorMenu.setImagem(null);
@@ -823,7 +830,7 @@ public class Batalha extends JPanel implements ActionListener {
 					contEngranagem1 = 1;
 				} else {contEngranagem1 ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 				
 				if(codigo == KeyEvent.VK_UP) {
 					if(contMenu == 0) {contMenu = 3;} else {contMenu --;}
@@ -831,24 +838,23 @@ public class Batalha extends JPanel implements ActionListener {
 					if(contMenu == 3) {contMenu = 0;} else {contMenu ++;}
 				}
 				
-				bntMenu.load("res\\Menu\\bntMenu1.png");
-				bntManual.load("res\\Menu\\bntManual1.png");
-				bntVoltar.load("res\\Menu\\bntVoltar1.png");
-				bntCreditos.load("res\\Menu\\bntCreditos1.png");
+				bntMenu.load(caminho + "res\\Menu secundario\\bntMenu1.png");
+				bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
+				bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar1.png");
+				bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");
 
-				
 				switch (contMenu) {
 					case 0:
-						bntMenu.load("res\\Menu\\bntMenu2.png");
+						bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
 						break;
 					case 1:
-						bntManual.load("res\\Menu\\bntManual2.png");
+						bntManual.load(caminho + "res\\Menu secundario\\bntManual2.png");
 						break;
 					case 2:
-						bntCreditos.load("res\\Menu\\bntCreditos2.png");
+						bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos2.png");
 						break;
 					case 3:
-						bntVoltar.load("res\\Menu\\bntVoltar2.png");
+						bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar2.png");
 						break;
 				}
 				
@@ -876,7 +882,7 @@ public class Batalha extends JPanel implements ActionListener {
 					contEngranagem1 = 1;
 				} else {contEngranagem1 ++;}
 				
-				engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 				
 				if(codigo == KeyEvent.VK_UP) {
 					if(selecaoNomeHab == 0) {selecaoNomeHab = 3;} 
@@ -889,23 +895,23 @@ public class Batalha extends JPanel implements ActionListener {
 				
 				itensDoApelo();
 				
-				nomeHabilidade1.load("res\\batalha\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-				nomeHabilidade2.load("res\\batalha\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-				nomeHabilidade3.load("res\\batalha\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-				nomeHabilidade4.load("res\\batalha\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+				nomeHabilidade1.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+				nomeHabilidade2.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+				nomeHabilidade3.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+				nomeHabilidade4.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
 				
 				switch (selecaoNomeHab) {
 				case 0:
-					nomeHabilidade1.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
+					nomeHabilidade1.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 				    break;
 				case 1:
-					nomeHabilidade2.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
+					nomeHabilidade2.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 					break;
 				case 2:
-					nomeHabilidade3.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
+					nomeHabilidade3.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 				    break;
 				case 3:
-					nomeHabilidade4.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
+					nomeHabilidade4.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 				    break;
 				}
 				
@@ -919,7 +925,7 @@ public class Batalha extends JPanel implements ActionListener {
 			} else if(codigo == KeyEvent.VK_Z && contEtapasBatalha < 5 && comecarAnimacaoCoracao == 0 && mostrarMenu == false && dialogoAviso.getImagem() == null) {
 				
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				contEtapasBatalha++;
 				atualizarNomeHabili = false;
@@ -1114,7 +1120,7 @@ public class Batalha extends JPanel implements ActionListener {
 			} else if(codigo == KeyEvent.VK_Z && contEtapasBatalha == 6 ) {
 			
 				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
 				JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
@@ -1130,6 +1136,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        tela2.mostrarEstrela();
 		        tela2.LimparTela3();
 		        tela2.setContEngranagem2(contEngranagem2);
+		        tela2.SalvarJogo();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 			
@@ -1346,6 +1353,8 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(imgDado4.getImagem(), imgDado4.getX(), imgDado4.getY(), this);
 		graficos.drawImage(imgDado5.getImagem(), imgDado5.getX(), imgDado5.getY(), this);
 		
+		graficos.drawImage(mascara.getImagem(), mascara.getX(), mascara.getY(), this);
+		
 		// -----------------------------------------------------------------------------------------------
 		graficos.drawImage(parabenizacaoVencedor.getImagem(), parabenizacaoVencedor.getX(), parabenizacaoVencedor.getY(), this);
 		
@@ -1448,7 +1457,7 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj2.setImagem(null);
 				animacao.setX(tamanhoContorno);
 				animacao.setY(tamanhoContorno + 2);
-				animacao.load("res\\batalha\\animacao.png");					
+				animacao.load(caminho + "res\\batalha\\animacao.png");					
 			}
 		
 			
@@ -1498,15 +1507,15 @@ public class Batalha extends JPanel implements ActionListener {
 
 					if(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] < 10) {
 						if(animacaoFileira == 1) {
-							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao19 : coracao110))))))))).load("res\\batalha\\apelo.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao19 : coracao110))))))))).load(caminho + "res\\batalha\\apelo.png");
 						} else if(animacaoFileira == 3) {
-							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao29 : coracao210))))))))).load("res\\batalha\\apelo.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao29 : coracao210))))))))).load(caminho + "res\\batalha\\apelo.png");
 						} else if(animacaoFileira == 5) {	
-							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao39 : coracao310))))))))).load("res\\batalha\\apelo.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao39 : coracao310))))))))).load(caminho + "res\\batalha\\apelo.png");
 						} else if(animacaoFileira == 7) {
-							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao49 : coracao410))))))))).load("res\\batalha\\apelo.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao49 : coracao410))))))))).load(caminho + "res\\batalha\\apelo.png");
 						} else if(animacaoFileira == 9) {		
-							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao59 : coracao510))))))))).load("res\\batalha\\apelo.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]]== 8 ? coracao59 : coracao510))))))))).load(caminho + "res\\batalha\\apelo.png");
 						}
 						
 						pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] = pontosAtuaisDaRodada[ordemAventRodada[(animacaoFileira - 1 == 0 ? 0 : (animacaoFileira - 1) /2)]] + 1;
@@ -1517,8 +1526,6 @@ public class Batalha extends JPanel implements ActionListener {
 				}
 				
 			} else {
-				//vezDoAventureiro ++;
-				//animacaoFileira ++;
 				zerarDx();
 				animacaoFileira = 20;
 			}
@@ -1608,15 +1615,15 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					if(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] > -10) {
 						if(animacaoFileira == 11) {
-							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao19 : coracao110))))))))).load("res\\batalha\\interferencia.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao11 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao12 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao13 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao14 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao15 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao16 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao17 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao18 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao19 : coracao110))))))))).load(caminho + "res\\batalha\\interferencia.png");
 						} else if(animacaoFileira == 13) {
-							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao29 : coracao210))))))))).load("res\\batalha\\interferencia.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao21 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao22 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao23 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao24 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao25 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao26 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao27 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao28 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao29 : coracao210))))))))).load(caminho + "res\\batalha\\interferencia.png");
 						} else if(animacaoFileira == 15) {
-							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao39 : coracao310))))))))).load("res\\batalha\\interferencia.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao31 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao32 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao33 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao34 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao35 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao36 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao37 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao38 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao39 : coracao310))))))))).load(caminho + "res\\batalha\\interferencia.png");
 						} else if(animacaoFileira == 17) {
-							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao49 : coracao410))))))))).load("res\\batalha\\interferencia.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao41 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao42 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao43 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao44 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao45 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao46 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao47 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao48 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao49 : coracao410))))))))).load(caminho + "res\\batalha\\interferencia.png");
 						} else if(animacaoFileira == 19) {
-							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao59 : coracao510))))))))).load("res\\batalha\\interferencia.png");
+							(pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == 0 ? coracao51 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -1 ? coracao52 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -2 ? coracao53 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -3 ? coracao54 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -4 ? coracao55 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -5 ? coracao56 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -6 ? coracao57 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -7 ? coracao58 : (pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] == -8 ? coracao59 : coracao510))))))))).load(caminho + "res\\batalha\\interferencia.png");
 						}
 						
 						pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] = pontosAtuaisDaRodada[ordemAventRodada[animacaoFileira - 11 == 0 ? 0 : (animacaoFileira - 11)/2]] - 1;
@@ -1761,11 +1768,11 @@ public class Batalha extends JPanel implements ActionListener {
 			imgDado1.setDx(imgDado1.getDx() + 1);
 			
 			if(imgDado1.getDx() < 110) {
-				imgDado1.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] + ".png");
-				imgDado2.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] + ".png");
-				imgDado3.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] + ".png");
-				imgDado4.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] + ".png");
-				imgDado5.load("res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] + ".png");
+				imgDado1.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] + ".png");
+				imgDado2.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] + ".png");
+				imgDado3.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] + ".png");
+				imgDado4.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] + ".png");
+				imgDado5.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] + ".png");
 			
 			} else if(imgDado1.getDx() == 110) {
 				imgDado1.setImagem(null);
@@ -1819,7 +1826,7 @@ public class Batalha extends JPanel implements ActionListener {
 				txtEfeitoFase.setTexto("-2");
 			}
 			
-			efeitoFase.load("res\\batalha\\apelo.png");
+			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			txtEfeitoFase.setY((vezDoAventureiro == 0 ? campoBatalha1.getY() : (vezDoAventureiro == 1 ? campoBatalha2.getY() : (vezDoAventureiro == 2 ? campoBatalha3.getY() : (vezDoAventureiro == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			
@@ -1867,7 +1874,7 @@ public class Batalha extends JPanel implements ActionListener {
 		if(efeitoFase.getDx() == 21) {
 			
 			txtEfeitoFase.setTexto(adversario == 0 || adversario == 1 ? "-1" : "+1");
-			efeitoFase.load("res\\batalha\\apelo.png");
+			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			txtEfeitoFase.setY((vezDoAventureiro == 0 ? campoBatalha1.getY() : (vezDoAventureiro == 1 ? campoBatalha2.getY() : (vezDoAventureiro == 2 ? campoBatalha3.getY() : (vezDoAventureiro == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			
@@ -1890,9 +1897,6 @@ public class Batalha extends JPanel implements ActionListener {
 		}
 	
 	}
-	
-	
-	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							mexe o medidor de apelos ganhos da batalha						|
@@ -2010,10 +2014,10 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			nomeHabAnterior = selecaoNomeHab;
 			
-			nomeHabilidade2.load("res\\batalha\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-			nomeHabilidade3.load("res\\batalha\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-			nomeHabilidade4.load("res\\batalha\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
-			nomeHabilidade1.load("res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
+			nomeHabilidade2.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 1 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+			nomeHabilidade3.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 2 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+			nomeHabilidade4.load(caminho + "res\\batalha\\" + (nomeHabAnterior == 3 ? "nomeHabilidadeUsada.png" : "nomeHabilidade.png"));
+			nomeHabilidade1.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 			
 			selecaoNomeHab =0;
 		}
@@ -2038,13 +2042,13 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(coracao11.getDx() >= intervaloAnimacao * 5) {
 			
-			parabenizacaoVencedor.load("res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + (ordemAventRodada[0] == aventureiro ? "\\vencedor.png" : "\\perdedor.png") );
+			parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + (ordemAventRodada[0] == aventureiro ? "\\vencedor.png" : "\\perdedor.png") );
 			
 			coracao12.setDx(coracao12.getDx() + comecarAnimacaoCoracao);
 			if(coracao11.getDx() >= intervaloAnimacao * 5) {
 				zerarDx();
-				comecarAnimacaoCoracao =0;
-				contEtapasBatalha =6;
+				comecarAnimacaoCoracao = 0;
+				contEtapasBatalha = 6;
 			}	
 		}
 	}
@@ -2060,14 +2064,14 @@ public class Batalha extends JPanel implements ActionListener {
 			if(gifApelos[0][numApelo] == "apelo3") {
 
 				if(animacao.getDx() == 20) {
-					animacao.load("res\\batalha\\Ignis\\animacao\\apelo3\\0.png");
+					animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\0.png");
 				
 				} else if(animacao.getDx() == 90) {
-					animacao.load("res\\batalha\\fundoAnimacao1.png");
+					animacao.load(caminho + "res\\batalha\\fundoAnimacao1.png");
 					animacaoObj1.setX(tamanhoContorno + 300);
 					animacaoObj2.setX(tamanhoContorno - 300);
-					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\2.png");
-					animacaoObj2.load("res\\batalha\\Ignis\\animacao\\apelo3\\1.png");
+					animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\2.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\1.png");
 				}
 				if(animacao.getDx() >= 90 && animacao.getDx() <= 119) {
 					animacaoObj1.setX(animacaoObj1.getX() - 10);
@@ -2078,49 +2082,49 @@ public class Batalha extends JPanel implements ActionListener {
 					if(animacao.getDx() == 140) {
 						animacaoObj2.setImagem(null);
 						animacaoObj1.setX(tamanhoContorno);
-						animacao.load("res\\batalha\\fundoAnimacao1.png");
+						animacao.load(caminho + "res\\batalha\\fundoAnimacao1.png");
 
 					}else if(animacao.getDx() == 160) {
 						animacao.setY(-126);
 						animacao.setX(760/2 - 1130/2 + 50);
-						animacao.load("res\\batalha\\fundoAnimacao2.png");
+						animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
 						
 					}else if(animacao.getDx() == 200) {
 						animacao.setY(-30);
 						animacao.setX(760/2 - 1130/2 + 30);
-						animacao.load("res\\batalha\\fundoAnimacao2.png");
+						animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
 					}
 					
-					animacaoObj1.load("res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 3) + ".png");
+					animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 3) + ".png");
 				
 				}
 			}
 			
 		}else if(avent == 1) {
-			animacao.load("res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
+			animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
 		}else if(avent == 2) {
-			animacao.load("res\\batalha\\Rexthor\\animacao\\" + (numApelo == 0? gifApelos[2][0] : (numApelo == 1? gifApelos[2][1] : (numApelo == 2? gifApelos[2][2] : gifApelos[2][3]))) + ".gif");
+			animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (numApelo == 0? gifApelos[2][0] : (numApelo == 1? gifApelos[2][1] : (numApelo == 2? gifApelos[2][2] : gifApelos[2][3]))) + ".gif");
 		}else if(avent == 3) {
-			animacao.load("res\\batalha\\Kiki\\animacao\\" + (numApelo == 0? gifApelos[3][0] : (numApelo == 1? gifApelos[3][1] : (numApelo == 2? gifApelos[3][2] : gifApelos[3][3]))) + ".gif");
+			animacao.load(caminho + "res\\batalha\\Kiki\\animacao\\" + (numApelo == 0? gifApelos[3][0] : (numApelo == 1? gifApelos[3][1] : (numApelo == 2? gifApelos[3][2] : gifApelos[3][3]))) + ".gif");
 		}else if(avent == 4) {
-			animacao.load("res\\batalha\\Arius\\animacao\\" + (numApelo == 0? gifApelos[4][0] : (numApelo == 1? gifApelos[4][1] : (numApelo == 2? gifApelos[4][2] : gifApelos[4][3]))) + ".gif");
+			animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (numApelo == 0? gifApelos[4][0] : (numApelo == 1? gifApelos[4][1] : (numApelo == 2? gifApelos[4][2] : gifApelos[4][3]))) + ".gif");
 		}
 	
 	}
 
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
 		timer.start();
 	}
 	
 	public void acenderLuzAventureiro() {
 		
-		luzCampoBatalha1.load("res\\batalha\\" + ( vezDoAventureiro != 0 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
-		luzCampoBatalha2.load("res\\batalha\\" + ( vezDoAventureiro != 1 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
-		luzCampoBatalha3.load("res\\batalha\\" + ( vezDoAventureiro != 2 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
-		luzCampoBatalha4.load("res\\batalha\\" + ( vezDoAventureiro != 3 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
-		luzCampoBatalha5.load("res\\batalha\\" + ( vezDoAventureiro != 4 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha1.load(caminho + "res\\batalha\\" + ( vezDoAventureiro != 0 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha2.load(caminho + "res\\batalha\\" + ( vezDoAventureiro != 1 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha3.load(caminho + "res\\batalha\\" + ( vezDoAventureiro != 2 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha4.load(caminho + "res\\batalha\\" + ( vezDoAventureiro != 3 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
+		luzCampoBatalha5.load(caminho + "res\\batalha\\" + ( vezDoAventureiro != 4 ? "luzCampoBatalha1.png" : (ordemAventRodada[vezDoAventureiro] == 0 ? "\\Ignis\\" : (ordemAventRodada[vezDoAventureiro] == 1 ? "\\Ayla\\" : (ordemAventRodada[vezDoAventureiro] == 2 ? "\\Rexthor\\" : (ordemAventRodada[vezDoAventureiro] == 3 ? "\\Kiki\\" : "\\Arius\\"))))  + "luzCampoBatalha2.png"));
 		
 	}
 	

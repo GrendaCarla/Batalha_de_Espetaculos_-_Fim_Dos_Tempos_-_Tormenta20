@@ -45,6 +45,8 @@ public class Creditos extends JPanel implements ActionListener {
 	private int contTempo = 0;
 	private boolean mudaImagem = false;
 	
+	private String caminho; 
+	
 	private Timer timer;
 	
 	/* ------------------------------- Créditos ---------------------------------*/
@@ -84,20 +86,20 @@ public class Creditos extends JPanel implements ActionListener {
 	private Icones_interativos estrelaTitulo2 = new Icones_interativos(1234 - estrelaTitulo1.getX() - 134, estrelaTitulo1.getY());
 
 	
-	public Creditos(boolean Engrenagem2) {
-	
+	public Creditos(boolean Engrenagem2, String Caminho) {
 		contEngranagem2 = Engrenagem2;
+		this.caminho = Caminho;
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
+		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\fundo.png");
-		fundo3.load("res\\Creditos\\fundo.png");
+		fundo2.load(caminho + "res\\fundo1.png");
+		fundo3.load(caminho + "res\\Creditos\\fundo.png");
 		
-		engrenagem1.load("res\\engrenagem1.png");
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
-		contorno.load("res\\contorno.png");
+		contorno.load(caminho + "res\\contorno.png");
 		
 		/* ------------------------------- Créditos ---------------------------------*/
 		
@@ -125,20 +127,19 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		/* ------------------------------- enfeite ---------------------------------*/
 		
-		aventureiro1.load("res\\Creditos\\leonel1.png");
-		aventureiro2.load("res\\Creditos\\schaeppi2.png");
-		aventureiro3.load("res\\Creditos\\karen2.png");
-		aventureiro4.load("res\\Creditos\\rex1.png");
-		aventureiro5.load("res\\Creditos\\katiucha1.png");
-		aventureiro6.load("res\\Creditos\\guilherme2.png");
+		aventureiro1.load(caminho + "res\\Creditos\\leonel1.png");
+		aventureiro2.load(caminho + "res\\Creditos\\schaeppi2.png");
+		aventureiro3.load(caminho + "res\\Creditos\\karen2.png");
+		aventureiro4.load(caminho + "res\\Creditos\\rex1.png");
+		aventureiro5.load(caminho + "res\\Creditos\\katiucha1.png");
+		aventureiro6.load(caminho + "res\\Creditos\\guilherme2.png");
 		
-		estrelaFim1.load("res\\escolhaDeAdversario\\estrela2.png");
-		estrelaFim2.load("res\\escolhaDeAdversario\\estrela3.png");
+		estrelaTitulo1.load(caminho + "res\\Creditos\\estrela1.png");
+		estrelaTitulo2.load(caminho + "res\\Creditos\\estrela2.png");
 		
-		estrelaTitulo1.load("res\\Creditos\\estrela1.png");
-		estrelaTitulo2.load("res\\Creditos\\estrela2.png");
+		estrelaFim1.load(caminho + "res\\Creditos\\estrela3.png");
+		estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
 
-		
 
 		timer = new Timer(5, this);
 		timer.start();
@@ -151,7 +152,7 @@ public class Creditos extends JPanel implements ActionListener {
 		if(codigo == KeyEvent.VK_X) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(tela3 != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -192,8 +193,6 @@ public class Creditos extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
-	
 	
 	public void paint(Graphics g) {
 		
@@ -264,7 +263,6 @@ public class Creditos extends JPanel implements ActionListener {
 		
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -280,17 +278,16 @@ public class Creditos extends JPanel implements ActionListener {
 		if(contTempo % 24 == 0) {
 			mudaImagem = !mudaImagem;
 			
-			aventureiro1.load("res\\Creditos\\leonel" + (mudaImagem == false ? 1 : 2) + ".png");
-			aventureiro2.load("res\\Creditos\\schaeppi" + (mudaImagem == false ? 2 : 1) + ".png");
-			aventureiro3.load("res\\Creditos\\karen" + (mudaImagem == false ? 2 : 1) + ".png");
-			aventureiro4.load("res\\Creditos\\rex" + (mudaImagem == false ? 1 : 2) + ".png");
-			aventureiro5.load("res\\Creditos\\katiucha" + (mudaImagem == false ? 1 : 2) + ".png");
-			aventureiro6.load("res\\Creditos\\guilherme" + (mudaImagem == false ? 2 : 1) + ".png");
+			aventureiro1.load(caminho + "res\\Creditos\\leonel" + (mudaImagem == false ? 1 : 2) + ".png");
+			aventureiro2.load(caminho + "res\\Creditos\\schaeppi" + (mudaImagem == false ? 2 : 1) + ".png");
+			aventureiro3.load(caminho + "res\\Creditos\\karen" + (mudaImagem == false ? 2 : 1) + ".png");
+			aventureiro4.load(caminho + "res\\Creditos\\rex" + (mudaImagem == false ? 1 : 2) + ".png");
+			aventureiro5.load(caminho + "res\\Creditos\\katiucha" + (mudaImagem == false ? 1 : 2) + ".png");
+			aventureiro6.load(caminho + "res\\Creditos\\guilherme" + (mudaImagem == false ? 2 : 1) + ".png");
 		}
 
 	}
 	
-
 	public void setTelaMenu(Menu menu) {
 		this.telaMenu = menu;
 	}
@@ -306,6 +303,5 @@ public class Creditos extends JPanel implements ActionListener {
 	public void setTela3(Batalha tela3) {
 		this.tela3 = tela3;
 	}
-	
 
 }

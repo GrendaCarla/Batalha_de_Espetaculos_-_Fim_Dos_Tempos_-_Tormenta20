@@ -36,9 +36,10 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
 
-	
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
+	
+	private String caminho; 
 
 	private Timer timer;
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
@@ -270,35 +271,36 @@ public class Manual extends JPanel implements ActionListener {
 
 	
 	
-	public Manual (boolean Engrenagem2) {
+	public Manual (boolean Engrenagem2, String Caminho) {
 		contEngranagem2 = Engrenagem2;
+		this.caminho = Caminho;
 		
-		ImageIcon referencia = new ImageIcon("res\\fundo0.png");
+		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load("res\\fundo.png");
-		fundo3.load("res\\Manual\\fundo.png");
+		fundo2.load(caminho + "res\\fundo1.png");
+		fundo3.load(caminho + "res\\Manual\\fundo.png");
 		
-		engrenagem1.load("res\\engrenagem1.png");
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
-		engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
-		contorno.load("res\\contorno.png");
+		contorno.load(caminho + "res\\contorno.png");
 		
 		/* ------------------------------- Barra de rolagem ---------------------------------*/
 
-		bntBarraBaixo.load("res\\Manual\\teclaBaixo.png");
-		bntBarraCima.load("res\\Manual\\teclaCima.png");
+		bntBarraBaixo.load(caminho + "res\\Manual\\teclaBaixo1.png");
+		bntBarraCima.load(caminho + "res\\Manual\\teclaCima1.png");
 		
 		/* ------------------------------- Controles ---------------------------------*/
 		
-		teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
-		teclaDireita.load("res\\Menu\\setaDireita.png");
-		teclaCima.load("res\\Menu\\setaCima.png");
-		teclaBaixo.load("res\\Menu\\setaBaixo.png");
+		teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
+		teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
+		teclaCima.load(caminho + "res\\Teclado\\setaCima1.png");
+		teclaBaixo.load(caminho + "res\\Teclado\\setaBaixo1.png");
 		
-		teclaZ.load("res\\Menu\\teclaZ.png");
-		teclaX.load("res\\Menu\\teclaX.png");
-		teclaEsc.load("res\\Menu\\teclaEsc.png");
+		teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
+		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		
 		txtLn1.setFonte(new Font("Arial", Font.BOLD, 30));
 		txtLn1.setCorTexto(new Color (235, 230, 233));
@@ -309,10 +311,10 @@ public class Manual extends JPanel implements ActionListener {
 		
 		/* ------------------------------- Batalha ---------------------------------*/
 		
-		nomeHabilidade1.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
-		nomeHabilidade2.load("res\\batalha\\nomeHabilidade.png");
-		nomeHabilidade3.load("res\\batalha\\nomeHabilidade.png");
-		nomeHabilidade4.load("res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade1.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
+		nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade3.load(caminho + "res\\batalha\\nomeHabilidade.png");
+		nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
 		
 		nomeApelo1 = new Texto(nomeHabilidade1.getX() + 20, nomeHabilidade1.getY() + 54/2 + 8, "Tapa em puristas");
 		nomeApelo2 = new Texto(nomeHabilidade2.getX() + 20, nomeHabilidade2.getY() + 54/2 + 8, "Ignis bonitão");
@@ -331,34 +333,34 @@ public class Manual extends JPanel implements ActionListener {
 		txtLn8.setFonte(new Font("Arial", Font.PLAIN, 24));
 		txtLn9.setFonte(new Font("Arial", Font.PLAIN, 24));
 		
-		painel1.load("res\\batalha\\painel1.png");
+		painel1.load(caminho + "res\\batalha\\painel1.png");
 		
 		/* ------------------------------- info apelo ---------------------------------*/
 		
 		txtLn10.setFonte(new Font("Arial", Font.PLAIN, 24));
 		
-		apelo.load("res\\batalha\\infoApelo.png");
+		apelo.load(caminho + "res\\batalha\\infoApelo.png");
 
 		apeloQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
 		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
 		InterferenciaQuantidade.setFonte(apeloQuantidade.getFonte());
 		
-		tipoDoApelo.load("res\\batalha\\tipoDoApelo1.png");
+		tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo1.png");
 		
-		apeloApelo1.load("res\\batalha\\apelo.png");
-		apeloApelo2.load("res\\batalha\\apelo.png");
-		apeloApelo3.load("res\\batalha\\apelo.png");
-		apeloApelo4.load("res\\batalha\\apelo.png");
-		apeloApelo5.load("res\\batalha\\apelo.png");
+		apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
+		apeloApelo2.load(caminho + "res\\batalha\\apelo.png");
+		apeloApelo3.load(caminho + "res\\batalha\\apelo.png");
+		apeloApelo4.load(caminho + "res\\batalha\\apelo.png");
+		apeloApelo5.load(caminho + "res\\batalha\\apelo.png");
 		
-		apeloInterf1.load("res\\batalha\\interferencia.png");
-		apeloInterf2.load("res\\batalha\\interferencia.png");
+		apeloInterf1.load(caminho + "res\\batalha\\interferencia.png");
+		apeloInterf2.load(caminho + "res\\batalha\\interferencia.png");
 		
-		painel2.load("res\\batalha\\painel2.png");
+		painel2.load(caminho + "res\\batalha\\painel2.png");
 		
 		// ----------------------- Descrição -----------------------------------
 
-		descricao.load("res\\batalha\\descricao.png");
+		descricao.load(caminho + "res\\batalha\\descricao.png");
 
 		textoDescricao1 = new Texto(descricao.getX() + 20, descricao.getY() + 40, " ");
 		textoDescricao2 = new Texto(textoDescricao1.getX(), textoDescricao1.getY() + 28, " ");
@@ -378,39 +380,39 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao4.setCorTexto(textoDescricao1.getCorTexto()); 
 		textoDescricao5.setCorTexto(new Color (165, 1, 67));
 		
-		painel3.load("res\\batalha\\painel3.png");
+		painel3.load(caminho + "res\\batalha\\painel3.png");
 		
 		// ----------------------------------- campo batalha -----------------------------------
 		
-		campoBatalha1.load("res\\batalha\\campoBatalha.png");
-		campoBatalha2.load("res\\batalha\\campoBatalha.png");
-		campoBatalha3.load("res\\batalha\\campoBatalha.png");
-		campoBatalha4.load("res\\batalha\\campoBatalha.png");
-		campoBatalha5.load("res\\batalha\\campoBatalha.png");
+		campoBatalha1.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha2.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha3.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha4.load(caminho + "res\\batalha\\campoBatalha.png");
+		campoBatalha5.load(caminho + "res\\batalha\\campoBatalha.png");
 		
-		luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
-		luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha4.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+		luzCampoBatalha5.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 		
 		efeitoFase.setImagem(null);
 		
-		iconeCampoBatalha1.load("res\\batalha\\Ignis\\iconeCampoBatalha.png");
-		iconeCampoBatalha2.load("res\\batalha\\Ayla\\iconeCampoBatalha.png");
-		iconeCampoBatalha3.load("res\\batalha\\Rexthor\\iconeCampoBatalha.png");
-		iconeCampoBatalha4.load("res\\batalha\\Kiki\\iconeCampoBatalha.png");
-		iconeCampoBatalha5.load("res\\batalha\\Arius\\iconeCampoBatalha.png");
+		iconeCampoBatalha1.load(caminho + "res\\batalha\\Ignis\\iconeCampoBatalha.png");
+		iconeCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\iconeCampoBatalha.png");
+		iconeCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\iconeCampoBatalha.png");
+		iconeCampoBatalha4.load(caminho + "res\\batalha\\Kiki\\iconeCampoBatalha.png");
+		iconeCampoBatalha5.load(caminho + "res\\batalha\\Arius\\iconeCampoBatalha.png");
 				
-		seletorAventureiro.load("res\\batalha\\seletorAventureiro.png");
+		seletorAventureiro.load(caminho + "res\\batalha\\seletorAventureiro.png");
 
-		coracao01.load("res\\batalha\\apelo.png");
-		coracao02.load("res\\batalha\\apelo.png");
-		coracao03.load("res\\batalha\\apelo.png");
-		coracao04.load("res\\batalha\\apelo.png");
-		coracao05.load("res\\batalha\\apelo.png");
+		coracao01.load(caminho + "res\\batalha\\apelo.png");
+		coracao02.load(caminho + "res\\batalha\\apelo.png");
+		coracao03.load(caminho + "res\\batalha\\apelo.png");
+		coracao04.load(caminho + "res\\batalha\\apelo.png");
+		coracao05.load(caminho + "res\\batalha\\apelo.png");
 		
-		painel4.load("res\\batalha\\painel4.png");
+		painel4.load(caminho + "res\\batalha\\painel4.png");
 		
 		apagarCoracoes();
 		
@@ -452,29 +454,29 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		if(contTempoControles % 10 == 0) {
-			teclaEsquerda.load("res\\Menu\\setaEsquerda.png");
-			teclaDireita.load("res\\Menu\\setaDireita.png");
-			teclaCima.load("res\\Menu\\setaCima.png");
-			teclaBaixo.load("res\\Menu\\setaBaixo.png");
-			teclaZ.load("res\\Menu\\teclaZ.png");
-			teclaX.load("res\\Menu\\teclaX.png");
-			teclaEsc.load("res\\Menu\\teclaEsc.png");
+			teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
+			teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
+			teclaCima.load(caminho + "res\\Teclado\\setaCima1.png");
+			teclaBaixo.load(caminho + "res\\Teclado\\setaBaixo1.png");
+			teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+			teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
+			teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		}
 		
 		if(contTempoControles == 15) {
-			teclaEsquerda.load("res\\Menu\\setaEsquerda2.png");
+			teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda2.png");
 		} else if(contTempoControles == 30) {
-			teclaDireita.load("res\\Menu\\setaDireita2.png");
+			teclaDireita.load(caminho + "res\\Teclado\\setaDireita2.png");
 		} else if(contTempoControles == 45) {
-			teclaCima.load("res\\Menu\\setaCima2.png");
+			teclaCima.load(caminho + "res\\Teclado\\setaCima2.png");
 		} else if(contTempoControles == 60) {
-			teclaBaixo.load("res\\Menu\\setaBaixo2.png");
+			teclaBaixo.load(caminho + "res\\Teclado\\setaBaixo2.png");
 		} else if(contTempoControles == 75) {
-			teclaZ.load("res\\Menu\\teclaZ2.png");
+			teclaZ.load(caminho + "res\\Teclado\\teclaZ2.png");
 		} else if(contTempoControles == 90) {
-			teclaX.load("res\\Menu\\teclaX2.png");
+			teclaX.load(caminho + "res\\Teclado\\teclaX2.png");
 		} else if(contTempoControles == 105) {
-			teclaEsc.load("res\\Menu\\teclaEsc2.png");
+			teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
 		}
 		
 	}
@@ -487,20 +489,20 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		if(contTempoNomeApelo == 0 || contTempoNomeApelo == 25 || contTempoNomeApelo == 50 || contTempoNomeApelo == 75) {
-			nomeHabilidade1.load("res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade2.load("res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade3.load("res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade4.load("res\\batalha\\nomeHabilidade.png");
+			nomeHabilidade1.load(caminho + "res\\batalha\\nomeHabilidade.png");
+			nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
+			nomeHabilidade3.load(caminho + "res\\batalha\\nomeHabilidade.png");
+			nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
 		}
 		
 		if(contTempoNomeApelo == 0) {
-			nomeHabilidade1.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade1.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 25) {
-			nomeHabilidade2.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade2.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 50) {
-			nomeHabilidade3.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade3.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		} else if(contTempoNomeApelo == 75) {
-			nomeHabilidade4.load("res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
+			nomeHabilidade4.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		}
 		
 	}
@@ -514,43 +516,43 @@ public class Manual extends JPanel implements ActionListener {
 		
 		
 		if(contTempoInfoApelo == 0 || contTempoInfoApelo == 40 || contTempoInfoApelo == 80) {
-			tipoDoApelo.load("res\\batalha\\tipoDoApelo1.png");
+			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo1.png");
 
-			apeloApelo1.load("res\\batalha\\apelo.png");
-			apeloApelo2.load("res\\batalha\\apelo.png");
-			apeloApelo3.load("res\\batalha\\apelo.png");
-			apeloApelo4.load("res\\batalha\\apelo.png");
-			apeloApelo5.load("res\\batalha\\apelo.png");
+			apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
+			apeloApelo2.load(caminho + "res\\batalha\\apelo.png");
+			apeloApelo3.load(caminho + "res\\batalha\\apelo.png");
+			apeloApelo4.load(caminho + "res\\batalha\\apelo.png");
+			apeloApelo5.load(caminho + "res\\batalha\\apelo.png");
 			
-			apeloInterf1.load("res\\batalha\\interferencia.png");
-			apeloInterf2.load("res\\batalha\\interferencia.png");
+			apeloInterf1.load(caminho + "res\\batalha\\interferencia.png");
+			apeloInterf2.load(caminho + "res\\batalha\\interferencia.png");
 		}
 		
 
 		if(contTempoInfoApelo == 20) {
-			tipoDoApelo.load("res\\batalha\\tipoDoApelo2.png");
+			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo2.png");
 
-			apeloApelo1.load("res\\batalha\\apelo.png");
+			apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
 			apeloApelo2.setImagem(null);
-			apeloApelo3.load("res\\batalha\\apelo.png");
+			apeloApelo3.load(caminho + "res\\batalha\\apelo.png");
 			apeloApelo4.setImagem(null);
-			apeloApelo5.load("res\\batalha\\apelo.png");
+			apeloApelo5.load(caminho + "res\\batalha\\apelo.png");
 			
-			apeloInterf1.load("res\\batalha\\interferencia.png");
+			apeloInterf1.load(caminho + "res\\batalha\\interferencia.png");
 			apeloInterf2.setImagem(null);
 		}
 		
 		if(contTempoInfoApelo == 60) {
-			tipoDoApelo.load("res\\batalha\\tipoDoApelo2.png");
+			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo2.png");
 
 			apeloApelo1.setImagem(null);
-			apeloApelo2.load("res\\batalha\\apelo.png");
+			apeloApelo2.load(caminho + "res\\batalha\\apelo.png");
 			apeloApelo3.setImagem(null);
-			apeloApelo4.load("res\\batalha\\apelo.png");
+			apeloApelo4.load(caminho + "res\\batalha\\apelo.png");
 			apeloApelo5.setImagem(null);
 			
 			apeloInterf1.setImagem(null); 
-			apeloInterf2.load("res\\batalha\\interferencia.png");
+			apeloInterf2.load(caminho + "res\\batalha\\interferencia.png");
 		}
 		
 	}
@@ -587,42 +589,42 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		if(contTempoCampoBatalha > 0 && contTempoCampoBatalha < 100) {
-			luzCampoBatalha1.load("res\\batalha\\Ignis\\luzCampoBatalha2.png");
+			luzCampoBatalha1.load(caminho + "res\\batalha\\Ignis\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 100 && contTempoCampoBatalha < 200) {
-			luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha2.load("res\\batalha\\Ayla\\luzCampoBatalha2.png");
+			luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 200 && contTempoCampoBatalha < 300) {
-			luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha3.load("res\\batalha\\Rexthor\\luzCampoBatalha2.png");
+			luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 400 && contTempoCampoBatalha < 500) {
-			luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha4.load("res\\batalha\\Kiki\\luzCampoBatalha2.png");
+			luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha4.load(caminho + "res\\batalha\\Kiki\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 500 && contTempoCampoBatalha < 600) {
-			luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha5.load("res\\batalha\\Arius\\luzCampoBatalha2.png");
+			luzCampoBatalha4.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha5.load(caminho + "res\\batalha\\Arius\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 700) {
-			luzCampoBatalha1.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha2.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha3.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha4.load("res\\batalha\\luzCampoBatalha1.png");
-			luzCampoBatalha5.load("res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha4.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
+			luzCampoBatalha5.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 		}
 		
 		for(int i=1; i<6; i++) {
 			if(contTempoCampoBatalha == i * 10) {
-				(i == 1 ? coracao11 : coracao12).load("res\\batalha\\apelo.png");
+				(i == 1 ? coracao11 : coracao12).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
 		for(int i=1; i<6; i++) {
 			if(contTempoCampoBatalha == i * 10 + 100) {
-				(i == 1 ? coracao21 : (i == 2 ? coracao22 : coracao23)).load("res\\batalha\\apelo.png");
+				(i == 1 ? coracao21 : (i == 2 ? coracao22 : coracao23)).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
 		for(int i=1; i<7; i++) {
 			if(contTempoCampoBatalha == i * 10 + 200) {
-				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : (i == 4 ? coracao34 : (i == 5 ? coracao35 : coracao36))))).load("res\\batalha\\apelo.png");
+				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : (i == 4 ? coracao34 : (i == 5 ? coracao35 : coracao36))))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
@@ -630,7 +632,7 @@ public class Manual extends JPanel implements ActionListener {
 			txtEfeitoFase.setY(campoBatalha3.getY() + 70/2 + 20/2);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			txtEfeitoFase.setTexto("- 2");
-			efeitoFase.load("res\\batalha\\apelo.png");
+			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			
 		} else if(contTempoCampoBatalha == 340) {
 			txtEfeitoFase.setTexto(" ");
@@ -645,7 +647,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		for(int i=1; i<7; i++) {
 			if(contTempoCampoBatalha == i * 10 + 400) {
-				(i == 1 ? coracao41 : (i == 2 ? coracao42 : (i == 3 ? coracao43 : coracao44))).load("res\\batalha\\apelo.png");
+				(i == 1 ? coracao41 : (i == 2 ? coracao42 : (i == 3 ? coracao43 : coracao44))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
@@ -653,7 +655,7 @@ public class Manual extends JPanel implements ActionListener {
 			txtEfeitoFase.setY(campoBatalha4.getY() + 70/2 + 20/2);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			txtEfeitoFase.setTexto("+ 1");
-			efeitoFase.load("res\\batalha\\apelo.png");
+			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			
 		} else if(contTempoCampoBatalha == 480) {
 			txtEfeitoFase.setTexto(" ");
@@ -661,12 +663,12 @@ public class Manual extends JPanel implements ActionListener {
 		}
 
 		if(contTempoCampoBatalha == 490) {
-			coracao45.load("res\\batalha\\apelo.png");
+			coracao45.load(caminho + "res\\batalha\\apelo.png");
 		} 
 		
 		for(int i=1; i<6; i++) {
 			if(contTempoCampoBatalha == i * 10 + 500) {
-				(i == 1 ? coracao51 : (i == 2 ? coracao52 : (i == 3 ? coracao53 : (i == 4 ? coracao54 : coracao55)))).load("res\\batalha\\apelo.png");
+				(i == 1 ? coracao51 : (i == 2 ? coracao52 : (i == 3 ? coracao53 : (i == 4 ? coracao54 : coracao55)))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
@@ -710,25 +712,25 @@ public class Manual extends JPanel implements ActionListener {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 			
 			rolagemTela = rolagemTela - 10;
-			bntBarraBaixo.load("res\\Manual\\teclaBaixo2.png");
+			bntBarraBaixo.load(caminho + "res\\Manual\\teclaBaixo2.png");
 			
 		}else if(codigo == KeyEvent.VK_UP && rolagemTela < 0) {
 			if(contEngranagem1 == 2) {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
 			
-			engrenagem1.load("res\\engrenagem" + contEngranagem1 + ".png");
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 			
 			rolagemTela = rolagemTela + 10;
-			bntBarraCima.load("res\\Manual\\teclaCima2.png");
+			bntBarraCima.load(caminho + "res\\Manual\\teclaCima2.png");
 
 		}else if(codigo == KeyEvent.VK_X) {
 			
 			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load("res\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(tela3 != null) {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -770,8 +772,8 @@ public class Manual extends JPanel implements ActionListener {
 	}
 	
 	public void KeyReleased (java.awt.event.KeyEvent tecla){
-		bntBarraBaixo.load("res\\Manual\\teclaBaixo.png");
-		bntBarraCima.load("res\\Manual\\teclaCima.png");
+		bntBarraBaixo.load(caminho + "res\\Manual\\teclaBaixo1.png");
+		bntBarraCima.load(caminho + "res\\Manual\\teclaCima1.png");
 	}
 	
 	
