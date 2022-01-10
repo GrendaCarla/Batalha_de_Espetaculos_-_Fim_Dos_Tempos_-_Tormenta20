@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -118,7 +117,6 @@ public class Menu extends JPanel implements ActionListener {
 	int valorLeituraSave;
 	private int contTempoMensagemErro = 0;
 	
-	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
@@ -129,6 +127,19 @@ public class Menu extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
+		
+		
+		/*try {
+			BufferedImage imagem;
+			imagem = ImageIO.read(new File(caminho + "res\\Engrenagens\\engrenagem3.png"));
+			imagemMenor = imagem.getScaledInstance(96, 96, Image.SCALE_SMOOTH);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  */   
+		
+	    
+		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");		
 		contorno.load(caminho + "res\\contorno.png");
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
