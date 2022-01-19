@@ -1,9 +1,17 @@
 <h1 align="center">Batalha de Espetaculos</h1>
 <h3 align="center">Um fangame da campanha de RPG Fim Dos Tempos - Tormenta20</h3>
 
-<img height="290" src="https://user-images.githubusercontent.com/80162033/149610114-c75d9b34-32d0-4ab2-9fae-349bfaa1d890.gif"> <img height="290" src="https://user-images.githubusercontent.com/80162033/149610045-06982ef7-2428-4a50-8100-0bf94779e99b.gif"> &nbsp; &nbsp; &nbsp; <img height="290" src="https://user-images.githubusercontent.com/80162033/149609969-3ae58c0c-0e88-4978-bfc6-7f0ca1188480.gif"> &nbsp; &nbsp; &nbsp; <img height="290" src="https://user-images.githubusercontent.com/80162033/149610291-d933dad2-e41e-4f25-ae70-7c3a92fd43d6.gif"> <img height="250" src="https://user-images.githubusercontent.com/80162033/149609492-7c58e94d-8ad0-422e-b459-d3d5f5388aed.gif">
+<div align="center">
+  <img align="left" src="https://user-images.githubusercontent.com/80162033/149610114-c75d9b34-32d0-4ab2-9fae-349bfaa1d890.gif"> <img src="https://user-images.githubusercontent.com/80162033/149609969-3ae58c0c-0e88-4978-bfc6-7f0ca1188480.gif"> <img align="right" src="https://user-images.githubusercontent.com/80162033/149610291-d933dad2-e41e-4f25-ae70-7c3a92fd43d6.gif">
+</div>
 
-</br>
+<div align="center" valign="top">
+  <img align="center" src="https://user-images.githubusercontent.com/80162033/149610045-06982ef7-2428-4a50-8100-0bf94779e99b.gif"> 
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <img align="center" src="https://user-images.githubusercontent.com/80162033/149609492-7c58e94d-8ad0-422e-b459-d3d5f5388aed.gif">
+</div>
+
+</br></br>
 
 Este projeto é um <b>jogo feito por fãs</b> baseado na campanha de RPG Fim Dos Tempos do cenário de Tormenta 20 no formato de Pokémon Contest (ao invez dos bichos se moerem no soco eles sobem no salto para fazerem apresentações). Ele está sendo desenvolvido por <a href="https://github.com/GrendaCarla">Grenda Silva</a> em linguagem <b>Java</b> e não tem nenhuma pretenção de seguir a linha temporal dos eventos da mesa.
 
