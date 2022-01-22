@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 
 public class Container extends JFrame{
 	
-	String caminho = System.getProperty("user.dir").substring(0, (System.getProperty("user.dir").length() - 52));   //System.getProperty("user.dir") + "\\";
+	String caminho = System.getProperty("user.dir").substring(0, (System.getProperty("user.dir").length() - 52)) + "Batalha_de_Espetaculos_-_Fim_Dos_Tempos_-_Tormenta20\\"; //System.getProperty("user.dir") + "\\Batalha_de_Espetaculos_-_Fim_Dos_Tempos_-_Tormenta20\\";
+	
 	Menu menu = new Menu(false, caminho);
 	 
 	public Container() {
