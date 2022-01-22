@@ -2,13 +2,13 @@
 <h3 align="center">Um fangame da campanha de RPG Fim Dos Tempos - Tormenta20</h3>
 
 <div align="center">
-  <img align="center" src="https://user-images.githubusercontent.com/80162033/150653418-0ed92167-a54f-4c7b-8068-fae341407dd8.gif"> 
+  <img align="center" height="250" src="https://user-images.githubusercontent.com/80162033/150653418-0ed92167-a54f-4c7b-8068-fae341407dd8.gif"> 
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  <img align="center" src="https://user-images.githubusercontent.com/80162033/150653434-651d0a56-baaa-4101-99d8-e02c5f297e0b.gif">
+  <img align="center" height="250" src="https://user-images.githubusercontent.com/80162033/150653434-651d0a56-baaa-4101-99d8-e02c5f297e0b.gif">
 </div>
 
 <div align="center">
-  <img align="left" src="https://user-images.githubusercontent.com/80162033/150653459-ad82b6fe-1a2a-41ec-8828-7cffe0b67745.gif"> <img align="center" src="https://user-images.githubusercontent.com/80162033/150653470-c27f6acf-a577-4e51-8dc4-6f1d4bebc10c.gif"> <img align="right" src="https://user-images.githubusercontent.com/80162033/150653480-1a5159d3-5cd9-4f72-8dd2-7a1cdca0fbbe.gif">
+  <img align="left" height="250" src="https://user-images.githubusercontent.com/80162033/150653459-ad82b6fe-1a2a-41ec-8828-7cffe0b67745.gif"> <img align="center" height="250"  src="https://user-images.githubusercontent.com/80162033/150653470-c27f6acf-a577-4e51-8dc4-6f1d4bebc10c.gif"> <img align="right" height="250" src="https://user-images.githubusercontent.com/80162033/150653480-1a5159d3-5cd9-4f72-8dd2-7a1cdca0fbbe.gif">
 </div>
 
 </br></br>
