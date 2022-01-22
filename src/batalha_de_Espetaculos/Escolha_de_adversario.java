@@ -46,7 +46,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
@@ -152,8 +152,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
 	
-	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 28 - 40, " ");
-	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 52 - 40, " ");
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 40 - 40, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
 	
@@ -162,9 +162,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
 	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2, 80);
-	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(), bntMenu.getY() + 120);
-	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 120);
-	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(), bntCreditos.getY() + 120);
+	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(), bntMenu.getY() + 115);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 115);
+	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(), bntCreditos.getY() + 115);
 
 
 	private boolean mostrarMenu = false;
@@ -307,7 +307,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		SalvarJogo();
 		
-		timer = new Timer(5, this);
+		timer = new Timer(30, this);
 		timer.start();
 		
 	}

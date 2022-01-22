@@ -39,7 +39,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 
 	private int contEngranagem = 1;
 	private boolean contEngranagem2;
@@ -49,24 +49,34 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Timer timer;
 	
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
-	private Icones_interativos titulo = new Icones_interativos(1234/2 - 511/2, 20 + 50);
+	private Icones_interativos titulo = new Icones_interativos(1234/2 - 600/2, 25);
 	
 	// ---------------------------- aventureiros ------------------------------------
 	
-	private Icones_interativos iconeIgnis = new Icones_interativos(20 - 8, 640 - 20 - 454);
-	private Icones_interativos iconeAyla = new Icones_interativos(20 + 240, 640 - 20 - 454 + 8);
-	private Icones_interativos iconeRexthor = new Icones_interativos(20 + 240 + 240, 640 - 20 - 454 + 8);
-	private Icones_interativos iconeKiki = new Icones_interativos(20 + 240 + 240 + 240, 640 - 20 - 454 + 8);
-	private Icones_interativos iconeArius = new Icones_interativos(20 + 240 + 240 + 240 + 240, 640 - 20 - 454 + 8);
-	
-	private Icones_interativos luzAven = new Icones_interativos(11, 82);
+	private Icones_interativos iconeIgnis = new Icones_interativos(20, 640 - 519);
+	private Icones_interativos iconeAyla = new Icones_interativos(iconeIgnis.getX() + 232 + 8, iconeIgnis.getY());
+	private Icones_interativos iconeRexthor = new Icones_interativos(iconeAyla.getX() + 232 + 8, iconeIgnis.getY());
+	private Icones_interativos iconeKiki = new Icones_interativos(iconeRexthor.getX() + 232 + 8, iconeIgnis.getY());
+	private Icones_interativos iconeArius = new Icones_interativos(iconeKiki.getX() + 232 + 8, iconeIgnis.getY());
+		
 	private int contTeclaAven = 0;
+	
+	// ------------------------------------------- painel ---------------------------------------------
+
+	private Icones_interativos painel = new Icones_interativos(20, iconeIgnis.getY() - 40);
+	private Icones_interativos encanamento = new Icones_interativos(0, 23);
+
+	private Icones_interativos luz1 = new Icones_interativos(painel.getX(), painel.getY() + 12);
+	private Icones_interativos luz2 = new Icones_interativos(painel.getX(), painel.getY() + 12);
+	private Icones_interativos luz3 = new Icones_interativos(painel.getX(), painel.getY() + 12);
+	private Icones_interativos luz4 = new Icones_interativos(painel.getX(), painel.getY() + 12);
+	private Icones_interativos luz5 = new Icones_interativos(painel.getX(), painel.getY() + 12);
 	
 	// ------------------------------------------- Controles ---------------------------------------------
 	
-	private Icones_interativos teclaEsquerda = new Icones_interativos(20 + 10, 640 - 20 - 42 - 20);
-	private Icones_interativos teclaDireita = new Icones_interativos(1234 - 10 - 20 - 37, 640 - 20 - 42 - 20);
-	private Icones_interativos teclaZ = new Icones_interativos(20 + 110,20 + 36);
+	private Icones_interativos teclaEsquerda = new Icones_interativos(20 + 10, 640 - 160);
+	private Icones_interativos teclaDireita = new Icones_interativos(1234 - 10 - 20 - 37, teclaEsquerda.getY());
+	private Icones_interativos teclaZ = new Icones_interativos(20 + 110, 20 + 36);
 	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 110 - 37, 20 + 36);
 	private Icones_interativos teclaEsc = new Icones_interativos(1234 - 20 - 55 + 2, 20 - 4);
 	
@@ -88,9 +98,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,16);
-	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2,80);
-	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),bntMenu.getY() + 120);
-	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 120);
+	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2, 80);
+	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),bntMenu.getY() + 115);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 115);
 
 	
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
@@ -99,9 +109,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
-	
-	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 28 - 40, " ");
-	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 52 - 40, " ");
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 40 - 40, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
 	
@@ -120,12 +129,12 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load(caminho + "res\\fundo1.png");
+		fundo2.load(caminho + "res\\EscolhaDePersonagem\\fundo.png");
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 
-		titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
+		titulo.load(caminho + "res\\escolhaDePersonagem\\titulo.png");
 		contorno.load(caminho + "res\\contorno.png");
 		
 		// ---------------------------- imagens dos aventureiros ------------------------------------
@@ -136,12 +145,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
 		iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
 		
-		luzAven.load(caminho + "res\\escolhaDePersonagem\\luzIgnis.png");
-		
 		txtdialogoPersonagem.setFonte(new Font("Arial", Font.PLAIN, 28));
 		txtdialogoPersonagem.setCorTexto(new Color (235, 230, 233));
 		txtdialogoPersonagem2.setFonte(new Font("Arial", Font.PLAIN, 28));
 		txtdialogoPersonagem3.setFonte(new Font("Arial", Font.PLAIN, 28));
+		
+		// ------------------------------------------- painel ---------------------------------------------
+
+		painel.load(caminho + "res\\escolhaDePersonagem\\painel.png");
+		encanamento.load(caminho + "res\\escolhaDePersonagem\\encanamento.png");
+		
+		luz1.setImagem(null); luz2.setImagem(null); luz3.setImagem(null);
+		luz4.setImagem(null); luz5.setImagem(null);
 		
 		// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 
@@ -164,76 +179,33 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	/* ---------------------------------------------------------------------------------------- \
 	|  		 		mexe e muda as imagens dos personagem conforme ganham foco					|
 	\ ---------------------------------------------------------------------------------------- */
-	public void posicionarPersonagens(int personagemPerdeFoco) {
+	public void posicionarPersonagens() {
+
+		iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis1.png");
+		iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla1.png");
+		iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor1.png");
+		iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
+		iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
 		
-		switch(personagemPerdeFoco) {
-			case 0:
-				iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis1.png");
-				iconeIgnis.setX(20);
-				iconeIgnis.setY(640 - 20 - 454 + 8);
-				break;
-			case 1:
-				iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla1.png");
-				iconeAyla.setX(20 + 240);
-				iconeAyla.setY(640 - 20 - 454 + 8);
-				break;
-			case 2:
-				iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor1.png");
-				iconeRexthor.setX(20 + 240 + 240);
-				iconeRexthor.setY(640 - 20 - 454 + 8);
-				break;
-			case 3:
-				iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
-				iconeKiki.setX(20 + 240 + 240 + 240);
-				iconeKiki.setY(640 - 20 - 454 + 8);
-				break;
-			case 4:
-				iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
-				iconeArius.setX(20 + 240 + 240 + 240 + 240);
-				iconeArius.setY(640 - 20 - 454 + 8);
-				break;
-		}
-			
+		luz1.setImagem(null); luz2.setImagem(null); luz3.setImagem(null);
+		luz4.setImagem(null); luz5.setImagem(null);
+		luz1.setDx(0);
+
 		switch(contTeclaAven) {
 			case 0:
 				iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis2.png");
-				iconeIgnis.setX(20 - 8);
-				iconeIgnis.setY(640 - 20 - 454);
-				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
-				luzAven.setX(11); luzAven.setY(82);
-				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzIgnis.png");
 				break;
 			case 1:
 				iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla2.png");
-				iconeAyla.setX(20 + 240 - 8);
-				iconeAyla.setY(640 - 20 - 454);
-				titulo.load(caminho + "res\\escolhaDePersonagem\\texto2.png");
-				luzAven.setX(98); luzAven.setY(82);
-				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzAyla.png");
 				break;
 			case 2:
 				iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor2.png");
-				iconeRexthor.setX(20 + 240 + 240 - 8);
-				iconeRexthor.setY(640 - 20 - 454);
-				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
-				luzAven.setX(338); luzAven.setY(82);
-				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzRexthor.png");
 				break;
 			case 3:
 				iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki2.png");
-				iconeKiki.setX(20 + 240 + 240 + 240 - 8);
-				iconeKiki.setY(640 - 20 - 454);
-				titulo.load(caminho + "res\\escolhaDePersonagem\\texto2.png");
-				luzAven.setX(578); luzAven.setY(82);
-				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzKiki.png");
 				break;
 			case 4:
 				iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius2.png");
-				iconeArius.setX(20 + 240 + 240 + 240 + 240 - 8);
-				iconeArius.setY(640 - 20 - 454);
-				titulo.load(caminho + "res\\escolhaDePersonagem\\texto1.png");
-				luzAven.setX(769); luzAven.setY(82);
-				luzAven.load(caminho + "res\\escolhaDePersonagem\\luzArius.png");
 				break;
 		}
 	}
@@ -424,7 +396,6 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			// ---------- muda a seleção dos personagens para esquerda --------- \
 			}else if(codigo == KeyEvent.VK_LEFT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 				
-				
 				if(contEngranagem == 2) {
 					contEngranagem = 1;
 				} else {contEngranagem ++;}
@@ -435,24 +406,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				
 				if(contTeclaAven == 0) {contTeclaAven = 4;} else {contTeclaAven --;}
 				
-				switch (contTeclaAven) {
-					case 0:
-						posicionarPersonagens(1);
-					    break;
-					case 1:
-						posicionarPersonagens(2);
-					    break;
-					case 2:
-						posicionarPersonagens(3);
-					    break;
-					case 3:
-						posicionarPersonagens(4);
-					    break;
-					case 4:
-						posicionarPersonagens(0);
-					    break;
-				}	  
-				
+				posicionarPersonagens();
+					   
+					  
 			// ---------- muda a seleção dos personagens para direita --------- \
 			} else if(codigo == KeyEvent.VK_RIGHT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 				
@@ -466,23 +422,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				
 				if(contTeclaAven == 4) {contTeclaAven = 0;} else {contTeclaAven ++;}
 				
-				switch (contTeclaAven) {
-					case 0:
-						posicionarPersonagens(4);
-					    break;
-					case 1:
-						posicionarPersonagens(0);
-					    break;
-					case 2:
-						posicionarPersonagens(1);
-					    break;
-					case 3:
-						posicionarPersonagens(2);
-					    break;
-					case 4:
-						posicionarPersonagens(3);
-					    break;
-				}
+				posicionarPersonagens();
 			}
 			// --------------- chama o dialogo de aviso ao apertar Z -------------- \
 			else if(codigo == KeyEvent.VK_Z && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
@@ -619,7 +559,6 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		graficos.drawImage(fundo, 0, 0, null);
 		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
-		graficos.drawImage(titulo.getImagem(), titulo.getX(), titulo.getY(), this);
 		
 		// ---------------------------- aventureiros ------------------------------------
 		
@@ -629,8 +568,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		graficos.drawImage(iconeKiki.getImagem(), iconeKiki.getX(), iconeKiki.getY(), this);
 		graficos.drawImage(iconeArius.getImagem(), iconeArius.getX(), iconeArius.getY(), this);
 		
-		graficos.drawImage(luzAven.getImagem(), luzAven.getX(), luzAven.getY(), this);
+		// ------------------------------------------- painel ---------------------------------------------
+
+		graficos.drawImage(encanamento.getImagem(), encanamento.getX(), encanamento.getY(), this);
+		graficos.drawImage(painel.getImagem(), painel.getX(), painel.getY(), this);
+		graficos.drawImage(titulo.getImagem(), titulo.getX(), titulo.getY(), this);
 		
+		graficos.drawImage(luz1.getImagem(), luz1.getX(), luz1.getY(), this);
+		graficos.drawImage(luz2.getImagem(), luz2.getX(), luz2.getY(), this);
+		graficos.drawImage(luz3.getImagem(), luz3.getX(), luz3.getY(), this);
+		graficos.drawImage(luz4.getImagem(), luz4.getX(), luz4.getY(), this);
+		graficos.drawImage(luz5.getImagem(), luz5.getX(), luz5.getY(), this);
+				
 		// ------------------------------------------- Controles ---------------------------------------------
 
 		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY(), this);
@@ -688,7 +637,39 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		animarTitulo();
+		
+		animarluzes();
+		
 		repaint();
+	}
+	
+	public void animarTitulo() {
+		
+		if(titulo.getDx() == 97) {titulo.setDx(1);}
+		else {titulo.setDx(titulo.getDx() + 1);}
+		
+		if(titulo.getDx() == 56 || titulo.getDx() == 64 || titulo.getDx() == 72 || titulo.getDx() == 80 || titulo.getDx() == 88 || titulo.getDx() == 96) {
+			titulo.setY(titulo.getY() + 1);
+		} else if(titulo.getDx() == 8 || titulo.getDx() == 16 || titulo.getDx() == 24 || titulo.getDx() == 32 || titulo.getDx() == 40 || titulo.getDx() == 48) {
+			titulo.setY(titulo.getY() - 1);
+		} 
+	}
+
+	public void animarluzes() {
+		
+		if(luz1.getDx() == 60) {luz1.setDx(0);}
+		else {luz1.setDx(luz1.getDx() + 1);}
+		
+		if(luz1.getDx() == 36) {
+			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "3" : (contTeclaAven == 1 ? "6" : (contTeclaAven == 2 ? "9" : (contTeclaAven == 3 ? "12" : "15")))) + ".png");
+		} else if(luz1.getDx() == 24) {
+			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "2" : (contTeclaAven == 1 ? "5" : (contTeclaAven == 2 ? "8" : (contTeclaAven == 3 ? "11" : "14")))) + ".png");
+		} else if(luz1.getDx() == 12) {
+			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "1" : (contTeclaAven == 1 ? "4" : (contTeclaAven == 2 ? "7" : (contTeclaAven == 3 ? "10" : "13")))) + ".png");
+		} else if(luz1.getDx() == 0) {
+			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).setImagem(null);
+		}
 	}
 	
 	public void chamarTela2(int ContTeclaAven, boolean [] Derrotados) {

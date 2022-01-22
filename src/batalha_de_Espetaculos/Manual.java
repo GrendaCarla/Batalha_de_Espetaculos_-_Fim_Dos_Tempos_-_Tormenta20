@@ -34,7 +34,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos fundo3 = new Icones_interativos(-20, 10);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
@@ -92,7 +92,7 @@ public class Manual extends JPanel implements ActionListener {
 	private int contTempoNomeApelo = 0;
 	private Texto nomeApelo1, nomeApelo2, nomeApelo3, nomeApelo4;
 	
-	private Icones_interativos painel1 = new Icones_interativos(nomeHabilidade1.getX() - 2, nomeHabilidade1.getY() - 2);
+	private Icones_interativos painel1 = new Icones_interativos(nomeHabilidade1.getX() - 2, nomeHabilidade1.getY() - 8);
 	
 		/* ------------------------------- info apelo ---------------------------------*/
 
@@ -140,7 +140,7 @@ public class Manual extends JPanel implements ActionListener {
 			+ " você é capaz deretirar o primeiro colocado do seu pedestal causando uma alta interferência nele."
 			+ "Este poder afeta o primeiro colocado.";
 	
-	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY() - 4);
+	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY());
 	
 	// ----------------------------------- campo batalha -----------------------------------
 
@@ -165,13 +165,11 @@ public class Manual extends JPanel implements ActionListener {
 	private Texto txtEfeitoFase = new Texto(campoBatalha1.getX() - 74, campoBatalha3.getY() + 70/2 + 20/2, " ");
 	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 34, txtEfeitoFase.getY() - 17);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha1.getY() + 4);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha2.getY() + 4);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha3.getY() + 4);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha4.getY() + 4);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha5.getY() + 4);
-	
-	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() - 1);
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha1.getY() + 3);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha2.getY() + 3);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha3.getY() + 3);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha4.getY() + 3);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha5.getY() + 3);
 	
 	// corações que mede o total de apelo e interferência de todas as rodadas 
 	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
@@ -398,14 +396,12 @@ public class Manual extends JPanel implements ActionListener {
 		
 		efeitoFase.setImagem(null);
 		
-		iconeCampoBatalha1.load(caminho + "res\\batalha\\Ignis\\iconeCampoBatalha.png");
-		iconeCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\iconeCampoBatalha.png");
-		iconeCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\iconeCampoBatalha.png");
-		iconeCampoBatalha4.load(caminho + "res\\batalha\\Kiki\\iconeCampoBatalha.png");
-		iconeCampoBatalha5.load(caminho + "res\\batalha\\Arius\\iconeCampoBatalha.png");
+		iconeCampoBatalha1.load(caminho + "res\\batalha\\Ignis\\iconeCampoBatalha2.png");
+		iconeCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\iconeCampoBatalha1.png");
+		iconeCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\iconeCampoBatalha1.png");
+		iconeCampoBatalha4.load(caminho + "res\\batalha\\Kiki\\iconeCampoBatalha1.png");
+		iconeCampoBatalha5.load(caminho + "res\\batalha\\Arius\\iconeCampoBatalha1.png");
 				
-		seletorAventureiro.load(caminho + "res\\batalha\\seletorAventureiro.png");
-
 		coracao01.load(caminho + "res\\batalha\\apelo.png");
 		coracao02.load(caminho + "res\\batalha\\apelo.png");
 		coracao03.load(caminho + "res\\batalha\\apelo.png");
@@ -687,20 +683,20 @@ public class Manual extends JPanel implements ActionListener {
 	}
 	
 	public void apagarCoracoes() {
-		coracao11.setImagem(null); coracao12.setImagem(null); coracao13.setImagem(null); coracao14.setImagem(null); coracao15.setImagem(null);
-		coracao16.setImagem(null); coracao17.setImagem(null); coracao18.setImagem(null); coracao19.setImagem(null); coracao110.setImagem(null);
+		coracao11.load(caminho + "res\\batalha\\losango.png"); coracao12.load(caminho + "res\\batalha\\losango.png"); coracao13.load(caminho + "res\\batalha\\losango.png"); coracao14.load(caminho + "res\\batalha\\losango.png"); coracao15.load(caminho + "res\\batalha\\losango.png");
+		coracao16.load(caminho + "res\\batalha\\losango.png"); coracao17.load(caminho + "res\\batalha\\losango.png"); coracao18.load(caminho + "res\\batalha\\losango.png"); coracao19.load(caminho + "res\\batalha\\losango.png"); coracao110.load(caminho + "res\\batalha\\losango.png");
 		
-		coracao21.setImagem(null); coracao22.setImagem(null); coracao23.setImagem(null); coracao24.setImagem(null); coracao25.setImagem(null);
-		coracao26.setImagem(null); coracao27.setImagem(null); coracao28.setImagem(null); coracao29.setImagem(null); coracao210.setImagem(null);
+		coracao21.load(caminho + "res\\batalha\\losango.png"); coracao22.load(caminho + "res\\batalha\\losango.png"); coracao23.load(caminho + "res\\batalha\\losango.png"); coracao24.load(caminho + "res\\batalha\\losango.png"); coracao25.load(caminho + "res\\batalha\\losango.png");
+		coracao26.load(caminho + "res\\batalha\\losango.png"); coracao27.load(caminho + "res\\batalha\\losango.png"); coracao28.load(caminho + "res\\batalha\\losango.png"); coracao29.load(caminho + "res\\batalha\\losango.png"); coracao210.load(caminho + "res\\batalha\\losango.png");
 		
-		coracao31.setImagem(null); coracao32.setImagem(null); coracao33.setImagem(null); coracao34.setImagem(null); coracao35.setImagem(null);
-		coracao36.setImagem(null); coracao37.setImagem(null); coracao38.setImagem(null); coracao39.setImagem(null); coracao310.setImagem(null);
+		coracao31.load(caminho + "res\\batalha\\losango.png"); coracao32.load(caminho + "res\\batalha\\losango.png"); coracao33.load(caminho + "res\\batalha\\losango.png"); coracao34.load(caminho + "res\\batalha\\losango.png"); coracao35.load(caminho + "res\\batalha\\losango.png");
+		coracao36.load(caminho + "res\\batalha\\losango.png"); coracao37.load(caminho + "res\\batalha\\losango.png"); coracao38.load(caminho + "res\\batalha\\losango.png"); coracao39.load(caminho + "res\\batalha\\losango.png"); coracao310.load(caminho + "res\\batalha\\losango.png");
 		
-		coracao41.setImagem(null); coracao42.setImagem(null); coracao43.setImagem(null); coracao44.setImagem(null); coracao45.setImagem(null);
-		coracao46.setImagem(null); coracao47.setImagem(null); coracao48.setImagem(null); coracao49.setImagem(null); coracao410.setImagem(null);
+		coracao41.load(caminho + "res\\batalha\\losango.png"); coracao42.load(caminho + "res\\batalha\\losango.png"); coracao43.load(caminho + "res\\batalha\\losango.png"); coracao44.load(caminho + "res\\batalha\\losango.png"); coracao45.load(caminho + "res\\batalha\\losango.png");
+		coracao46.load(caminho + "res\\batalha\\losango.png"); coracao47.load(caminho + "res\\batalha\\losango.png"); coracao48.load(caminho + "res\\batalha\\losango.png"); coracao49.load(caminho + "res\\batalha\\losango.png"); coracao410.load(caminho + "res\\batalha\\losango.png");
 		
-		coracao51.setImagem(null); coracao52.setImagem(null); coracao53.setImagem(null); coracao54.setImagem(null); coracao55.setImagem(null);
-		coracao56.setImagem(null); coracao57.setImagem(null); coracao58.setImagem(null); coracao59.setImagem(null); coracao510.setImagem(null);
+		coracao51.load(caminho + "res\\batalha\\losango.png"); coracao52.load(caminho + "res\\batalha\\losango.png"); coracao53.load(caminho + "res\\batalha\\losango.png"); coracao54.load(caminho + "res\\batalha\\losango.png"); coracao55.load(caminho + "res\\batalha\\losango.png");
+		coracao56.load(caminho + "res\\batalha\\losango.png"); coracao57.load(caminho + "res\\batalha\\losango.png"); coracao58.load(caminho + "res\\batalha\\losango.png"); coracao59.load(caminho + "res\\batalha\\losango.png"); coracao510.load(caminho + "res\\batalha\\losango.png");
 	}
 	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
@@ -967,7 +963,6 @@ public class Manual extends JPanel implements ActionListener {
 	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY() + rolagemTela, this);
 		
 		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY() + rolagemTela, this);
-		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY() + rolagemTela, this);
 		
 		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY() + rolagemTela, this);
 		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY() + rolagemTela, this);

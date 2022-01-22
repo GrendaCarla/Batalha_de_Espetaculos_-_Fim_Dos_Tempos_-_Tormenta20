@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.util.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,7 +38,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Image fundo;
 	
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
 	private Icones_interativos titulo = new Icones_interativos(1234/2 - 530/2, 20);
@@ -193,7 +195,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		Restaurar();
 		
-		timer = new Timer(5, this);
+		timer = new Timer(50, this); 
 		timer.start();
 	}
 	

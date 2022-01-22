@@ -31,10 +31,9 @@ public class Creditos extends JPanel implements ActionListener {
 	
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
-	private Icones_interativos fundo3 = new Icones_interativos(0, 0);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 
 	private boolean contEngranagem2;
 
@@ -61,7 +60,7 @@ public class Creditos extends JPanel implements ActionListener {
 
 	private Texto txtLn8 = new Texto(1234/2 - 148, txtLn7.getY() + 52, "Tormenta20 - Fim dos Tempos");
 	
-	private Texto txtLn9 = new Texto(txtLn2.getX() - 70, txtLn8.getY() + 58, "Grenda Carla / @LembreDePiscar                      Desenvolvedor / Programador / Ilustrador / Designer de Som");
+	private Texto txtLn9 = new Texto(txtLn2.getX() - 30, txtLn8.getY() + 58, "Gren / @LembreDePiscar                      Desenvolvedor / Programador / Ilustrador / Designer de Som");
 
 	
 	private Texto txtLn10 = new Texto(96, txtLn9.getY() + 80, "Esse jogo é um fangame da Campanha de RPG Fim dos Tempos, ou seja, o mundo e os personagens não são");
@@ -92,8 +91,7 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
 		fundo = referencia.getImage();
-		fundo2.load(caminho + "res\\fundo1.png");
-		fundo3.load(caminho + "res\\Creditos\\fundo.png");
+		fundo2.load(caminho + "res\\Manual\\fundo.png");
 		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
@@ -201,7 +199,6 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		graficos.drawImage(fundo, 0, 0, null);
 		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
-		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY(), this);
 		
 		/* ------------------------------- Créditos ---------------------------------*/
 

@@ -42,7 +42,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private Image fundo;
 	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
-	private Icones_interativos engrenagem2 = new Icones_interativos(1130, -12);
+	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 	
 	private int tamanhoContorno = 20;
 	private Icones_interativos parabenizacaoVencedor;
@@ -61,9 +61,9 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
 	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
 	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2, 80);
-	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(), bntMenu.getY() + 120);
-	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 120);
-	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(), bntCreditos.getY() + 120);
+	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(), bntMenu.getY() + 115);
+	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 115);
+	private Icones_interativos bntVoltar = new Icones_interativos(bntMenu.getX(), bntCreditos.getY() + 115);
 
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
@@ -75,10 +75,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, dialogoAviso.getY() + 190);
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
-	
-	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 28 - 40, " ");
-	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 52 - 40, " ");
-	
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 40 - 40, " ");
 
 	
 	private Boolean bntSimNaoDialgoAviso = true;
@@ -173,11 +171,11 @@ public class Batalha extends JPanel implements ActionListener {
 	private Texto txtEfeitoFase = new Texto(tamanhoContorno + 700, campoBatalha1.getY() + 70/2 + 7, " ");
 	private Icones_interativos efeitoFase = new Icones_interativos(txtEfeitoFase.getX() + 30, txtEfeitoFase.getY() - 17);
 	
-	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha1.getY() + 4);
-	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha2.getY() + 4);
-	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha3.getY() + 4);
-	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha4.getY() + 4);
-	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 27, campoBatalha5.getY() + 4);
+	private Icones_interativos iconeCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha1.getY() + 3);
+	private Icones_interativos iconeCampoBatalha2 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha2.getY() + 3);
+	private Icones_interativos iconeCampoBatalha3 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha3.getY() + 3);
+	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha4.getY() + 3);
+	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha5.getY() + 3);
 		
 	// corações que mede o total de apelo e interferência de todas as rodadas 
 	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
@@ -243,7 +241,6 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos coracao510 = new Icones_interativos(coracao59.getX() + 25, coracao59.getY()); 
 	
 	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
-	private Icones_interativos seletorAventureiro = new Icones_interativos(iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() - 1);
 	
 	private Icones_interativos luzCampoBatalha1 = new Icones_interativos(campoBatalha1.getX() + 88, campoBatalha1.getY() + 12);
 	private Icones_interativos luzCampoBatalha2 = new Icones_interativos(campoBatalha2.getX() + 88, campoBatalha2.getY() + 12);
@@ -382,7 +379,6 @@ public class Batalha extends JPanel implements ActionListener {
 		// ---------------------- itens relacionados com campo de batalha --------------------------
 		
 		repintarCampoBatalha();
-		seletorAventureiro.load(caminho + "res\\batalha\\seletorAventureiro.png");
 		
 		luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 		luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
@@ -483,7 +479,7 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// ------------------------------------------------------------------------
 		
-		timer = new Timer(5, this);
+		timer = new Timer(35, this);
 		timer.start();
 		
 	}
@@ -522,9 +518,9 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeKiki.setDx(iconeKiki.getDx() + 1);
 		
-		if(iconeKiki.getDx() % 16 == 0) {
+		if(iconeKiki.getDx() % 8 == 0) {
 			iconeKiki.load(caminho + "res\\batalha\\animacao\\kiki1.png");
-		} else if(iconeKiki.getDx() % 8 == 0) {
+		} else if(iconeKiki.getDx() % 4 == 0) {
 			iconeKiki.load(caminho + "res\\batalha\\animacao\\kiki2.png");
 		}
 		
@@ -532,10 +528,10 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeArius.setDx(iconeArius.getDx() + 1);
 		
-		if(iconeArius.getDx() % 20 == 0) {
+		if(iconeArius.getDx() % 30 == 0) {
 			iconeArius.load(caminho + "res\\batalha\\animacao\\arius1.png");
 			iconeRexthor.load(caminho + "res\\batalha\\animacao\\rexthor1.png");
-		} else if(iconeArius.getDx() % 10 == 0) {
+		} else if(iconeArius.getDx() % 15 == 0) {
 			iconeArius.load(caminho + "res\\batalha\\animacao\\arius2.png");
 			iconeRexthor.load(caminho + "res\\batalha\\animacao\\rexthor2.png");
 		}
@@ -610,10 +606,10 @@ public class Batalha extends JPanel implements ActionListener {
 	public void repintarCampoBatalha() {
 		
 		for(int i=0; i<5; i++) {
-			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha.png");
+			(i == 0 ? iconeCampoBatalha1 : (i == 1 ? iconeCampoBatalha2 : (i == 2 ? iconeCampoBatalha3 : (i == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[i]] + "\\iconeCampoBatalha1.png");
 		}
 		
-		seletorAventureiro.setY((posicaoAventureiro == 0 ? iconeCampoBatalha1.getY() : (posicaoAventureiro == 1 ? iconeCampoBatalha2.getY() : (posicaoAventureiro == 2 ? iconeCampoBatalha3.getY() : (posicaoAventureiro == 3 ? iconeCampoBatalha4.getY() : iconeCampoBatalha5.getY())))) - 1);		
+		(posicaoAventureiro == 0 ? iconeCampoBatalha1 : (posicaoAventureiro == 1 ? iconeCampoBatalha2 : (posicaoAventureiro == 2 ? iconeCampoBatalha3 : (posicaoAventureiro == 3 ? iconeCampoBatalha4 : iconeCampoBatalha5)))).load(caminho + "res\\batalha\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "\\iconeCampoBatalha2.png");
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -1307,7 +1303,6 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(iconeCampoBatalha5.getImagem(), iconeCampoBatalha5.getX(), iconeCampoBatalha5.getY(), this);
 		
 		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY(), this);
-		graficos.drawImage(seletorAventureiro.getImagem(), seletorAventureiro.getX(), seletorAventureiro.getY(), this);
 		
 		graficos.drawImage(luzCampoBatalha1.getImagem(), luzCampoBatalha1.getX(), luzCampoBatalha1.getY(), this);
 		graficos.drawImage(luzCampoBatalha2.getImagem(), luzCampoBatalha2.getX(), luzCampoBatalha2.getY(), this);
