@@ -23,7 +23,7 @@ Este projeto é um <b>jogo feito por fãs</b> baseado na campanha de RPG Fim Dos
 </br>
 <h2 align="center">Escolha de Personagem</h2>
 
-<div align="center"><img height="400" src=""></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150651457-5dea4ed8-a5f7-4b54-8c76-36974da6455d.gif"></div>
 
 </br>
 <h2 align="center">Escolha de Batalhas</h2>
