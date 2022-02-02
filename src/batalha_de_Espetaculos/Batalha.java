@@ -72,12 +72,11 @@ public class Batalha extends JPanel implements ActionListener {
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
-	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(1234/2 - 706/2 + 110, dialogoAviso.getY() + 190);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
 	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
 	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 40 - 40, " ");
-
 	
 	private Boolean bntSimNaoDialgoAviso = true;
 	
@@ -899,7 +898,7 @@ public class Batalha extends JPanel implements ActionListener {
 				if(mostrarMenu == true) {
 					contMenu = 0;
 					sombreadorMenu.load(caminho + "res\\sombreador.png");
-					fundoMenu.load(caminho + "res\\Menu secundario\\menu.png");
+					fundoMenu.load(caminho + "res\\Menu secundario\\menu1.png");
 					bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
 					bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
 					bntVoltar.load(caminho + "res\\Menu secundario\\bntVoltar1.png");

@@ -99,10 +99,10 @@ public class Menu extends JPanel implements ActionListener {
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
-	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 526);
+	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 528);
 	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX() + 159 + 40, bntContinuar.getY());
 	private Icones_interativos bntManual = new Icones_interativos(bntNovoJogo.getX() + 159 + 40, bntContinuar.getY());
-	private Icones_interativos bntCreditos = new Icones_interativos(bntManual.getX() + 159 + 40, bntContinuar.getY());
+	private Icones_interativos bntCreditos = new Icones_interativos(bntManual.getX() + 159 + 36, bntContinuar.getY());
 	
 	private int contOpcoes;
 	

@@ -19,7 +19,7 @@ public class Ignis {
 	
 	private String [][] ConteudoEscolhaAdversario = {{" ", "Boa tarde, Elmer me disse que deseja falar comigo sobre algo?", " ", " "},
 				 {"Ah, sim, as batalhas de espetáculos.", "Mesmo não as apreciando muito eu prometi que aceitaria todos os desafios feitos a mim.", " ", "As apresentações COM interferência ganharão -1 de apelo."},
-				 {"Se não tem nada a tratar comigo fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", "blá, blá, blá..."},
+				 {"Se não tem nada a tratar comigo fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", " "},
 				 {" ", "É bom ver seu rosto novamente aqui. Está querendo batalhar mais uma vez?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();

@@ -84,12 +84,12 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	private Icones_interativos sombreadorDialogoPerso = new Icones_interativos(0, 0);
 	private Icones_interativos dialogoPersonagem = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
-	private Icones_interativos bntSimdialogoPersonagem = new Icones_interativos(dialogoPersonagem.getX() + 110, dialogoPersonagem.getY() + 190);
+	private Icones_interativos bntSimdialogoPersonagem = new Icones_interativos(dialogoPersonagem.getX() + 110, dialogoPersonagem.getY() + 180);
 	private Icones_interativos bntNaodialogoPersonagem = new Icones_interativos(bntSimdialogoPersonagem.getX() + 370, bntSimdialogoPersonagem.getY());
 	
-	private Texto txtdialogoPersonagem = new Texto(1234/2 - 706/2 + 60, 548/2 - 28 - 40, " ");
-	private Texto txtdialogoPersonagem2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 12 - 40, " ");
-	private Texto txtdialogoPersonagem3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 52 - 40, " ");
+	private Texto txtdialogoPersonagem = new Texto(1234/2 - 706/2 + 60, 548/2 - 20 - 40, " ");
+	private Texto txtdialogoPersonagem2 = new Texto(1234/2 - 706/2 + 60, 548/2 + 20 - 40, " ");
+	private Texto txtdialogoPersonagem3 = new Texto(1234/2 - 706/2 + 250, 548/2 + 60 - 40, " ");
 	
 	private TextLayout tl1, tl2, tl3, tl4, tl5; 
 	private Boolean botaoSimNaoDialogo = true;
@@ -97,7 +97,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	// ------------------------------------- imagens do menu ---------------------------------------
 	
 	private Icones_interativos sombreadorMenu = new Icones_interativos(0, 0);
-	private Icones_interativos fundoMenu = new Icones_interativos(16,16);
+	private Icones_interativos fundoMenu = new Icones_interativos(16,0);
 	private Icones_interativos bntMenu = new Icones_interativos(18 + 200/2 - 128/2, 80);
 	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),bntMenu.getY() + 115);
 	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 115);
@@ -106,7 +106,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
-	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 190);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
 	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
@@ -338,7 +338,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				if(mostrarMenu == true) {
 					contMenu = 0;
 					sombreadorMenu.load(caminho + "res\\sombreador.png");
-					fundoMenu.load(caminho + "res\\Menu secundario\\menu.png");
+					fundoMenu.load(caminho + "res\\Menu secundario\\menu2.png");
 					bntMenu.load(caminho + "res\\Menu secundario\\bntMenu2.png");
 					bntManual.load(caminho + "res\\Menu secundario\\bntManual1.png");
 					bntCreditos.load(caminho + "res\\Menu secundario\\bntCreditos1.png");

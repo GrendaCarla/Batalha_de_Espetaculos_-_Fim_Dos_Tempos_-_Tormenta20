@@ -22,8 +22,8 @@ public class Ayla {
 													 {" ", "Você tem hora marcada?", " ", " "},
 													 {"Muito bem, me acompanhe por favor.", " ", " ", " "},
 													 {"Minhas sinceras desculpas, mas a Srta. Ayla só recebe com hora marcada.", " ", " ", " "},
-													 {"Olá, você esta querendo falar comigo?", "Deixe-me adivinhar, você quer se tornar uma consultora da Ayla Corporation?", "Não?",  "- Ayla Corporation, em breve rebranding"},
-													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma batalha, certo?", "Eu aceito o desafio, mas durante o caminho deixa eu te falar sobre os benefícios de ser consulto...", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
+													 {"Olá, você esta querendo falar comigo?", "Deixe-me adivinhar, você quer se tornar uma consultora de beleza?", "Não?",  " "},
+													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma batalha, certo?", "Eu aceito o desafio, mas durante o caminho deixa eu falar sobre os benefícios de se tornar consulto-", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {" ", "Olá de novo, você quer batalhar mais uma vez?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
