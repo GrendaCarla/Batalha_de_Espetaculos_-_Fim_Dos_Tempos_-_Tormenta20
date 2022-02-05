@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -579,6 +580,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							dispara quando as teclas são  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
 	
+	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
@@ -1090,16 +1092,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} 
 					    break;
 					case 2: // Kiki
+						objetoDeFundo1.setX(-20); objetoDeFundo1.setY(-40);
+						objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
+						
 						if(contDialogo == 1 && derrotados[3] == true) {
 							imagemDoDialogo.setX(1234/2 - 300/2);
-							
-							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
-							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
 							txtDialogoLn2.setX(445);
 							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
-							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
@@ -1112,12 +1112,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 300/2);
 							
-							objetoDeFundo1.setX(20); objetoDeFundo1.setY(100);
-							objetoDeFundo2.setX(1234 - 630 - 20); objetoDeFundo2.setY(30);
-							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
-							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[0][1]);
@@ -1132,7 +1127,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							bntNaoDialogo.setImagem(null);
 							
 							if(bntSimNao == true){
-								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 								
 								txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[3][0]);
 								txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[3][1]);
@@ -1396,6 +1391,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 	}
 	
+	
 	public void KeyReleased (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 
@@ -1414,7 +1410,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else if(codigo == KeyEvent.VK_RIGHT) {
 					direita = false;
 				}
-			
 				
 				if(esquerda == false || direita == false) {
 					
@@ -1849,16 +1844,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void animarVandinha() {
 		
-		if(contAnimacaoVandinha == 26) {contAnimacaoVandinha = 0;}
+		if(contAnimacaoVandinha == 21) {contAnimacaoVandinha = 0;}
 		else {contAnimacaoVandinha ++;}
 		
-		if(contAnimacaoVandinha == 5 || contAnimacaoVandinha == 14 || contAnimacaoVandinha == 23) {
+		if(contAnimacaoVandinha == 4 || contAnimacaoVandinha == 11 || contAnimacaoVandinha == 18) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha2.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco1.png");
-		} else if(contAnimacaoVandinha == 9) {
+		} else if(contAnimacaoVandinha == 7) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha3.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
-		} else if(contAnimacaoVandinha == 18) {
+		} else if(contAnimacaoVandinha == 14) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha1.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
 		} 
