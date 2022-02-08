@@ -300,6 +300,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		iconeKiki.setImagem(null);
 		iconeArius.setImagem(null);
 		
+		limparMovimento();
+		
 		mostrarEstrela();
 		
 		txtSalvar.setFonte(new Font("Arial", Font.BOLD, 20));
@@ -678,19 +680,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			// ---------- encaminha para a função que controla o botão voltar do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 3) {
 				dialogoBntVoltar(codigo);
-				
-			} else if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null && (esquerda == true && direita == true) || (cima == true && baixo == true) ) {
-				
-				if(esquerda == true){
-					esquerda = false;
-					direita = false;
-				} else {
-					cima = false;
-					baixo = false;
-				}
-				
-				pararMovimento();
-				
+			
 			// ---------- faz o aventureiro andar horizontalmente --------- \
 			} else if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null && (esquerda == true || direita == true)) {
 				
@@ -698,7 +688,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					contEngranagem1= 1;
 				} else {contEngranagem1++;}
 				
-				respiracaoAventureiro = false;
+				
 				
 				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 							
@@ -706,141 +696,149 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				else if(camada41.getX() == 0) { camada42.setX(esquerda == true ? -4000 : 4000);}
 				
 				int camada4Atual = (camada41.getX() < camada42.getX() ? camada41.getX() : camada42.getX());
-				
-				if(esquerda == true) {
 							
-					teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
-
-					if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || (ativarBoss == true && camada4Atual == -3424) || camada4Atual == -3936) {
-						teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-						contTeclaBatalha --;
-						
-					} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || (ativarBoss == true && camada4Atual == -3076) || camada4Atual == -3548){
-						teclaZ.setImagem(null);
-						contTeclaBatalha --;
-					}
-		
-					if(ativarBoss == false && (camada4Atual == -3424 || camada4Atual == -3076)) {
-						contTeclaBatalha --;
-					}
+				if(esquerda == true && direita == true) {
 					
-					if(contTeclaBatalha == -1) {contTeclaBatalha = 13;}
-											
-					if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
-						if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
-							if(!(ativarBoss == false && camada4Atual > -3424 && camada4Atual < -3076)) {
-								teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-							}
-							
-							if(!((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84))) {
-								contTeclaBatalha --;
-							}
-						} else if(camada4Atual != -128 && camada4Atual != -716 && camada4Atual != -1312 && camada4Atual != -1896 && camada4Atual != -2488 && camada4Atual != -3076 && camada4Atual != -3548) {
-							teclaZ.setImagem(null);
-							
-							if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
-								contTeclaBatalha --;
-							}
-						}
-					}
+					pararMovimento();
 					
-					camada21.setX((camada21.getX() > 1234 ? camada22.getX() - 5992 : camada21.getX() + 6));
-					camada22.setX((camada22.getX() > 1234 ? camada21.getX() - 5992 : camada22.getX() + 6));
+				} else {
+					respiracaoAventureiro = false;
 					
-					camada31.setX(camada41.getX() < camada42.getX() ? camada21.getX() : camada22.getX());
-					
-					camada41.setX(camada41.getX() + 4);
-					camada42.setX(camada42.getX() + 4);
-					
-					iconeIgnis.setX(camada4Atual + 2600 + 4);
-					iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 244 + 4);
-					iconeRexthor.setX(camada4Atual + 1420 + 4);
-					iconeKiki.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 824);
-					iconeArius.setX(camada4Atual + 2020 + 4);
-					
-					camada51.setX((camada51.getX() > 1234 ? camada52.getX() - 1992 : camada51.getX() + 1));
-					camada52.setX((camada52.getX() > 1234 ? camada51.getX() - 1992 : camada52.getX() + 1));
-							
-					if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1")) {
-						
-						iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "7.png");
-						if(aventureiro == 1) {
-							iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla16.png");
-							iconeAventureiro.setY(iconeAventureiro.getY() - 40);
-						}
-					}
-					
-					animarMovimentoAventureiro(true);
-				
-				}
-				
-				if(direita == true) {
-											
-					teclaZ.setX(camada4Atual + (camada4Atual < -3496 ? 4292 : (camada4Atual < -3024 ? 3830 : (camada4Atual < -2432 ? 3242 : (camada4Atual < -1848 ? 2652 : (camada4Atual < -1260 ? 2074 : (camada4Atual < -668 ? 1472 : (camada4Atual < -80 ? 878 : 0))))))));
-					
-					//faz a tecla Z aparecer quando o personagem chega na montainha
-					if(camada4Atual == -3500 || (ativarBoss == true && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
-						teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-						contTeclaBatalha ++;
-						
-					} else if(camada4Atual == -3896 || (ativarBoss == true && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
-						teclaZ.setImagem(null);
-						contTeclaBatalha ++;
-					}
-					
-					if(ativarBoss == false && (camada4Atual == -3028 || camada4Atual == -3396)) {
-						contTeclaBatalha ++;
-					}
-										
-					if(contTeclaBatalha == 14) {contTeclaBatalha = 0;}
-					
-					if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) > 4) {
-						if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
-							
-							if(!(ativarBoss == false && camada4Atual > -3396 && camada4Atual < -3028)) {
-								teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-							}
+					if(esquerda == true) {
 								
-							if(!((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548))) {
-								contTeclaBatalha ++;
-							}
-						} else if(camada4Atual != -3896 && camada4Atual != -3396 && camada4Atual != -2836 && camada4Atual != -2248 && camada4Atual != -1664 && camada4Atual != -1068 && camada4Atual != -476) {
-							teclaZ.setImagem(null);
+						teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
+	
+						if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || (ativarBoss == true && camada4Atual == -3424) || camada4Atual == -3936) {
+							teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+							contTeclaBatalha --;
 							
+						} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || (ativarBoss == true && camada4Atual == -3076) || camada4Atual == -3548){
+							teclaZ.setImagem(null);
+							contTeclaBatalha --;
+						}
+			
+						if(ativarBoss == false && (camada4Atual == -3424 || camada4Atual == -3076)) {
+							contTeclaBatalha --;
+						}
+						
+						if(contTeclaBatalha == -1) {contTeclaBatalha = 13;}
+												
+						if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
 							if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
-								contTeclaBatalha ++;
+								if(!(ativarBoss == false && camada4Atual > -3424 && camada4Atual < -3076)) {
+									teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+								}
+								
+								if(!((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84))) {
+									contTeclaBatalha --;
+								}
+							} else if(camada4Atual != -128 && camada4Atual != -716 && camada4Atual != -1312 && camada4Atual != -1896 && camada4Atual != -2488 && camada4Atual != -3076 && camada4Atual != -3548) {
+								teclaZ.setImagem(null);
+								
+								if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
+									contTeclaBatalha --;
+								}
 							}
 						}
-					}
-					
-					camada21.setX((camada21.getX() < -6000 ? camada22.getX() + 5992 : camada21.getX() - 6));
-					camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5992 : camada22.getX() - 6));
-					
-					camada31.setX(camada41.getX() < camada42.getX() ? camada21.getX() : camada22.getX());
-					
-					camada41.setX(camada41.getX() - 4);
-					camada42.setX(camada42.getX() - 4);
-					
-					iconeIgnis.setX(camada4Atual + 2600 - 4);
-					iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 248 );
-					iconeRexthor.setX(camada4Atual + 1420 - 4);
-					iconeKiki.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 824 );
-					iconeArius.setX(camada4Atual + 2020 - 4);
-					
-					camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1992 : camada51.getX() - 1));
-					camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1992 : camada52.getX() - 1));
-					
-					if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6")) {
 						
-						iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "2.png");
-						if(aventureiro == 1) {
-							iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla12.png");
-							iconeAventureiro.setY(iconeAventureiro.getY() - 40);
+						camada21.setX((camada21.getX() > 1234 ? camada22.getX() - 5992 : camada21.getX() + 6));
+						camada22.setX((camada22.getX() > 1234 ? camada21.getX() - 5992 : camada22.getX() + 6));
+						
+						camada31.setX(camada41.getX() < camada42.getX() ? camada21.getX() : camada22.getX());
+						
+						camada41.setX(camada41.getX() + 4);
+						camada42.setX(camada42.getX() + 4);
+						
+						iconeIgnis.setX(camada4Atual + 2600 + 4);
+						iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 244 + 4);
+						iconeRexthor.setX(camada4Atual + 1420 + 4);
+						iconeKiki.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 824);
+						iconeArius.setX(camada4Atual + 2020 + 4);
+						
+						camada51.setX((camada51.getX() > 1234 ? camada52.getX() - 1992 : camada51.getX() + 1));
+						camada52.setX((camada52.getX() > 1234 ? camada51.getX() - 1992 : camada52.getX() + 1));
+								
+						if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1")) {
+							
+							iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "7.png");
+							if(aventureiro == 1) {
+								iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla16.png");
+								iconeAventureiro.setY(iconeAventureiro.getY() - 40);
+							}
 						}
+						
+						animarMovimentoAventureiro(true);
+					
 					}
 					
-					animarMovimentoAventureiro(false);
-					
+					if(direita == true) {
+												
+						teclaZ.setX(camada4Atual + (camada4Atual < -3496 ? 4292 : (camada4Atual < -3024 ? 3830 : (camada4Atual < -2432 ? 3242 : (camada4Atual < -1848 ? 2652 : (camada4Atual < -1260 ? 2074 : (camada4Atual < -668 ? 1472 : (camada4Atual < -80 ? 878 : 0))))))));
+						
+						//faz a tecla Z aparecer quando o personagem chega na montainha
+						if(camada4Atual == -3500 || (ativarBoss == true && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
+							teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+							contTeclaBatalha ++;
+							
+						} else if(camada4Atual == -3896 || (ativarBoss == true && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
+							teclaZ.setImagem(null);
+							contTeclaBatalha ++;
+						}
+						
+						if(ativarBoss == false && (camada4Atual == -3028 || camada4Atual == -3396)) {
+							contTeclaBatalha ++;
+						}
+											
+						if(contTeclaBatalha == 14) {contTeclaBatalha = 0;}
+						
+						if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) > 4) {
+							if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
+								
+								if(!(ativarBoss == false && camada4Atual > -3396 && camada4Atual < -3028)) {
+									teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+								}
+									
+								if(!((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548))) {
+									contTeclaBatalha ++;
+								}
+							} else if(camada4Atual != -3896 && camada4Atual != -3396 && camada4Atual != -2836 && camada4Atual != -2248 && camada4Atual != -1664 && camada4Atual != -1068 && camada4Atual != -476) {
+								teclaZ.setImagem(null);
+								
+								if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
+									contTeclaBatalha ++;
+								}
+							}
+						}
+						
+						camada21.setX((camada21.getX() < -6000 ? camada22.getX() + 5992 : camada21.getX() - 6));
+						camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5992 : camada22.getX() - 6));
+						
+						camada31.setX(camada41.getX() < camada42.getX() ? camada21.getX() : camada22.getX());
+						
+						camada41.setX(camada41.getX() - 4);
+						camada42.setX(camada42.getX() - 4);
+						
+						iconeIgnis.setX(camada4Atual + 2600 - 4);
+						iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 248 );
+						iconeRexthor.setX(camada4Atual + 1420 - 4);
+						iconeKiki.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 824 );
+						iconeArius.setX(camada4Atual + 2020 - 4);
+						
+						camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1992 : camada51.getX() - 1));
+						camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1992 : camada52.getX() - 1));
+						
+						if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6")) {
+							
+							iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "2.png");
+							if(aventureiro == 1) {
+								iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla12.png");
+								iconeAventureiro.setY(iconeAventureiro.getY() - 40);
+							}
+						}
+						
+						animarMovimentoAventureiro(false);
+						
+					}
 				}
 				
 			// ---------- faz a ayla voar verticalmnte --------- \
@@ -911,6 +909,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				sombreadorDialogo.load(caminho + "res\\sombreador.png");
 				barraDeDialogo.load(caminho + "res\\escolhaDeAdversario\\barraDeDialogo.png");
 				contDialogo++;
+				
 				
 				// rexthor
 				
@@ -1255,18 +1254,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						}
 					    break;
 					case 6: // Arius
+						
+						objetoDeFundo1.setX(10); objetoDeFundo1.setY(-60);
+						objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto1.png");
+						
 						if(contDialogo == 1 && derrotados[4] == true) {
 							imagemDoDialogo.setX(1234/2 - 462/2);
 							imagemDoDialogo.setY(20);
-							objetoDeFundo1.setX(16); objetoDeFundo1.setY(240);
-							objetoDeFundo2.setX(1234 - 300 - 20 - 30); objetoDeFundo2.setY(30);
 							
 							txtDialogoLn2.setX(330);
 
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
-							
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto1.png");
-							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[4][1]);
@@ -1275,17 +1273,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+						
 						} else if(contDialogo == 1) {
 							
-							objetoDeFundo1.setX(16); objetoDeFundo1.setY(240);
-							objetoDeFundo2.setX(1234 - 300 - 20 - 30); objetoDeFundo2.setY(30);
 							imagemDoDialogo.setX(1234/2 - 462/2);
 							imagemDoDialogo.setY(20);
 							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
-							
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto1.png");
-							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\objeto2.png");
 							
 							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[0][1]);
@@ -1326,7 +1320,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[3][3]);
 							}
 						}
-						
 						
 					    break;
 					case 12: // Boss
@@ -1420,31 +1413,48 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void pararMovimento() {
+	public void limparMovimento() {
+		
+		cima = false;
+		baixo = false;
+		esquerda = false;
+		direita = false;
 
-		iconeAventureiro.setDx(7);
-		movimentoAventureiro = false;
-		respiracaoAventureiro = true;
+	}
+	
+	public void pararMovimento() {
 		
-		if(iconeAventureiro.getDy() < 20 && aventureiro == 1) {
-			iconeAventureiro.setY(20);
-		} else if(iconeAventureiro.getDy() > 240  && aventureiro == 1){
-			iconeAventureiro.setY(240);
-		} else if(aventureiro == 1){
-			iconeAventureiro.setY(iconeAventureiro.getDy());
-		}
-		
-		if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 5) {
-			iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "0.png");
+		if(!(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) == 0 
+		    || Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) == 1
+		    || Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) == 5
+		    || Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) == 6)) {
 			
-			if(aventureiro == 1) {
-				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla10.png");
+			
+			System.out.println("veio");
+			iconeAventureiro.setDx(7);
+			movimentoAventureiro = false;
+			respiracaoAventureiro = true;
+			
+			if(iconeAventureiro.getDy() < 20 && aventureiro == 1) {
+				iconeAventureiro.setY(20);
+			} else if(iconeAventureiro.getDy() > 240  && aventureiro == 1){
+				iconeAventureiro.setY(240);
+			} else if(aventureiro == 1){
+				iconeAventureiro.setY(iconeAventureiro.getDy());
 			}
-		} else {
-			iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "5.png");
 			
-			if(aventureiro == 1) {
-				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla14.png");
+			if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 5) {
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "0.png");
+				
+				if(aventureiro == 1) {
+					iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla10.png");
+				}
+			} else {
+				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "5.png");
+				
+				if(aventureiro == 1) {
+					iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla14.png");
+				}
 			}
 		}
 	}
@@ -1468,6 +1478,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		objetoDeFundo3.setImagem(null);
 		
 		ativarAnimacaoVelaAyla = 0;
+		
+		limparMovimento();
 		
 		txtDialogoLn1.setTexto(" ");
 		txtDialogoLn2.setTexto(" ");
@@ -1731,8 +1743,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 	}
-	
-
 	
 	public void animarSave() {
 		
