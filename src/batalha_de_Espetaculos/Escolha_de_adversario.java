@@ -124,14 +124,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos objetoDeFundo1 = new Icones_interativos(0,0);
 	private Icones_interativos objetoDeFundo2 = new Icones_interativos(0,0);
 	private Icones_interativos objetoDeFundo3 = new Icones_interativos(0,0);
-	private Icones_interativos bntSimDialogo = new Icones_interativos(1234/2 - 484/2, 640 - 50 - 40);
+	private Icones_interativos bntSimDialogo = new Icones_interativos(1234/2 - 484/2, 540);
 	private Icones_interativos bntNaoDialogo  = new Icones_interativos(bntSimDialogo.getX() + 370, bntSimDialogo.getY());
 
 	
-	private Texto txtDialogoLn1 = new Texto(100, 640 - 185 + 15, " ");
-	private Texto txtDialogoLn2 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 50, " ");
-	private Texto txtDialogoLn3 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 85, " ");
-	private Texto txtDialogoLn4 = new Texto(txtDialogoLn1.getX(), 640 - 185 + 120, " ");
+	private Texto txtDialogoLn1 = new Texto(100, 640 - 185 + 26, " ");
+	private Texto txtDialogoLn2 = new Texto(txtDialogoLn1.getX(), txtDialogoLn1.getY() + 32, " ");
+	private Texto txtDialogoLn3 = new Texto(txtDialogoLn1.getX(), txtDialogoLn2.getY() + 32, " ");
+	private Texto txtDialogoLn4 = new Texto(txtDialogoLn1.getX(), txtDialogoLn3.getY() + 32, " ");
 	
 	private int contDialogo = 0;
 	private boolean mudaCorLn4 = false;
@@ -983,10 +983,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							}
 						}  else if(contDialogo == 3){
 							bntSimDialogo.setX(1234/2 - 464/2);
-							bntSimDialogo.setY(530);
+							bntSimDialogo.setY(520);
 							
 							bntNaoDialogo.setX(1234/2 - 464/2 + 370);
-							bntNaoDialogo.setY(530);
+							bntNaoDialogo.setY(520);
 							
 							txtDialogoLn1.setX(470);
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
@@ -1183,7 +1183,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							imagemDoDialogo.setY(0);
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
 							
-							txtDialogoLn4.setX(1234 - 534);
+							txtDialogoLn4.setX(1234 - 524);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[0][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[0][1]);
@@ -1242,7 +1242,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[4][3]);
 							
 						} else if(contDialogo == 5) {
-							txtDialogoLn4.setX(100);
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");	
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[5][0]);
@@ -1498,8 +1497,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		bntSimNao = true;
 		tibarCoroa = true;
 		
-		bntSimDialogo.setY(640 - 50 - 40);
-		bntNaoDialogo.setY(640 - 50 - 40);
+		bntSimDialogo.setY(540);
+		bntNaoDialogo.setY(540);
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
