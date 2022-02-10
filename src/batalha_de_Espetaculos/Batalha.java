@@ -354,9 +354,9 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// ------------------------ textos do diálogo de aviso ------------------------------		
 		
-		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 27));
 		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
-		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 27));
 		
 		// ------------------------ divisões da tela de batalha -------------------------
 

@@ -145,10 +145,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki1.png");
 		iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius1.png");
 		
-		txtdialogoPersonagem.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtdialogoPersonagem.setFonte(new Font("Arial", Font.PLAIN, 26));
 		txtdialogoPersonagem.setCorTexto(new Color (235, 230, 233));
-		txtdialogoPersonagem2.setFonte(new Font("Arial", Font.PLAIN, 28));
-		txtdialogoPersonagem3.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtdialogoPersonagem2.setFonte(new Font("Arial", Font.PLAIN, 26));
+		txtdialogoPersonagem3.setFonte(new Font("Arial", Font.PLAIN, 26));
 		
 		// ------------------------------------------- painel ---------------------------------------------
 
@@ -219,56 +219,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
-
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
-			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
-			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
-			botaoSimNaoDialogo = true;
-			
-			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
-			txtDialogoAviso2.setTexto("Deseja continuar?");
-			
-		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        janelaPrincipal.add(telaMenu);
+	        janelaPrincipal.setTitle("Menu");
+	        telaMenu.Restaurar();
+	        telaMenu.LimparTela1();
+	        janelaPrincipal.revalidate();
+	        timer.stop();
 		
-			if(contEngranagem == 2) {
-				contEngranagem = 1;
-			} else {contEngranagem ++;}
-			
-			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem + ".png");
-			
-			botaoSimNaoDialogo = !botaoSimNaoDialogo;
-			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (botaoSimNaoDialogo == true ? "1" : "2") + ".png");
-			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (botaoSimNaoDialogo == true ? "2" : "1") + ".png");
-		
-		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
-			
-			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-			
-			if(botaoSimNaoDialogo == false || codigo == KeyEvent.VK_X) {
-				
-				dialogoAviso.setImagem(null);
-				bntSimDialogoAviso.setImagem(null);
-				bntNaoDialogoAviso.setImagem(null);
-				
-				txtDialogoAviso.setTexto(" ");
-				txtDialogoAviso2.setTexto(" ");
-			}
-			else {
-				
-				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-		        janelaPrincipal.remove(this);
-		        janelaPrincipal.add(telaMenu);
-		        janelaPrincipal.setTitle("Menu");
-		        telaMenu.Restaurar();
-		        telaMenu.LimparTela1();
-		        janelaPrincipal.revalidate();
-		        timer.stop();
-			
-			}
 		}
 		
 	}

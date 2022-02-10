@@ -18,11 +18,11 @@ public class Arius {
 											   {"Lembre-se do seu treinamento nas legiões do império taurico, com o gládio em mãos e o", "escudo bem posicionado demonstre as táticas e o conhecimento bélico de seu povo.", " ", " ", " "},
 											   {"Gorad, uma delicia viciante no reinado, tão cheirosa e saborosa que você não consegue se", "conter. Para seu deleite e desgosto alguns dos seus companheiros as guardaram em suas", "vestes para comer depois. Você sabe que é errado, mas o seu perfume esta insuportável,", "você terá que rouba-las.", "Este poder afeta todos abaixo de você."}};	
 
-	private String [][] ConteudoEscolhaAdversario = {{"Oi, você esta querendo falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da- ", "Não?"},
-													{" ", "Você quer me desafiar para uma competição?", " ", " "},
-													{"Isso é ótimo, com certeza será um bom jeito de adquirir novos conhecimentos, a pratica e", "observação de técnicas de outras pessoas podem mostrar novas formas de ... blá, blá, blá-", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
-													{"Bem, eu estava indo registrar a ultima aventura que tive com os outros cães das colinas, mas", "isso pode esperar, sinta-se à vontade para acompanhar Kiki e eu durante esse tempo e nos conte", "mais sobre você. Afinal, o conhecimento vem em varias formas e de lugares diversos e creio que", "poderia acrescentar mais informações... blá, blá, blá-"},
-													{" ", "Boa noite, Você gostaria de me desafiar novamente?", " ", " "}};
+	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
+													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
+													{"Isso é ótimo, obviamente será uma boa maneira de adquirir novos conhecimentos, como mestre", "Luriel me dizia 'a prática e a observação de técnicas de outrem contribui muito para o", "aprimoramento... blá, blá, blá'.", "As apresentações SEM interferência ganharão +1 de apelo."},
+													{"Bem, eu estava indo mostrar a nada-mais-que-a-verdade a maravilhosa plantação de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se à vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que nada-mais-que-a-verdade se interessará bastante no que tem a dizer."},
+													{"Saudações, você esta querendo me desafiar para uma disputa amistosa novamente?", " ", " ", " "}};
 
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();

@@ -17,13 +17,13 @@ public class Rexthor {
 											   {"Você fará uma aposta, jogue cinco d20 e torça para o número 20 sair, os resultados não se", "repetiram nos outros dados, então se você ganhar o apelo será 10, se você perder será zero.", "Tentador?", " ", " "},
 											   {"Sua tanga guarda vários objetos que muitas vezes não são seus. Retire da suas vestes itens", "relevantes para seus companheiros e distraia-los do combate.", " ", " ", "Este poder afeta todos abaixo de você."}};	
 	
-	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que você esta querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
-			   										 {"Então é melhor você ficar esperto.", " ", " ", " "},
-			   										 {"Seguinte, vamos fazer uma aposta.", "Vou jogar uma moeda, se você ganhar eu luto com você, mas se eu ganhar você vai ter que", "carregar esses sacos para mim, fechado?", " "},
+	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que você está querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
+			   										 {"É melhor você ficar esperto mesmo.", " ", " ", " "},
+			   										 {"Seguinte, que tal fazermos uma aposta?", "Vou jogar uma moeda, se você ganhar eu luto com você, mas se eu ganhar você vai ter que", "carregar esses sacos para mim, fechado?", " "},
 			   										 {"Então, coroa ou sem coroa?", " ", " ", " "},
-			   										 {"Ok, você venceu dessa vez, mas não vai se achando não rapa.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
-			   										 {"HA! as deusas estão do meu lado mermão.", "Pode começar levando esses sacos aqui.", " ", " "},
-			   										 {" ", "Achei você. Então, vamos começar com a minha revanche?", " ", " "}};
+			   										 {"Ok, você venceu dessa vez, mas não vai ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
+			   										 {"HA! As deusas estão do meu lado mermão.", "Pode começar levando esses sacos aqui.", " ", " "},
+			   										 {"Ai esta você. Então, vamos começar logo com a minha revanche?", "Porque eu tenho hora pra limpar esse chão com a sua cara.", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

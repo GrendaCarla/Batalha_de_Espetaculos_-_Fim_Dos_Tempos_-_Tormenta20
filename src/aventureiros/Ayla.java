@@ -18,13 +18,13 @@ public class Ayla {
 											   {"Faça cópias perfeitas de si mesma dificultando seus amigos a te atrapalharem.", " ", " ", " ", "Esse poder tem a capacidade de zerar suas interferências ganhadas antes da sua ação."}, 
 											   {"Depois de tanta agitação e diversão é sempre bom descansar, faça um favor a seus", "companheiros e de um momento de paz e tranquilidade no meio da batalha.", " ", " ", "Este poder afeta um campo acima e abaixo de você."}};
 	
-	private String [][] ConteudoEscolhaAdversario = {{"Minhas boas vindas a Ayla Corporation. Como posso ajudar?", "Gostaria de falar com a Srta. Ayla?", "Vejamos", "- Ayla Corporation, em breve rebranding"},
-													 {" ", "Você tem hora marcada?", " ", " "},
-													 {"Muito bem, me acompanhe por favor.", " ", " ", " "},
+	private String [][] ConteudoEscolhaAdversario = {{"Minhas boas-vindas a Ayla Corporation, como posso ajudar?", "Gostaria de falar com a Srta. Ayla?", "Vejamos...", "- Ayla Corporation, em breve rebranding"},
+													 {"Você tem hora marcada?", " ", " ", " "},
+													 {"Muito bem! Me acompanhe por favor.", " ", " ", " "},
 													 {"Minhas sinceras desculpas, mas a Srta. Ayla só recebe com hora marcada.", " ", " ", " "},
-													 {"Olá, você esta querendo falar comigo?", "Deixe-me adivinhar, você quer se tornar uma consultora de beleza?", "Não?",  " "},
-													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma batalha, certo?", "Eu aceito o desafio, mas durante o caminho deixa eu falar sobre os benefícios de se tornar consulto-", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
-													 {" ", "Olá de novo, você quer batalhar mais uma vez?", " ", " "}};
+													 {"Olá, você é a pessoa que está desejando me ver?", "Deixe-me adivinhar, você quer se tornar uma consultora de beleza aqui no meu empório.", "Não?",  " "},
+													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma competição, certo?", "Eu aceito o desafio, mas durante o caminho deixa-me falar sobre os benefícios de se tornar", "consult...", "As apresentações SEM interferência ganharão -1 de apelo."},
+													 {"Olá, como é bom te ver novamente, tem interesse em mais uma competição junto com um plano", "de carreira completo?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

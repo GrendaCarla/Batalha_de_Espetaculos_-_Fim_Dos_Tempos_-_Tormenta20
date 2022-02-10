@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -108,6 +110,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private int contTeclaBatalha = 1;
 	private boolean animarIconeAventureiro = false;
 	
+	private int contLogoAyla = 0;
+	private boolean logoAyla = false;
+	
+	private Icones_interativos imgLogoAyla = new Icones_interativos(0, 0);
+
+	
 	// ------------------------ informações dos aventureiros ------------------------------
 	
 	private Ignis ignis = new Ignis();
@@ -140,7 +148,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean bntSimNao = true;
 	private int ativarAnimacaoVelaAyla = 0;
 	private int contAnimacaoVelaAyla = 0;
-	private int contAnimacaoVandinha = 0;
+	private int contAnimacaoJosefine = 0;
 	
 	// ------------------------ imagens de estrelas para batalhas vencidas ------------------------------
 	
@@ -152,7 +160,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
 	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
-	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 110, 548/2 - 16 - 40, " ");
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 70, 548/2 - 16 - 40, " ");
 	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, 548/2 + 40 - 40, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
@@ -273,6 +281,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				break;
 		}
 		
+		imgLogoAyla.setImagem(null);
+		
 		// ------------------------------------------- Controles ---------------------------------------------
 
 		teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
@@ -282,9 +292,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 		//-----------------------------------------------------------------------------------------------
 	
-		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 27));
 		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
-		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 28));
+		txtDialogoAviso2.setFonte(new Font("Arial", Font.PLAIN, 27));
 		
 		txtDialogoLn1.setFonte(new Font("Arial", Font.PLAIN, 24));
 		txtDialogoLn1.setCorTexto(new Color (235, 230, 233));
@@ -372,52 +382,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-					
-			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
-			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
-			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
-			bntSimNaoDialgoAviso = true;
 			
-			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
-			txtDialogoAviso2.setTexto("Deseja continuar?");
-			
-		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+	        janelaPrincipal.remove(this);
+	        janelaPrincipal.add(telaMenu);
+	        janelaPrincipal.setTitle("Menu");
+	        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
+	        telaMenu.Restaurar();
+	        telaMenu.setContEngranagem2(contEngranagem2);
+	        janelaPrincipal.revalidate();
+	        timer.stop();
 		
-			if(contEngranagem1== 2) {
-				contEngranagem1= 1;
-			} else {contEngranagem1++;}
-			
-			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
-			
-			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
-			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
-			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
-		
-		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
-			
-			contEngranagem2 = !contEngranagem2;
-			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-			
-			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
-				dialogoAviso.setImagem(null);
-				bntSimDialogoAviso.setImagem(null);
-				bntNaoDialogoAviso.setImagem(null);
-				
-				txtDialogoAviso.setTexto(" ");
-				txtDialogoAviso2.setTexto(" ");
-				
-			} else {
-				
-				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-		        janelaPrincipal.remove(this);
-		        janelaPrincipal.add(telaMenu);
-		        janelaPrincipal.setTitle("Menu");
-		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
-		        telaMenu.Restaurar();
-		        telaMenu.setContEngranagem2(contEngranagem2);
-		        janelaPrincipal.revalidate();
-		        timer.stop();
-			}
 		}
 		
 	}
@@ -481,7 +456,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
-			txtDialogoAviso.setTexto("Se você voltar perderá o seu progreço.");
+			txtDialogoAviso.setTexto("Se você voltar perderá o progreço nesse save.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
 		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
@@ -923,10 +898,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							imagemDoDialogo.setX(1234/2 - 400/2 - 30);
 							imagemDoDialogo.setY(70);
 							
-							txtDialogoLn2.setX(300);
-							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha1.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco1.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto1.png");
 							
@@ -941,10 +914,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} else if(contDialogo == 1) {
 							imagemDoDialogo.setX(1234/2 - 400/2 - 30); imagemDoDialogo.setY(70);
 							
-							txtDialogoLn2.setX(516);
-							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor1.png");
-							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha1.png");
+							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco1.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\objeto1.png");
 							
@@ -959,7 +930,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} else if(contDialogo == 2){
 							bntSimDialogo.setImagem(null);
 							bntNaoDialogo.setImagem(null);
-							txtDialogoLn2.setX(100);
 							
 							if(bntSimNao == true){
 								imagemDoDialogo.setX(1234/2 - 400/2 - 30);
@@ -988,7 +958,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							bntNaoDialogo.setX(1234/2 - 464/2 + 370);
 							bntNaoDialogo.setY(520);
 							
-							txtDialogoLn1.setX(470);
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 							
 							txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[3][0]);
@@ -1002,7 +971,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} else if(contDialogo == 4){
 							imagemDoDialogo.setY(70);
 							imagemDoDialogo.setX(1234/2 - 300/2);
-							txtDialogoLn1.setX(100);
 							bntSimDialogo.setImagem(null);
 							bntNaoDialogo.setImagem(null);
 							
@@ -1033,8 +1001,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						if(contDialogo == 1 && derrotados[0] == true) {
 							imagemDoDialogo.setX(1234/2 - 500/2 - 100);
-							
-							txtDialogoLn2.setX(210);
 							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto2.png");
@@ -1096,7 +1062,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						if(contDialogo == 1 && derrotados[3] == true) {
 							imagemDoDialogo.setX(1234/2 - 300/2);
-							txtDialogoLn2.setX(445);
 							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 							
@@ -1153,6 +1118,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					    break;
 					case 0: // Ayla
 						if(contDialogo == 1 && derrotados[1] == true) {
+							logoAyla = true;
+									
 							imagemDoDialogo.setX(1234/2 - 480/2);
 							imagemDoDialogo.setY(34);
 							
@@ -1167,8 +1134,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
-							
-							txtDialogoLn2.setX(365);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[6][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[6][1]);
@@ -1190,7 +1155,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[0][2]);
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[0][3]);
 						} else if(contDialogo == 2) {
-							txtDialogoLn2.setX(1234/2 - 270/2);
+							
+							txtDialogoLn4.setX(100);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[1][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[1][1]);
@@ -1234,8 +1200,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setX(100);
-							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[4][1]);
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[4][2]);
@@ -1260,8 +1224,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						if(contDialogo == 1 && derrotados[4] == true) {
 							imagemDoDialogo.setX(1234/2 - 462/2);
 							imagemDoDialogo.setY(20);
-							
-							txtDialogoLn2.setX(330);
 
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
 							
@@ -1286,7 +1248,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[0][3]);
 							
 						} else if(contDialogo == 2) {
-							txtDialogoLn2.setX(1234/2 - 490/2);
 							
 							txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[1][0]);
 							txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[1][1]);
@@ -1299,7 +1260,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						} else if(contDialogo == 3) {
 							bntSimDialogo.setImagem(null);
 							bntNaoDialogo.setImagem(null);
-							txtDialogoLn2.setX(100);
 							
 							if(bntSimNao == true) {
 								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
@@ -1600,6 +1560,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(estrelaFim1.getImagem(), estrelaFim1.getX(), estrelaFim1.getY(), this);
 		graficos.drawImage(estrelaFim2.getImagem(), estrelaFim2.getX(), estrelaFim2.getY(), this);
 		
+		graficos.drawImage(imgLogoAyla.getImagem(), imgLogoAyla.getX(), imgLogoAyla.getY(), this);
+		
 		graficos.drawImage(imgMenSalve.getImagem(), imgMenSalve.getX(), imgMenSalve.getY(), this);
 		
 		graficos.setColor(txtSalvar.getCorTexto());
@@ -1663,10 +1625,31 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 		if(barraDeDialogo.getImagem() != null && contTeclaBatalha == 4) {
-			animarVandinha();
+			animarJosefine();
+		}
+		
+		if(logoAyla == true) {
+			MostrarLogo();
 		}
 		
 		repaint();
+	}
+	
+	public void MostrarLogo() {
+		
+		if(contLogoAyla == 110) {contLogoAyla = 0;} else {contLogoAyla ++;}
+		
+		
+		if(contLogoAyla == 10) {
+			ArrayList<Integer>  mylist = new ArrayList<Integer>();
+			mylist.add(1); mylist.add(2);
+			Collections.shuffle(mylist);
+			
+			imgLogoAyla.load(caminho + "res\\EscolhaDeAdversario\\Ayla\\logo" + (mylist.get(0)) + ".png");
+			
+		} else if (contLogoAyla == 18) {
+			imgLogoAyla.setImagem(null);
+		}
 	}
 	
 	public void animarAventureiroParado() {
@@ -1851,19 +1834,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		this.contTeclaBatalha = (NumAdversarioAnterior == 0 ? 8 : (NumAdversarioAnterior == 1 ? 0 : (NumAdversarioAnterior == 2 ? 4 : (NumAdversarioAnterior == 3 ? 2 : (NumAdversarioAnterior == 4 ? 6 : 12)))));
 	}
 	
-	public void animarVandinha() {
+	public void animarJosefine() {
 		
-		if(contAnimacaoVandinha == 21) {contAnimacaoVandinha = 0;}
-		else {contAnimacaoVandinha ++;}
+		if(contAnimacaoJosefine == 21) {contAnimacaoJosefine = 0;}
+		else {contAnimacaoJosefine ++;}
 		
-		if(contAnimacaoVandinha == 4 || contAnimacaoVandinha == 11 || contAnimacaoVandinha == 18) {
-			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha2.png");
+		if(contAnimacaoJosefine == 4 || contAnimacaoJosefine == 11 || contAnimacaoJosefine == 18) {
+			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine2.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco1.png");
-		} else if(contAnimacaoVandinha == 7) {
-			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha3.png");
+		} else if(contAnimacaoJosefine == 7) {
+			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine3.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
-		} else if(contAnimacaoVandinha == 14) {
-			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\vandinha1.png");
+		} else if(contAnimacaoJosefine == 14) {
+			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine1.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
 		} 
 	

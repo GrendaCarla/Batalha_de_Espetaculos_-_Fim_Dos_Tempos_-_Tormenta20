@@ -18,11 +18,11 @@ public class Kiki {
 											   {"Desafie seus oponentes para uma competição de birita e os vença facilmente enquanto o", "vomito rola souto.", " ", " ", "Este poder afeta todos acima de você."},
 											   {"Digamos que seu estilo de higiene é questionável, mas graças a isso você desenvolveu uma", "poderosa arma biológica, use-a a seu favor.", " ", " ", "Este poder afeta todos abaixo de você."}};	
 
-	private String [][] ConteudoEscolhaAdversario = {{"Você gostaria de me enfrentar em um espetáculo?", "Você acha que possui MAIS TALENTO DO QUE EU a ponto de me desafiar?", " ", " "},
-													{"Sério?", "Eu estava brincando com você, adoraria um desafio que obviamente eu iria ganhar, pois sou uma", "pessoa de muitos talentos e habilidades como pode ver.", "Pois bem, nossa disputa será adiada por enquanto, mas ela vai acontecer."},
-													{"Mas, ei.", "Eu estou vendo que você não é daqui, de onde você veio, que negócios você tem a tratar no", "forte cabeça-de-martelo para percorrer todo esse caminho, talvez um amor antigo ou um segredo", "terrível. Me conte tudo e não poupe detalhes."},
-													{"Pois bem, EU ADOREI sua ousadia.", "Que vença a apresentação MAIS APAIXONANTE capaz de fervilhar as emoções do público.", " ", "As apresentações COM interferência ganharão +1 de apelo."},
-													{"Daquela vez você me derrotou, mas essa história ainda não teve seu fim, eu quero uma revanche.", "Você vai aceitar ou vai arregar?", " ", " "}};
+	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Você esta querendo me enfrentar em uma competição de apresentações?", "Você acredita que possui MAIS TALENTO DO QUE EU a ponto de me desafiar?", " ", " "},
+													{"Sério?", "Eu só estava brincando com você, adoraria um duelo que obviamente ganharia, afinal, sou uma", "barda de muitos, muitos talentos e habilidades como meus fãs podem atestar.", "Pois bem, nossa disputa será adiada por enquanto, mas ela IRÁ acontecer em algum momento."},
+													{"Mas, ei.", "Eu percebo que você não é daqui, de onde você veio, que negócios você tem a tratar nas colinas", "centrais para percorrer todo esse caminho, talvez um amor antigo ou um segredo terrível.", "Me conte tudo e não poupe detalhes."},
+													{"A D O R E I seu entusiasmo.", "Que vença a apresentação MAIS APAIXONANTE capaz de inflamar as emoções do público.", " ", "As apresentações COM interferência ganharão +1 de apelo."},
+													{"Daquela vez você me derrotou, mas essa história ainda não chegou ao seu fim, eu quero uma", "R E V A N C H E. Vai aceitar ou vai arregar?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

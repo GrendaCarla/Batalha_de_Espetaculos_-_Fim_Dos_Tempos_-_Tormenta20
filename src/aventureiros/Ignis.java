@@ -17,10 +17,10 @@ public class Ignis {
 											 {"Provoque todo mundo ao seu redor e incentive-os a te baterem.", " ", " ", " ", "Este poder afeta um campo acima e abaixo de você."}, 
 											 {"O que seria do paladino das chamas sem seu parceiro animal. Deixe", "a plateia maravilhada com sua dinâmica em dupla.", " ", " ", " "}};
 	
-	private String [][] ConteudoEscolhaAdversario = {{" ", "Boa tarde, Elmer me disse que deseja falar comigo sobre algo?", " ", " "},
-				 {"Ah, sim, as batalhas de espetáculos.", "Mesmo não as apreciando muito eu prometi que aceitaria todos os desafios feitos a mim.", " ", "As apresentações COM interferência ganharão -1 de apelo."},
-				 {"Se não tem nada a tratar comigo fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", " "},
-				 {" ", "É bom ver seu rosto novamente aqui. Está querendo batalhar mais uma vez?", " ", " "}};
+	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Elmer me disse que deseja falar comigo sobre algo?", " ", " ", " "},
+				 {"Ah! Sim, as competições que a Ayla criou para aumentar o engajamento com povo das centrais,", "mesmo não compreendendo totalmente seu real propósito prometi que aceitaria todos os", "desafios feitos a mim.", "As apresentações COM interferência ganharão -1 de apelo."},
+				 {"Se não tem nada a tratar comigo, fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei a todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", " "},
+				 {"Boa tarde! É bom te encontrar novamente por aqui.", "Está querendo outra competição amistosa comigo?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	
