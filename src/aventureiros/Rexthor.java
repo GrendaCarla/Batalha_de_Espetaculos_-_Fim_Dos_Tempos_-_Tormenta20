@@ -9,13 +9,13 @@ public class Rexthor {
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3"};
 	private String [] NomeApelos = {"Punho da dor", "Esquiva", "Briga", "Sentidos aguçados", "Besuntar", "Sorte das deusas", "A tanga"};
-	private String [][] ConteudoDescricao = {  {"Ao se posicionar e contrair seus músculos, um poderoso gancho é disparado rumo ao", "adversário adjacente.", " ", " ", "Este poder afeta o oponente acima de você."},
+	private String [][] ConteudoDescricao = {  {"Ao se posicionar e contrair seus músculos, um poderoso gancho é disparado rumo ao", "adversário adjacente.", " ", " ", "Esta habilidade afeta o campo acima de você."},
 											   {"Uma excelente demonstração de reflexos em combate digna de um boxeador de primeira.", " ", " ", " ", " "},
-											   {"Quebra pau, peleja, arranca-rabo, dar uma coça, sururu, pancadaria, barraco, rixa, pugna", "e testilha.", " ", " ", "Este poder afeta um oponente acima e abaixo."},
+											   {"Quebra pau, peleja, arranca-rabo, dar uma coça, sururu, pancadaria, barraco, rixa, pugna", "e testilha.", " ", " ", "Esta habilidade afeta um campo acima e um abaixo."},
 											   {"Cubra seus olhos e concentre-se no ambiente a sua volta, com apenas o seus sentidos" ,"sobreviva a onda de ataques.", " ", " ", " "},
-											   {"Em tempos seco como este é sempre bom dar uma hidratada, besunte-se com baby óleo", "e deixe sua matilha enojada.", " ", " ", "Este poder afeta todos acima de você."},
+											   {"Em tempos seco como este é sempre bom dar uma hidratada, besunte-se com baby óleo", "e deixe sua matilha enojada.", " ", " ", "Esta habilidade afeta todos campos acima de você."},
 											   {"Você fará uma aposta, jogue cinco d20 e torça para o número 20 sair, os resultados não se", "repetiram nos outros dados, então se você ganhar o apelo será 10, se você perder será zero.", "Tentador?", " ", " "},
-											   {"Sua tanga guarda vários objetos que muitas vezes não são seus. Retire da suas vestes itens", "relevantes para seus companheiros e distraia-los do combate.", " ", " ", "Este poder afeta todos abaixo de você."}};	
+											   {"Sua tanga guarda vários objetos que muitas vezes não são seus. Retire da suas vestes itens", "relevantes para seus companheiros e distraia-los do combate.", " ", " ", "Esta habilidade afeta todos os campos abaixo de você."}};	
 	
 	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que você está querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
 			   										 {"É melhor você ficar esperto mesmo.", " ", " ", " "},

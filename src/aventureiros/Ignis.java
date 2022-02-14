@@ -8,14 +8,14 @@ public class Ignis {
 	private int [][] valores = {{7, 0, 6, 5, 4, 3, 3, 8}, {0, 0, 0, 2, 0, 0, 2, 0}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] NomeApelos = {"Discurso no jutsu", "Canalizar Reparos", "Tapa em puristas", "Ignis bonitão", "Intocável", "Pé no peito e escudada na cara", "Provocação petulante", "Meca-Rito"};
-	private String [][] ConteudoDescricao = {{"Faça um discurso moralista e inspirador que incentive seus adversários a", "mudarem de vida.", " ", " ", " "},
-											 {"Esse poder tem a capacidade de zerar suas interferências ganhadas antes da sua ação.", " ", " ", " ", " "},
-											 {"Você ofereceu-lhes a segunda chance,                                      Crianças, mulheres e idosos,", "Infelizmente o pedido foi recusado.                                             Ninguém conseguirá escapar.", "Para o bem de todos no alcance,                                                Com escudo e fuê apostos,", "O tapa em puristas está liberado.                                                Piedade tentaram clamar.", " "}, 
-											 {"Exiba seu magnífico queixo para o mundo, algo tão perfeito, másculo e gracioso irá", "tocar o coração do reinado. ", " ", " ", "Este poder afeta todos acima de você."},
-											 {"Com seu chassi reformado e um escudo em sua mão, mostre ao público", "que você é intocável.", " ", " ", " "},
-											 {"A melhor defesa é sempre um bom ataque, então defenda-se levando seu escudo ao", "encontro da fusa do seu atacante.", " ", " ", " "},
-											 {"Provoque todo mundo ao seu redor e incentive-os a te baterem.", " ", " ", " ", "Este poder afeta um campo acima e abaixo de você."}, 
-											 {"O que seria do paladino das chamas sem seu parceiro animal. Deixe", "a plateia maravilhada com sua dinâmica em dupla.", " ", " ", " "}};
+	private String [][] ConteudoDescricao = {{"Esta é tua deixa, ó paladino redentor das chamas.", "Em caminhos tortos e aos tropeços teus inimigos percorrem.", "Reflexivo és teu canto que mais uma oportunidade proclamas.", "Reverbere-o para que os sinuosos sempre a frente impossibilidade se tornem.", " "},
+											 {"Se em teu ferroso corpo ações forem desferidas", "O marcando com ranhuras e amassados,", "Então em seu cerne a escaldante chama deve ser expelida", "Para regredir as lacunas até teu completo reparo.", "Esta habilidade zera as interferências que você ganhou antes da sua ação nessa rodada."},
+											 {"De ideias distorcidas e atos vis são alimentados.", "Mesmo com tamanha ojeriza ofereceu-lhes a redenção.", "Ao se recusarem crianças e idosos não foram poupados.", "Brandindo o escudo e o fuê sucedeu-lhes somente a ríspida punição.", " "}, 
+											 {"Não há tempo a ser perdido,", "Todos anseiam sua aparição.", "Bem formoso, harmônico e esculpido", "Ficou teu queixo, ó BONITÃO.", "Esta habilidade afeta todos os campos acima de você."},
+											 {"Desafie a todos que quiserem a prova tirar pessoalmente", "Das histórias sobre sua defesa robusta e imaculada.", "Venham ferozes ao teu escudo de encontro a ave ardente", "Para que a contagem continua possa em um ser aumentada.", " "},
+											 {"Vós sabeis que preferis a defesa aos ataques danosos,", "Mas em alguns casos a força há de ser usada,", "Como em zumbis da Tormenta e puristas odiosos,", "Mas em outras situações só machuca, não mata.", " "},
+											 {"Provoque todos ao alcance que inimizades tens com vosco.", "Faça gestos chamativos e gritos arrogantes.", "Defenda-se de seus pontapés, golpes e socos", "Protegendo teus amigos um tanto quanto petulantes.", "Esta habilidade afeta um campo acima e um abaixo de você."}, 
+											 {"És um adorável mecaniculo bestial que se juntou a tua patota.", "Saltita e corre arrancando-te sorrisos radiantes,", "Quanto agitado e enérgico destrói o que está em vossa volta", "E ao lado sempre pode vê-lo nas rinhas e masmorras inconstantes.", " "}};
 	
 	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Elmer me disse que deseja falar comigo sobre algo?", " ", " ", " "},
 				 {"Ah! Sim, as competições que a Ayla criou para aumentar o engajamento com povo das centrais,", "mesmo não compreendendo totalmente seu real propósito prometi que aceitaria todos os", "desafios feitos a mim.", "As apresentações COM interferência ganharão -1 de apelo."},

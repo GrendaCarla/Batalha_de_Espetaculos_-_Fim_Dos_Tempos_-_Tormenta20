@@ -9,14 +9,14 @@ public class Arius {
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
 	private String [] NomeApelos = {"Chifrada", "Compreensão", "Strip-tease Tático", "Olimpíadas artonianas", "Diplomacia", "5 é 20", "Gládio e escudo", "Afanação de gorad"};
-	private String [][] ConteudoDescricao = {  {"Use seus cornos para penetrar em um alvo e lança-lo ao ar.", " ", " ", " ", " Este poder afeta o adversário acima de você."},
-											   {"A vitória não advêm somente através da violência física, compreender os adversários ao seu", "redor lhe dará uma vantagem sobre eles.", " ", " ", "Esse poder tem a capacidade de zerar suas interferências ganhadas antes da sua ação."},
+	private String [][] ConteudoDescricao = {  {"Use seus cornos para penetrar em um alvo e lança-lo ao ar.", " ", " ", " ", "Esta habilidade afeta o adversário acima de você."},
+											   {"A vitória não advêm somente através da violência física, compreender os adversários ao seu", "redor lhe dará uma vantagem sobre eles.", " ", " ", "Esta habilidade zera as interferências que você ganhou antes da sua ação nessa rodada."},
 											   {"Está na hora de usar seus poderes arcanos, dispa-se da sua couraça e lance a sua magia.", " ", " ", " ", " "},
 											   {"Acenda a pira do espirito esportivo e demonstre sua aptidão através das extensas", "modalidades como: saltos pela paliçada, flechadas nos irmãos, esconde-esconde com", "baratas e arremesso com explosão.", " ", " "},
-											   {"Use a nobre arte diplomática para argumentar e convencer a plateia que seu adversário não", "merece a posição que ocupa nessa rodada.", " ", " ", "Este poder afeta o primeiro colocado."},
+											   {"Use a nobre arte diplomática para argumentar e convencer a plateia que seu adversário não", "merece a posição que ocupa nessa rodada.", " ", " ", "Esta habilidade afeta o primeiro campo."},
 											   {"Você fará uma aposta, jogue cinco d20 e torça para o número 5 sair, os resultados não se", "repetiram nos outros dados, então se você ganhar o apelo será 10, se você perder será zero.", "Tentador?", " ", " "},
 											   {"Lembre-se do seu treinamento nas legiões do império taurico, com o gládio em mãos e o", "escudo bem posicionado demonstre as táticas e o conhecimento bélico de seu povo.", " ", " ", " "},
-											   {"Gorad, uma delicia viciante no reinado, tão cheirosa e saborosa que você não consegue se", "conter. Para seu deleite e desgosto alguns dos seus companheiros as guardaram em suas", "vestes para comer depois. Você sabe que é errado, mas o seu perfume esta insuportável,", "você terá que rouba-las.", "Este poder afeta todos abaixo de você."}};	
+											   {"Gorad, uma delicia viciante no reinado, tão cheirosa e saborosa que você não consegue se", "conter. Para seu deleite e desgosto alguns dos seus companheiros as guardaram em suas", "vestes para comer depois. Você sabe que é errado, mas o seu perfume esta insuportável,", "você terá que rouba-las.", "Esta habilidade afeta todos os campos abaixo de você."}};	
 
 	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
 													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},

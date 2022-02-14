@@ -9,14 +9,14 @@ public class Ayla {
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
 	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce ilusório", "Aparência inofensiva", "Adaga mental", "Explosão de chamas", "Imagem espelhada", "Sono"};
-	private String [][] ConteudoDescricao = {  {"Conte mentiras e engane os mais fortes, use sua expertise para se sobressair dos demais.", " ", " ", " ", "Este poder afeta o primeiro colocado."},
-											   {"Cores, sons e brilhos, nada como usar sua magia feérica para maravilhar o público. É claro", "que isso não significa não poder atrapalhar um pouquinho os seus amigos.", " ", " ", "Este poder afeta todos acima de você."},
+	private String [][] ConteudoDescricao = {  {"Conte mentiras e engane os mais fortes, use sua expertise para se sobressair dos demais.", " ", " ", " ", "Esta habilidade afeta o primeiro campo."},
+											   {"Cores, sons e brilhos, nada como usar sua magia feérica para maravilhar o público. É claro", "que isso não significa não poder atrapalhar um pouquinho os seus amigos.", " ", " ", "Esta habilidade afeta todos os campos acima de você."},
 											   {"Borboleta, urubu ou uma nobre senhora enrugada, você pode ser o que quiser com os", "produtos Mary Fay, traga mais possibilidades para sua vida.", " ", " ", "                                                                                                                      - Empório Purpúrea."}, 
-											   {"A fada mais honesta de Arton também é encantadora e adorável, use sua aparência", "purpurinadamente inofensiva para ganhar o afeto da plateia e ofuscar os demais", "concorrentes.", " ", "Este poder afeta todos abaixo de você."},
-											   {"Você manifesta e dispara uma adaga imaterial contra a mente do alvo.", " ", " ", " ", "Este poder afeta o adversário acima de você."},
-											   {"Fogo, calor e pirotecnia, incendeie o palco com o seu poder e inflame atorcida a seu favor.", " ", " ", " ", "Este poder afeta todos acima de você."},
-											   {"Faça cópias perfeitas de si mesma dificultando seus amigos a te atrapalharem.", " ", " ", " ", "Esse poder tem a capacidade de zerar suas interferências ganhadas antes da sua ação."}, 
-											   {"Depois de tanta agitação e diversão é sempre bom descansar, faça um favor a seus", "companheiros e de um momento de paz e tranquilidade no meio da batalha.", " ", " ", "Este poder afeta um campo acima e abaixo de você."}};
+											   {"A fada mais honesta de Arton também é encantadora e adorável, use sua aparência", "purpurinadamente inofensiva para ganhar o afeto da plateia e ofuscar os demais", "concorrentes.", " ", "Esta habilidade afeta todos os campos abaixo de você."},
+											   {"Você manifesta e dispara uma adaga imaterial contra a mente do alvo.", " ", " ", " ", "Esta habilidade afeta o campo acima de você."},
+											   {"Fogo, calor e pirotecnia, incendeie o palco com o seu poder e inflame atorcida a seu favor.", " ", " ", " ", "Esta habilidade afeta todos os campos acima de você."},
+											   {"Faça cópias perfeitas de si mesma dificultando seus amigos a te atrapalharem.", " ", " ", " ", "Esta habilidade zera as interferências que você ganhou antes da sua ação nessa rodada."}, 
+											   {"Depois de tanta agitação e diversão é sempre bom descansar, faça um favor a seus", "companheiros e de um momento de paz e tranquilidade no meio da batalha.", " ", " ", "Esta habilidade afeta um campo acima e um abaixo de você."}};
 	
 	private String [][] ConteudoEscolhaAdversario = {{"Minhas boas-vindas a Ayla Corporation, como posso ajudar?", "Gostaria de falar com a Srta. Ayla?", "Vejamos...", "- Ayla Corporation, em breve rebranding"},
 													 {"Você tem hora marcada?", " ", " ", " "},

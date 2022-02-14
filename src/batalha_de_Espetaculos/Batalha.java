@@ -45,8 +45,17 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 	
 	private int tamanhoContorno = 20;
-	private Icones_interativos parabenizacaoVencedor;
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
+	
+	private Icones_interativos parabenizacaoVencedor = new Icones_interativos(0, 0);
+	private Icones_interativos itemParabenizacaoVencedor1 = new Icones_interativos(0, -380);
+	private Icones_interativos itemParabenizacaoVencedor2 = new Icones_interativos(0, 0);
+	private Icones_interativos itemParabenizacaoVencedor3 = new Icones_interativos(0, 0);
+
+	private boolean aparecerVencedor = false;
+	private int contVencedor = 0;
+	private int contFogos = 0;
+	boolean mudaMontanhas = false;
 	
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
@@ -347,8 +356,6 @@ public class Batalha extends JPanel implements ActionListener {
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-		
-		parabenizacaoVencedor = new Icones_interativos(16, 16);
 		
 		animacao.setImagem(null);
 		
@@ -1452,6 +1459,9 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// -----------------------------------------------------------------------------------------------
 		graficos.drawImage(parabenizacaoVencedor.getImagem(), parabenizacaoVencedor.getX(), parabenizacaoVencedor.getY(), this);
+		graficos.drawImage(itemParabenizacaoVencedor3.getImagem(), itemParabenizacaoVencedor3.getX(), itemParabenizacaoVencedor3.getY(), this);
+		graficos.drawImage(itemParabenizacaoVencedor1.getImagem(), itemParabenizacaoVencedor1.getX(), itemParabenizacaoVencedor1.getY(), this);
+		graficos.drawImage(itemParabenizacaoVencedor2.getImagem(), itemParabenizacaoVencedor2.getX(), itemParabenizacaoVencedor2.getY(), this);
 		
 		// ------------------------------------- imagens do menu ---------------------------------------
 		graficos.drawImage(sombreadorMenu.getImagem(), sombreadorMenu.getX(), sombreadorMenu.getY(), this);
@@ -1524,8 +1534,11 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// -------------- mostra a parabenizarão no final da batalha ----------------
 		if(animacaoFileira == 24) {
-
 			vencedor();
+		}
+		
+		if(aparecerVencedor == true) {
+			animarVencedor();
 		}
 		
 		repaint();
@@ -1541,10 +1554,14 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(animacaoFileira == 0 || animacaoFileira % 2 == 0) {
 			contTempoApelo = 0;
-
+			
 			//------------------------------------- gif --------------------------------------------
-
-			animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
+			
+			if((tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6 || tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 4) && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] == 1) {
+				coracao110.setDx(coracao110.getDx() + comecarAnimacaoCoracao);
+			} else {
+				animacao.setDx(animacao.getDx() + comecarAnimacaoCoracao);
+			}
 
 			if(animacao.getDx() == 20 && efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0) {
 				acenderLuzAventureiro();
@@ -1802,7 +1819,8 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void interferirNosAdversarios() {
-		//(-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro)
+		//(-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro,
+		// 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 		
 		// ------------------ 0: todos acima ------------------------------
 		if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 0) {
@@ -1886,7 +1904,6 @@ public class Batalha extends JPanel implements ActionListener {
 				imgDado4.setImagem(null);
 				imgDado5.setImagem(null);
 				imgDado1.setDx(0);
-				
 
 				if((ordemAventRodada[vezDoAventureiro] == 2 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[vezDoAventureiro] == 4 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 5))) {
 					
@@ -2147,7 +2164,7 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(coracao11.getDx() >= intervaloAnimacao * 5) {
 			
-			parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + (ordemAventRodada[0] == aventureiro ? "\\vencedor.png" : "\\perdedor.png") );
+			aparecerVencedor = true;
 			
 			coracao12.setDx(coracao12.getDx() + comecarAnimacaoCoracao);
 			if(coracao11.getDx() >= intervaloAnimacao * 5) {
@@ -2165,7 +2182,7 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void gifApresentacao(int avent, int numApelo) {
 
-		if(avent == 0) {
+		/*if(avent == 0) {
 			if(gifApelos[0][numApelo] == "apelo3") {
 
 				if(animacao.getDx() == 20) {
@@ -2203,8 +2220,10 @@ public class Batalha extends JPanel implements ActionListener {
 					animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 3) + ".png");
 				
 				}
-			}
+			}*/
 			
+		if(avent == 0) {
+			animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
 		}else if(avent == 1) {
 			animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
 		}else if(avent == 2) {
@@ -2233,6 +2252,44 @@ public class Batalha extends JPanel implements ActionListener {
 		
 	}
 	
+	public void animarVencedor() {
+		contVencedor ++;
+		
+		if(contFogos == 56){contFogos = 1;}else{contFogos ++;}
+		
+		if(ordemAventRodada[0] == aventureiro) {
+			
+			itemParabenizacaoVencedor1.setY(0);
+			
+			if(contVencedor % 6 == 0) {
+				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor1.png");
+				
+			} else if((contVencedor - 3) % 6 == 0) {
+				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor2.png");
+			}
+			
+			if((contFogos % 2 != 0 && contFogos < 20) || (contFogos % 3 == 0 && contFogos >= 21)) {
+				itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\fogos\\fogos" + contFogos + ".png");
+			} 
+			
+			if((contFogos % 2 == 0 && contFogos >= 8 && contFogos <= 22) || ((contFogos -1) % 3 == 0 && contFogos >= 23)) {
+				itemParabenizacaoVencedor2.load(caminho + "res\\batalha\\fogos\\fogos" + contFogos + ".png");
+			}
+			
+			if(contVencedor % 6 == 0) {
+				itemParabenizacaoVencedor3.load(caminho + "res\\batalha\\estrelas1.png");
+			} else if(contVencedor % 3 == 0) {
+				itemParabenizacaoVencedor3.load(caminho + "res\\batalha\\estrelas2.png");
+			}
+			
+		} else if(contVencedor <= 40){
+			parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\perdedor1.png");
+			
+			itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\sombreadoPerdedor1.png");
+			itemParabenizacaoVencedor1.setY(itemParabenizacaoVencedor1.getY() + 8);
+		}
+		
+	}
 	
 	
 }

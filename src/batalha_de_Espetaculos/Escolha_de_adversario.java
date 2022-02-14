@@ -671,7 +671,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				else if(camada41.getX() == 0) { camada42.setX(esquerda == true ? -4000 : 4000);}
 				
 				int camada4Atual = (camada41.getX() < camada42.getX() ? camada41.getX() : camada42.getX());
-							
+								
 				if(esquerda == true && direita == true) {
 					
 					pararMovimento();
@@ -699,7 +699,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						if(contTeclaBatalha == -1) {contTeclaBatalha = 13;}
 												
 						if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
-							if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
+							if((camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
 								if(!(ativarBoss == false && camada4Atual > -3424 && camada4Atual < -3076)) {
 									teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 								}
@@ -815,6 +815,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 					}
 				}
+				
+
 				
 			// ---------- faz a ayla voar verticalmnte --------- \
 			}
@@ -1389,7 +1391,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		    || Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) == 6)) {
 			
 			
-			System.out.println("veio");
 			iconeAventureiro.setDx(7);
 			movimentoAventureiro = false;
 			respiracaoAventureiro = true;
