@@ -9,13 +9,13 @@ public class Rexthor {
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3"};
 	private String [] NomeApelos = {"Punho da dor", "Esquiva", "Briga", "Sentidos aguçados", "Besuntar", "Sorte das deusas", "A tanga"};
-	private String [][] ConteudoDescricao = {  {"Ao se posicionar e contrair seus músculos, um poderoso gancho é disparado rumo ao", "adversário adjacente.", " ", " ", "Esta habilidade afeta o campo acima de você."},
-											   {"Uma excelente demonstração de reflexos em combate digna de um boxeador de primeira.", " ", " ", " ", " "},
-											   {"Quebra pau, peleja, arranca-rabo, dar uma coça, sururu, pancadaria, barraco, rixa, pugna", "e testilha.", " ", " ", "Esta habilidade afeta um campo acima e um abaixo."},
-											   {"Cubra seus olhos e concentre-se no ambiente a sua volta, com apenas o seus sentidos" ,"sobreviva a onda de ataques.", " ", " ", " "},
-											   {"Em tempos seco como este é sempre bom dar uma hidratada, besunte-se com baby óleo", "e deixe sua matilha enojada.", " ", " ", "Esta habilidade afeta todos campos acima de você."},
-											   {"Você fará uma aposta, jogue cinco d20 e torça para o número 20 sair, os resultados não se", "repetiram nos outros dados, então se você ganhar o apelo será 10, se você perder será zero.", "Tentador?", " ", " "},
-											   {"Sua tanga guarda vários objetos que muitas vezes não são seus. Retire da suas vestes itens", "relevantes para seus companheiros e distraia-los do combate.", " ", " ", "Esta habilidade afeta todos os campos abaixo de você."}};	
+	private String [][] ConteudoDescricao = {  {"De músculos contraídos", "Um gancho é disparado.", "Um rosto é re-esculpido", "Em um corpo desmaiado.", "Esta habilidade afeta o campo acima de você."},
+											   {"Golpes são projetados", "Em sua direção.", "Com movimentos calculados", "Você esquiva em demonstração.", " "},
+											   {"Agressão, barraco, conflito,", "Peleja, refrega, selvageria,", "Confronto, batalha, atrito,", "Sururu, requesta, pancadaria.", "Esta habilidade afeta um campo acima e um abaixo."},
+											   {"Com seus olhos encobertos", "Se concentre no ambiente,", "Com seus sentidos despertos", "Sobreviva aos ataques subsequentes.", " "},
+											   {"Quando o calor já te confunde", "É bom dar uma hidratada,", "Com baby óleo se besunte", "Deixando sua matilha enjoada.", "Esta habilidade afeta todos campos acima de você."},
+											   {"Jogando cinco d20 uma aposta você vai fazer.", "Não há repetição nos números contemplados.", "10 apelos você ganha se 20 o dado conceber.", "Então camarada, você está tentado?", "Esta habilidade te concede 10 apelos se o número 20 sair em um dos dados."},
+											   {"Sua tanga guarda objetos", "Que nem sempre são sua propriedade,", "Uma vez das vestes liberto", "O dono cai para insanidade.", "Esta habilidade afeta todos os campos abaixo de você."}};	
 	
 	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que você está querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
 			   										 {"É melhor você ficar esperto mesmo.", " ", " ", " "},

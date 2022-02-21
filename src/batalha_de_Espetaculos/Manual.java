@@ -30,7 +30,7 @@ public class Manual extends JPanel implements ActionListener {
 	JFrame janelaPrincipal;
 	
 	private Image fundo;
-	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos fundo2 = new Icones_interativos(-10, 0);
 	private Icones_interativos fundo3 = new Icones_interativos(-20, 10);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
@@ -58,33 +58,34 @@ public class Manual extends JPanel implements ActionListener {
 	
 	/* ------------------------------- Controles ---------------------------------*/
 	
-	private Icones_interativos teclaEsquerda = new Icones_interativos(268, 124);
+	private Icones_interativos teclaEsquerda = new Icones_interativos(290, 140);
 	private Icones_interativos teclaBaixo = new Icones_interativos(teclaEsquerda.getX() + 40, teclaEsquerda.getY() + 46);
 	private Icones_interativos teclaDireita = new Icones_interativos(teclaBaixo.getX() + 46, teclaEsquerda.getY());
 	private Icones_interativos teclaCima = new Icones_interativos(teclaBaixo.getX(), teclaBaixo.getY() - 86);
-	private Icones_interativos teclaZ = new Icones_interativos(teclaDireita.getX() + 186, teclaDireita.getY());
-	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 200, teclaZ.getY());
-	private Icones_interativos teclaEsc = new Icones_interativos(teclaX.getX() + 190, teclaX.getY());
+	private Icones_interativos teclaZ = new Icones_interativos(teclaDireita.getX() + 170, teclaDireita.getY());
+	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 170, teclaZ.getY());
+	private Icones_interativos teclaEsc = new Icones_interativos(teclaX.getX() + 170, teclaX.getY());
 
 	
-	private Texto txtLn1 = new Texto(126, 80, "Controles");
-	private Texto txtLn2 = new Texto(270, 248, "Direcionais");
-	private Texto txtLn3 = new Texto(txtLn2.getX() + 230, txtLn2.getY() - 38, "Selecionar");
-	private Texto txtLn4 = new Texto(txtLn3.getX() + 228, txtLn3.getY(), "Voltar");
-	private Texto txtLn5 = new Texto(txtLn4.getX() + 201, txtLn4.getY(), "Menu");
+	private Icones_interativos controles = new Icones_interativos(92, 60);
+	private Texto txtLn2 = new Texto(290, 248, "Direcionais");
+	private Texto txtLn3 = new Texto(txtLn2.getX() + 212, txtLn2.getY() - 38, "Selecionar");
+	private Texto txtLn4 = new Texto(txtLn3.getX() + 196, txtLn3.getY(), "Voltar");
+	private Texto txtLn5 = new Texto(txtLn4.getX() + 184, txtLn4.getY(), "Menu");
 	
 	private int contTempoControles = 0;
 	
+	private int espacoParagrafo = 56;
+	private int espacoLinha = 30;
 	/* ------------------------------- Batalha ---------------------------------*/
 	
-	private Texto txtLn6 = new Texto(80, 310, "Batalhas");
-	private Texto txtLn7 = new Texto(90, txtLn6.getY() + 90, "* As batalhas são divididas em cinco turnos.");
-	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + 44, "* Em cada turno você escolhe uma apresentação para ganhar");
-	private Texto txtLn9 = new Texto(txtLn7.getX() + 8, txtLn8.getY() + 25, " pontos com a platéia ou prejudicar seus adversários.");
+	private Icones_interativos batalhas = new Icones_interativos(92, 300);
+	private Texto txtLn7 = new Texto(90, batalhas.getY() + 110, "1. As batalhas são divididas em cinco turnos.");
+	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + espacoParagrafo, "2. Em cada turno você escolhe uma habilidade entre quatro.");
 	
 		/* ------------------------------- Nome apelo ---------------------------------*/
 
-	private Icones_interativos nomeHabilidade1 = new Icones_interativos(1234 - 330 - 80, txtLn6.getY());
+	private Icones_interativos nomeHabilidade1 = new Icones_interativos(1234 - 330 - 80, batalhas.getY() + 30);
 	private Icones_interativos nomeHabilidade2 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade1.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade3 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade2.getY() + 54 + 4);
 	private Icones_interativos nomeHabilidade4 = new Icones_interativos(nomeHabilidade1.getX(), nomeHabilidade3.getY() + 54 + 4);
@@ -93,19 +94,23 @@ public class Manual extends JPanel implements ActionListener {
 	private Texto nomeApelo1, nomeApelo2, nomeApelo3, nomeApelo4;
 	
 	private Icones_interativos painel1 = new Icones_interativos(nomeHabilidade1.getX() - 2, nomeHabilidade1.getY() - 8);
-	
+	private Icones_interativos fundoPainel1 = new Icones_interativos(painel1.getX() - 13, painel1.getY() - 9);
+
 		/* ------------------------------- info apelo ---------------------------------*/
 
-	private Texto txtLn10 = new Texto(txtLn7.getX(), 610, "* Os apelos são pontos ganhos pelas apresentações. Quem obtem mais apelos na rodada fica em");
-	private Texto txtLn11 = new Texto(txtLn7.getX() + 14, txtLn10.getY() + 25, "1º lugar no próximo turno e quem obtem mais apelos durante toda a batalha ganha a partida.");
+	private Texto txtLn9 = new Texto(txtLn7.getX(), 610, "3. Os apelos      são pontos positivos ganhados pelas apresentações.");
+	private Icones_interativos apelo1 = new Icones_interativos(txtLn7.getX() + 134, 595);
+	private Texto txtLn10 = new Texto(txtLn7.getX(), txtLn9.getY() + espacoParagrafo, "4. Quem obtem mais apelo no turno fica em 1º lugar no próximo e quem obtem mais até o final da");
+	private Texto txtLn11 = new Texto(txtLn7.getX() + 26, txtLn10.getY() + espacoLinha, "batalha ganha.");
 
-	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + 44, "* As interferencias são pontos negativos usados nos seus adversários para faze-los perderem");
-	private Texto txtLn13 = new Texto(txtLn7.getX() + 14, txtLn12.getY() + 25, "os apelos ganhados no turno atual ou nos anteriores.");
+	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + espacoParagrafo, "5. As interferencias      são pontos negativos usados nos adversários para retirar os apelos ganhados");
+	private Icones_interativos apelo2 = new Icones_interativos(txtLn7.getX() + 207, txtLn11.getY() + espacoParagrafo - 17);
+	private Texto txtLn13 = new Texto(txtLn7.getX() + 26, txtLn12.getY() + espacoLinha, "durante toda a batalha.");
 
-	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + 44, "* A luz acesa com o símbolo de um punho informa que a habilidade é do tipo físico.");
+	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + espacoParagrafo, "6. A luz acesa com o símbolo de um punho informa que a habilidade é do tipo físico.");
 
-	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 790);
-	
+	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 880);
+
 	private Icones_interativos tipoDoApelo = new Icones_interativos(apelo.getX() + 19, apelo.getY() + 2);
 	
 	private Texto apeloQuantidade = new Texto(apelo.getX() + 90, apelo.getY() + 54/2 + 8, "Apelo:");
@@ -122,41 +127,46 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos apeloInterf2 = new Icones_interativos(apeloInterf1.getX() + 27, apeloInterf1.getY());
 	
 	private Icones_interativos painel2 = new Icones_interativos(apelo.getX(), apelo.getY() - 2);
-	
+	private Icones_interativos fundoPainel2 = new Icones_interativos(painel2.getX() - 15, painel2.getY() - 15);
+
 	
 	private int contTempoInfoApelo = 0;
 	
 		// ----------------------- Descrição -----------------------------------
 
-	private Texto txtLn14 = new Texto(txtLn7.getX(), 930, "* As descrições das apresentações são puramente enrrolações. A unica coisa importante é a ultima linha");
-	private Texto txtLn15 = new Texto(txtLn7.getX() + 14, txtLn14.getY() + 25, "colorida, nela é descrito o efeito das apresentações que possuem interferencias.");	
+	private Texto txtLn14 = new Texto(txtLn7.getX(), 1010, "7. A descrição da habilidade é puramente enrrolação. O importante é a ultima linha colorida, que diz");
+	private Texto txtLn15 = new Texto(txtLn7.getX() + 26, txtLn14.getY() + espacoLinha, "o efeito da interferencia.");	
 	
-	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 50);
+	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 40);
 	
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
 	
 	private int contTempoDescricao = 1;
-	private String conteudoDescricao = "Com sua espetacular e refinada técnica de propagar historias particulares"
-			+ " você é capaz deretirar o primeiro colocado do seu pedestal causando uma alta interferência nele."
-			+ "Este poder afeta o primeiro colocado.";
+	private String conteudoDescricao = "O que é capaz de vencer o mais forte dos seres"
+			+ "Do que uma mentirinha bem contada com um bocado de enganação?"
+			+ "Com uma mente afiada e planejamentos condizentes" 
+			+ "Até uma fadinha bem charmosa irá ter sua ascensão."
+			+ "Esta habilidade afeta o primeiro campo.";
 	
 	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY());
-	
+	private Icones_interativos fundoPainel3 = new Icones_interativos(painel3.getX() - 15, painel3.getY() - 15);
+
 	// ----------------------------------- campo batalha -----------------------------------
 
-	private Texto txtLn16 = new Texto(txtLn7.getX(), 1260, "* Quando a apresentação for escolhida a batalha começa.");
-	private Texto txtLn17 = new Texto(txtLn7.getX(), txtLn16.getY() + 44, "* A ordem do espetáculo é de cima para baixo.");	
-	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn17.getY() + 44, "* A animação aparece seguida da quantidade de apelo");
-	private Texto txtLn19 = new Texto(txtLn7.getX() + 14, txtLn18.getY() + 25, "ganhada com ela.");
-	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn19.getY() + 44, "* Caso o poder for repetido duas rodadas seguidas 2");
-	private Texto txtLn21 = new Texto(txtLn7.getX() + 14, txtLn20.getY() + 25, "apelos serram retirados do aventureiro como punição.");	
-	private Texto txtLn22 = new Texto(txtLn7.getX(), txtLn21.getY() + 44, "* Caso o ataque cumpra o requisito do efeito do chefe");
-	private Texto txtLn23 = new Texto(txtLn7.getX() + 14, txtLn22.getY() + 25, "da batalha um bônus ou uma punição de 1 apelo");
-	private Texto txtLn24 = new Texto(txtLn7.getX() + 14, txtLn23.getY() + 25, "aparece de acordo com o efeito do chefe.");
-	private Texto txtLn25 = new Texto(txtLn7.getX(), txtLn24.getY() + 44, "* Caso a habilidade tenha interferência ela será quem");
-	private Texto txtLn26 = new Texto(txtLn7.getX() + 14, txtLn25.getY() + 25, "aparece por último na vez do aventureiro que a lançou.");
+	private Texto txtLn16 = new Texto(txtLn7.getX(), 1340, "8. Quando a habilidade for escolhida a batalha começa.");	
+	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn16.getY() + espacoParagrafo, "9. A animação aparece seguida da quantidade de apelo.");
+	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn18.getY() + espacoParagrafo, "10. Se repetir a habilidade duas vezes seguida,");
+	private Texto txtLn21 = new Texto(txtLn7.getX() + 40, txtLn20.getY() + espacoLinha, "receberá uma punição de -2     .");	
+	private Icones_interativos apelo3 = new Icones_interativos(txtLn7.getX() + 332, txtLn20.getY() + espacoLinha - 16);
+	private Texto txtLn22 = new Texto(txtLn7.getX(), txtLn21.getY() + espacoParagrafo, "11. Se a habilidade cumprir o efeito de chefe da");
+	private Texto txtLn23 = new Texto(txtLn7.getX() + 40, txtLn22.getY() + espacoLinha, "batalha, receberá um +1     ou um -1     de");
+	private Icones_interativos apelo4 = new Icones_interativos(txtLn7.getX() + 290, txtLn22.getY() + espacoLinha - 16);
+	private Icones_interativos apelo5 = new Icones_interativos(txtLn7.getX() + 412, txtLn22.getY() + espacoLinha - 16);
+	private Texto txtLn24 = new Texto(txtLn7.getX() + 40, txtLn23.getY() + espacoLinha, "acordo com o efeito.");
+	private Texto txtLn25 = new Texto(txtLn7.getX(), txtLn24.getY() + espacoParagrafo, "12. Caso a habilidade tenha interferência ela aparecerá");
+	private Texto txtLn26 = new Texto(txtLn7.getX() + 40, txtLn25.getY() + espacoLinha, "por último na vez do aventureiro que a lançou.");
 	
-	private Icones_interativos campoBatalha1 = new Icones_interativos(1234 - 430 - 80, txtLn16.getY() - 24);
+	private Icones_interativos campoBatalha1 = new Icones_interativos(1234 - 430 - 80, txtLn16.getY() - 14);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
 	private Icones_interativos campoBatalha3 = new Icones_interativos(campoBatalha1.getX(), campoBatalha2.getY() + 70 + 4);
 	private Icones_interativos campoBatalha4 = new Icones_interativos(campoBatalha1.getX(), campoBatalha3.getY() + 70 + 4);
@@ -241,31 +251,35 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos luzCampoBatalha5 = new Icones_interativos(campoBatalha5.getX() + 88, campoBatalha5.getY() + 12);
 	
 	private Icones_interativos painel4 = new Icones_interativos(campoBatalha1.getX() - 8, campoBatalha1.getY() - 4);
+	private Icones_interativos fundoPainel4 = new Icones_interativos(painel4.getX() - 15, painel4.getY() - 15);
 
 	private int contTempoCampoBatalha = 0;
 	
 	// ----------------------- Considerações finais -----------------------------------
 
-	private Texto txtLn39 = new Texto(txtLn7.getX(), txtLn26.getY() + 44, "* Depois de cada turno o campo de batalha se reorganiza ficando em ordem decrescente de acordo com os");
-	private Texto txtLn40 = new Texto(txtLn7.getX() + 14, txtLn39.getY() + 25, "pontos no total. No final do 5º turno a batalha acaba e o aventureiro com mais pontos ganha.");
+	private Texto txtLn39 = new Texto(txtLn7.getX(), txtLn26.getY() + espacoParagrafo, "13. Depois de cada turno os campos se reorganiza ficando em ordem decrescente de acordo com os");
+	private Texto txtLn40 = new Texto(txtLn7.getX() + 40, txtLn39.getY() + espacoLinha, "pontos. No final do 5º turno a batalha acaba e o aventureiro com mais pontos ganha.");
 	
 	// ----------------------- Tabela de efeito de chefe -----------------------------------
 
-	private Texto txtLn27 = new Texto(390, txtLn40.getY() + 120, "-*_ Tabela de efeito de chefe _*-");
-	private Texto txtLn41 = new Texto(340, txtLn27.getY() + 60, "||==================================================||");
-	private Texto txtLn28 = new Texto(txtLn41.getX(), txtLn41.getY() + 34, "||      ||===========================================||      ||");
-	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em ataques com interferência     ||      ||");
-	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em ataques sem interferência     ||      ||");
-	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em ataques físicos                     ||      ||");
-	private Texto txtLn34 = new Texto(txtLn28.getX(), txtLn33.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em ataques com efeito               ||      ||");
-	private Texto txtLn36 = new Texto(txtLn28.getX(), txtLn35.getY() + 25, "||      || ----------------- || ----._ || --------------------------------------------- ||      ||");
-	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em ataques sem interferência     ||      ||");
-	private Texto txtLn38 = new Texto(txtLn28.getX(), txtLn37.getY() + 25, "||      ||===========================================||      ||");
-	private Texto txtLn42 = new Texto(txtLn28.getX(), txtLn38.getY() + 34, "||      ||===========================================||      ||");
-	private Texto txtLn43 = new Texto(txtLn28.getX(), txtLn42.getY() + 34, "||___||                                                                                       ||___||");
+	private Icones_interativos efeitoDeChefe = new Icones_interativos(1234/2 - 300/2, txtLn40.getY() + 66);
+
+	private Icones_interativos tabela = new Icones_interativos(1234/2 - 620/2, efeitoDeChefe.getY() + 70);
+	
+	private Texto txtLn41 = new Texto(332, efeitoDeChefe.getY() + 106, "       ||=============================================||");
+	private Texto txtLn28 = new Texto(txtLn41.getX() - 2, txtLn41.getY() + 30, "||===||=============================================||===||");
+	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 28, "||      ||      IGNIS      ||   -1   ||   Em habilidades com interferência    ||      ||");
+	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
+	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em habilidades sem interferência    ||      ||");
+	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
+	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em habilidades físicas                     ||      ||");
+	private Texto txtLn34 = new Texto(txtLn28.getX(), txtLn33.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
+	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em habilidades com interferência    ||      ||");
+	private Texto txtLn36 = new Texto(txtLn28.getX(), txtLn35.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
+	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em habilidades sem interferência    ||      ||");
+	private Texto txtLn38 = new Texto(txtLn28.getX(), txtLn37.getY() + 28, "||===||=============================================||===||");
+	private Texto txtLn42 = new Texto(txtLn28.getX() + 4, txtLn38.getY() + 28, "       ||=============================================||");
+	private Texto txtLn43 = new Texto(txtLn28.getX(), txtLn42.getY() + 38, "    __||__||                                                                                ||__||__");
 
 	
 	
@@ -300,14 +314,13 @@ public class Manual extends JPanel implements ActionListener {
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		
-		txtLn1.setFonte(new Font("Arial", Font.BOLD, 30));
-		txtLn1.setCorTexto(new Color (235, 230, 233));
-		txtLn2.setFonte(new Font("Arial", Font.PLAIN, 24));
-		txtLn3.setFonte(new Font("Arial", Font.PLAIN, 24));
-		txtLn4.setFonte(new Font("Arial", Font.PLAIN, 24));
-		txtLn5.setFonte(new Font("Arial", Font.PLAIN, 24));
+		controles.load(caminho + "res\\Manual\\controles.png");
+		txtLn2.setFonte(new Font("Arial", Font.BOLD, 24));
+		txtLn2.setCorTexto(new Color (235, 230, 233));
 		
 		/* ------------------------------- Batalha ---------------------------------*/
+		
+		txtLn7.setFonte(new Font("Arial", Font.BOLD, 22));
 		
 		nomeHabilidade1.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
@@ -326,16 +339,15 @@ public class Manual extends JPanel implements ActionListener {
 		nomeApelo3.setFonte(new Font("Arial", Font.PLAIN, 20));
 		nomeApelo4.setFonte(new Font("Arial", Font.PLAIN, 20));
 		
-		txtLn6.setFonte(new Font("Arial", Font.BOLD, 30));
-		txtLn7.setFonte(new Font("Arial", Font.PLAIN, 24));
-		txtLn8.setFonte(new Font("Arial", Font.PLAIN, 24));
-		txtLn9.setFonte(new Font("Arial", Font.PLAIN, 24));
+		batalhas.load(caminho + "res\\manual\\batalhas.png");
 		
 		painel1.load(caminho + "res\\batalha\\painel1.png");
+		fundoPainel1.load(caminho + "res\\manual\\fundoPainel1.png");
 		
 		/* ------------------------------- info apelo ---------------------------------*/
 		
-		txtLn10.setFonte(new Font("Arial", Font.PLAIN, 24));
+		apelo1.load(caminho + "res\\batalha\\apelo.png");
+		apelo2.load(caminho + "res\\batalha\\interferencia.png");
 		
 		apelo.load(caminho + "res\\batalha\\infoApelo.png");
 
@@ -355,16 +367,17 @@ public class Manual extends JPanel implements ActionListener {
 		apeloInterf2.load(caminho + "res\\batalha\\interferencia.png");
 		
 		painel2.load(caminho + "res\\batalha\\painel2.png");
+		fundoPainel2.load(caminho + "res\\manual\\fundoPainel2.png");
 		
 		// ----------------------- Descrição -----------------------------------
 
 		descricao.load(caminho + "res\\batalha\\descricao.png");
 
-		textoDescricao1 = new Texto(descricao.getX() + 20, descricao.getY() + 40, " ");
+		textoDescricao1 = new Texto(descricao.getX() + 25, descricao.getY() + 36, " ");
 		textoDescricao2 = new Texto(textoDescricao1.getX(), textoDescricao1.getY() + 28, " ");
 		textoDescricao3 = new Texto(textoDescricao2.getX(), textoDescricao2.getY() + 28, " ");
 		textoDescricao4 = new Texto(textoDescricao3.getX(), textoDescricao3.getY() + 28, " ");
-		textoDescricao5 = new Texto(textoDescricao4.getX() + 238, textoDescricao4.getY() + 18, "Este poder afeta o primeiro colocado.");
+		textoDescricao5 = new Texto(textoDescricao4.getX() + 238, textoDescricao4.getY() + 28, "Esta habilidade afeta o primeiro campo.");
 
 		textoDescricao1.setFonte(new Font("Arial", Font.PLAIN, 20));
 		textoDescricao2.setFonte(textoDescricao1.getFonte());
@@ -379,8 +392,13 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao5.setCorTexto(new Color (165, 1, 67));
 		
 		painel3.load(caminho + "res\\batalha\\painel3.png");
+		fundoPainel3.load(caminho + "res\\manual\\fundoPainel3.png");
 		
 		// ----------------------------------- campo batalha -----------------------------------
+		
+		apelo3.load(caminho + "res\\batalha\\apelo.png");
+		apelo4.load(caminho + "res\\batalha\\apelo.png");
+		apelo5.load(caminho + "res\\batalha\\apelo.png");
 		
 		campoBatalha1.load(caminho + "res\\batalha\\campoBatalha.png");
 		campoBatalha2.load(caminho + "res\\batalha\\campoBatalha.png");
@@ -409,12 +427,15 @@ public class Manual extends JPanel implements ActionListener {
 		coracao05.load(caminho + "res\\batalha\\apelo.png");
 		
 		painel4.load(caminho + "res\\batalha\\painel4.png");
+		fundoPainel4.load(caminho + "res\\manual\\fundoPainel4.png");
 		
 		apagarCoracoes();
 		
 		// ----------------------- Tabela de efeito de chefe -----------------------------------
 
-		txtLn27.setFonte(new Font("Arial", Font.BOLD, 30));
+		efeitoDeChefe.load(caminho + "res\\Manual\\efeitoDeChefe.png");
+		tabela.load(caminho + "res\\Manual\\tabela.png");
+		
 		txtLn28.setFonte(new Font("Arial", Font.PLAIN, 18));
 		txtLn29.setFonte(new Font("Arial", Font.PLAIN, 18));
 		txtLn30.setFonte(new Font("Arial", Font.PLAIN, 18));
@@ -429,11 +450,6 @@ public class Manual extends JPanel implements ActionListener {
 		txtLn41.setFonte(new Font("Arial", Font.PLAIN, 18));
 		txtLn42.setFonte(new Font("Arial", Font.PLAIN, 18));
 		txtLn43.setFonte(new Font("Arial", Font.PLAIN, 18));
-		
-		// ----------------------- Considerações finais -----------------------------------
-		
-		txtLn39.setFonte(new Font("Arial", Font.PLAIN, 22));
-		txtLn40.setFonte(new Font("Arial", Font.PLAIN, 22));
 		
 		// ------------------------------------------------------------------------------
 
@@ -556,16 +572,22 @@ public class Manual extends JPanel implements ActionListener {
 	public void AnimarDescricao() {
 		contTempoDescricao ++;
 		
-		if(contTempoDescricao == 250) {
+		if(contTempoDescricao == 420) {
 			contTempoDescricao = -18;
 			textoDescricao1.setTexto(" ");
 			textoDescricao2.setTexto(" ");
+			textoDescricao3.setTexto(" ");
+			textoDescricao4.setTexto(" ");
 		}
 		
-		if(contTempoDescricao > 0 && contTempoDescricao < 90) {
+		if(contTempoDescricao > 0 && contTempoDescricao < 47) {
 			textoDescricao1.setTexto(conteudoDescricao.substring(0, contTempoDescricao));
-		} else if(contTempoDescricao > 0 && contTempoDescricao < 171) {
-			textoDescricao2.setTexto(conteudoDescricao.substring(89, contTempoDescricao));
+		} else if(contTempoDescricao > 0 && contTempoDescricao < 108) {
+			textoDescricao2.setTexto(conteudoDescricao.substring(46, contTempoDescricao));
+		} else if(contTempoDescricao > 0 && contTempoDescricao < 156) {
+			textoDescricao3.setTexto(conteudoDescricao.substring(107, contTempoDescricao));
+		} else if(contTempoDescricao > 0 && contTempoDescricao < 206) {
+			textoDescricao4.setTexto(conteudoDescricao.substring(155, contTempoDescricao));
 		}
 		
 	}
@@ -589,7 +611,7 @@ public class Manual extends JPanel implements ActionListener {
 		} else if(contTempoCampoBatalha > 100 && contTempoCampoBatalha < 200) {
 			luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 200 && contTempoCampoBatalha < 300) {
+		} else if(contTempoCampoBatalha > 300 && contTempoCampoBatalha < 400) {
 			luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\luzCampoBatalha2.png");
 		} else if(contTempoCampoBatalha > 400 && contTempoCampoBatalha < 500) {
@@ -612,32 +634,33 @@ public class Manual extends JPanel implements ActionListener {
 			} 
 		}
 		
-		for(int i=1; i<6; i++) {
-			if(contTempoCampoBatalha == i * 10 + 100) {
-				(i == 1 ? coracao21 : (i == 2 ? coracao22 : coracao23)).load(caminho + "res\\batalha\\apelo.png");
-			} 
-		}
-		
 		for(int i=1; i<7; i++) {
-			if(contTempoCampoBatalha == i * 10 + 200) {
-				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : (i == 4 ? coracao34 : (i == 5 ? coracao35 : coracao36))))).load(caminho + "res\\batalha\\apelo.png");
+			if(contTempoCampoBatalha == i * 10 + 100) {
+				(i == 1 ? coracao21 : (i == 2 ? coracao22 : (i == 3 ? coracao23 : (i == 4 ? coracao24 : coracao25)))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
-		if(contTempoCampoBatalha == 290) {
-			txtEfeitoFase.setY(campoBatalha3.getY() + 70/2 + 20/2);
+		if(contTempoCampoBatalha == 190) {
+			txtEfeitoFase.setY(campoBatalha2.getY() + 70/2 + 20/2);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			txtEfeitoFase.setTexto("- 2");
 			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			
-		} else if(contTempoCampoBatalha == 340) {
+		} else if(contTempoCampoBatalha == 240) {
 			txtEfeitoFase.setTexto(" ");
 			efeitoFase.setImagem(null);
 		}
 		
+
 		for(int i=5; i<7; i++) {
+			if(contTempoCampoBatalha == i * 10 + 200) {
+				(i == 5 ? coracao25 : coracao24).load(caminho + "res\\batalha\\losango.png");
+			} 
+		}
+		
+		for(int i=1; i<6; i++) {
 			if(contTempoCampoBatalha == i * 10 + 300) {
-				(i == 5 ? coracao36 : coracao35).setImagem(null);
+				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : coracao34))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
@@ -670,7 +693,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		for(int i=1; i<5; i++) {
 			if(contTempoCampoBatalha == i * 20 + 600) {
-				(i == 1 ? coracao12 : (i == 2 ? coracao23 : (i == 3 ? coracao34 : coracao45))).setImagem(null);
+				(i == 1 ? coracao12 : (i == 2 ? coracao23 : (i == 3 ? coracao34 : coracao45))).load(caminho + "res\\batalha\\losango.png");
 			} 
 		}
 		
@@ -703,7 +726,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		int codigo = tecla.getKeyCode();
 		
-		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1640) {
+		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1690) {
 			if(contEngranagem1 == 2) {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
@@ -800,6 +823,8 @@ public class Manual extends JPanel implements ActionListener {
 		
 		/* ------------------------------- Controles ---------------------------------*/
 		
+		graficos.drawImage(controles.getImagem(), controles.getX(), controles.getY() + rolagemTela, this);
+
 		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY() + rolagemTela, this);
 		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getX(), teclaDireita.getY() + rolagemTela, this);
 		graficos.drawImage(teclaCima.getImagem(), teclaCima.getX(), teclaCima.getY() + rolagemTela, this);
@@ -809,14 +834,12 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY() + rolagemTela, this);
 		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY() + rolagemTela, this);
 		
-		graficos.setColor(txtLn1.getCorTexto());
-		tl1 = new TextLayout(txtLn1.getTexto(), txtLn1.getFonte(), frc);
+		graficos.setColor(txtLn2.getCorTexto());
 		tl2 = new TextLayout(txtLn2.getTexto(), txtLn2.getFonte(), frc);
-		tl3 = new TextLayout(txtLn3.getTexto(), txtLn3.getFonte(), frc);
-		tl4 = new TextLayout(txtLn4.getTexto(), txtLn4.getFonte(), frc);
-		tl5 = new TextLayout(txtLn5.getTexto(), txtLn5.getFonte(), frc);
+		tl3 = new TextLayout(txtLn3.getTexto(), txtLn2.getFonte(), frc);
+		tl4 = new TextLayout(txtLn4.getTexto(), txtLn2.getFonte(), frc);
+		tl5 = new TextLayout(txtLn5.getTexto(), txtLn2.getFonte(), frc);
 		
-		tl1.draw(graficos, txtLn1.getX(), txtLn1.getY() + rolagemTela);
 		tl2.draw(graficos, txtLn2.getX(), txtLn2.getY() + rolagemTela);
 		tl3.draw(graficos, txtLn3.getX(), txtLn3.getY() + rolagemTela);
 		tl4.draw(graficos, txtLn4.getX(), txtLn4.getY() + rolagemTela);
@@ -824,15 +847,17 @@ public class Manual extends JPanel implements ActionListener {
 		
 		/* ------------------------------- Batalha ---------------------------------*/
 		
-		tl6 = new TextLayout(txtLn6.getTexto(), txtLn6.getFonte(), frc);
+		graficos.drawImage(batalhas.getImagem(), batalhas.getX(), batalhas.getY() + rolagemTela, this);
+		graficos.drawImage(fundoPainel1.getImagem(), fundoPainel1.getX(), fundoPainel1.getY() + rolagemTela, this);
+
 		tl7 = new TextLayout(txtLn7.getTexto(), txtLn7.getFonte(), frc);
-		tl8 = new TextLayout(txtLn8.getTexto(), txtLn8.getFonte(), frc);
-		tl9 = new TextLayout(txtLn9.getTexto(), txtLn9.getFonte(), frc);
+		tl8 = new TextLayout(txtLn8.getTexto(), txtLn7.getFonte(), frc);
+		tl9 = new TextLayout(txtLn9.getTexto(), txtLn7.getFonte(), frc);
 		
-		tl6.draw(graficos, txtLn6.getX(), txtLn6.getY() + rolagemTela);
 		tl7.draw(graficos, txtLn7.getX(), txtLn7.getY() + rolagemTela);
-		tl8.draw(graficos, txtLn8.getX(), txtLn8.getY() + rolagemTela);
-		tl9.draw(graficos, txtLn9.getX(), txtLn9.getY() + rolagemTela);		
+		tl8.draw(graficos, txtLn8.getX(), txtLn8.getY() + rolagemTela);	
+		tl9.draw(graficos, txtLn9.getX(), txtLn9.getY() + rolagemTela);	
+		
 		
 		graficos.drawImage(nomeHabilidade1.getImagem(), nomeHabilidade1.getX(), nomeHabilidade1.getY() + rolagemTela, this);
 		graficos.drawImage(nomeHabilidade2.getImagem(), nomeHabilidade2.getX(), nomeHabilidade2.getY() + rolagemTela, this);
@@ -853,17 +878,17 @@ public class Manual extends JPanel implements ActionListener {
 	    tl12.draw(graficos, nomeApelo3.getX(), nomeApelo3.getY() + rolagemTela);
 	    graficos.setColor(contTempoNomeApelo >= 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl13.draw(graficos, nomeApelo4.getX(), nomeApelo4.getY() + rolagemTela);
-	    graficos.setColor(txtLn1.getCorTexto());
+	    graficos.setColor(txtLn2.getCorTexto());
 		
 		graficos.drawImage(painel1.getImagem(), painel1.getX(), painel1.getY() + rolagemTela, this);
 
 		/* ------------------------------- info apelo ---------------------------------*/
 	    
-	    tl14 = new TextLayout(txtLn10.getTexto(), txtLn10.getFonte(), frc);
-	    tl15 = new TextLayout(txtLn11.getTexto(), txtLn11.getFonte(), frc);
-	    tl16 = new TextLayout(txtLn12.getTexto(), txtLn12.getFonte(), frc);
-	    tl17 = new TextLayout(txtLn13.getTexto(), txtLn13.getFonte(), frc);
-	    tl56 = new TextLayout(txtLn56.getTexto(), txtLn56.getFonte(), frc);
+	    tl14 = new TextLayout(txtLn10.getTexto(), txtLn7.getFonte(), frc);
+	    tl15 = new TextLayout(txtLn11.getTexto(), txtLn7.getFonte(), frc);
+	    tl16 = new TextLayout(txtLn12.getTexto(), txtLn7.getFonte(), frc);
+	    tl17 = new TextLayout(txtLn13.getTexto(), txtLn7.getFonte(), frc);
+	    tl56 = new TextLayout(txtLn56.getTexto(), txtLn7.getFonte(), frc);
 	    
 		tl14.draw(graficos, txtLn10.getX(), txtLn10.getY() + rolagemTela);
 		tl15.draw(graficos, txtLn11.getX(), txtLn11.getY() + rolagemTela);
@@ -871,6 +896,9 @@ public class Manual extends JPanel implements ActionListener {
 		tl17.draw(graficos, txtLn13.getX(), txtLn13.getY() + rolagemTela);
 		tl56.draw(graficos, txtLn56.getX(), txtLn56.getY() + rolagemTela);
 		
+		graficos.drawImage(apelo1.getImagem(), apelo1.getX(), apelo1.getY() + rolagemTela, this);
+		graficos.drawImage(apelo2.getImagem(), apelo2.getX(), apelo2.getY() + rolagemTela, this);
+
 		graficos.drawImage(apelo.getImagem(), apelo.getX(), apelo.getY() + rolagemTela, this);
 		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getX(), tipoDoApelo.getY() + rolagemTela, this);
 		
@@ -880,7 +908,7 @@ public class Manual extends JPanel implements ActionListener {
 	    graficos.setColor(apeloQuantidade.getCorTexto());
 	    tl18.draw(graficos, apeloQuantidade.getX(), apeloQuantidade.getY() + rolagemTela);
 	    tl19.draw(graficos, InterferenciaQuantidade.getX(), InterferenciaQuantidade.getY() + rolagemTela);
-	    graficos.setColor(txtLn1.getCorTexto());
+	    graficos.setColor(txtLn2.getCorTexto());
 	    
 		graficos.drawImage(apeloApelo1.getImagem(), apeloApelo1.getX(), apeloApelo1.getY() + rolagemTela, this);
 		graficos.drawImage(apeloApelo2.getImagem(), apeloApelo2.getX(), apeloApelo2.getY() + rolagemTela, this);
@@ -892,11 +920,14 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(apeloInterf2.getImagem(), apeloInterf2.getX(), apeloInterf2.getY() + rolagemTela, this);
 	
 		graficos.drawImage(painel2.getImagem(), painel2.getX(), painel2.getY() + rolagemTela, this);
+		graficos.drawImage(fundoPainel2.getImagem(), fundoPainel2.getX(), fundoPainel2.getY() + rolagemTela, this);
 
 		// ----------------------- Descrição -----------------------------------
 
-		tl20 = new TextLayout(txtLn14.getTexto(), txtLn14.getFonte(), frc);
-	    tl21 = new TextLayout(txtLn15.getTexto(), txtLn15.getFonte(), frc);
+		graficos.drawImage(fundoPainel3.getImagem(), fundoPainel3.getX(), fundoPainel3.getY() + rolagemTela, this);
+
+		tl20 = new TextLayout(txtLn14.getTexto(), txtLn7.getFonte(), frc);
+	    tl21 = new TextLayout(txtLn15.getTexto(), txtLn7.getFonte(), frc);
 	    
 	    tl20.draw(graficos, txtLn14.getX(), txtLn14.getY() + rolagemTela);
 	    tl21.draw(graficos, txtLn15.getX(), txtLn15.getY() + rolagemTela);
@@ -916,28 +947,26 @@ public class Manual extends JPanel implements ActionListener {
 	    tl25.draw(graficos, textoDescricao4.getX(), textoDescricao4.getY() + rolagemTela);
 	    graficos.setColor(textoDescricao5.getCorTexto());
 	    tl26.draw(graficos, textoDescricao5.getX(), textoDescricao5.getY() + rolagemTela);
-	    graficos.setColor(txtLn1.getCorTexto());
+	    graficos.setColor(txtLn2.getCorTexto());
 	    
 		graficos.drawImage(painel3.getImagem(), painel3.getX(), painel3.getY() + rolagemTela, this);
 	    
 		// ----------------------- campo batalha -----------------------------------
 
-	    tl27 = new TextLayout(txtLn16.getTexto(), txtLn16.getFonte(), frc);
-	    tl28 = new TextLayout(txtLn17.getTexto(), txtLn17.getFonte(), frc);
-	    tl29 = new TextLayout(txtLn18.getTexto(), txtLn18.getFonte(), frc);
-	    tl30 = new TextLayout(txtLn19.getTexto(), txtLn19.getFonte(), frc);
-	    tl31 = new TextLayout(txtLn20.getTexto(), txtLn20.getFonte(), frc);
-	    tl32 = new TextLayout(txtLn21.getTexto(), txtLn21.getFonte(), frc);
-	    tl33 = new TextLayout(txtLn22.getTexto(), txtLn22.getFonte(), frc);
-	    tl34 = new TextLayout(txtLn23.getTexto(), txtLn23.getFonte(), frc);
-	    tl35 = new TextLayout(txtLn24.getTexto(), txtLn24.getFonte(), frc);
-	    tl36 = new TextLayout(txtLn25.getTexto(), txtLn25.getFonte(), frc);
-	    tl37 = new TextLayout(txtLn26.getTexto(), txtLn26.getFonte(), frc);
+		graficos.drawImage(fundoPainel4.getImagem(), fundoPainel4.getX(), fundoPainel4.getY() + rolagemTela, this);
+
+	    tl27 = new TextLayout(txtLn16.getTexto(), txtLn7.getFonte(), frc);
+	    tl29 = new TextLayout(txtLn18.getTexto(), txtLn7.getFonte(), frc);
+	    tl31 = new TextLayout(txtLn20.getTexto(), txtLn7.getFonte(), frc);
+	    tl32 = new TextLayout(txtLn21.getTexto(), txtLn7.getFonte(), frc);
+	    tl33 = new TextLayout(txtLn22.getTexto(), txtLn7.getFonte(), frc);
+	    tl34 = new TextLayout(txtLn23.getTexto(), txtLn7.getFonte(), frc);
+	    tl35 = new TextLayout(txtLn24.getTexto(), txtLn7.getFonte(), frc);
+	    tl36 = new TextLayout(txtLn25.getTexto(), txtLn7.getFonte(), frc);
+	    tl37 = new TextLayout(txtLn26.getTexto(), txtLn7.getFonte(), frc);
 
 	    tl27.draw(graficos, txtLn16.getX(), txtLn16.getY() + rolagemTela);
-	    tl28.draw(graficos, txtLn17.getX(), txtLn17.getY() + rolagemTela);
 	    tl29.draw(graficos, txtLn18.getX(), txtLn18.getY() + rolagemTela);
-	    tl30.draw(graficos, txtLn19.getX(), txtLn19.getY() + rolagemTela);
 	    tl31.draw(graficos, txtLn20.getX(), txtLn20.getY() + rolagemTela);
 	    tl32.draw(graficos, txtLn21.getX(), txtLn21.getY() + rolagemTela);
 	    tl33.draw(graficos, txtLn22.getX(), txtLn22.getY() + rolagemTela);
@@ -946,6 +975,10 @@ public class Manual extends JPanel implements ActionListener {
 	    tl36.draw(graficos, txtLn25.getX(), txtLn25.getY() + rolagemTela);
 	    tl37.draw(graficos, txtLn26.getX(), txtLn26.getY() + rolagemTela);
 	    
+	    graficos.drawImage(apelo3.getImagem(), apelo3.getX(), apelo3.getY() + rolagemTela, this);
+	    graficos.drawImage(apelo4.getImagem(), apelo4.getX(), apelo4.getY() + rolagemTela, this);
+	    graficos.drawImage(apelo5.getImagem(), apelo5.getX(), apelo5.getY() + rolagemTela, this);
+
 	    graficos.drawImage(campoBatalha1.getImagem(), campoBatalha1.getX(), campoBatalha1.getY() + rolagemTela, this);
 		graficos.drawImage(campoBatalha2.getImagem(), campoBatalha2.getX(), campoBatalha2.getY() + rolagemTela, this);
 		graficos.drawImage(campoBatalha3.getImagem(), campoBatalha3.getX(), campoBatalha3.getY() + rolagemTela, this);
@@ -1033,7 +1066,9 @@ public class Manual extends JPanel implements ActionListener {
 		
 		// ----------------------- Tabela de efeito de chefe -----------------------------------
 
-		tl39 = new TextLayout(txtLn27.getTexto(), txtLn27.getFonte(), frc);
+		graficos.drawImage(efeitoDeChefe.getImagem(), efeitoDeChefe.getX(), efeitoDeChefe.getY() + rolagemTela, this);
+		graficos.drawImage(tabela.getImagem(), tabela.getX(), tabela.getY() + rolagemTela, this);
+
 	    tl40 = new TextLayout(txtLn28.getTexto(), txtLn28.getFonte(), frc);
 	    tl41 = new TextLayout(txtLn29.getTexto(), txtLn29.getFonte(), frc);
 	    tl42 = new TextLayout(txtLn30.getTexto(), txtLn30.getFonte(), frc);
@@ -1049,7 +1084,6 @@ public class Manual extends JPanel implements ActionListener {
 	    tl54 = new TextLayout(txtLn42.getTexto(), txtLn42.getFonte(), frc);
 	    tl55 = new TextLayout(txtLn43.getTexto(), txtLn43.getFonte(), frc);
 
-	    tl39.draw(graficos, txtLn27.getX(), txtLn27.getY() + rolagemTela);
 	    tl40.draw(graficos, txtLn28.getX(), txtLn28.getY() + rolagemTela);
 	    tl41.draw(graficos, txtLn29.getX(), txtLn29.getY() + rolagemTela);
 	    tl42.draw(graficos, txtLn30.getX(), txtLn30.getY() + rolagemTela);
@@ -1068,8 +1102,8 @@ public class Manual extends JPanel implements ActionListener {
 
 		// ----------------------- Considerações finais -----------------------------------
 
-	    tl51 = new TextLayout(txtLn39.getTexto(), txtLn39.getFonte(), frc);
-	    tl52 = new TextLayout(txtLn40.getTexto(), txtLn40.getFonte(), frc);
+	    tl51 = new TextLayout(txtLn39.getTexto(), txtLn7.getFonte(), frc);
+	    tl52 = new TextLayout(txtLn40.getTexto(), txtLn7.getFonte(), frc);
 		
 	    tl51.draw(graficos, txtLn39.getX(), txtLn39.getY() + rolagemTela);
 	    tl52.draw(graficos, txtLn40.getX(), txtLn40.getY() + rolagemTela);

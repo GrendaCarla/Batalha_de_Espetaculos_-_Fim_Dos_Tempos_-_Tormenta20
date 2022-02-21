@@ -30,7 +30,7 @@ public class Creditos extends JPanel implements ActionListener {
 	JFrame janelaPrincipal;
 	
 	private Image fundo;
-	private Icones_interativos fundo2 = new Icones_interativos(0, 0);
+	private Icones_interativos fundo2 = new Icones_interativos(0, - 400);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
@@ -120,7 +120,7 @@ public class Creditos extends JPanel implements ActionListener {
 		txtLn11.setFonte(new Font("Arial", Font.PLAIN, 21));
 		txtLn12.setFonte(new Font("Arial", Font.PLAIN, 21));
 		
-		txtLn12.setCorTexto(new Color (239, 1, 97));
+		txtLn12.setCorTexto(new Color (255, 1, 97));
 		txtLn13.setFonte(new Font("Arial", Font.PLAIN, 21));
 		
 		/* ------------------------------- enfeite ---------------------------------*/

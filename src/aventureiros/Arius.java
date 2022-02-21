@@ -14,7 +14,7 @@ public class Arius {
 											   {"Está na hora de usar seus poderes arcanos, dispa-se da sua couraça e lance a sua magia.", " ", " ", " ", " "},
 											   {"Acenda a pira do espirito esportivo e demonstre sua aptidão através das extensas", "modalidades como: saltos pela paliçada, flechadas nos irmãos, esconde-esconde com", "baratas e arremesso com explosão.", " ", " "},
 											   {"Use a nobre arte diplomática para argumentar e convencer a plateia que seu adversário não", "merece a posição que ocupa nessa rodada.", " ", " ", "Esta habilidade afeta o primeiro campo."},
-											   {"Você fará uma aposta, jogue cinco d20 e torça para o número 5 sair, os resultados não se", "repetiram nos outros dados, então se você ganhar o apelo será 10, se você perder será zero.", "Tentador?", " ", " "},
+											   {"Jogando cinco d20 uma aposta você vai fazer.", "Não há repetição nos números contemplados.", "10 apelos você ganha se 5 o dado conceber.", "Então camarada, você está tentado?", "Esta habilidade te concede 10 apelos se o número 5 sair em um dos dados."},
 											   {"Lembre-se do seu treinamento nas legiões do império taurico, com o gládio em mãos e o", "escudo bem posicionado demonstre as táticas e o conhecimento bélico de seu povo.", " ", " ", " "},
 											   {"Gorad, uma delicia viciante no reinado, tão cheirosa e saborosa que você não consegue se", "conter. Para seu deleite e desgosto alguns dos seus companheiros as guardaram em suas", "vestes para comer depois. Você sabe que é errado, mas o seu perfume esta insuportável,", "você terá que rouba-las.", "Esta habilidade afeta todos os campos abaixo de você."}};	
 
