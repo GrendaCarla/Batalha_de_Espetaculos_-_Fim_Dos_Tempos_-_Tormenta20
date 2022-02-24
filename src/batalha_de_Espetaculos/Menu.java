@@ -4,15 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-import java.util.*;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -35,8 +31,11 @@ public class Menu extends JPanel implements ActionListener {
 	
 	JFrame janelaPrincipal;
 	
-	private Image fundo;
+	// ------------------------------------ fundo contorno --------------------------------------
 	
+	private Icones_interativos fundo = new Icones_interativos(0, 0);
+	private Icones_interativos tapaResto = new Icones_interativos(1234/2 - 4936/2, 640/2 - 2560/2);
+
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
@@ -60,9 +59,7 @@ public class Menu extends JPanel implements ActionListener {
 
 	private Icones_interativos ignis1 = new Icones_interativos(26, 128);
 	private Icones_interativos ignis2 = new Icones_interativos(1226, 128);
-	
 	private Icones_interativos kikiAriusRexthor = new Icones_interativos(10, 166);
-	
 	private Icones_interativos ayla = new Icones_interativos(900, 50);
 	private Icones_interativos sombraAyla = new Icones_interativos(ayla.getX() - 20, 290);
 
@@ -127,20 +124,8 @@ public class Menu extends JPanel implements ActionListener {
 		contEngranagem2 = Engrenagem2;
 		this.caminho = Caminho;
 		
-		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
-		fundo = referencia.getImage();
-		
-		
-		/*try {
-			BufferedImage imagem;
-			imagem = ImageIO.read(new File(caminho + "res\\Engrenagens\\engrenagem3.png"));
-			imagemMenor = imagem.getScaledInstance(96, 96, Image.SCALE_SMOOTH);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  */   
-		
-	    
+		fundo.load(caminho + "res\\fundo0.png");
+		tapaResto.load(caminho + "res\\fundo2.png");
 		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");		
 		contorno.load(caminho + "res\\contorno.png");
@@ -187,7 +172,7 @@ public class Menu extends JPanel implements ActionListener {
 		teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
-		
+				
 		// ---------------------------- save ------------------------------------
 
 		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 38));
@@ -255,7 +240,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 				}else if(codigo == KeyEvent.VK_ESCAPE) {
 					teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
-					
+				
 				}else if(codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT){
 					
 					if(contEngranagem1 == 2) {
@@ -399,79 +384,81 @@ public class Menu extends JPanel implements ActionListener {
 		}
 	}
 	
+	
 	public void paint(Graphics g) {
 		
 		Graphics2D graficos = (Graphics2D) g;
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
-		graficos.drawImage(fundo, 0, 0, null);
-		
 		// ------------------------------------------- fundo ---------------------------------------------
 
-		graficos.drawImage(camada6.getImagem(), camada6.getX(), camada6.getY(), this);
+		graficos.drawImage(fundo.getImagem(), fundo.getRedX(), fundo.getRedY(), fundo.getLarg(), fundo.getAlt(), this);
 		
-		graficos.drawImage(camada51.getImagem(), camada51.getX(), camada51.getY(), this);
-		graficos.drawImage(camada52.getImagem(), camada52.getX(), camada52.getY(), this);
+		graficos.drawImage(camada6.getImagem(), camada6.getRedX(), camada6.getRedY(), camada6.getLarg(), camada6.getAlt(), this);
 		
-		graficos.drawImage(camada41.getImagem(), camada41.getX(), camada41.getY(), this);
-		graficos.drawImage(camada42.getImagem(), camada42.getX(), camada42.getY(), this);
+		graficos.drawImage(camada51.getImagem(), camada51.getRedX(), camada51.getRedY(), camada51.getLarg(), camada51.getAlt(), this);
+		graficos.drawImage(camada52.getImagem(), camada52.getRedX(), camada52.getRedY(), camada52.getLarg(), camada52.getAlt(), this);
 		
-		graficos.drawImage(camada11.getImagem(), camada11.getX(), camada11.getY(), this);
+		graficos.drawImage(camada41.getImagem(), camada41.getRedX(), camada41.getRedY(), camada41.getLarg(), camada41.getAlt(), this);
+		graficos.drawImage(camada42.getImagem(), camada42.getRedX(), camada42.getRedY(), camada42.getLarg(), camada42.getAlt(), this);
+		
+		graficos.drawImage(camada11.getImagem(), camada11.getRedX(), camada11.getRedY(), camada11.getLarg(), camada11.getAlt(), this);
 
-		graficos.drawImage(camada21.getImagem(), camada21.getX(), camada21.getY(), this);
-		graficos.drawImage(camada22.getImagem(), camada22.getX(), camada22.getY(), this);
+		graficos.drawImage(camada21.getImagem(), camada21.getRedX(), camada21.getRedY(), camada21.getLarg(), camada21.getAlt(), this);
+		graficos.drawImage(camada22.getImagem(), camada22.getRedX(), camada22.getRedY(), camada22.getLarg(), camada22.getAlt(), this);
 		
-		graficos.drawImage(titulo.getImagem(), titulo.getX(), titulo.getY(), this);
+		graficos.drawImage(titulo.getImagem(), titulo.getRedX(), titulo.getRedY(), titulo.getLarg(), titulo.getAlt(), this);
 
 		// ------------------------------------------- animação ---------------------------------------------
 
-		graficos.drawImage(ignis1.getImagem(), ignis1.getX(), ignis1.getY(), this);
-		graficos.drawImage(ignis2.getImagem(), ignis2.getX(), ignis2.getY(), this);
+		graficos.drawImage(ignis1.getImagem(), ignis1.getRedX(), ignis1.getRedY(), ignis1.getLarg(), ignis1.getAlt(), this);
+		graficos.drawImage(ignis2.getImagem(), ignis2.getRedX(), ignis2.getRedY(), ignis2.getLarg(), ignis2.getAlt(), this);
 		
-		graficos.drawImage(camada32.getImagem(), camada32.getX(), camada32.getY(), this);
+		graficos.drawImage(camada32.getImagem(), camada32.getRedX(), camada32.getRedY(), camada32.getLarg(), camada32.getAlt(), this);
 		
-		graficos.drawImage(kikiAriusRexthor.getImagem(), kikiAriusRexthor.getX(), kikiAriusRexthor.getY(), this);
+		graficos.drawImage(kikiAriusRexthor.getImagem(), kikiAriusRexthor.getRedX(), kikiAriusRexthor.getRedY(), kikiAriusRexthor.getLarg(), kikiAriusRexthor.getAlt(), this);
 		
-		graficos.drawImage(ayla.getImagem(), ayla.getX(), ayla.getY(), this);
-		graficos.drawImage(sombraAyla.getImagem(), sombraAyla.getX(), sombraAyla.getY(), this);
+		graficos.drawImage(ayla.getImagem(), ayla.getRedX(), ayla.getRedY(), ayla.getLarg(), ayla.getAlt(), this);
+		graficos.drawImage(sombraAyla.getImagem(), sombraAyla.getRedX(), sombraAyla.getRedY(), sombraAyla.getLarg(), sombraAyla.getAlt(), this);
 
-		graficos.drawImage(camada31.getImagem(), camada31.getX(), camada31.getY(), this);
+		graficos.drawImage(camada31.getImagem(), camada31.getRedX(), camada31.getRedY(), camada31.getLarg(), camada31.getAlt(), this);
 
 		// ---------------------------- opções do menu ------------------------------------
 		
-		graficos.drawImage(bntContinuar.getImagem(), bntContinuar.getX(), bntContinuar.getY(), this);
-		graficos.drawImage(bntNovoJogo.getImagem(), bntNovoJogo.getX(), bntNovoJogo.getY(), this);
-		graficos.drawImage(bntManual.getImagem(), bntManual.getX(), bntManual.getY(), this);
-		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getX(), bntCreditos.getY(), this);
+		graficos.drawImage(bntContinuar.getImagem(), bntContinuar.getRedX(), bntContinuar.getRedY(), bntContinuar.getLarg(), bntContinuar.getAlt(), this);
+		graficos.drawImage(bntNovoJogo.getImagem(), bntNovoJogo.getRedX(), bntNovoJogo.getRedY(), bntNovoJogo.getLarg(), bntNovoJogo.getAlt(), this);
+		graficos.drawImage(bntManual.getImagem(), bntManual.getRedX(), bntManual.getRedY(), bntManual.getLarg(), bntManual.getAlt(), this);
+		graficos.drawImage(bntCreditos.getImagem(), bntCreditos.getRedX(), bntCreditos.getRedY(), bntCreditos.getLarg(), bntCreditos.getAlt(), this);
 		
-		graficos.drawImage(camada12.getImagem(), camada12.getX(), camada12.getY(), this);
+		graficos.drawImage(camada12.getImagem(), camada12.getRedX(), camada12.getRedY(), camada12.getLarg(), camada12.getAlt(), this);
 				
 		// ------------------------------------------- Controles ---------------------------------------------
 		
-		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY(), this);
-		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getX(), teclaDireita.getY(), this);
-		graficos.drawImage(teclaCima.getImagem(), teclaCima.getX(), teclaCima.getY(), this);
-		graficos.drawImage(teclaBaixo.getImagem(), teclaBaixo.getX(), teclaBaixo.getY(), this);
+		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getRedX(), teclaEsquerda.getRedY(), teclaEsquerda.getLarg(), teclaEsquerda.getAlt(), this);
+		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getRedX(), teclaDireita.getRedY(), teclaDireita.getLarg(), teclaDireita.getAlt(), this);
+		graficos.drawImage(teclaCima.getImagem(), teclaCima.getRedX(), teclaCima.getRedY(), teclaCima.getLarg(), teclaCima.getAlt(), this);
+		graficos.drawImage(teclaBaixo.getImagem(), teclaBaixo.getRedX(), teclaBaixo.getRedY(), teclaBaixo.getLarg(), teclaBaixo.getAlt(), this);
 		
-		graficos.drawImage(teclaZ.getImagem(), teclaZ.getX(), teclaZ.getY(), this);
-		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY(), this);
+		graficos.drawImage(teclaZ.getImagem(), teclaZ.getRedX(), teclaZ.getRedY(), teclaZ.getLarg(), teclaZ.getAlt(), this);
+		graficos.drawImage(teclaX.getImagem(), teclaX.getRedX(), teclaX.getRedY(), teclaX.getLarg(), teclaX.getAlt(), this);
 		
-		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
-		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
-		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getRedX(), engrenagem1.getRedY(), engrenagem1.getLarg(), engrenagem1.getAlt(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
+		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
 		
-		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY(), this);
+		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY(), teclaEsc.getLarg(), teclaEsc.getAlt(), this);
 		
 		// ---------------------------- save ------------------------------------
 
-		graficos.drawImage(sombreadorDialogoAviso.getImagem(), sombreadorDialogoAviso.getX(), sombreadorDialogoAviso.getY(), this);
-		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getX(), dialogoAviso.getY(), this);
+		graficos.drawImage(sombreadorDialogoAviso.getImagem(), sombreadorDialogoAviso.getRedX(), sombreadorDialogoAviso.getRedY(), sombreadorDialogoAviso.getLarg(), sombreadorDialogoAviso.getAlt(), this);
+		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getRedX(), dialogoAviso.getRedY(), dialogoAviso.getLarg(), dialogoAviso.getAlt(), this);
 		
 		graficos.setColor(txtDialogoAviso.getCorTexto());
 		tl1 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
 		
-		tl1.draw(graficos, txtDialogoAviso.getX(), txtDialogoAviso.getY());
+		tl1.draw(graficos, txtDialogoAviso.getRedX(), txtDialogoAviso.getRedY());
 		
+		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
 		
 		g.dispose();
 	}

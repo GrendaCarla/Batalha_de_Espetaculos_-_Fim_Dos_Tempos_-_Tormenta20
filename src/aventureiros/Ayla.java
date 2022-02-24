@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Ayla {
-	//                             apelo,                         interferencia,              tipo interferencia (0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, -1: sem efeito)
+	//                                   apelo,                interferencia,          tipo interferencia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{3, 5, 6, 6, 1, 8, 0, 3}, {4, 2, 0, 1, 3, 1, 0, 3}, {3, 0, -1, 1, 2, 0, 4, 5}, {0, 0, 0, 0, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
@@ -15,7 +15,7 @@ public class Ayla {
 											   {"Aylarianna Purpúrea, a fada mais honesta de Arton", "É encantadora, cheirosa e a própria perfeição.", "Sua aparência inofensiva com alguns toques de batom", "É capaz de ganha seu amor, seu afeto e sua devoção.", "Esta habilidade afeta todos os campos abaixo de você."},
 											   {"Você manifesta disparando em seguida", "Uma adaga abstrata.", "Em uma mente desprotegida", "Permanecerá temporariamente cravada.", "Esta habilidade afeta o campo acima de você."},
 											   {"Incinere os alvos que aparecem em sua frente,", "Faça a plateia urrar em fervor,", "Ofusque os oponentes com sua luz incandescente", "E inflame a torcida com seu show estarrecedor.", "Esta habilidade afeta todos os campos acima de você."},
-											   {"Crie cópias de si mesma com uma perfeição impressionante", "E as espalhe por todos os lados.", "Instaure a confusão em seus atacantes", "Evitando seus golpes inesperados.", "Esta habilidade zera as interferências que você ganhou antes da sua ação nessa rodada."}, 
+											   {"Crie cópias de si mesma com uma perfeição impressionante", "E as espalhe por todos os lados.", "Instaure a confusão em seus atacantes", "Evitando seus golpes inesperados.", "Esta habilidade zera as interferências ganhadas antes da sua ação nessa rodada."}, 
 											   {"Descansar é necessário depois de um dia corriqueiro.", "Por suas trocas de \"afeto\" e \"amizade\"", "Você deve um favor aos seus companheiros", "Dando-os um momento de paz e tranquilidade.", "Esta habilidade afeta um campo acima e um abaixo de você."}};
 	
 	private String [][] ConteudoEscolhaAdversario = {{"Minhas boas-vindas a Ayla Corporation, como posso ajudar?", "Gostaria de falar com a Srta. Ayla?", "Vejamos...", "- Ayla Corporation, em breve rebranding"},

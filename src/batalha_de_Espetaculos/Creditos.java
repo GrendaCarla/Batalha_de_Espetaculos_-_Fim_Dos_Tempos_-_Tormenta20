@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -29,24 +27,27 @@ public class Creditos extends JPanel implements ActionListener {
 	
 	JFrame janelaPrincipal;
 	
-	private Image fundo;
-	private Icones_interativos fundo2 = new Icones_interativos(0, - 400);
+
+	// ------------------------------------ fundo contorno --------------------------------------
+	
+	private Icones_interativos fundo = new Icones_interativos(0, 0);
+	private Icones_interativos tapaResto = new Icones_interativos(1234/2 - 4936/2, 640/2 - 2560/2);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
-
-	private boolean contEngranagem2;
-
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
+		
+	private boolean contEngranagem2;
+	
+	private String caminho; 
+	
+	private Timer timer;
 	
 	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13;
 	
 	private int contTempo = 0;
 	private boolean mudaImagem = false;
 	
-	private String caminho; 
-	
-	private Timer timer;
 	
 	/* ------------------------------- Créditos ---------------------------------*/
 	
@@ -88,10 +89,9 @@ public class Creditos extends JPanel implements ActionListener {
 	public Creditos(boolean Engrenagem2, String Caminho) {
 		contEngranagem2 = Engrenagem2;
 		this.caminho = Caminho;
-		
-		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
-		fundo = referencia.getImage();
-		fundo2.load(caminho + "res\\Manual\\fundo.png");
+
+		fundo.load(caminho + "res\\\\Manual\\\\fundo.png");
+		tapaResto.load(caminho + "res\\fundo2.png");
 		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
@@ -107,21 +107,9 @@ public class Creditos extends JPanel implements ActionListener {
 		txtLn2.setFonte(new Font("Arial", Font.PLAIN, 21));
 		txtLn2.setCorTexto(new Color (23, 0, 51));
 
-		txtLn3.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn4.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn5.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn6.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn7.setFonte(new Font("Arial", Font.PLAIN, 21));
-		
 		txtLn8.setCorTexto(new Color (207, 1, 43));
-		txtLn8.setFonte(new Font("Arial", Font.BOLD, 21));
-		txtLn9.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn10.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn11.setFonte(new Font("Arial", Font.PLAIN, 21));
-		txtLn12.setFonte(new Font("Arial", Font.PLAIN, 21));
 		
 		txtLn12.setCorTexto(new Color (255, 1, 97));
-		txtLn13.setFonte(new Font("Arial", Font.PLAIN, 21));
 		
 		/* ------------------------------- enfeite ---------------------------------*/
 		
@@ -197,65 +185,65 @@ public class Creditos extends JPanel implements ActionListener {
 		Graphics2D graficos = (Graphics2D) g;
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
-		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
-		
+		graficos.drawImage(fundo.getImagem(), fundo.getRedX(), fundo.getRedY(), fundo.getLarg(), fundo.getAlt(), this);
+
 		/* ------------------------------- Créditos ---------------------------------*/
 
 		tl1 = new TextLayout(txtLn1.getTexto(), txtLn1.getFonte(), frc);
 		tl2 = new TextLayout(txtLn2.getTexto(), txtLn2.getFonte(), frc);
-		tl3 = new TextLayout(txtLn3.getTexto(), txtLn3.getFonte(), frc);
-		tl4 = new TextLayout(txtLn4.getTexto(), txtLn4.getFonte(), frc);
-		tl5 = new TextLayout(txtLn5.getTexto(), txtLn5.getFonte(), frc);
-		tl6 = new TextLayout(txtLn6.getTexto(), txtLn6.getFonte(), frc);
-		tl7 = new TextLayout(txtLn7.getTexto(), txtLn7.getFonte(), frc);
-		tl8 = new TextLayout(txtLn8.getTexto(), txtLn8.getFonte(), frc);
-		tl9 = new TextLayout(txtLn9.getTexto(), txtLn9.getFonte(), frc);
-		tl10 = new TextLayout(txtLn10.getTexto(), txtLn10.getFonte(), frc);
-		tl11 = new TextLayout(txtLn11.getTexto(), txtLn11.getFonte(), frc);
-		tl12 = new TextLayout(txtLn12.getTexto(), txtLn12.getFonte(), frc);
-		tl13 = new TextLayout(txtLn13.getTexto(), txtLn13.getFonte(), frc);
+		tl3 = new TextLayout(txtLn3.getTexto(), txtLn2.getFonte(), frc);
+		tl4 = new TextLayout(txtLn4.getTexto(), txtLn2.getFonte(), frc);
+		tl5 = new TextLayout(txtLn5.getTexto(), txtLn2.getFonte(), frc);
+		tl6 = new TextLayout(txtLn6.getTexto(), txtLn2.getFonte(), frc);
+		tl7 = new TextLayout(txtLn7.getTexto(), txtLn2.getFonte(), frc);
+		tl8 = new TextLayout(txtLn8.getTexto(), txtLn2.getFonte(), frc);
+		tl9 = new TextLayout(txtLn9.getTexto(), txtLn2.getFonte(), frc);
+		tl10 = new TextLayout(txtLn10.getTexto(), txtLn2.getFonte(), frc);
+		tl11 = new TextLayout(txtLn11.getTexto(), txtLn2.getFonte(), frc);
+		tl12 = new TextLayout(txtLn12.getTexto(), txtLn2.getFonte(), frc);
+		tl13 = new TextLayout(txtLn13.getTexto(), txtLn2.getFonte(), frc);
 
 	    graficos.setColor(txtLn1.getCorTexto());
-		tl1.draw(graficos, txtLn1.getX(), txtLn1.getY());
-		tl2.draw(graficos, txtLn2.getX(), txtLn2.getY());
-		tl3.draw(graficos, txtLn3.getX(), txtLn3.getY());
-		tl4.draw(graficos, txtLn4.getX(), txtLn4.getY());
-		tl5.draw(graficos, txtLn5.getX(), txtLn5.getY());
-		tl6.draw(graficos, txtLn6.getX(), txtLn6.getY());
-		tl7.draw(graficos, txtLn7.getX(), txtLn7.getY());
+		tl1.draw(graficos, txtLn1.getRedX(), txtLn1.getRedY());
+		tl2.draw(graficos, txtLn2.getRedX(), txtLn2.getRedY());
+		tl3.draw(graficos, txtLn3.getRedX(), txtLn3.getRedY());
+		tl4.draw(graficos, txtLn4.getRedX(), txtLn4.getRedY());
+		tl5.draw(graficos, txtLn5.getRedX(), txtLn5.getRedY());
+		tl6.draw(graficos, txtLn6.getRedX(), txtLn6.getRedY());
+		tl7.draw(graficos, txtLn7.getRedX(), txtLn7.getRedY());
 		
 		graficos.setColor(txtLn8.getCorTexto());
-		tl8.draw(graficos, txtLn8.getX(), txtLn8.getY());
+		tl8.draw(graficos, txtLn8.getRedX(), txtLn8.getRedY());
 		
 		graficos.setColor(txtLn1.getCorTexto());
-		tl9.draw(graficos, txtLn9.getX(), txtLn9.getY());
-		tl10.draw(graficos, txtLn10.getX(), txtLn10.getY());
-		tl11.draw(graficos, txtLn11.getX(), txtLn11.getY());
+		tl9.draw(graficos, txtLn9.getRedX(), txtLn9.getRedY());
+		tl10.draw(graficos, txtLn10.getRedX(), txtLn10.getRedY());
+		tl11.draw(graficos, txtLn11.getRedX(), txtLn11.getRedY());
 		
 		graficos.setColor(txtLn12.getCorTexto());
-		tl12.draw(graficos, txtLn12.getX(), txtLn12.getY());
-		tl13.draw(graficos, txtLn13.getX(), txtLn13.getY());
+		tl12.draw(graficos, txtLn12.getRedX(), txtLn12.getRedY());
+		tl13.draw(graficos, txtLn13.getRedX(), txtLn13.getRedY());
 		
 		/* ------------------------------- enfeite ---------------------------------*/
 
-		graficos.drawImage(aventureiro1.getImagem(), aventureiro1.getX(), aventureiro1.getY(), this);
-		graficos.drawImage(aventureiro2.getImagem(), aventureiro2.getX(), aventureiro2.getY(), this);
-		graficos.drawImage(aventureiro3.getImagem(), aventureiro3.getX(), aventureiro3.getY(), this);
-		graficos.drawImage(aventureiro4.getImagem(), aventureiro4.getX(), aventureiro4.getY(), this);
-		graficos.drawImage(aventureiro5.getImagem(), aventureiro5.getX(), aventureiro5.getY(), this);
-		graficos.drawImage(aventureiro6.getImagem(), aventureiro6.getX(), aventureiro6.getY(), this);
+		graficos.drawImage(aventureiro1.getImagem(), aventureiro1.getRedX(), aventureiro1.getRedY(), aventureiro1.getLarg(), aventureiro1.getAlt(), this);
+		graficos.drawImage(aventureiro2.getImagem(), aventureiro2.getRedX(), aventureiro2.getRedY(), aventureiro2.getLarg(), aventureiro2.getAlt(), this);
+		graficos.drawImage(aventureiro3.getImagem(), aventureiro3.getRedX(), aventureiro3.getRedY(), aventureiro3.getLarg(), aventureiro3.getAlt(), this);
+		graficos.drawImage(aventureiro4.getImagem(), aventureiro4.getRedX(), aventureiro4.getRedY(), aventureiro4.getLarg(), aventureiro4.getAlt(), this);
+		graficos.drawImage(aventureiro5.getImagem(), aventureiro5.getRedX(), aventureiro5.getRedY(), aventureiro5.getLarg(), aventureiro5.getAlt(), this);
+		graficos.drawImage(aventureiro6.getImagem(), aventureiro6.getRedX(), aventureiro6.getRedY(), aventureiro6.getLarg(), aventureiro6.getAlt(), this);
 		
-		graficos.drawImage(estrelaFim1.getImagem(), estrelaFim1.getX(), estrelaFim1.getY(), this);
-		graficos.drawImage(estrelaFim2.getImagem(), estrelaFim2.getX(), estrelaFim2.getY(), this);
-		graficos.drawImage(estrelaTitulo1.getImagem(), estrelaTitulo1.getX(), estrelaTitulo1.getY(), this);
-		graficos.drawImage(estrelaTitulo2.getImagem(), estrelaTitulo2.getX(), estrelaTitulo2.getY(), this);
+		graficos.drawImage(estrelaFim1.getImagem(), estrelaFim1.getRedX(), estrelaFim1.getRedY(), estrelaFim1.getLarg(), estrelaFim1.getAlt(), this);
+		graficos.drawImage(estrelaFim2.getImagem(), estrelaFim2.getRedX(), estrelaFim2.getRedY(), estrelaFim2.getLarg(), estrelaFim2.getAlt(), this);
+		graficos.drawImage(estrelaTitulo1.getImagem(), estrelaTitulo1.getRedX(), estrelaTitulo1.getRedY(), estrelaTitulo1.getLarg(), estrelaTitulo1.getAlt(), this);
+		graficos.drawImage(estrelaTitulo2.getImagem(), estrelaTitulo2.getRedX(), estrelaTitulo2.getRedY(), estrelaTitulo2.getLarg(), estrelaTitulo2.getAlt(), this);
 		
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getRedX(), engrenagem1.getRedY(), engrenagem1.getLarg(), engrenagem1.getAlt(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
+		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
+		
+		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
 
-		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
-		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
-		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
-		
 		g.dispose();
 		
 	}

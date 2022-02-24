@@ -3,8 +3,6 @@ package batalha_de_Espetaculos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
@@ -13,15 +11,19 @@ public class Container extends JFrame{
 	String caminho = System.getProperty("user.dir").substring(0, (System.getProperty("user.dir").length() - 52)) + "Batalha_de_Espetaculos_-_Fim_Dos_Tempos_-_Tormenta20\\"; //System.getProperty("user.dir") + "\\Batalha_de_Espetaculos_-_Fim_Dos_Tempos_-_Tormenta20\\";
 	
 	Menu menu = new Menu(false, caminho);
+
+	Toolkit tk = Toolkit.getDefaultToolkit();
+    Dimension d = tk.getScreenSize();
 	 
 	public Container() {
+		
 		add(menu);
 		setTitle("Menu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setSize(1234 + 14, 640 + 37);
-		setMinimumSize(new Dimension(1234 + 14, 640 + 37));
-		setLocationRelativeTo(null);
+		this.setExtendedState(MAXIMIZED_BOTH); 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(d.width + 10, d.height + 10));
+		setLocation(-3, 0);
 		this.setResizable(false);
 		setBackground(Color.BLACK);
 		setVisible(true);
@@ -38,7 +40,7 @@ public class Container extends JFrame{
     	});
 	}
 
-	private void formKeyPressed(java.awt.event.KeyEvent evt) {  
+	private void formKeyPressed(java.awt.event.KeyEvent evt) {
     	menu.KeyPressed(evt);
     }
 	

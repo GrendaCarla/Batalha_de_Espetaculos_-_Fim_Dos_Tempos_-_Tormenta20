@@ -29,24 +29,25 @@ public class Manual extends JPanel implements ActionListener {
 	
 	JFrame janelaPrincipal;
 	
-	private Image fundo;
-	private Icones_interativos fundo2 = new Icones_interativos(-10, 0);
-	private Icones_interativos fundo3 = new Icones_interativos(-20, 10);
+	// ------------------------------------ fundo contorno --------------------------------------
+
+	private Icones_interativos fundo = new Icones_interativos(-20, 10);
+	private Icones_interativos tapaResto = new Icones_interativos(1234/2 - 4936/2, 640/2 - 2560/2);
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
-
+	private Icones_interativos contorno = new Icones_interativos(0, 0);
+			
 	private int contEngranagem1 = 1;
 	private boolean contEngranagem2;
 	
 	private String caminho; 
-
-	private Timer timer;
-	private Icones_interativos contorno = new Icones_interativos(0, 0);
 	
-	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
-	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27, tl28,
-	tl29, tl30, tl31, tl32, tl33, tl34,  tl35, tl36, tl37, tl38, tl39, tl40, tl41, tl42, tl43,
+	private Timer timer;
+	
+	private TextLayout tl2, tl3, tl4, tl5, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
+	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27,
+	tl29, tl31, tl32, tl33, tl34,  tl35, tl36, tl37, tl38, tl40, tl41, tl42, tl43,
 	tl44, tl45, tl46, tl47, tl48, tl49, tl50, tl51, tl52, tl53, tl54, tl55, tl56;
 	
 	/* ------------------------------- Barra de rolagem ---------------------------------*/
@@ -104,7 +105,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Texto txtLn11 = new Texto(txtLn7.getX() + 26, txtLn10.getY() + espacoLinha, "batalha ganha.");
 
 	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + espacoParagrafo, "5. As interferencias      são pontos negativos usados nos adversários para retirar os apelos ganhados");
-	private Icones_interativos apelo2 = new Icones_interativos(txtLn7.getX() + 207, txtLn11.getY() + espacoParagrafo - 17);
+	private Icones_interativos apelo2 = new Icones_interativos(txtLn7.getX() + 206, txtLn11.getY() + espacoParagrafo - 17);
 	private Texto txtLn13 = new Texto(txtLn7.getX() + 26, txtLn12.getY() + espacoLinha, "durante toda a batalha.");
 
 	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + espacoParagrafo, "6. A luz acesa com o símbolo de um punho informa que a habilidade é do tipo físico.");
@@ -268,7 +269,7 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Texto txtLn41 = new Texto(332, efeitoDeChefe.getY() + 106, "       ||=============================================||");
 	private Texto txtLn28 = new Texto(txtLn41.getX() - 2, txtLn41.getY() + 30, "||===||=============================================||===||");
-	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 28, "||      ||      IGNIS      ||   -1   ||   Em habilidades com interferência    ||      ||");
+	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em habilidades com interferência    ||      ||");
 	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
 	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em habilidades sem interferência    ||      ||");
 	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
@@ -287,10 +288,8 @@ public class Manual extends JPanel implements ActionListener {
 		contEngranagem2 = Engrenagem2;
 		this.caminho = Caminho;
 		
-		ImageIcon referencia = new ImageIcon(caminho + "res\\fundo0.png");
-		fundo = referencia.getImage();
-		fundo2.load(caminho + "res\\fundo1.png");
-		fundo3.load(caminho + "res\\Manual\\fundo.png");
+		fundo.load(caminho + "res\\Manual\\fundo.png");
+		tapaResto.load(caminho + "res\\fundo2.png");
 		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
@@ -334,10 +333,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
 		nomeApelo1.setCorTexto(new Color (255, 60, 0));
-		nomeApelo2.setFonte(new Font("Arial", Font.PLAIN, 20));
 		nomeApelo2.setCorTexto(new Color (235, 148, 150));
-		nomeApelo3.setFonte(new Font("Arial", Font.PLAIN, 20));
-		nomeApelo4.setFonte(new Font("Arial", Font.PLAIN, 20));
 		
 		batalhas.load(caminho + "res\\manual\\batalhas.png");
 		
@@ -353,7 +349,6 @@ public class Manual extends JPanel implements ActionListener {
 
 		apeloQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
 		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
-		InterferenciaQuantidade.setFonte(apeloQuantidade.getFonte());
 		
 		tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo1.png");
 		
@@ -380,10 +375,6 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao5 = new Texto(textoDescricao4.getX() + 238, textoDescricao4.getY() + 28, "Esta habilidade afeta o primeiro campo.");
 
 		textoDescricao1.setFonte(new Font("Arial", Font.PLAIN, 20));
-		textoDescricao2.setFonte(textoDescricao1.getFonte());
-		textoDescricao3.setFonte(textoDescricao1.getFonte());
-		textoDescricao4.setFonte(textoDescricao1.getFonte());
-		textoDescricao5.setFonte(textoDescricao1.getFonte());
 		
 		textoDescricao1.setCorTexto(new Color (239, 182, 202));
 		textoDescricao2.setCorTexto(textoDescricao1.getCorTexto());
@@ -436,20 +427,7 @@ public class Manual extends JPanel implements ActionListener {
 		efeitoDeChefe.load(caminho + "res\\Manual\\efeitoDeChefe.png");
 		tabela.load(caminho + "res\\Manual\\tabela.png");
 		
-		txtLn28.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn29.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn30.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn31.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn32.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn33.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn34.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn35.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn36.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn37.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn38.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn41.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn42.setFonte(new Font("Arial", Font.PLAIN, 18));
-		txtLn43.setFonte(new Font("Arial", Font.PLAIN, 18));
+		txtLn28.setFonte(new Font("Arial", Font.PLAIN, 17));
 		
 		// ------------------------------------------------------------------------------
 
@@ -726,7 +704,7 @@ public class Manual extends JPanel implements ActionListener {
 		
 		int codigo = tecla.getKeyCode();
 		
-		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1690) {
+		if(codigo == KeyEvent.VK_DOWN && rolagemTela > -1690 * fundo.getTamanhoTela()) {
 			if(contEngranagem1 == 2) {
 				contEngranagem1 = 1;
 			} else {contEngranagem1 ++;}
@@ -817,306 +795,304 @@ public class Manual extends JPanel implements ActionListener {
 		Graphics2D graficos = (Graphics2D) g;
 		FontRenderContext frc = graficos.getFontRenderContext();
 		
-		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(fundo2.getImagem(), fundo2.getX(), fundo2.getY(), this);
-		graficos.drawImage(fundo3.getImagem(), fundo3.getX(), fundo3.getY() + rolagemTela, this);
+		graficos.drawImage(fundo.getImagem(), fundo.getRedX(), fundo.getRedY(), fundo.getLarg(), fundo.getAlt(), this);
 		
 		/* ------------------------------- Controles ---------------------------------*/
 		
-		graficos.drawImage(controles.getImagem(), controles.getX(), controles.getY() + rolagemTela, this);
+		graficos.drawImage(controles.getImagem(), controles.getRedX(), controles.getRedY() + rolagemTela, controles.getLarg(), controles.getAlt(), this);
 
-		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getX(), teclaEsquerda.getY() + rolagemTela, this);
-		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getX(), teclaDireita.getY() + rolagemTela, this);
-		graficos.drawImage(teclaCima.getImagem(), teclaCima.getX(), teclaCima.getY() + rolagemTela, this);
-		graficos.drawImage(teclaBaixo.getImagem(), teclaBaixo.getX(), teclaBaixo.getY() + rolagemTela, this);
+		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getRedX(), teclaEsquerda.getRedY() + rolagemTela, teclaEsquerda.getLarg(), teclaEsquerda.getAlt(), this);
+		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getRedX(), teclaDireita.getRedY() + rolagemTela, teclaDireita.getLarg(), teclaDireita.getAlt(), this);
+		graficos.drawImage(teclaCima.getImagem(), teclaCima.getRedX(), teclaCima.getRedY() + rolagemTela, teclaCima.getLarg(), teclaCima.getAlt(), this);
+		graficos.drawImage(teclaBaixo.getImagem(), teclaBaixo.getRedX(), teclaBaixo.getRedY() + rolagemTela, teclaBaixo.getLarg(), teclaBaixo.getAlt(), this);
 		
-		graficos.drawImage(teclaZ.getImagem(), teclaZ.getX(), teclaZ.getY() + rolagemTela, this);
-		graficos.drawImage(teclaX.getImagem(), teclaX.getX(), teclaX.getY() + rolagemTela, this);
-		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getX(), teclaEsc.getY() + rolagemTela, this);
+		graficos.drawImage(teclaZ.getImagem(), teclaZ.getRedX(), teclaZ.getRedY() + rolagemTela, teclaZ.getLarg(), teclaZ.getAlt(), this);
+		graficos.drawImage(teclaX.getImagem(), teclaX.getRedX(), teclaX.getRedY() + rolagemTela, teclaX.getLarg(), teclaX.getAlt(), this);
+		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY() + rolagemTela, teclaEsc.getLarg(), teclaEsc.getAlt(), this);
 		
 		graficos.setColor(txtLn2.getCorTexto());
 		tl2 = new TextLayout(txtLn2.getTexto(), txtLn2.getFonte(), frc);
 		tl3 = new TextLayout(txtLn3.getTexto(), txtLn2.getFonte(), frc);
 		tl4 = new TextLayout(txtLn4.getTexto(), txtLn2.getFonte(), frc);
 		tl5 = new TextLayout(txtLn5.getTexto(), txtLn2.getFonte(), frc);
-		
-		tl2.draw(graficos, txtLn2.getX(), txtLn2.getY() + rolagemTela);
-		tl3.draw(graficos, txtLn3.getX(), txtLn3.getY() + rolagemTela);
-		tl4.draw(graficos, txtLn4.getX(), txtLn4.getY() + rolagemTela);
-		tl5.draw(graficos, txtLn5.getX(), txtLn5.getY() + rolagemTela);
+
+		tl2.draw(graficos, txtLn2.getRedX(), txtLn2.getRedY() + rolagemTela);
+		tl3.draw(graficos, txtLn3.getRedX(), txtLn3.getRedY() + rolagemTela);
+		tl4.draw(graficos, txtLn4.getRedX(), txtLn4.getRedY() + rolagemTela);
+		tl5.draw(graficos, txtLn5.getRedX(), txtLn5.getRedY() + rolagemTela);
 		
 		/* ------------------------------- Batalha ---------------------------------*/
 		
-		graficos.drawImage(batalhas.getImagem(), batalhas.getX(), batalhas.getY() + rolagemTela, this);
-		graficos.drawImage(fundoPainel1.getImagem(), fundoPainel1.getX(), fundoPainel1.getY() + rolagemTela, this);
+		graficos.drawImage(batalhas.getImagem(), batalhas.getRedX(), batalhas.getRedY() + rolagemTela, batalhas.getLarg(), batalhas.getAlt(), this);
+		graficos.drawImage(fundoPainel1.getImagem(), fundoPainel1.getRedX(), fundoPainel1.getRedY() + rolagemTela, fundoPainel1.getLarg(), fundoPainel1.getAlt(), this);
 
 		tl7 = new TextLayout(txtLn7.getTexto(), txtLn7.getFonte(), frc);
 		tl8 = new TextLayout(txtLn8.getTexto(), txtLn7.getFonte(), frc);
 		tl9 = new TextLayout(txtLn9.getTexto(), txtLn7.getFonte(), frc);
+
+		tl7.draw(graficos, txtLn7.getRedX(), txtLn7.getRedY() + rolagemTela);
+		tl8.draw(graficos, txtLn8.getRedX(), txtLn8.getRedY() + rolagemTela);	
+		tl9.draw(graficos, txtLn9.getRedX(), txtLn9.getRedY() + rolagemTela);	
 		
-		tl7.draw(graficos, txtLn7.getX(), txtLn7.getY() + rolagemTela);
-		tl8.draw(graficos, txtLn8.getX(), txtLn8.getY() + rolagemTela);	
-		tl9.draw(graficos, txtLn9.getX(), txtLn9.getY() + rolagemTela);	
-		
-		
-		graficos.drawImage(nomeHabilidade1.getImagem(), nomeHabilidade1.getX(), nomeHabilidade1.getY() + rolagemTela, this);
-		graficos.drawImage(nomeHabilidade2.getImagem(), nomeHabilidade2.getX(), nomeHabilidade2.getY() + rolagemTela, this);
-		graficos.drawImage(nomeHabilidade3.getImagem(), nomeHabilidade3.getX(), nomeHabilidade3.getY() + rolagemTela, this);
-		graficos.drawImage(nomeHabilidade4.getImagem(), nomeHabilidade4.getX(), nomeHabilidade4.getY() + rolagemTela, this);
+		graficos.drawImage(nomeHabilidade1.getImagem(), nomeHabilidade1.getRedX(), nomeHabilidade1.getRedY() + rolagemTela, nomeHabilidade1.getLarg(), nomeHabilidade1.getAlt(), this);
+		graficos.drawImage(nomeHabilidade2.getImagem(), nomeHabilidade2.getRedX(), nomeHabilidade2.getRedY() + rolagemTela, nomeHabilidade2.getLarg(), nomeHabilidade2.getAlt(), this);
+		graficos.drawImage(nomeHabilidade3.getImagem(), nomeHabilidade3.getRedX(), nomeHabilidade3.getRedY() + rolagemTela, nomeHabilidade3.getLarg(), nomeHabilidade3.getAlt(), this);
+		graficos.drawImage(nomeHabilidade4.getImagem(), nomeHabilidade4.getRedX(), nomeHabilidade4.getRedY() + rolagemTela, nomeHabilidade4.getLarg(), nomeHabilidade4.getAlt(), this);
 		
 		tl10 = new TextLayout(nomeApelo1.getTexto(), nomeApelo1.getFonte(), frc);
-	    tl11 = new TextLayout(nomeApelo2.getTexto(), nomeApelo2.getFonte(), frc);
-	    tl12 = new TextLayout(nomeApelo3.getTexto(), nomeApelo3.getFonte(), frc);
-	    tl13 = new TextLayout(nomeApelo4.getTexto(), nomeApelo4.getFonte(), frc);
-	
+		tl11 = new TextLayout(nomeApelo2.getTexto(), nomeApelo1.getFonte(), frc);
+		tl12 = new TextLayout(nomeApelo3.getTexto(), nomeApelo1.getFonte(), frc);
+		tl13 = new TextLayout(nomeApelo4.getTexto(), nomeApelo1.getFonte(), frc);
+
 	    
 	    graficos.setColor(contTempoNomeApelo >= 0 && contTempoNomeApelo < 25 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
-	    tl10.draw(graficos, nomeApelo1.getX(), nomeApelo1.getY() + rolagemTela);
+	    tl10.draw(graficos, nomeApelo1.getRedX(), nomeApelo1.getRedY() + rolagemTela);
 	    graficos.setColor(contTempoNomeApelo >= 25 && contTempoNomeApelo < 50 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
-	    tl11.draw(graficos, nomeApelo2.getX(), nomeApelo2.getY() + rolagemTela);
+	    tl11.draw(graficos, nomeApelo2.getRedX(), nomeApelo2.getRedY() + rolagemTela);
 	    graficos.setColor(contTempoNomeApelo >= 50 && contTempoNomeApelo < 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
-	    tl12.draw(graficos, nomeApelo3.getX(), nomeApelo3.getY() + rolagemTela);
+	    tl12.draw(graficos, nomeApelo3.getRedX(), nomeApelo3.getRedY() + rolagemTela);
 	    graficos.setColor(contTempoNomeApelo >= 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
-	    tl13.draw(graficos, nomeApelo4.getX(), nomeApelo4.getY() + rolagemTela);
+	    tl13.draw(graficos, nomeApelo4.getRedX(), nomeApelo4.getRedY() + rolagemTela);
 	    graficos.setColor(txtLn2.getCorTexto());
 		
-		graficos.drawImage(painel1.getImagem(), painel1.getX(), painel1.getY() + rolagemTela, this);
+		graficos.drawImage(painel1.getImagem(), painel1.getRedX(), painel1.getRedY() + rolagemTela, painel1.getLarg(), painel1.getAlt(), this);
 
 		/* ------------------------------- info apelo ---------------------------------*/
-	    
-	    tl14 = new TextLayout(txtLn10.getTexto(), txtLn7.getFonte(), frc);
-	    tl15 = new TextLayout(txtLn11.getTexto(), txtLn7.getFonte(), frc);
-	    tl16 = new TextLayout(txtLn12.getTexto(), txtLn7.getFonte(), frc);
-	    tl17 = new TextLayout(txtLn13.getTexto(), txtLn7.getFonte(), frc);
-	    tl56 = new TextLayout(txtLn56.getTexto(), txtLn7.getFonte(), frc);
-	    
-		tl14.draw(graficos, txtLn10.getX(), txtLn10.getY() + rolagemTela);
-		tl15.draw(graficos, txtLn11.getX(), txtLn11.getY() + rolagemTela);
-		tl16.draw(graficos, txtLn12.getX(), txtLn12.getY() + rolagemTela);
-		tl17.draw(graficos, txtLn13.getX(), txtLn13.getY() + rolagemTela);
-		tl56.draw(graficos, txtLn56.getX(), txtLn56.getY() + rolagemTela);
-		
-		graficos.drawImage(apelo1.getImagem(), apelo1.getX(), apelo1.getY() + rolagemTela, this);
-		graficos.drawImage(apelo2.getImagem(), apelo2.getX(), apelo2.getY() + rolagemTela, this);
+	   
+		tl14 = new TextLayout(txtLn10.getTexto(), txtLn7.getFonte(), frc);
+		tl15 = new TextLayout(txtLn11.getTexto(), txtLn7.getFonte(), frc);
+		tl16 = new TextLayout(txtLn12.getTexto(), txtLn7.getFonte(), frc);
+		tl17 = new TextLayout(txtLn13.getTexto(), txtLn7.getFonte(), frc);
+		tl56 = new TextLayout(txtLn56.getTexto(), txtLn7.getFonte(), frc);
 
-		graficos.drawImage(apelo.getImagem(), apelo.getX(), apelo.getY() + rolagemTela, this);
-		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getX(), tipoDoApelo.getY() + rolagemTela, this);
+		tl14.draw(graficos, txtLn10.getRedX(), txtLn10.getRedY() + rolagemTela);
+		tl15.draw(graficos, txtLn11.getRedX(), txtLn11.getRedY() + rolagemTela);
+		tl16.draw(graficos, txtLn12.getRedX(), txtLn12.getRedY() + rolagemTela);
+		tl17.draw(graficos, txtLn13.getRedX(), txtLn13.getRedY() + rolagemTela);
+		tl56.draw(graficos, txtLn56.getRedX(), txtLn56.getRedY() + rolagemTela);
+		
+		graficos.drawImage(apelo1.getImagem(), apelo1.getRedX(), apelo1.getRedY() + rolagemTela, apelo1.getLarg(), apelo1.getAlt(), this);
+		graficos.drawImage(apelo2.getImagem(), apelo2.getRedX(), apelo2.getRedY() + rolagemTela, apelo2.getLarg(), apelo2.getAlt(), this);
+
+		graficos.drawImage(apelo.getImagem(), apelo.getRedX(), apelo.getRedY() + rolagemTela, apelo.getLarg(), apelo.getAlt(), this);
+		graficos.drawImage(tipoDoApelo.getImagem(), tipoDoApelo.getRedX(), tipoDoApelo.getRedY() + rolagemTela, tipoDoApelo.getLarg(), tipoDoApelo.getAlt(), this);
 		
 	    tl18 = new TextLayout(apeloQuantidade.getTexto(), apeloQuantidade.getFonte(), frc);
-	    tl19 = new TextLayout(InterferenciaQuantidade.getTexto(), InterferenciaQuantidade.getFonte(), frc);
+		tl19 = new TextLayout(InterferenciaQuantidade.getTexto(), apeloQuantidade.getFonte(), frc);
 
 	    graficos.setColor(apeloQuantidade.getCorTexto());
-	    tl18.draw(graficos, apeloQuantidade.getX(), apeloQuantidade.getY() + rolagemTela);
-	    tl19.draw(graficos, InterferenciaQuantidade.getX(), InterferenciaQuantidade.getY() + rolagemTela);
+	    tl18.draw(graficos, apeloQuantidade.getRedX(), apeloQuantidade.getRedY() + rolagemTela);
+	    tl19.draw(graficos, InterferenciaQuantidade.getRedX(), InterferenciaQuantidade.getRedY() + rolagemTela);
 	    graficos.setColor(txtLn2.getCorTexto());
 	    
-		graficos.drawImage(apeloApelo1.getImagem(), apeloApelo1.getX(), apeloApelo1.getY() + rolagemTela, this);
-		graficos.drawImage(apeloApelo2.getImagem(), apeloApelo2.getX(), apeloApelo2.getY() + rolagemTela, this);
-		graficos.drawImage(apeloApelo3.getImagem(), apeloApelo3.getX(), apeloApelo3.getY() + rolagemTela, this);
-		graficos.drawImage(apeloApelo4.getImagem(), apeloApelo4.getX(), apeloApelo4.getY() + rolagemTela, this);
-		graficos.drawImage(apeloApelo5.getImagem(), apeloApelo5.getX(), apeloApelo5.getY() + rolagemTela, this);
+		graficos.drawImage(apeloApelo1.getImagem(), apeloApelo1.getRedX(), apeloApelo1.getRedY() + rolagemTela, apeloApelo1.getLarg(), apeloApelo1.getAlt(), this);
+		graficos.drawImage(apeloApelo2.getImagem(), apeloApelo2.getRedX(), apeloApelo2.getRedY() + rolagemTela, apeloApelo2.getLarg(), apeloApelo2.getAlt(), this);
+		graficos.drawImage(apeloApelo3.getImagem(), apeloApelo3.getRedX(), apeloApelo3.getRedY() + rolagemTela, apeloApelo3.getLarg(), apeloApelo3.getAlt(), this);
+		graficos.drawImage(apeloApelo4.getImagem(), apeloApelo4.getRedX(), apeloApelo4.getRedY() + rolagemTela, apeloApelo4.getLarg(), apeloApelo4.getAlt(), this);
+		graficos.drawImage(apeloApelo5.getImagem(), apeloApelo5.getRedX(), apeloApelo5.getRedY() + rolagemTela, apeloApelo5.getLarg(), apeloApelo5.getAlt(), this);
 		
-		graficos.drawImage(apeloInterf1.getImagem(), apeloInterf1.getX(), apeloInterf1.getY() + rolagemTela, this);
-		graficos.drawImage(apeloInterf2.getImagem(), apeloInterf2.getX(), apeloInterf2.getY() + rolagemTela, this);
+		graficos.drawImage(apeloInterf1.getImagem(), apeloInterf1.getRedX(), apeloInterf1.getRedY() + rolagemTela, apeloInterf1.getLarg(), apeloInterf1.getAlt(), this);
+		graficos.drawImage(apeloInterf2.getImagem(), apeloInterf2.getRedX(), apeloInterf2.getRedY() + rolagemTela, apeloInterf2.getLarg(), apeloInterf2.getAlt(), this);
 	
-		graficos.drawImage(painel2.getImagem(), painel2.getX(), painel2.getY() + rolagemTela, this);
-		graficos.drawImage(fundoPainel2.getImagem(), fundoPainel2.getX(), fundoPainel2.getY() + rolagemTela, this);
+		graficos.drawImage(painel2.getImagem(), painel2.getRedX(), painel2.getRedY() + rolagemTela, painel2.getLarg(), painel2.getAlt(), this);
+		graficos.drawImage(fundoPainel2.getImagem(), fundoPainel2.getRedX(), fundoPainel2.getRedY() + rolagemTela, fundoPainel2.getLarg(), fundoPainel2.getAlt(), this);
 
 		// ----------------------- Descrição -----------------------------------
 
-		graficos.drawImage(fundoPainel3.getImagem(), fundoPainel3.getX(), fundoPainel3.getY() + rolagemTela, this);
+		graficos.drawImage(fundoPainel3.getImagem(), fundoPainel3.getRedX(), fundoPainel3.getRedY() + rolagemTela, fundoPainel3.getLarg(), fundoPainel3.getAlt(), this);
 
 		tl20 = new TextLayout(txtLn14.getTexto(), txtLn7.getFonte(), frc);
-	    tl21 = new TextLayout(txtLn15.getTexto(), txtLn7.getFonte(), frc);
+		tl21 = new TextLayout(txtLn15.getTexto(), txtLn7.getFonte(), frc);
+
+	    tl20.draw(graficos, txtLn14.getRedX(), txtLn14.getRedY() + rolagemTela);
+	    tl21.draw(graficos, txtLn15.getRedX(), txtLn15.getRedY() + rolagemTela);
 	    
-	    tl20.draw(graficos, txtLn14.getX(), txtLn14.getY() + rolagemTela);
-	    tl21.draw(graficos, txtLn15.getX(), txtLn15.getY() + rolagemTela);
-	    
-		graficos.drawImage(descricao.getImagem(), descricao.getX(), descricao.getY() + rolagemTela, this);
+		graficos.drawImage(descricao.getImagem(), descricao.getRedX(), descricao.getRedY() + rolagemTela, descricao.getLarg(), descricao.getAlt(), this);
 
 		tl22 = new TextLayout(textoDescricao1.getTexto(), textoDescricao1.getFonte(), frc);
-	    tl23 = new TextLayout(textoDescricao2.getTexto(), textoDescricao2.getFonte(), frc);
-	    tl24 = new TextLayout(textoDescricao3.getTexto(), textoDescricao3.getFonte(), frc);
-	    tl25 = new TextLayout(textoDescricao4.getTexto(), textoDescricao4.getFonte(), frc);
-	    tl26 = new TextLayout(textoDescricao5.getTexto(), textoDescricao5.getFonte(), frc);
-	    
+		tl23 = new TextLayout(textoDescricao2.getTexto(), textoDescricao1.getFonte(), frc);
+		tl24 = new TextLayout(textoDescricao3.getTexto(), textoDescricao1.getFonte(), frc);
+		tl25 = new TextLayout(textoDescricao4.getTexto(), textoDescricao1.getFonte(), frc);
+		tl26 = new TextLayout(textoDescricao5.getTexto(), textoDescricao1.getFonte(), frc);
+
 	    graficos.setColor(textoDescricao1.getCorTexto());
-	    tl22.draw(graficos, textoDescricao1.getX(), textoDescricao1.getY() + rolagemTela);
-	    tl23.draw(graficos, textoDescricao2.getX(), textoDescricao2.getY() + rolagemTela);
-	    tl24.draw(graficos, textoDescricao3.getX(), textoDescricao3.getY() + rolagemTela);
-	    tl25.draw(graficos, textoDescricao4.getX(), textoDescricao4.getY() + rolagemTela);
+	    tl22.draw(graficos, textoDescricao1.getRedX(), textoDescricao1.getRedY() + rolagemTela);
+	    tl23.draw(graficos, textoDescricao2.getRedX(), textoDescricao2.getRedY() + rolagemTela);
+	    tl24.draw(graficos, textoDescricao3.getRedX(), textoDescricao3.getRedY() + rolagemTela);
+	    tl25.draw(graficos, textoDescricao4.getRedX(), textoDescricao4.getRedY() + rolagemTela);
 	    graficos.setColor(textoDescricao5.getCorTexto());
-	    tl26.draw(graficos, textoDescricao5.getX(), textoDescricao5.getY() + rolagemTela);
+	    tl26.draw(graficos, textoDescricao5.getRedX(), textoDescricao5.getRedY() + rolagemTela);
 	    graficos.setColor(txtLn2.getCorTexto());
 	    
-		graficos.drawImage(painel3.getImagem(), painel3.getX(), painel3.getY() + rolagemTela, this);
+		graficos.drawImage(painel3.getImagem(), painel3.getRedX(), painel3.getRedY() + rolagemTela, painel3.getLarg(), painel3.getAlt(), this);
 	    
 		// ----------------------- campo batalha -----------------------------------
 
-		graficos.drawImage(fundoPainel4.getImagem(), fundoPainel4.getX(), fundoPainel4.getY() + rolagemTela, this);
+		graficos.drawImage(fundoPainel4.getImagem(), fundoPainel4.getRedX(), fundoPainel4.getRedY() + rolagemTela, fundoPainel4.getLarg(), fundoPainel4.getAlt(), this);
 
-	    tl27 = new TextLayout(txtLn16.getTexto(), txtLn7.getFonte(), frc);
-	    tl29 = new TextLayout(txtLn18.getTexto(), txtLn7.getFonte(), frc);
-	    tl31 = new TextLayout(txtLn20.getTexto(), txtLn7.getFonte(), frc);
-	    tl32 = new TextLayout(txtLn21.getTexto(), txtLn7.getFonte(), frc);
-	    tl33 = new TextLayout(txtLn22.getTexto(), txtLn7.getFonte(), frc);
-	    tl34 = new TextLayout(txtLn23.getTexto(), txtLn7.getFonte(), frc);
-	    tl35 = new TextLayout(txtLn24.getTexto(), txtLn7.getFonte(), frc);
-	    tl36 = new TextLayout(txtLn25.getTexto(), txtLn7.getFonte(), frc);
-	    tl37 = new TextLayout(txtLn26.getTexto(), txtLn7.getFonte(), frc);
+		tl27 = new TextLayout(txtLn16.getTexto(), txtLn7.getFonte(), frc);
+		tl29 = new TextLayout(txtLn18.getTexto(), txtLn7.getFonte(), frc);
+		tl31 = new TextLayout(txtLn20.getTexto(), txtLn7.getFonte(), frc);
+		tl32 = new TextLayout(txtLn21.getTexto(), txtLn7.getFonte(), frc);
+		tl33 = new TextLayout(txtLn22.getTexto(), txtLn7.getFonte(), frc);
+		tl34 = new TextLayout(txtLn23.getTexto(), txtLn7.getFonte(), frc);
+		tl35 = new TextLayout(txtLn24.getTexto(), txtLn7.getFonte(), frc);
+		tl36 = new TextLayout(txtLn25.getTexto(), txtLn7.getFonte(), frc);
+		tl37 = new TextLayout(txtLn26.getTexto(), txtLn7.getFonte(), frc);
 
-	    tl27.draw(graficos, txtLn16.getX(), txtLn16.getY() + rolagemTela);
-	    tl29.draw(graficos, txtLn18.getX(), txtLn18.getY() + rolagemTela);
-	    tl31.draw(graficos, txtLn20.getX(), txtLn20.getY() + rolagemTela);
-	    tl32.draw(graficos, txtLn21.getX(), txtLn21.getY() + rolagemTela);
-	    tl33.draw(graficos, txtLn22.getX(), txtLn22.getY() + rolagemTela);
-	    tl34.draw(graficos, txtLn23.getX(), txtLn23.getY() + rolagemTela);
-	    tl35.draw(graficos, txtLn24.getX(), txtLn24.getY() + rolagemTela);
-	    tl36.draw(graficos, txtLn25.getX(), txtLn25.getY() + rolagemTela);
-	    tl37.draw(graficos, txtLn26.getX(), txtLn26.getY() + rolagemTela);
+	    tl27.draw(graficos, txtLn16.getRedX(), txtLn16.getRedY() + rolagemTela);
+	    tl29.draw(graficos, txtLn18.getRedX(), txtLn18.getRedY() + rolagemTela);
+	    tl31.draw(graficos, txtLn20.getRedX(), txtLn20.getRedY() + rolagemTela);
+	    tl32.draw(graficos, txtLn21.getRedX(), txtLn21.getRedY() + rolagemTela);
+	    tl33.draw(graficos, txtLn22.getRedX(), txtLn22.getRedY() + rolagemTela);
+	    tl34.draw(graficos, txtLn23.getRedX(), txtLn23.getRedY() + rolagemTela);
+	    tl35.draw(graficos, txtLn24.getRedX(), txtLn24.getRedY() + rolagemTela);
+	    tl36.draw(graficos, txtLn25.getRedX(), txtLn25.getRedY() + rolagemTela);
+	    tl37.draw(graficos, txtLn26.getRedX(), txtLn26.getRedY() + rolagemTela);
 	    
-	    graficos.drawImage(apelo3.getImagem(), apelo3.getX(), apelo3.getY() + rolagemTela, this);
-	    graficos.drawImage(apelo4.getImagem(), apelo4.getX(), apelo4.getY() + rolagemTela, this);
-	    graficos.drawImage(apelo5.getImagem(), apelo5.getX(), apelo5.getY() + rolagemTela, this);
+	    graficos.drawImage(apelo3.getImagem(), apelo3.getRedX(), apelo3.getRedY() + rolagemTela, apelo3.getLarg(), apelo3.getAlt(), this);
+	    graficos.drawImage(apelo4.getImagem(), apelo4.getRedX(), apelo4.getRedY() + rolagemTela, apelo4.getLarg(), apelo4.getAlt(), this);
+	    graficos.drawImage(apelo5.getImagem(), apelo5.getRedX(), apelo5.getRedY() + rolagemTela, apelo5.getLarg(), apelo5.getAlt(), this);
 
-	    graficos.drawImage(campoBatalha1.getImagem(), campoBatalha1.getX(), campoBatalha1.getY() + rolagemTela, this);
-		graficos.drawImage(campoBatalha2.getImagem(), campoBatalha2.getX(), campoBatalha2.getY() + rolagemTela, this);
-		graficos.drawImage(campoBatalha3.getImagem(), campoBatalha3.getX(), campoBatalha3.getY() + rolagemTela, this);
-		graficos.drawImage(campoBatalha4.getImagem(), campoBatalha4.getX(), campoBatalha4.getY() + rolagemTela, this);
-		graficos.drawImage(campoBatalha5.getImagem(), campoBatalha5.getX(), campoBatalha5.getY() + rolagemTela, this);
+	    graficos.drawImage(campoBatalha1.getImagem(), campoBatalha1.getRedX(), campoBatalha1.getRedY() + rolagemTela, campoBatalha1.getLarg(), campoBatalha1.getAlt(), this);
+		graficos.drawImage(campoBatalha2.getImagem(), campoBatalha2.getRedX(), campoBatalha2.getRedY() + rolagemTela, campoBatalha2.getLarg(), campoBatalha2.getAlt(), this);
+		graficos.drawImage(campoBatalha3.getImagem(), campoBatalha3.getRedX(), campoBatalha3.getRedY() + rolagemTela, campoBatalha3.getLarg(), campoBatalha3.getAlt(), this);
+		graficos.drawImage(campoBatalha4.getImagem(), campoBatalha4.getRedX(), campoBatalha4.getRedY() + rolagemTela, campoBatalha4.getLarg(), campoBatalha4.getAlt(), this);
+		graficos.drawImage(campoBatalha5.getImagem(), campoBatalha5.getRedX(), campoBatalha5.getRedY() + rolagemTela, campoBatalha5.getLarg(), campoBatalha5.getAlt(), this);
 		
-		graficos.drawImage(iconeCampoBatalha1.getImagem(), iconeCampoBatalha1.getX(), iconeCampoBatalha1.getY() + rolagemTela, this);
-		graficos.drawImage(iconeCampoBatalha2.getImagem(), iconeCampoBatalha2.getX(), iconeCampoBatalha2.getY() + rolagemTela, this);
-		graficos.drawImage(iconeCampoBatalha3.getImagem(), iconeCampoBatalha3.getX(), iconeCampoBatalha3.getY() + rolagemTela, this);
-		graficos.drawImage(iconeCampoBatalha4.getImagem(), iconeCampoBatalha4.getX(), iconeCampoBatalha4.getY() + rolagemTela, this);
-		graficos.drawImage(iconeCampoBatalha5.getImagem(), iconeCampoBatalha5.getX(), iconeCampoBatalha5.getY() + rolagemTela, this);
+		graficos.drawImage(iconeCampoBatalha1.getImagem(), iconeCampoBatalha1.getRedX(), iconeCampoBatalha1.getRedY() + rolagemTela, iconeCampoBatalha1.getLarg(), iconeCampoBatalha1.getAlt(), this);
+		graficos.drawImage(iconeCampoBatalha2.getImagem(), iconeCampoBatalha2.getRedX(), iconeCampoBatalha2.getRedY() + rolagemTela, iconeCampoBatalha2.getLarg(), iconeCampoBatalha2.getAlt(), this);
+		graficos.drawImage(iconeCampoBatalha3.getImagem(), iconeCampoBatalha3.getRedX(), iconeCampoBatalha3.getRedY() + rolagemTela, iconeCampoBatalha3.getLarg(), iconeCampoBatalha3.getAlt(), this);
+		graficos.drawImage(iconeCampoBatalha4.getImagem(), iconeCampoBatalha4.getRedX(), iconeCampoBatalha4.getRedY() + rolagemTela, iconeCampoBatalha4.getLarg(), iconeCampoBatalha4.getAlt(), this);
+		graficos.drawImage(iconeCampoBatalha5.getImagem(), iconeCampoBatalha5.getRedX(), iconeCampoBatalha5.getRedY() + rolagemTela, iconeCampoBatalha5.getLarg(), iconeCampoBatalha5.getAlt(), this);
 		
-		tl38 = new TextLayout(txtEfeitoFase.getTexto(), txtEfeitoFase.getFonte(), frc);
-	    tl38.draw(graficos, txtEfeitoFase.getX(), txtEfeitoFase.getY() + rolagemTela);
-	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getX(), efeitoFase.getY() + rolagemTela, this);
+		tl38 = new TextLayout(txtEfeitoFase.getTexto(), txtLn7.getFonte(), frc);
+	    tl38.draw(graficos, txtEfeitoFase.getRedX(), txtEfeitoFase.getRedY() + rolagemTela);
+	    graficos.drawImage(efeitoFase.getImagem(), efeitoFase.getRedX(), efeitoFase.getRedY() + rolagemTela, efeitoFase.getLarg(), efeitoFase.getAlt(), this);
 		
-		graficos.drawImage(painel4.getImagem(), painel4.getX(), painel4.getY() + rolagemTela, this);
+		graficos.drawImage(painel4.getImagem(), painel4.getRedX(), painel4.getRedY() + rolagemTela, painel4.getLarg(), painel4.getAlt(), this);
 		
-		graficos.drawImage(coracao01.getImagem(), coracao01.getX(), coracao01.getY() + rolagemTela, this);
-		graficos.drawImage(coracao02.getImagem(), coracao02.getX(), coracao02.getY() + rolagemTela, this);
-		graficos.drawImage(coracao03.getImagem(), coracao03.getX(), coracao03.getY() + rolagemTela, this);
-		graficos.drawImage(coracao04.getImagem(), coracao04.getX(), coracao04.getY() + rolagemTela, this);
-		graficos.drawImage(coracao05.getImagem(), coracao05.getX(), coracao05.getY() + rolagemTela, this);
+		graficos.drawImage(coracao01.getImagem(), coracao01.getRedX(), coracao01.getRedY() + rolagemTela, coracao01.getLarg(), coracao01.getAlt(), this);
+		graficos.drawImage(coracao02.getImagem(), coracao02.getRedX(), coracao02.getRedY() + rolagemTela, coracao02.getLarg(), coracao02.getAlt(), this);
+		graficos.drawImage(coracao03.getImagem(), coracao03.getRedX(), coracao03.getRedY() + rolagemTela, coracao03.getLarg(), coracao03.getAlt(), this);
+		graficos.drawImage(coracao04.getImagem(), coracao04.getRedX(), coracao04.getRedY() + rolagemTela, coracao04.getLarg(), coracao04.getAlt(), this);
+		graficos.drawImage(coracao05.getImagem(), coracao05.getRedX(), coracao05.getRedY() + rolagemTela, coracao05.getLarg(), coracao05.getAlt(), this);
 
-		graficos.drawImage(coracao11.getImagem(), coracao11.getX(), coracao11.getY() + rolagemTela, this);
-		graficos.drawImage(coracao12.getImagem(), coracao12.getX(), coracao12.getY() + rolagemTela, this);
-		graficos.drawImage(coracao13.getImagem(), coracao13.getX(), coracao13.getY() + rolagemTela, this);
-		graficos.drawImage(coracao14.getImagem(), coracao14.getX(), coracao14.getY() + rolagemTela, this);
-		graficos.drawImage(coracao15.getImagem(), coracao15.getX(), coracao15.getY() + rolagemTela, this);
-		graficos.drawImage(coracao16.getImagem(), coracao16.getX(), coracao16.getY() + rolagemTela, this);
-		graficos.drawImage(coracao17.getImagem(), coracao17.getX(), coracao17.getY() + rolagemTela, this);
-		graficos.drawImage(coracao18.getImagem(), coracao18.getX(), coracao18.getY() + rolagemTela, this);
-		graficos.drawImage(coracao19.getImagem(), coracao19.getX(), coracao19.getY() + rolagemTela, this);
-		graficos.drawImage(coracao110.getImagem(), coracao110.getX(), coracao110.getY() + rolagemTela, this);
+		graficos.drawImage(coracao11.getImagem(), coracao11.getRedX(), coracao11.getRedY() + rolagemTela, coracao11.getLarg(), coracao11.getAlt(), this);
+		graficos.drawImage(coracao12.getImagem(), coracao12.getRedX(), coracao12.getRedY() + rolagemTela, coracao12.getLarg(), coracao12.getAlt(), this);
+		graficos.drawImage(coracao13.getImagem(), coracao13.getRedX(), coracao13.getRedY() + rolagemTela, coracao13.getLarg(), coracao13.getAlt(), this);
+		graficos.drawImage(coracao14.getImagem(), coracao14.getRedX(), coracao14.getRedY() + rolagemTela, coracao14.getLarg(), coracao14.getAlt(), this);
+		graficos.drawImage(coracao15.getImagem(), coracao15.getRedX(), coracao15.getRedY() + rolagemTela, coracao15.getLarg(), coracao15.getAlt(), this);
+		graficos.drawImage(coracao16.getImagem(), coracao16.getRedX(), coracao16.getRedY() + rolagemTela, coracao16.getLarg(), coracao16.getAlt(), this);
+		graficos.drawImage(coracao17.getImagem(), coracao17.getRedX(), coracao17.getRedY() + rolagemTela, coracao17.getLarg(), coracao17.getAlt(), this);
+		graficos.drawImage(coracao18.getImagem(), coracao18.getRedX(), coracao18.getRedY() + rolagemTela, coracao18.getLarg(), coracao18.getAlt(), this);
+		graficos.drawImage(coracao19.getImagem(), coracao19.getRedX(), coracao19.getRedY() + rolagemTela, coracao19.getLarg(), coracao19.getAlt(), this);
+		graficos.drawImage(coracao110.getImagem(), coracao110.getRedX(), coracao110.getRedY() + rolagemTela, coracao110.getLarg(), coracao110.getAlt(), this);
 		
-		graficos.drawImage(coracao21.getImagem(), coracao21.getX(), coracao21.getY() + rolagemTela, this);
-		graficos.drawImage(coracao22.getImagem(), coracao22.getX(), coracao22.getY() + rolagemTela, this);
-		graficos.drawImage(coracao23.getImagem(), coracao23.getX(), coracao23.getY() + rolagemTela, this);
-		graficos.drawImage(coracao24.getImagem(), coracao24.getX(), coracao24.getY() + rolagemTela, this);
-		graficos.drawImage(coracao25.getImagem(), coracao25.getX(), coracao25.getY() + rolagemTela, this);
-		graficos.drawImage(coracao26.getImagem(), coracao26.getX(), coracao26.getY() + rolagemTela, this);
-		graficos.drawImage(coracao27.getImagem(), coracao27.getX(), coracao27.getY() + rolagemTela, this);
-		graficos.drawImage(coracao28.getImagem(), coracao28.getX(), coracao28.getY() + rolagemTela, this);
-		graficos.drawImage(coracao29.getImagem(), coracao29.getX(), coracao29.getY() + rolagemTela, this);
-		graficos.drawImage(coracao210.getImagem(), coracao210.getX(), coracao210.getY() + rolagemTela, this);
+		graficos.drawImage(coracao21.getImagem(), coracao21.getRedX(), coracao21.getRedY() + rolagemTela, coracao21.getLarg(), coracao21.getAlt(), this);
+		graficos.drawImage(coracao22.getImagem(), coracao22.getRedX(), coracao22.getRedY() + rolagemTela, coracao22.getLarg(), coracao22.getAlt(), this);
+		graficos.drawImage(coracao23.getImagem(), coracao23.getRedX(), coracao23.getRedY() + rolagemTela, coracao23.getLarg(), coracao23.getAlt(), this);
+		graficos.drawImage(coracao24.getImagem(), coracao24.getRedX(), coracao24.getRedY() + rolagemTela, coracao24.getLarg(), coracao24.getAlt(), this);
+		graficos.drawImage(coracao25.getImagem(), coracao25.getRedX(), coracao25.getRedY() + rolagemTela, coracao25.getLarg(), coracao25.getAlt(), this);
+		graficos.drawImage(coracao26.getImagem(), coracao26.getRedX(), coracao26.getRedY() + rolagemTela, coracao26.getLarg(), coracao26.getAlt(), this);
+		graficos.drawImage(coracao27.getImagem(), coracao27.getRedX(), coracao27.getRedY() + rolagemTela, coracao27.getLarg(), coracao27.getAlt(), this);
+		graficos.drawImage(coracao28.getImagem(), coracao28.getRedX(), coracao28.getRedY() + rolagemTela, coracao28.getLarg(), coracao28.getAlt(), this);
+		graficos.drawImage(coracao29.getImagem(), coracao29.getRedX(), coracao29.getRedY() + rolagemTela, coracao29.getLarg(), coracao29.getAlt(), this);
+		graficos.drawImage(coracao210.getImagem(), coracao210.getRedX(), coracao210.getRedY() + rolagemTela, coracao210.getLarg(), coracao210.getAlt(), this);
 		
-		graficos.drawImage(coracao31.getImagem(), coracao31.getX(), coracao31.getY() + rolagemTela, this);
-		graficos.drawImage(coracao32.getImagem(), coracao32.getX(), coracao32.getY() + rolagemTela, this);
-		graficos.drawImage(coracao33.getImagem(), coracao33.getX(), coracao33.getY() + rolagemTela, this);
-		graficos.drawImage(coracao34.getImagem(), coracao34.getX(), coracao34.getY() + rolagemTela, this);
-		graficos.drawImage(coracao35.getImagem(), coracao35.getX(), coracao35.getY() + rolagemTela, this);
-		graficos.drawImage(coracao36.getImagem(), coracao36.getX(), coracao36.getY() + rolagemTela, this);
-		graficos.drawImage(coracao37.getImagem(), coracao37.getX(), coracao37.getY() + rolagemTela, this);
-		graficos.drawImage(coracao38.getImagem(), coracao38.getX(), coracao38.getY() + rolagemTela, this);
-		graficos.drawImage(coracao39.getImagem(), coracao39.getX(), coracao39.getY() + rolagemTela, this);
-		graficos.drawImage(coracao310.getImagem(), coracao310.getX(), coracao310.getY() + rolagemTela, this);
+		graficos.drawImage(coracao31.getImagem(), coracao31.getRedX(), coracao31.getRedY() + rolagemTela, coracao31.getLarg(), coracao31.getAlt(), this);
+		graficos.drawImage(coracao32.getImagem(), coracao32.getRedX(), coracao32.getRedY() + rolagemTela, coracao32.getLarg(), coracao32.getAlt(), this);
+		graficos.drawImage(coracao33.getImagem(), coracao33.getRedX(), coracao33.getRedY() + rolagemTela, coracao33.getLarg(), coracao33.getAlt(), this);
+		graficos.drawImage(coracao34.getImagem(), coracao34.getRedX(), coracao34.getRedY() + rolagemTela, coracao34.getLarg(), coracao34.getAlt(), this);
+		graficos.drawImage(coracao35.getImagem(), coracao35.getRedX(), coracao35.getRedY() + rolagemTela, coracao35.getLarg(), coracao35.getAlt(), this);
+		graficos.drawImage(coracao36.getImagem(), coracao36.getRedX(), coracao36.getRedY() + rolagemTela, coracao36.getLarg(), coracao36.getAlt(), this);
+		graficos.drawImage(coracao37.getImagem(), coracao37.getRedX(), coracao37.getRedY() + rolagemTela, coracao37.getLarg(), coracao37.getAlt(), this);
+		graficos.drawImage(coracao38.getImagem(), coracao38.getRedX(), coracao38.getRedY() + rolagemTela, coracao38.getLarg(), coracao38.getAlt(), this);
+		graficos.drawImage(coracao39.getImagem(), coracao39.getRedX(), coracao39.getRedY() + rolagemTela, coracao39.getLarg(), coracao39.getAlt(), this);
+		graficos.drawImage(coracao310.getImagem(), coracao310.getRedX(), coracao310.getRedY() + rolagemTela, coracao310.getLarg(), coracao310.getAlt(), this);
 		
-		graficos.drawImage(coracao41.getImagem(), coracao41.getX(), coracao41.getY() + rolagemTela, this);
-		graficos.drawImage(coracao42.getImagem(), coracao42.getX(), coracao42.getY() + rolagemTela, this);
-		graficos.drawImage(coracao43.getImagem(), coracao43.getX(), coracao43.getY() + rolagemTela, this);
-		graficos.drawImage(coracao44.getImagem(), coracao44.getX(), coracao44.getY() + rolagemTela, this);
-		graficos.drawImage(coracao45.getImagem(), coracao45.getX(), coracao45.getY() + rolagemTela, this);
-		graficos.drawImage(coracao46.getImagem(), coracao46.getX(), coracao46.getY() + rolagemTela, this);
-		graficos.drawImage(coracao47.getImagem(), coracao47.getX(), coracao47.getY() + rolagemTela, this);
-		graficos.drawImage(coracao48.getImagem(), coracao48.getX(), coracao48.getY() + rolagemTela, this);
-		graficos.drawImage(coracao49.getImagem(), coracao49.getX(), coracao49.getY() + rolagemTela, this);
-		graficos.drawImage(coracao410.getImagem(), coracao410.getX(), coracao410.getY() + rolagemTela, this);
+		graficos.drawImage(coracao41.getImagem(), coracao41.getRedX(), coracao41.getRedY() + rolagemTela, coracao41.getLarg(), coracao41.getAlt(), this);
+		graficos.drawImage(coracao42.getImagem(), coracao42.getRedX(), coracao42.getRedY() + rolagemTela, coracao42.getLarg(), coracao42.getAlt(), this);
+		graficos.drawImage(coracao43.getImagem(), coracao43.getRedX(), coracao43.getRedY() + rolagemTela, coracao43.getLarg(), coracao43.getAlt(), this);
+		graficos.drawImage(coracao44.getImagem(), coracao44.getRedX(), coracao44.getRedY() + rolagemTela, coracao44.getLarg(), coracao44.getAlt(), this);
+		graficos.drawImage(coracao45.getImagem(), coracao45.getRedX(), coracao45.getRedY() + rolagemTela, coracao45.getLarg(), coracao45.getAlt(), this);
+		graficos.drawImage(coracao46.getImagem(), coracao46.getRedX(), coracao46.getRedY() + rolagemTela, coracao46.getLarg(), coracao46.getAlt(), this);
+		graficos.drawImage(coracao47.getImagem(), coracao47.getRedX(), coracao47.getRedY() + rolagemTela, coracao47.getLarg(), coracao47.getAlt(), this);
+		graficos.drawImage(coracao48.getImagem(), coracao48.getRedX(), coracao48.getRedY() + rolagemTela, coracao48.getLarg(), coracao48.getAlt(), this);
+		graficos.drawImage(coracao49.getImagem(), coracao49.getRedX(), coracao49.getRedY() + rolagemTela, coracao49.getLarg(), coracao49.getAlt(), this);
+		graficos.drawImage(coracao410.getImagem(), coracao410.getRedX(), coracao410.getRedY() + rolagemTela, coracao410.getLarg(), coracao410.getAlt(), this);
 		
-		graficos.drawImage(coracao51.getImagem(), coracao51.getX(), coracao51.getY() + rolagemTela, this);
-		graficos.drawImage(coracao52.getImagem(), coracao52.getX(), coracao52.getY() + rolagemTela, this);
-		graficos.drawImage(coracao53.getImagem(), coracao53.getX(), coracao53.getY() + rolagemTela, this);
-		graficos.drawImage(coracao54.getImagem(), coracao54.getX(), coracao54.getY() + rolagemTela, this);
-		graficos.drawImage(coracao55.getImagem(), coracao55.getX(), coracao55.getY() + rolagemTela, this);
-		graficos.drawImage(coracao56.getImagem(), coracao56.getX(), coracao56.getY() + rolagemTela, this);
-		graficos.drawImage(coracao57.getImagem(), coracao57.getX(), coracao57.getY() + rolagemTela, this);
-		graficos.drawImage(coracao58.getImagem(), coracao58.getX(), coracao58.getY() + rolagemTela, this);
-		graficos.drawImage(coracao59.getImagem(), coracao59.getX(), coracao59.getY() + rolagemTela, this);
-		graficos.drawImage(coracao510.getImagem(), coracao510.getX(), coracao510.getY() + rolagemTela, this);
+		graficos.drawImage(coracao51.getImagem(), coracao51.getRedX(), coracao51.getRedY() + rolagemTela, coracao51.getLarg(), coracao51.getAlt(), this);
+		graficos.drawImage(coracao52.getImagem(), coracao52.getRedX(), coracao52.getRedY() + rolagemTela, coracao52.getLarg(), coracao52.getAlt(), this);
+		graficos.drawImage(coracao53.getImagem(), coracao53.getRedX(), coracao53.getRedY() + rolagemTela, coracao53.getLarg(), coracao53.getAlt(), this);
+		graficos.drawImage(coracao54.getImagem(), coracao54.getRedX(), coracao54.getRedY() + rolagemTela, coracao54.getLarg(), coracao54.getAlt(), this);
+		graficos.drawImage(coracao55.getImagem(), coracao55.getRedX(), coracao55.getRedY() + rolagemTela, coracao55.getLarg(), coracao55.getAlt(), this);
+		graficos.drawImage(coracao56.getImagem(), coracao56.getRedX(), coracao56.getRedY() + rolagemTela, coracao56.getLarg(), coracao56.getAlt(), this);
+		graficos.drawImage(coracao57.getImagem(), coracao57.getRedX(), coracao57.getRedY() + rolagemTela, coracao57.getLarg(), coracao57.getAlt(), this);
+		graficos.drawImage(coracao58.getImagem(), coracao58.getRedX(), coracao58.getRedY() + rolagemTela, coracao58.getLarg(), coracao58.getAlt(), this);
+		graficos.drawImage(coracao59.getImagem(), coracao59.getRedX(), coracao59.getRedY() + rolagemTela, coracao59.getLarg(), coracao59.getAlt(), this);
+		graficos.drawImage(coracao510.getImagem(), coracao510.getRedX(), coracao510.getRedY() + rolagemTela, coracao510.getLarg(), coracao510.getAlt(), this);
 		
-		graficos.drawImage(luzCampoBatalha1.getImagem(), luzCampoBatalha1.getX(), luzCampoBatalha1.getY() + rolagemTela, this);
-		graficos.drawImage(luzCampoBatalha2.getImagem(), luzCampoBatalha2.getX(), luzCampoBatalha2.getY() + rolagemTela, this);
-		graficos.drawImage(luzCampoBatalha3.getImagem(), luzCampoBatalha3.getX(), luzCampoBatalha3.getY() + rolagemTela, this);
-		graficos.drawImage(luzCampoBatalha4.getImagem(), luzCampoBatalha4.getX(), luzCampoBatalha4.getY() + rolagemTela, this);
-		graficos.drawImage(luzCampoBatalha5.getImagem(), luzCampoBatalha5.getX(), luzCampoBatalha5.getY() + rolagemTela, this);
+		graficos.drawImage(luzCampoBatalha1.getImagem(), luzCampoBatalha1.getRedX(), luzCampoBatalha1.getRedY() + rolagemTela, luzCampoBatalha1.getLarg(), luzCampoBatalha1.getAlt(), this);
+		graficos.drawImage(luzCampoBatalha2.getImagem(), luzCampoBatalha2.getRedX(), luzCampoBatalha2.getRedY() + rolagemTela, luzCampoBatalha2.getLarg(), luzCampoBatalha2.getAlt(), this);
+		graficos.drawImage(luzCampoBatalha3.getImagem(), luzCampoBatalha3.getRedX(), luzCampoBatalha3.getRedY() + rolagemTela, luzCampoBatalha3.getLarg(), luzCampoBatalha3.getAlt(), this);
+		graficos.drawImage(luzCampoBatalha4.getImagem(), luzCampoBatalha4.getRedX(), luzCampoBatalha4.getRedY() + rolagemTela, luzCampoBatalha4.getLarg(), luzCampoBatalha4.getAlt(), this);
+		graficos.drawImage(luzCampoBatalha5.getImagem(), luzCampoBatalha5.getRedX(), luzCampoBatalha5.getRedY() + rolagemTela, luzCampoBatalha5.getLarg(), luzCampoBatalha5.getAlt(), this);
 		
 		// ----------------------- Tabela de efeito de chefe -----------------------------------
 
-		graficos.drawImage(efeitoDeChefe.getImagem(), efeitoDeChefe.getX(), efeitoDeChefe.getY() + rolagemTela, this);
-		graficos.drawImage(tabela.getImagem(), tabela.getX(), tabela.getY() + rolagemTela, this);
+		graficos.drawImage(efeitoDeChefe.getImagem(), efeitoDeChefe.getRedX(), efeitoDeChefe.getRedY() + rolagemTela, efeitoDeChefe.getLarg(), efeitoDeChefe.getAlt(), this);
+		graficos.drawImage(tabela.getImagem(), tabela.getRedX(), tabela.getRedY() + rolagemTela, tabela.getLarg(), tabela.getAlt(), this);
 
-	    tl40 = new TextLayout(txtLn28.getTexto(), txtLn28.getFonte(), frc);
-	    tl41 = new TextLayout(txtLn29.getTexto(), txtLn29.getFonte(), frc);
-	    tl42 = new TextLayout(txtLn30.getTexto(), txtLn30.getFonte(), frc);
-	    tl43 = new TextLayout(txtLn31.getTexto(), txtLn31.getFonte(), frc);
-	    tl44 = new TextLayout(txtLn32.getTexto(), txtLn32.getFonte(), frc);
-	    tl45 = new TextLayout(txtLn33.getTexto(), txtLn33.getFonte(), frc);
-	    tl46 = new TextLayout(txtLn34.getTexto(), txtLn34.getFonte(), frc);
-	    tl47 = new TextLayout(txtLn35.getTexto(), txtLn35.getFonte(), frc);
-	    tl48 = new TextLayout(txtLn36.getTexto(), txtLn36.getFonte(), frc);
-	    tl49 = new TextLayout(txtLn37.getTexto(), txtLn37.getFonte(), frc);
-	    tl50 = new TextLayout(txtLn38.getTexto(), txtLn38.getFonte(), frc);
-	    tl53 = new TextLayout(txtLn41.getTexto(), txtLn41.getFonte(), frc);
-	    tl54 = new TextLayout(txtLn42.getTexto(), txtLn42.getFonte(), frc);
-	    tl55 = new TextLayout(txtLn43.getTexto(), txtLn43.getFonte(), frc);
+		tl40 = new TextLayout(txtLn28.getTexto(), txtLn28.getFonte(), frc);
+		tl41 = new TextLayout(txtLn29.getTexto(), txtLn28.getFonte(), frc);
+		tl42 = new TextLayout(txtLn30.getTexto(), txtLn28.getFonte(), frc);
+		tl43 = new TextLayout(txtLn31.getTexto(), txtLn28.getFonte(), frc);
+		tl44 = new TextLayout(txtLn32.getTexto(), txtLn28.getFonte(), frc);
+		tl45 = new TextLayout(txtLn33.getTexto(), txtLn28.getFonte(), frc);
+		tl46 = new TextLayout(txtLn34.getTexto(), txtLn28.getFonte(), frc);
+		tl47 = new TextLayout(txtLn35.getTexto(), txtLn28.getFonte(), frc);
+		tl48 = new TextLayout(txtLn36.getTexto(), txtLn28.getFonte(), frc);
+		tl49 = new TextLayout(txtLn37.getTexto(), txtLn28.getFonte(), frc);
+		tl50 = new TextLayout(txtLn38.getTexto(), txtLn28.getFonte(), frc);
+		tl53 = new TextLayout(txtLn41.getTexto(), txtLn28.getFonte(), frc);
+		tl54 = new TextLayout(txtLn42.getTexto(), txtLn28.getFonte(), frc);
+		tl55 = new TextLayout(txtLn43.getTexto(), txtLn28.getFonte(), frc);
 
-	    tl40.draw(graficos, txtLn28.getX(), txtLn28.getY() + rolagemTela);
-	    tl41.draw(graficos, txtLn29.getX(), txtLn29.getY() + rolagemTela);
-	    tl42.draw(graficos, txtLn30.getX(), txtLn30.getY() + rolagemTela);
-	    tl43.draw(graficos, txtLn31.getX(), txtLn31.getY() + rolagemTela);
-	    tl44.draw(graficos, txtLn32.getX(), txtLn32.getY() + rolagemTela);
-	    tl45.draw(graficos, txtLn33.getX(), txtLn33.getY() + rolagemTela);
-	    tl46.draw(graficos, txtLn34.getX(), txtLn34.getY() + rolagemTela);
-	    tl47.draw(graficos, txtLn35.getX(), txtLn35.getY() + rolagemTela);
-	    tl48.draw(graficos, txtLn36.getX(), txtLn36.getY() + rolagemTela);
-	    tl49.draw(graficos, txtLn37.getX(), txtLn37.getY() + rolagemTela);
-	    tl50.draw(graficos, txtLn38.getX(), txtLn38.getY() + rolagemTela);
-	    tl53.draw(graficos, txtLn41.getX(), txtLn41.getY() + rolagemTela);
-	    tl54.draw(graficos, txtLn42.getX(), txtLn42.getY() + rolagemTela);
-	    tl55.draw(graficos, txtLn43.getX(), txtLn43.getY() + rolagemTela);
-
+	    tl40.draw(graficos, txtLn28.getRedX(), txtLn28.getRedY() + rolagemTela);
+	    tl41.draw(graficos, txtLn29.getRedX(), txtLn29.getRedY() + rolagemTela);
+	    tl42.draw(graficos, txtLn30.getRedX(), txtLn30.getRedY() + rolagemTela);
+	    tl43.draw(graficos, txtLn31.getRedX(), txtLn31.getRedY() + rolagemTela);
+	    tl44.draw(graficos, txtLn32.getRedX(), txtLn32.getRedY() + rolagemTela);
+	    tl45.draw(graficos, txtLn33.getRedX(), txtLn33.getRedY() + rolagemTela);
+	    tl46.draw(graficos, txtLn34.getRedX(), txtLn34.getRedY() + rolagemTela);
+	    tl47.draw(graficos, txtLn35.getRedX(), txtLn35.getRedY() + rolagemTela);
+	    tl48.draw(graficos, txtLn36.getRedX(), txtLn36.getRedY() + rolagemTela);
+	    tl49.draw(graficos, txtLn37.getRedX(), txtLn37.getRedY() + rolagemTela);
+	    tl50.draw(graficos, txtLn38.getRedX(), txtLn38.getRedY() + rolagemTela);
+	    tl53.draw(graficos, txtLn41.getRedX(), txtLn41.getRedY() + rolagemTela);
+	    tl54.draw(graficos, txtLn42.getRedX(), txtLn42.getRedY() + rolagemTela);
+	    tl55.draw(graficos, txtLn43.getRedX(), txtLn43.getRedY() + rolagemTela);
 
 		// ----------------------- Considerações finais -----------------------------------
 
-	    tl51 = new TextLayout(txtLn39.getTexto(), txtLn7.getFonte(), frc);
-	    tl52 = new TextLayout(txtLn40.getTexto(), txtLn7.getFonte(), frc);
-		
-	    tl51.draw(graficos, txtLn39.getX(), txtLn39.getY() + rolagemTela);
-	    tl52.draw(graficos, txtLn40.getX(), txtLn40.getY() + rolagemTela);
+		tl51 = new TextLayout(txtLn39.getTexto(), txtLn7.getFonte(), frc);
+		tl52 = new TextLayout(txtLn40.getTexto(), txtLn7.getFonte(), frc);
+
+	    tl51.draw(graficos, txtLn39.getRedX(), txtLn39.getRedY() + rolagemTela);
+	    tl52.draw(graficos, txtLn40.getRedX(), txtLn40.getRedY() + rolagemTela);
 	    
 		/* ------------------------------- Barra de rolagem ---------------------------------*/
 
-		graficos.drawImage(bntBarraBaixo.getImagem(), bntBarraBaixo.getX(), bntBarraBaixo.getY(), this);
-		graficos.drawImage(bntBarraCima.getImagem(), bntBarraCima.getX(), bntBarraCima.getY(), this);
+		graficos.drawImage(bntBarraBaixo.getImagem(), bntBarraBaixo.getRedX(), bntBarraBaixo.getRedY(), bntBarraBaixo.getLarg(), bntBarraBaixo.getAlt(), this);
+		graficos.drawImage(bntBarraCima.getImagem(), bntBarraCima.getRedX(), bntBarraCima.getRedY(), bntBarraCima.getLarg(), bntBarraCima.getAlt(), this);
 		
-		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getX(), engrenagem1.getY(), this);
-		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getX(), engrenagem2.getY(), this);
-		graficos.drawImage(contorno.getImagem(), contorno.getX(), contorno.getY(), this);
+		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getRedX(), engrenagem1.getRedY(), engrenagem1.getLarg(), engrenagem1.getAlt(), this);
+		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
+		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
 		
+		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
+
 		g.dispose();
 	}
 

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Arius {
-	//                                 apelo,              interferencia,           tipo interferencia (0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, -1: sem efeito)
-	private int [][] valores = {{4, 2, 5, 6, 3, 0, 2, 4}, {3, 0, 0, 0, 4, 10, 0, 3}, {2, -1, -1, -1, 3, 6, -1, 1}, {1, 0, 0, 0, 0, 0, 1, 1}}; //tipo apelo 0= nao fisico, 1= fisico
+	//                                   apelo,                interferencia,          tipo interferencia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
+	private int [][] valores = {{4, 2, 5, 6, 3, 0, 2, 4}, {3, 0, 3, 0, 4, 10, 0, 0}, {2, 4, 5, -1, 3, 6, -1, -1}, {1, 0, 0, 0, 0, 0, 1, 1}}; //tipo apelo 0= nao fisico, 1= fisico
 	private String [] apelosEInterferencias = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo5", "apelo6", "apelo7", "apelo8"};
 	private String [] gifApelos = {"apelo1", "apelo2", "apelo3", "apelo4", "apelo1", "apelo2", "apelo3", "apelo4"};
-	private String [] NomeApelos = {"Chifrada", "Compreensão", "Strip-tease Tático", "Olimpíadas artonianas", "Diplomacia", "5 é 20", "Gládio e escudo", "Afanação de gorad"};
-	private String [][] ConteudoDescricao = {  {"Use seus cornos para penetrar em um alvo e lança-lo ao ar.", " ", " ", " ", "Esta habilidade afeta o adversário acima de você."},
-											   {"A vitória não advêm somente através da violência física, compreender os adversários ao seu", "redor lhe dará uma vantagem sobre eles.", " ", " ", "Esta habilidade zera as interferências que você ganhou antes da sua ação nessa rodada."},
-											   {"Está na hora de usar seus poderes arcanos, dispa-se da sua couraça e lance a sua magia.", " ", " ", " ", " "},
-											   {"Acenda a pira do espirito esportivo e demonstre sua aptidão através das extensas", "modalidades como: saltos pela paliçada, flechadas nos irmãos, esconde-esconde com", "baratas e arremesso com explosão.", " ", " "},
-											   {"Use a nobre arte diplomática para argumentar e convencer a plateia que seu adversário não", "merece a posição que ocupa nessa rodada.", " ", " ", "Esta habilidade afeta o primeiro campo."},
+	private String [] NomeApelos = {"Chifrada", "Estratégia em Combate", "O Mamilo Rosa", "Olimpíadas das Centrais", "Diplomacia", "5 é 20", "Gládio e escudo", "Declamar Poema"};
+	private String [][] ConteudoDescricao = {  {"Com teus cornos perfure a tora resistente.", "Com tua força taurina erga-a no ar.", "O mais longe que puder lançe-a na tua frente,", "Então torça para o tronco ninguém acertar.", "Esta habilidade afeta o campo acima de você."},
+											   {"Somente através da violência a vitória não advêm.", "Ao compreender aqueles que acima estão", "Vantagem poderá ganhar também", "Ao ver seus movimentos com antecipação.", "Esta habilidade zera as interferências ganhadas antes da sua ação nessa rodada."},
+											   {"Ao tirar sua couraça em meio ao espetáculo", "Todos podem vê-lo e é impossível de desviar.", "Por mais que seja um órgão prosaico", "O único mamilo rosa consegue a todos hipnotizar.", "Esta habilidade afeta um campo acima e um abaixo de você."},
+											   {"Acenda sua pira do espírito esportivo", "Participando de diversos jogos consecutivos", "Como salto pela paliçada, flechada nos irmãos,", "Esconde-esconde com baratas e arremesso com explosão.", " "},
+											   {"Use a perícia diplomática na audiência", "Para que possa com ela argumentar e convencer", "Que o primeiro colocado deve apresentar a imponência", "Em sua demonstração, o que dessa vez não conseguiu fazer.", "Esta habilidade afeta o primeiro campo."},
 											   {"Jogando cinco d20 uma aposta você vai fazer.", "Não há repetição nos números contemplados.", "10 apelos você ganha se 5 o dado conceber.", "Então camarada, você está tentado?", "Esta habilidade te concede 10 apelos se o número 5 sair em um dos dados."},
-											   {"Lembre-se do seu treinamento nas legiões do império taurico, com o gládio em mãos e o", "escudo bem posicionado demonstre as táticas e o conhecimento bélico de seu povo.", " ", " ", " "},
-											   {"Gorad, uma delicia viciante no reinado, tão cheirosa e saborosa que você não consegue se", "conter. Para seu deleite e desgosto alguns dos seus companheiros as guardaram em suas", "vestes para comer depois. Você sabe que é errado, mas o seu perfume esta insuportável,", "você terá que rouba-las.", "Esta habilidade afeta todos os campos abaixo de você."}};	
+											   {"Lembre-se do seu treinamento nas legiões do império.", "Com o gládio em mãos e o escudo bem posicionado", "Demonstre suas táticas e o conhecimento bélico", "Evitando se queimar enquanto estiver derrubado.", " "},
+											   {"Se quiseres emocionar a plateia", "Terás que revelar seus sentimentos dolorosos.", "Recita-los em forma de prosa poética", "Parece certamente um dos modos mais graciosos.", " "}};	
 
 	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
 													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
