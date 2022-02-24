@@ -679,7 +679,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
 	
 						if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || (ativarBoss == true && camada4Atual == -3424) || camada4Atual == -3936) {
-							teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+							if(camada4Atual != -2876) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
 							contTeclaBatalha --;
 							
 						} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || (ativarBoss == true && camada4Atual == -3076) || camada4Atual == -3548){
@@ -747,7 +747,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						//faz a tecla Z aparecer quando o personagem chega na montainha
 						if(camada4Atual == -3500 || (ativarBoss == true && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
-							teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+							if(camada4Atual != -2436) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
 							contTeclaBatalha ++;
 							
 						} else if(camada4Atual == -3896 || (ativarBoss == true && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
@@ -1291,7 +1291,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\cadeadoGrande1.png");
 							
 							txtDialogoLn1.setTexto("Parabéns!!! você conseguiu vencer os 5 Cães das Colinas, infelizmente o jogo não");
-							txtDialogoLn2.setTexto("esta completo ainda e você terá que esperar um pouco mais.");
+							txtDialogoLn2.setTexto("está completo ainda e você terá que esperar um pouco mais.");
 							txtDialogoLn3.setTexto(" ");
 							txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");
 							
@@ -1304,7 +1304,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}
 			
 			// ------------------------ manda para a tela de batalha ----------------------- /
-			else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && bntSimNao == true && barraDeDialogo.getImagem() != null) {
+			else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && bntSimNao == true && barraDeDialogo.getImagem() != null && contMenSalvar == -1) {
 				
 				contEngranagem2 = !contEngranagem2;
 				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
@@ -1455,6 +1455,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		bntSimDialogo.setY(540);
 		bntNaoDialogo.setY(540);
+		
+		logoAyla = false;
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \

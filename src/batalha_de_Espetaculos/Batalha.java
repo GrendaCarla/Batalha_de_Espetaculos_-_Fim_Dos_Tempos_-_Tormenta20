@@ -112,7 +112,7 @@ public class Batalha extends JPanel implements ActionListener {
 	private int [][] apeloKiki = kiki.getValores();
 	private int [][] apeloArius = arius.getValores();
 	
-	private String [][] gifApelos = {ignis.getApelosEInterferencias(), ayla.getApelosEInterferencias(), rexthor.getApelosEInterferencias(), kiki.getApelosEInterferencias(), arius.getApelosEInterferencias()};
+	private int [][] gifApelos = {ignis.getGifApelos(), ayla.getGifApelos(), rexthor.getGifApelos(), kiki.getGifApelos(), arius.getGifApelos()};
 	private String [][] NomeApelos = {ignis.getNomeApelos(), ayla.getNomeApelos(), rexthor.getNomeApelos(), kiki.getNomeApelos(), arius.getNomeApelos()};
 	private String [][] ConteudoDescricao = {ignis.getConteudoDescricao(0), ignis.getConteudoDescricao(1), ignis.getConteudoDescricao(2), ignis.getConteudoDescricao(3), 
 											 ayla.getConteudoDescricao(0), ayla.getConteudoDescricao(1), ayla.getConteudoDescricao(2), ayla.getConteudoDescricao(3), 

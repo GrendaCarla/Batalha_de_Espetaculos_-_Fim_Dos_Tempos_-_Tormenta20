@@ -156,8 +156,8 @@ public class Manual extends JPanel implements ActionListener {
 
 	private Texto txtLn16 = new Texto(txtLn7.getX(), 1340, "8. Quando a habilidade for escolhida a batalha começa.");	
 	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn16.getY() + espacoParagrafo, "9. A animação aparece seguida da quantidade de apelo.");
-	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn18.getY() + espacoParagrafo, "10. Se repetir a habilidade duas vezes seguida,");
-	private Texto txtLn21 = new Texto(txtLn7.getX() + 40, txtLn20.getY() + espacoLinha, "receberá uma punição de -2     .");	
+	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn18.getY() + espacoParagrafo, "10. Quando repetir uma habilidade em seguida,");
+	private Texto txtLn21 = new Texto(txtLn7.getX() + 40, txtLn20.getY() + espacoLinha, "receberá uma punição de -2      x número da repetição.");	
 	private Icones_interativos apelo3 = new Icones_interativos(txtLn7.getX() + 332, txtLn20.getY() + espacoLinha - 16);
 	private Texto txtLn22 = new Texto(txtLn7.getX(), txtLn21.getY() + espacoParagrafo, "11. Se a habilidade cumprir o efeito de chefe da");
 	private Texto txtLn23 = new Texto(txtLn7.getX() + 40, txtLn22.getY() + espacoLinha, "batalha, receberá um +1     ou um -1     de");
