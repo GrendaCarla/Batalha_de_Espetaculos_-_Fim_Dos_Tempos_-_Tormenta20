@@ -67,6 +67,14 @@ public class Icones_interativos {
 		return alt;
 	}
 	
+	public void setLarg(int larg) {
+		this.larg = larg;
+	}
+	
+	public void setAlt(int alt) {
+		this.alt = alt;
+	}
+	
 	public int getX() {
 		return x;
 	}

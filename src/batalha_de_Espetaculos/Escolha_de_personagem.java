@@ -167,7 +167,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		
-		timer = new Timer(5, this);
+		timer = new Timer(1, this);
 		timer.start();
 	}
 	
@@ -606,26 +606,24 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	public void animarTitulo() {
 		
-		if(titulo.getDx() == 97) {titulo.setDx(1);}
+		if(titulo.getDx() == 60) {titulo.setDx(1);}
 		else {titulo.setDx(titulo.getDx() + 1);}
 		
-		if(titulo.getDx() == 56 || titulo.getDx() == 64 || titulo.getDx() == 72 || titulo.getDx() == 80 || titulo.getDx() == 88 || titulo.getDx() == 96) {
-			titulo.setY(titulo.getY() + 1);
-		} else if(titulo.getDx() == 8 || titulo.getDx() == 16 || titulo.getDx() == 24 || titulo.getDx() == 32 || titulo.getDx() == 40 || titulo.getDx() == 48) {
-			titulo.setY(titulo.getY() - 1);
-		} 
+		if(titulo.getDx() % 3 == 0) {
+			titulo.setY(titulo.getY() + (titulo.getDx() > 30 ? 1 : -1));
+		}
 	}
 
 	public void animarluzes() {
 		
-		if(luz1.getDx() == 60) {luz1.setDx(0);}
+		if(luz1.getDx() == 24) {luz1.setDx(0);}
 		else {luz1.setDx(luz1.getDx() + 1);}
 		
-		if(luz1.getDx() == 36) {
+		if(luz1.getDx() == 15) {
 			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "3" : (contTeclaAven == 1 ? "6" : (contTeclaAven == 2 ? "9" : (contTeclaAven == 3 ? "12" : "15")))) + ".png");
-		} else if(luz1.getDx() == 24) {
+		} else if(luz1.getDx() == 10) {
 			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "2" : (contTeclaAven == 1 ? "5" : (contTeclaAven == 2 ? "8" : (contTeclaAven == 3 ? "11" : "14")))) + ".png");
-		} else if(luz1.getDx() == 12) {
+		} else if(luz1.getDx() == 5) {
 			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).load(caminho + "res\\escolhaDePersonagem\\luz" + (contTeclaAven == 0 ? "1" : (contTeclaAven == 1 ? "4" : (contTeclaAven == 2 ? "7" : (contTeclaAven == 3 ? "10" : "13")))) + ".png");
 		} else if(luz1.getDx() == 0) {
 			(contTeclaAven == 0 ? luz1 : (contTeclaAven == 1 ? luz2 : (contTeclaAven == 2 ? luz3 : (contTeclaAven == 3 ? luz4 : luz5)))).setImagem(null);

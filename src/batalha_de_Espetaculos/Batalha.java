@@ -175,8 +175,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos animacaoObj2 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 
 	
-	private int intervaloAnimacao = 10;
-	private int intervaloAnimacaoGif = 240;
+	private int intervaloAnimacao = 6; //10
+	private int intervaloAnimacaoGif = 140; //240
 	
 	private int comecarAnimacaoCoracao = 0;
 	private int animacaoFileira = -1;
@@ -324,11 +324,11 @@ public class Batalha extends JPanel implements ActionListener {
 	// ---------------------------------- animação inicial --------------------------------
 	
 	private Icones_interativos fundoAnimacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
-	private Icones_interativos iconeIgnis = new Icones_interativos(animacao.getX() -248, animacao.getY());
-	private Icones_interativos iconeAyla = new Icones_interativos(animacao.getX(), animacao.getY() -248);
+	private Icones_interativos iconeIgnis = new Icones_interativos(animacao.getX() -310, animacao.getY());
+	private Icones_interativos iconeAyla = new Icones_interativos(animacao.getX(), animacao.getY() -310);
 	private Icones_interativos iconeRexthor = new Icones_interativos(animacao.getX(), animacao.getY());
-	private Icones_interativos iconeKiki = new Icones_interativos(animacao.getX(), animacao.getY() + 248);
-	private Icones_interativos iconeArius = new Icones_interativos(animacao.getX() + 248, animacao.getY());
+	private Icones_interativos iconeKiki = new Icones_interativos(animacao.getX(), animacao.getY() + 310);
+	private Icones_interativos iconeArius = new Icones_interativos(animacao.getX() + 310, animacao.getY());
 	
 	private boolean comecarAnimacaoInicio = false;
 	private boolean animarAnimacao = false;
@@ -479,17 +479,17 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		// ------------------------------------------------------------------------
 		
-		timer = new Timer(35, this);
+		timer = new Timer(1, this);
 		timer.start();
 		
 	}
 	
 	public void animarInicio() {
 	
-		iconeIgnis.setX(iconeIgnis.getX() + 8);
-		iconeAyla.setY(iconeAyla.getY() + 8);
-		iconeKiki.setY(iconeKiki.getY() - 8);
-		iconeArius.setX(iconeArius.getX() - 8);
+		iconeIgnis.setX(iconeIgnis.getX() + 10);
+		iconeAyla.setY(iconeAyla.getY() + 10);
+		iconeKiki.setY(iconeKiki.getY() - 10);
+		iconeArius.setX(iconeArius.getX() - 10);
 		
 		if(iconeIgnis.getX() == animacao.getX()) {
 			comecarAnimacaoInicio = false;
@@ -502,15 +502,15 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeIgnis.setDx(iconeIgnis.getDx() + (inverterAnimacao == false ? 1 : -1));
 		
-		if(iconeIgnis.getDx() == 0 || iconeIgnis.getDx() == 20 || iconeIgnis.getDx() == 40 || iconeIgnis.getDx() == 60) {
+		if(iconeIgnis.getDx() == 0 || iconeIgnis.getDx() == 16 || iconeIgnis.getDx() == 32 || iconeIgnis.getDx() == 48) {
 			iconeIgnis.load(caminho + "res\\batalha\\animacao\\ignis2.png");
-		} else if(iconeIgnis.getDx() == 10 || iconeIgnis.getDx() == 30 || iconeIgnis.getDx() == 50) {
+		} else if(iconeIgnis.getDx() == 8 || iconeIgnis.getDx() == 24 || iconeIgnis.getDx() == 40) {
 			iconeIgnis.load(caminho + "res\\batalha\\animacao\\ignis3.png");
-		} else if(iconeIgnis.getDx() == 70) {
+		} else if(iconeIgnis.getDx() == 56) {
 			iconeIgnis.load(caminho + "res\\batalha\\animacao\\ignis1.png");
 		}
 		
-		if(iconeIgnis.getDx() == 80 || iconeIgnis.getDx() == 0) {
+		if(iconeIgnis.getDx() == 64 || iconeIgnis.getDx() == 0) {
 			inverterAnimacao = !inverterAnimacao;
 		}
 		
@@ -518,9 +518,9 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeKiki.setDx(iconeKiki.getDx() + 1);
 		
-		if(iconeKiki.getDx() % 8 == 0) {
+		if(iconeKiki.getDx() % 6 == 0) {
 			iconeKiki.load(caminho + "res\\batalha\\animacao\\kiki1.png");
-		} else if(iconeKiki.getDx() % 4 == 0) {
+		} else if(iconeKiki.getDx() % 3 == 0) {
 			iconeKiki.load(caminho + "res\\batalha\\animacao\\kiki2.png");
 		}
 		
@@ -528,10 +528,10 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeArius.setDx(iconeArius.getDx() + 1);
 		
-		if(iconeArius.getDx() % 30 == 0) {
+		if(iconeArius.getDx() % 18 == 0) {
 			iconeArius.load(caminho + "res\\batalha\\animacao\\arius1.png");
 			iconeRexthor.load(caminho + "res\\batalha\\animacao\\rexthor1.png");
-		} else if(iconeArius.getDx() % 15 == 0) {
+		} else if(iconeArius.getDx() % 9 == 0) {
 			iconeArius.load(caminho + "res\\batalha\\animacao\\arius2.png");
 			iconeRexthor.load(caminho + "res\\batalha\\animacao\\rexthor2.png");
 		}
@@ -540,21 +540,21 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		iconeAyla.setDx(iconeAyla.getDx() + 1);
 		
-		if(iconeAyla.getDx() == 5 || iconeAyla.getDx() == 10 || iconeAyla.getDx() == 15) {
-			iconeAyla.setY(iconeAyla.getY() + 2);
+		if(iconeAyla.getDx() == 4 || iconeAyla.getDx() == 8 || iconeAyla.getDx() == 12) {
+			iconeAyla.setY(iconeAyla.getY() + 4);
 			
-		} else if(iconeAyla.getDx() == 20 || iconeAyla.getDx() == 25 || iconeAyla.getDx() == 30) {
-			iconeAyla.setY(iconeAyla.getY() - 2);
+		} else if(iconeAyla.getDx() == 16 || iconeAyla.getDx() == 20 || iconeAyla.getDx() == 24) {
+			iconeAyla.setY(iconeAyla.getY() - 4);
 			
 		}
 		
-		if(iconeAyla.getDx() % 14 == 0 ) {
+		if(iconeAyla.getDx() % 12 == 0 ) {
 			iconeAyla.load(caminho + "res\\batalha\\animacao\\ayla1.png");
-		} else if(iconeAyla.getDx() % 7 == 0) {
+		} else if(iconeAyla.getDx() % 6 == 0) {
 			iconeAyla.load(caminho + "res\\batalha\\animacao\\ayla2.png");
 		} 
 		
-		if(iconeAyla.getDx() == 30) {
+		if(iconeAyla.getDx() == 24) {
 			iconeAyla.setDx(0);
 		}
 		
@@ -2178,47 +2178,102 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void gifApresentacao(int avent, int numApelo) {
 
-		/*if(avent == 0) {
-			if(gifApelos[0][numApelo] == "apelo3") {
-
-				if(animacao.getDx() == 20) {
-					animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\0.png");
-				
-				} else if(animacao.getDx() == 90) {
-					animacao.load(caminho + "res\\batalha\\fundoAnimacao1.png");
-					animacaoObj1.setX(tamanhoContorno + 300);
-					animacaoObj2.setX(tamanhoContorno - 300);
-					animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\2.png");
-					animacaoObj2.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\1.png");
-				}
-				if(animacao.getDx() >= 90 && animacao.getDx() <= 119) {
-					animacaoObj1.setX(animacaoObj1.getX() - 10);
-					animacaoObj2.setX(animacaoObj2.getX() + 10);
-					
-				} else if(animacao.getDx() >= 140 && animacao.getDx() % 20 == 0) {
-					
-					if(animacao.getDx() == 140) {
-						animacaoObj2.load(caminho + "res\\batalha\\losango.png");
-						animacaoObj1.setX(tamanhoContorno);
-						animacao.load(caminho + "res\\batalha\\fundoAnimacao1.png");
-
-					}else if(animacao.getDx() == 160) {
-						animacao.setY(-126);
-						animacao.setX(760/2 - 1130/2 + 50);
-						animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
-						
-					}else if(animacao.getDx() == 200) {
-						animacao.setY(-30);
-						animacao.setX(760/2 - 1130/2 + 30);
-						animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
-					}
-					
-					animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\apelo3\\" + (animacao.getDx()/20 - 3) + ".png");
-				
-				}
-			}*/
+		if(avent == 0 && gifApelos[0][numApelo] == 3) {
 			
-		if(avent == 0) {
+			if(animacao.getDx() >= 2 && animacao.getDx() < 60 && animacao.getDx() % 6 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
+			
+			} else if(animacao.getDx() >= 5 && animacao.getDx() < 60 && animacao.getDx() % 3 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\1.png");
+			
+			} else if(animacao.getDx() == 60) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo1.png");
+				animacaoObj1.setX(tamanhoContorno + 300);
+				animacaoObj2.setX(tamanhoContorno - 300);
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\3.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\2.png");
+			}
+			if(animacao.getDx() >= 60 && animacao.getDx() <= 84) {
+				animacaoObj1.setX(animacaoObj1.getX() - 12);
+				animacaoObj2.setX(animacaoObj2.getX() + 12);
+				
+			} else if(animacao.getDx() >= 90 && animacao.getDx() % 10 == 0) {
+				
+				if(animacao.getDx() == 90) {
+					animacaoObj2.setImagem(null);
+					animacaoObj1.setX(tamanhoContorno);
+					animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo1.png");
+
+				}else if(animacao.getDx() == 100) {
+					animacao.setY(-126);
+					animacao.setX(760/2 - 1130/2 + 50);
+					animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo2.png");
+					
+				}else if(animacao.getDx() == 120) {
+					animacao.setY(-30);
+					animacao.setX(760/2 - 1130/2 + 30);
+					animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo2.png");
+				}
+				
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\" + (animacao.getDx()/10 - 4) + ".png");
+			
+			}
+		
+		} else if(avent == 0 && gifApelos[0][numApelo] == 4) {
+			
+			if(animacao.getDx() >= 2 && animacao.getDx() <= 48 && animacao.getDx() % 6 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
+			
+			} else if(animacao.getDx() >= 5 && animacao.getDx() <= 48 && animacao.getDx() % 3 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\1.png");
+			
+			} else if(animacao.getDx() == 50) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\2.png");
+			
+			}else if(animacao.getDx() >= 60 && animacao.getDx() <= 72) {
+					animacaoObj1.setLarg(animacaoObj1.getLarg() + 8);
+					animacaoObj1.setAlt(animacaoObj1.getAlt() + 4);
+					animacao.setLarg(animacaoObj1.getLarg() + 8);
+					animacao.setAlt(animacaoObj1.getAlt() + 4);
+					
+					animacaoObj1.setX(animacaoObj1.getX() - 4);
+					animacaoObj1.setY(animacaoObj1.getY() - 2);
+					animacao.setX(animacaoObj1.getX() - 4);
+					animacao.setY(animacaoObj1.getY() - 2);
+					
+			} else if(animacao.getDx() == 82) {
+			
+				animacao = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
+				animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
+				
+				animacaoObj1 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\4.png");
+				animacao.setDx(82);
+
+			} else if(animacao.getDx() == 87) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\5.png");
+			
+			} else if(animacao.getDx() >= 92 && animacao.getDx() <= 104 && animacao.getDx() % 4 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\6.png");
+			
+			} else if(animacao.getDx() >= 94 && animacao.getDx() <= 106 && animacao.getDx() % 2 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\7.png");
+			
+			} else if(animacao.getDx() == 110) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\fundo1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\2.png");
+				
+			} else if(animacao.getDx() == 120) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\9.png");
+				
+			}
+				
+		
+		}
+		
+		
+		else if(avent == 0) {
 			animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");
 		}else if(avent == 1) {
 			animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (numApelo == 0? gifApelos[1][0] : (numApelo == 1? gifApelos[1][1] : (numApelo == 2? gifApelos[1][2] : gifApelos[1][3]))) + ".gif");

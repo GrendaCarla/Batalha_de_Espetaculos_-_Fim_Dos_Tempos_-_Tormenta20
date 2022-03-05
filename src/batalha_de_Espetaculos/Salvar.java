@@ -87,6 +87,16 @@ public class Salvar {
 			return -2;
 		}
 	}
+	
+	public void ApagarDados (String Caminho) {
+		this.caminho = Caminho;
+		
+		File file1 = new File(caminho + "res\\Save.txt");
+		
+		if(!file1.exists()){
+			file1.delete();
+		}
+	}
 
 	
 	public int getAventureiro() {

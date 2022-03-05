@@ -28,6 +28,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
 	private Creditos telaCreditos;
+	private Salvar save;
 	
 	JFrame janelaPrincipal;
 	
@@ -51,7 +52,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 	// ------------------------------------------- animação ---------------------------------------------
 
-	private int contAnimacao = 6;
+	private int contAnimacao = 0;
 	private int contAnimacaoAyla = 0;
 	
 	private boolean sentidoAnimacao = false;
@@ -59,7 +60,7 @@ public class Menu extends JPanel implements ActionListener {
 
 	private Icones_interativos ignis1 = new Icones_interativos(26, 128);
 	private Icones_interativos ignis2 = new Icones_interativos(1226, 128);
-	private Icones_interativos kikiAriusRexthor = new Icones_interativos(10, 166);
+	private Icones_interativos kikiAriusRexthor = new Icones_interativos(0, 166);
 	private Icones_interativos ayla = new Icones_interativos(900, 50);
 	private Icones_interativos sombraAyla = new Icones_interativos(ayla.getX() - 20, 290);
 
@@ -103,14 +104,21 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private int contOpcoes;
 	
-	// ---------------------------- save ------------------------------------
+	// ------------------------ imagens e textos do diálogo de aviso ------------------------------
 	
 	private Icones_interativos sombreadorDialogoAviso = new Icones_interativos(0, 0);
-	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 100);
+	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
+	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
+	private Icones_interativos bntNaoDialogoAviso  = new Icones_interativos(bntSimDialogoAviso.getX() + 370, bntSimDialogoAviso.getY());
 	
-	private Texto txtDialogoAviso = new Texto(460, dialogoAviso.getY() + 140, " ");
+	private Texto txtDialogoAviso = new Texto(dialogoAviso.getX() + 140, 548/2 - 50, " ");
+	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, txtDialogoAviso.getY() + 50, " ");
 	
-	private TextLayout tl1;
+	private Boolean bntSimNaoDialgoAviso = true;
+
+	// ---------------------------- save ------------------------------------
+	
+	private TextLayout tl1, tl2;
 	
 	private Salvar salvar = new Salvar();
 	int valorLeituraSave;
@@ -175,12 +183,12 @@ public class Menu extends JPanel implements ActionListener {
 				
 		// ---------------------------- save ------------------------------------
 
-		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 38));
+		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 26));
 		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
 		
 		Restaurar();
 		
-		timer = new Timer(50, this); 
+		timer = new Timer(1, this); 
 		timer.start();
 	}
 	
@@ -188,11 +196,18 @@ public class Menu extends JPanel implements ActionListener {
 		
 		contTempoMensagemErro ++;
 		
-		if(contTempoMensagemErro > 0 && contTempoMensagemErro < 140) {
+		if(contTempoMensagemErro == 1) {
+			txtDialogoAviso = new Texto(dialogoAviso.getX() + 180, 548/2 + 10, " ");
+			
+			txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 38));
+			txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
+			
 			sombreadorDialogoAviso.load(caminho + "res\\sombreador.png");
 			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
 			txtDialogoAviso.setTexto("Save corrompido!!!");
-		} else {
+			save.ApagarDados(caminho);
+			
+		} else if(contTempoMensagemErro == 100){
 			sombreadorDialogoAviso.setImagem(null);
 			dialogoAviso.setImagem(null);
 			txtDialogoAviso.setTexto(" ");
@@ -215,6 +230,59 @@ public class Menu extends JPanel implements ActionListener {
 		bntCreditos.load(caminho + "res\\Menu principal\\bntCreditos1.png");
 	}
 
+	/* ---------------------------------------------------------------------------------------- \
+	|  									aviso novo jogo								|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void dialogoBntNovoJogo(int codigo) {
+		System.out.println("veio");
+		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			sombreadorDialogoAviso.load(caminho + "res\\sombreador.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+			bntSimNaoDialgoAviso = true;
+			
+			txtDialogoAviso.setTexto("O progresso anterior será apagado.");
+			txtDialogoAviso2.setTexto("Deseja continuar?");
+			
+		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
+		
+			if(contEngranagem1== 2) {
+				contEngranagem1= 1;
+			} else {contEngranagem1++;}
+			
+			engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1+ ".png");
+			
+			bntSimNaoDialgoAviso = !bntSimNaoDialgoAviso;
+			bntSimDialogoAviso.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNaoDialgoAviso == true ? "1" : "2") + ".png");
+			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
+		
+		}else if(codigo == KeyEvent.VK_Z  || codigo == KeyEvent.VK_X && dialogoAviso.getImagem() != null) {
+			
+			contEngranagem2 = !contEngranagem2;
+			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
+				sombreadorDialogoAviso.setImagem(null);
+				dialogoAviso.setImagem(null);
+				bntSimDialogoAviso.setImagem(null);
+				bntNaoDialogoAviso.setImagem(null);
+				
+				txtDialogoAviso.setTexto(" ");
+				txtDialogoAviso2.setTexto(" ");
+			}
+			else {
+				
+				chamarTela1(true);
+			}
+		}
+	}
+	
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  		 					dispara quando as teclas são  pressionadas						|
@@ -240,7 +308,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 				}else if(codigo == KeyEvent.VK_ESCAPE) {
 					teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
-				
+					
 				}else if(codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT){
 					
 					if(contEngranagem1 == 2) {
@@ -298,7 +366,7 @@ public class Menu extends JPanel implements ActionListener {
 							chamarTela1(false);
 							break;
 						case 1:
-							chamarTela1(true);
+							dialogoBntNovoJogo(codigo);
 							break;
 						case 2:
 							janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -324,7 +392,11 @@ public class Menu extends JPanel implements ActionListener {
 					        break;
 					}
 				}
+				
+			} else if(dialogoAviso.getImagem() != null) {
+				dialogoBntNovoJogo(codigo);
 			}
+			
 		}else {
 			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha"
 					|| janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3" 
@@ -452,11 +524,15 @@ public class Menu extends JPanel implements ActionListener {
 
 		graficos.drawImage(sombreadorDialogoAviso.getImagem(), sombreadorDialogoAviso.getRedX(), sombreadorDialogoAviso.getRedY(), sombreadorDialogoAviso.getLarg(), sombreadorDialogoAviso.getAlt(), this);
 		graficos.drawImage(dialogoAviso.getImagem(), dialogoAviso.getRedX(), dialogoAviso.getRedY(), dialogoAviso.getLarg(), dialogoAviso.getAlt(), this);
-		
+		graficos.drawImage(bntSimDialogoAviso.getImagem(), bntSimDialogoAviso.getRedX(), bntSimDialogoAviso.getRedY(), bntSimDialogoAviso.getLarg(), bntSimDialogoAviso.getAlt(), this);
+		graficos.drawImage(bntNaoDialogoAviso.getImagem(), bntNaoDialogoAviso.getRedX(), bntNaoDialogoAviso.getRedY(), bntNaoDialogoAviso.getLarg(), bntNaoDialogoAviso.getAlt(), this);
+
 		graficos.setColor(txtDialogoAviso.getCorTexto());
 		tl1 = new TextLayout(txtDialogoAviso.getTexto(), txtDialogoAviso.getFonte(), frc);
+		tl2 = new TextLayout(txtDialogoAviso2.getTexto(), txtDialogoAviso.getFonte(), frc);
 		
 		tl1.draw(graficos, txtDialogoAviso.getRedX(), txtDialogoAviso.getRedY());
+		tl2.draw(graficos, txtDialogoAviso2.getRedX(), txtDialogoAviso2.getRedY());
 		
 		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
 		
@@ -468,11 +544,13 @@ public class Menu extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
-		if(valorLeituraSave != 0 && valorLeituraSave != -1 && contTempoMensagemErro < 141) {
-			MostrarMensagemDeErro();
-		}
 		
 		if(janela != null && janela.getTitle() == "Menu") {
+
+			if(valorLeituraSave != 0 && valorLeituraSave != -1 && contTempoMensagemErro < 141) {
+				MostrarMensagemDeErro();
+			}
+			
 			Animar();
 		}
 		
@@ -484,17 +562,17 @@ public class Menu extends JPanel implements ActionListener {
 		
 		// ------------------------------------------- fundo ---------------------------------------------
 
-		camada21.setX((camada21.getX() <= -6000 ? camada22.getX() + 5992 : camada21.getX() - 6));
-		camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5992 : camada22.getX() - 6));
+		camada21.setX((camada21.getX() <= -6000 ? camada22.getX() + 5985 : camada21.getX() - 15));
+		camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5985 : camada22.getX() - 15));
 		
 		camada31.setX(camada21.getX() < -20 ? camada21.getX() : camada22.getX());
 		camada32.setX(camada21.getX() < -20 ? camada21.getX() : camada22.getX());
 
-		camada41.setX((camada41.getX() <= -4000 ? camada42.getX() + 3992 : camada41.getX() - 3));
-		camada42.setX((camada42.getX() <= -4000 ? camada41.getX() + 3992 : camada42.getX() - 3));
+		camada41.setX((camada41.getX() <= -4000 ? camada42.getX() + 3996 : camada41.getX() - 4));
+		camada42.setX((camada42.getX() <= -4000 ? camada41.getX() + 3996 : camada42.getX() - 4));
 		
-		camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1992 : camada51.getX() - 1));
-		camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1992 : camada52.getX() - 1));
+		camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1998 : camada51.getX() - 2));
+		camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1998 : camada52.getX() - 2));
 		
 		// ----------------------------------------------------------------------------------------
 
@@ -502,17 +580,16 @@ public class Menu extends JPanel implements ActionListener {
 		ignis1.setX( (ignis1.getX() <= -300 ? ignis2.getX() + 1200 : ignis1.getX() - 1));
 		ignis2.setX( (ignis2.getX() <= -300 ? ignis1.getX() + 1200 : ignis2.getX() - 1));
 
-		
 		if(sentidoAnimacao == true) {contAnimacao --;} else {contAnimacao++;}
 		
-		if(contAnimacao == 4 || contAnimacao == 12) {sentidoAnimacao = !sentidoAnimacao;}
+		if(contAnimacao == 0 || contAnimacao == 4) {sentidoAnimacao = !sentidoAnimacao;}
 		
-		if(contAnimacao % 4 == 0) {
+		if(contAnimacao % 2 == 0) {
 			
-			ignis1.load(caminho + "res\\Bonequinho\\ignis" + (contAnimacao == 12 ? 4 : (contAnimacao == 8 ? 3 : 2)) + ".png");
-			ignis2.load(caminho + "res\\Bonequinho\\ignis" + (contAnimacao == 12 ? 4 : (contAnimacao == 8 ? 3 : 2)) + ".png");
+			ignis1.load(caminho + "res\\Bonequinho\\ignis" + (contAnimacao == 4 ? 4 : (contAnimacao == 2 ? 3 : 2)) + ".png");
+			ignis2.load(caminho + "res\\Bonequinho\\ignis" + (contAnimacao == 4 ? 4 : (contAnimacao == 2 ? 3 : 2)) + ".png");
 
-			kikiAriusRexthor.load(caminho + "res\\Bonequinho\\kiki arius rexthor" + (contAnimacao == 12 ? 4 : (contAnimacao == 8 ? 3 : 2)) + ".png");
+			kikiAriusRexthor.load(caminho + "res\\Bonequinho\\kiki arius rexthor" + (contAnimacao == 4 ? 4 : (contAnimacao == 2 ? 3 : 2)) + ".png");
 		}
 		
 		// ------------------------------------------ ayla ---------------------------------
@@ -520,29 +597,29 @@ public class Menu extends JPanel implements ActionListener {
 		
 		if(sentidoAnimacaoAyla == true) {contAnimacaoAyla --;} else {contAnimacaoAyla++;}
 		
-		if(contAnimacaoAyla == 0 || contAnimacaoAyla == 20) {sentidoAnimacaoAyla = !sentidoAnimacaoAyla;}
+		if(contAnimacaoAyla == 0 || contAnimacaoAyla == 21) {sentidoAnimacaoAyla = !sentidoAnimacaoAyla;}
 		
-		if(contAnimacaoAyla == 0 || contAnimacaoAyla % 5 == 0) {
-			ayla.load(caminho + "res\\Bonequinho\\ayla" + (contAnimacaoAyla == 15 ? 4 : (contAnimacaoAyla == 10 || contAnimacaoAyla == 0 ? 3 : 2)) + ".png");
-			sombraAyla.load(caminho + "res\\Bonequinho\\ayla" + (contAnimacaoAyla == 15 ? 12 : 13) + ".png");
+		if( contAnimacaoAyla % 3 == 0) {
+			ayla.load(caminho + "res\\Bonequinho\\ayla" + (contAnimacaoAyla == 21 || contAnimacaoAyla == 15 ? 4 : (contAnimacaoAyla == 18 || contAnimacaoAyla == 12 || contAnimacaoAyla == 6 || contAnimacaoAyla == 0 ? 3 : 2)) + ".png");
+			sombraAyla.load(caminho + "res\\Bonequinho\\ayla" + (contAnimacaoAyla == 21 || contAnimacaoAyla == 15 ? 13 : 12) + ".png");
 		}
-		
-		if(contAnimacaoAyla >= 0 && contAnimacaoAyla <= 10) {
-			ayla.setY(ayla.getY() + 1);
+		//10 + 8 + 3 + 12 = 33     8 + 6 = 15
+		if((sentidoAnimacaoAyla == true && contAnimacaoAyla <= 12) || (sentidoAnimacaoAyla == false && contAnimacaoAyla <= 14)) {
+			ayla.setY(ayla.getY() + (contAnimacaoAyla == 1 || contAnimacaoAyla == 2 ? 2 : (contAnimacaoAyla == 0 ? 3 : 1)));
 			
-			if(contAnimacaoAyla <= 6) {
-				ayla.setX(ayla.getX() - 1);
-				sombraAyla.setX(sombraAyla.getX() - 1);	
+			if(contAnimacaoAyla % 2 == 0) {
+				ayla.setX(ayla.getX() - (contAnimacaoAyla == 0 ? 2 : 1));
+				sombraAyla.setX(sombraAyla.getX() -(contAnimacaoAyla == 0 ? 2 : 1));	
 			}
+			//9 x 3 = 27     9
+		} else if((sentidoAnimacaoAyla == false && contAnimacaoAyla >= 15 && contAnimacaoAyla <= 17) || (sentidoAnimacaoAyla == true && contAnimacaoAyla >= 19 && contAnimacaoAyla <= 21) || (sentidoAnimacaoAyla == true && contAnimacaoAyla >= 13 && contAnimacaoAyla <= 15)) {
+			ayla.setY(ayla.getY() - 3);
 			
-		} else if((sentidoAnimacaoAyla == true && contAnimacaoAyla >= 12 && contAnimacaoAyla <= 15) || (sentidoAnimacaoAyla == false && contAnimacaoAyla >= 15 && contAnimacaoAyla <= 18)) {
-			ayla.setY(ayla.getY() - 2);
 			ayla.setX(ayla.getX() + 1);
-			
 			sombraAyla.setX(sombraAyla.getX() + 1);
 		}
-		
-		if(contAnimacaoAyla >= 18) {
+		// 3 + 3 = 6   -> 33      6    -> 15
+		if((sentidoAnimacaoAyla == false && contAnimacaoAyla >= 18 && contAnimacaoAyla <= 20) || (sentidoAnimacaoAyla == true && contAnimacaoAyla >= 16 && contAnimacaoAyla <= 18)) {
 			ayla.setY(ayla.getY() - 1);
 			ayla.setX(ayla.getX() + 1);
 			

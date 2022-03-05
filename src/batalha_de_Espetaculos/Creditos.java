@@ -127,7 +127,7 @@ public class Creditos extends JPanel implements ActionListener {
 		estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
 
 
-		timer = new Timer(5, this);
+		timer = new Timer(1, this);
 		timer.start();
 	}
 	
@@ -253,14 +253,14 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		contTempo ++;
 		AnimarImagens();
-		
+	
 		repaint();
 		
 	}
 	
 	public void AnimarImagens() {
 		
-		if(contTempo % 24 == 0) {
+		if(contTempo % 10 == 0) {
 			mudaImagem = !mudaImagem;
 			
 			aventureiro1.load(caminho + "res\\Creditos\\leonel" + (mudaImagem == false ? 1 : 2) + ".png");

@@ -7,7 +7,7 @@ public class Kiki {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{4, 6, 2, 1, 1, 2, 3, 1}, {0, 0, 3 , 5, 3, 4, 2, 5}, {-1, -1, 3, 3, 5, 2, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"Oficio Culinário", "Talentosa", "Enganação", "Mestre das fofocas", "Olhar atordoante", "Desarmar armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
+	private String [] NomeApelos = {"Oficio Culinário", "Talentosa", "Enganação", "Mestre das Fofocas", "Olhar Atordoante", "Desarmar Armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
 	private String [][] ConteudoDescricao = {  {"Como já é conveniente", "O ofício culinário salva o dia novamente.", "Todos ficam sedentos com a refeição de qualidade.", "PS: Impeça o Arius de roubar outra xícara de gorad.", " "},
 											   {"Como uma pessoa de puro talento", "Mostre sua maestria com vários instrumentos.", "Deixe as colinas e o mundo ouvirem sua voz melodiosa", "Esfregando na cara dos que duvidaram que seria famosa.", " "},
 											   {"Dizer que você está enganando alguém é uma acusação infundada.", "Tu apenas ajudou a ver que nessa situação complicada", "Um aproveitamento pode vir para ambas as partes,", "Você ficando como peso da vitória enquanto o outro com a leveza da irresponsabilidade.", "Esta habilidade afeta o primeiro campo."},

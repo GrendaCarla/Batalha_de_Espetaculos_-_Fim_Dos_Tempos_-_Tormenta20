@@ -7,7 +7,7 @@ public class Ayla {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{2, 5, 4, 4, 1, 6, 0, 1}, {4, 1, 0, 2, 3, 1, 0, 3}, {3, 0, -1, 1, 2, 0, 4, 5}, {0, 0, 0, 0, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce ilusório", "Aparência inofensiva", "Adaga mental", "Explosão de chamas", "Imagem espelhada", "Sono Magico"};
+	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce Ilusório", "Aparência Inofensiva", "Adaga Mental", "Explosão de Chamas", "Imagem Espelhada", "Sono Magico"};
 	private String [][] ConteudoDescricao = {  {"O que é capaz de vencer o mais forte dos seres", "Do que uma mentirinha bem contada com um bocado de enganação?", "Com uma mente afiada e planejamentos condizentes", "Até uma fadinha bem charmosa irá ter sua ascensão.", "Esta habilidade afeta o primeiro campo."},
 											   {"Você gosta de cores, brilhos e pirotecnia?", "Então venha ver as maravilhosas ilusões do nosso empório!", "O público se encanta, vibra e urra de alegria", "Ao mesmo tempo que atrapalha seus amigos irrisórios.", "Esta habilidade afeta todos os campos acima de você."},
 											   {"Borboleta, urubu ou uma senhora enrugada.", "Os produtos Mary Fay te dão uma aparência convincente.", "Então venha ver nossas revendedoras altamente requisitadas", "Para trazer novas possibilidades a sua mente.", "                                                                                                                      - Empório Purpúrea."}, 
@@ -23,7 +23,7 @@ public class Ayla {
 													 {"Minhas sinceras desculpas, mas a Srta. Ayla só recebe com hora marcada.", " ", " ", " "},
 													 {"Olá, você é a pessoa que está desejando me ver?", "Deixe-me adivinhar, você quer se tornar uma consultora de beleza aqui no meu empório.", "Não?",  " "},
 													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma competição, certo?", "Eu aceito o desafio, mas durante o caminho deixa-me falar sobre os benefícios de se tornar", "consult...", "As apresentações SEM interferência ganharão -1 de apelo."},
-													 {"Olá, como é bom te ver novamente, tem interesse em mais uma competição junto com um plano", "de carreira completo?", " ", " "}};
+													 {"Olá, como é bom te ver novamente, tem interesse em mais uma competição junto com", "um plano de carreira completo?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

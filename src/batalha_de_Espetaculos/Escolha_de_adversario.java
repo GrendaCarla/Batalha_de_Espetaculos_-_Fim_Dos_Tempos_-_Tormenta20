@@ -314,7 +314,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		SalvarJogo();
 		
-		timer = new Timer(30, this);
+		timer = new Timer(1, this);
 		timer.start();
 		
 	}
@@ -1634,17 +1634,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void MostrarLogo() {
 		
-		if(contLogoAyla == 110) {contLogoAyla = 0;} else {contLogoAyla ++;}
+		if(contLogoAyla == 80) {contLogoAyla = 0;} else {contLogoAyla ++;}
 		
 		
-		if(contLogoAyla == 10) {
+		if(contLogoAyla == 20) {
 			ArrayList<Integer>  mylist = new ArrayList<Integer>();
 			mylist.add(1); mylist.add(2);
 			Collections.shuffle(mylist);
 			
 			imgLogoAyla.load(caminho + "res\\EscolhaDeAdversario\\Ayla\\logo" + (mylist.get(0)) + ".png");
 			
-		} else if (contLogoAyla == 18) {
+		} else if (contLogoAyla == 28) {
 			imgLogoAyla.setImagem(null);
 		}
 	}
@@ -1655,37 +1655,39 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(aventureiro != 1 && aventureiro != 3) {
 			
-			if(contTempo % 70 == 0) {
+			if(contTempo % 50 == 0) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "1" : "6") + ".png");
-			} else if((contTempo - 35) % 70 == 0) {
+			} else if((contTempo - 15) % 50 == 0) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 2 ? "rexthor" : "arius")) + (num < 5 ? "0" : "5") + ".png");
 			}
 		
 		}else if(aventureiro == 3) {
 			
-			if(contTempo % 20 == 0) {
+			if(contTempo % 10 == 0) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\kiki" + (num < 5 ? "1" : "6") + ".png");
-			}else if((contTempo - 10) % 20 == 0) {
+			}else if((contTempo - 3) % 10 == 0) {
 					iconeAventureiro.load(caminho + "res\\Bonequinho\\kiki" + (num < 5 ? "0" : "5") + ".png");
 			}
 			
 		} else {
 			
-			if(contTempo % 30 == 0 || (contTempo - 10) % 30 == 0) {
+			if(contTempo % 30 == 0 || (contTempo - 8) % 30 == 0) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "1" : "6") + ".png");
 				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "11" : "15") + ".png");
-				iconeAventureiro.setY(iconeAventureiro.getY() - 7);
 				
-			} else if((contTempo - 5) % 30 == 0 || (contTempo - 14) % 30 == 0 || (contTempo - 18) % 30 == 0 || (contTempo - 22) % 30 == 0 || (contTempo - 26) % 30 == 0) {
+			} else if((contTempo - 3) % 30 == 0 || (contTempo - 11) % 30 == 0) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "0" : "5") + ".png");
 				iconeSombraAventureiro.load(caminho + "res\\Bonequinho\\ayla" + (num < 5 ? "10" : "14") + ".png");
 				
-				if ((contTempo - 5) % 30 == 0) {
-					iconeAventureiro.setY(iconeAventureiro.getY() - 2);
-				} else {
-					iconeAventureiro.setY(iconeAventureiro.getY() + 4);
-				}
 			} 
+			
+			if((contTempo - 1) % 30 == 0 || (contTempo - 9) % 30 == 0 || (contTempo + 1) % 30 == 0 || (contTempo - 7) % 30 == 0) {
+				iconeAventureiro.setY(iconeAventureiro.getY() - 6);
+			} else if((contTempo - 29) % 30 == 0 || (contTempo - 28) % 30 == 0 || (contTempo -27) % 30 == 0 || (contTempo - 26) % 30 == 0 ||
+					  (contTempo - 25) % 30 == 0 || (contTempo - 24) % 30 == 0 || (contTempo -22) % 30 == 0 || (contTempo - 19) % 30 == 0 ||
+					  (contTempo - 16) % 30 == 0 || (contTempo - 13) % 30 == 0 || (contTempo -5) % 30 == 0 || (contTempo - 7) % 30 == 0) {
+				iconeAventureiro.setY(iconeAventureiro.getY() + 2);
+			}
 			
 		}
 		
@@ -1693,7 +1695,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void animarteclado() {
 		
-		if(contTempo % 13 == 0) {
+		if(contTempo % 10 == 0) {
 			
 			animarApertoTecla = !animarApertoTecla;
 			teclaEsquerda.setX(teclaEsquerda.getX() + (animarApertoTecla == false ? 5 : -5));
@@ -1708,7 +1710,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 		if(iconeIgnis.getImagem() != null || iconeAyla.getImagem() != null || iconeRexthor.getImagem() != null || iconeKiki.getImagem() != null || iconeArius.getImagem() != null) {
 			
-			if(contTempo % 5 == 0) {
+			if(contTempo % 2 == 0) {
 				iconeIgnis.setY(iconeIgnis.getY() + (animarIconeAventureiro == false ? 1 : -1));
 				iconeAyla.setY(iconeAyla.getY() + (animarIconeAventureiro == false ? 1 : -1));
 				iconeRexthor.setY(iconeRexthor.getY() + (animarIconeAventureiro == false ? 1 : -1));
@@ -1716,7 +1718,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				iconeArius.setY(iconeArius.getY() + (animarIconeAventureiro == false ? 1 : -1));
 			}
 			
-			if(contTempo %30 == 0) {
+			if(contTempo %20 == 0) {
 				animarIconeAventureiro = !animarIconeAventureiro;
 			}
 		}
@@ -1729,37 +1731,37 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(resutado == 1) {
 			
-			if(contMenSalvar > 0 && contMenSalvar < 36) {
-				imgMenSalve.setX(imgMenSalve.getX() + 7);
-				imgMenSalve2.setX(imgMenSalve2.getX() + 7);
+			if(contMenSalvar > 0 && contMenSalvar < 25) {
+				imgMenSalve.setX(imgMenSalve.getX() + 10);
+				imgMenSalve2.setX(imgMenSalve2.getX() + 10);
 				
-				if(contMenSalvar > 11 && contMenSalvar % 2 == 0 && contConteudoSalvar < 11) {
+				if(contMenSalvar > 9  && contConteudoSalvar < 11) {
 					contConteudoSalvar ++;
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar));
 				}
 			}
 			
-			if(contMenSalvar == 30) {
+			if(contMenSalvar == 22) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
-			} else if(contMenSalvar == 34) {
+			} else if(contMenSalvar == 24) {
 				imgMenSalve2.setImagem(null);
 			}
 			
-			if(contMenSalvar == 70) {
+			if(contMenSalvar == 30) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
 			}
 			
-			if(contMenSalvar == 72) {
+			if(contMenSalvar == 31) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar2.png");
 				contConteudoSalvar --;
 			}
 			
 
-			if(contMenSalvar > 72 && contMenSalvar < 122) {
-				imgMenSalve.setX(imgMenSalve.getX() - 7);
-				imgMenSalve2.setX(imgMenSalve2.getX() - 7);
+			if(contMenSalvar > 31 && contMenSalvar < 56) {
+				imgMenSalve.setX(imgMenSalve.getX() - 10);
+				imgMenSalve2.setX(imgMenSalve2.getX() - 10);
 				
-				if(contMenSalvar > 75 && contMenSalvar % 2 == 0 && contConteudoSalvar > 0) {
+				if(contMenSalvar > 35 && contConteudoSalvar > 0) {
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar --));
 				}
 				
@@ -1767,18 +1769,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtSalvar.setTexto(" ");
 				}
 			}
-			if(contMenSalvar > 121) {
+			if(contMenSalvar > 56) {
 				imgMenSalve.setImagem(null);
 				contMenSalvar = -1;
 			}
 			
-		} else {
-			if(contMenSalvar == 100) {
-				sombreadorSaveAviso.setImagem(null);
-				saveAviso.setImagem(null);
-				txtSaveAviso.setTexto(" ");
-				contMenSalvar = -1;
-			}
 		}
 		
 	}
@@ -1786,18 +1781,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void animarVelas() {
 		
 		contAnimacaoVelaAyla ++;
+	
+		objetoDeFundo1.setY(objetoDeFundo1.getY() + (ativarAnimacaoVelaAyla == 1 ? 1 : -1));
+		objetoDeFundo2.setY(objetoDeFundo2.getY() + (ativarAnimacaoVelaAyla == 1 ? -1 : 1));
+	
 		
-		if(ativarAnimacaoVelaAyla == 1 && contAnimacaoVelaAyla%2 == 0) {
-			objetoDeFundo1.setY(objetoDeFundo1.getY() - 1);
-			objetoDeFundo2.setY(objetoDeFundo2.getY() + 1);
-		} else if(ativarAnimacaoVelaAyla == 2 && contAnimacaoVelaAyla%2 == 0) {
-			objetoDeFundo1.setY(objetoDeFundo1.getY() + 1);
-			objetoDeFundo2.setY(objetoDeFundo2.getY() - 1);
-		}
-		
-		if(objetoDeFundo1.getY() <= 60) {
+		if(objetoDeFundo1.getY() == 86) {
 			ativarAnimacaoVelaAyla = 2;
-		} else if(objetoDeFundo1.getY() >= 80) {
+		} else if(objetoDeFundo1.getY() == 70) {
 			ativarAnimacaoVelaAyla = 1;
 		} 
 		
@@ -1832,16 +1823,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void animarJosefine() {
 		
-		if(contAnimacaoJosefine == 21) {contAnimacaoJosefine = 0;}
+		if(contAnimacaoJosefine == 19) {contAnimacaoJosefine = 0;}
 		else {contAnimacaoJosefine ++;}
 		
-		if(contAnimacaoJosefine == 4 || contAnimacaoJosefine == 11 || contAnimacaoJosefine == 18) {
+		if(contAnimacaoJosefine == 3 || contAnimacaoJosefine == 9 || contAnimacaoJosefine == 16) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine2.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco1.png");
-		} else if(contAnimacaoJosefine == 7) {
+		} else if(contAnimacaoJosefine == 5) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine3.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
-		} else if(contAnimacaoJosefine == 14) {
+		} else if(contAnimacaoJosefine == 12) {
 			objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\Josefine1.png");
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
 		} 

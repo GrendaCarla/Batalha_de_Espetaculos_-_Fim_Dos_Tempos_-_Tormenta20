@@ -135,8 +135,8 @@ public class Manual extends JPanel implements ActionListener {
 	
 		// ----------------------- Descrição -----------------------------------
 
-	private Texto txtLn14 = new Texto(txtLn7.getX(), 1010, "7. A descrição da habilidade é puramente enrrolação. O importante é a ultima linha colorida, que diz");
-	private Texto txtLn15 = new Texto(txtLn7.getX() + 26, txtLn14.getY() + espacoLinha, "o efeito da interferencia.");	
+	private Texto txtLn14 = new Texto(txtLn7.getX(), 1010, "7. A descrição da habilidade é puramente enrrolação. O importante é a ultima linha colorida que");
+	private Texto txtLn15 = new Texto(txtLn7.getX() + 26, txtLn14.getY() + espacoLinha, "informa o efeito da interferencia.");	
 	
 	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 40);
 	
@@ -146,8 +146,7 @@ public class Manual extends JPanel implements ActionListener {
 	private String conteudoDescricao = "O que é capaz de vencer o mais forte dos seres"
 			+ "Do que uma mentirinha bem contada com um bocado de enganação?"
 			+ "Com uma mente afiada e planejamentos condizentes" 
-			+ "Até uma fadinha bem charmosa irá ter sua ascensão."
-			+ "Esta habilidade afeta o primeiro campo.";
+			+ "Até uma fadinha bem charmosa irá ter sua ascensão.";
 	
 	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY());
 	private Icones_interativos fundoPainel3 = new Icones_interativos(painel3.getX() - 15, painel3.getY() - 15);
@@ -372,7 +371,7 @@ public class Manual extends JPanel implements ActionListener {
 		textoDescricao2 = new Texto(textoDescricao1.getX(), textoDescricao1.getY() + 28, " ");
 		textoDescricao3 = new Texto(textoDescricao2.getX(), textoDescricao2.getY() + 28, " ");
 		textoDescricao4 = new Texto(textoDescricao3.getX(), textoDescricao3.getY() + 28, " ");
-		textoDescricao5 = new Texto(textoDescricao4.getX() + 238, textoDescricao4.getY() + 28, "Esta habilidade afeta o primeiro campo.");
+		textoDescricao5 = new Texto(textoDescricao4.getX(), textoDescricao4.getY() + 28, "Esta habilidade afeta o primeiro campo.");
 
 		textoDescricao1.setFonte(new Font("Arial", Font.PLAIN, 20));
 		
@@ -432,18 +431,18 @@ public class Manual extends JPanel implements ActionListener {
 		// ------------------------------------------------------------------------------
 
 		
-		timer = new Timer(5, this);
+		timer = new Timer(1, this);
 		timer.start();
 	}
 	
 	public void AnimarControles() {
 		contTempoControles ++;
 		
-		if(contTempoControles == 121) {
+		if(contTempoControles == 75) {
 			contTempoControles = 0;
 		}
 		
-		if(contTempoControles % 10 == 0) {
+		if(contTempoControles % 5 == 0) {
 			teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
 			teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
 			teclaCima.load(caminho + "res\\Teclado\\setaCima1.png");
@@ -453,59 +452,50 @@ public class Manual extends JPanel implements ActionListener {
 			teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		}
 		
-		if(contTempoControles == 15) {
+		if(contTempoControles == 10) {
 			teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda2.png");
-		} else if(contTempoControles == 30) {
+		} else if(contTempoControles == 20) {
 			teclaDireita.load(caminho + "res\\Teclado\\setaDireita2.png");
-		} else if(contTempoControles == 45) {
+		} else if(contTempoControles == 30) {
 			teclaCima.load(caminho + "res\\Teclado\\setaCima2.png");
-		} else if(contTempoControles == 60) {
+		} else if(contTempoControles == 40) {
 			teclaBaixo.load(caminho + "res\\Teclado\\setaBaixo2.png");
-		} else if(contTempoControles == 75) {
+		} else if(contTempoControles == 50) {
 			teclaZ.load(caminho + "res\\Teclado\\teclaZ2.png");
-		} else if(contTempoControles == 90) {
+		} else if(contTempoControles == 60) {
 			teclaX.load(caminho + "res\\Teclado\\teclaX2.png");
-		} else if(contTempoControles == 105) {
+		} else if(contTempoControles == 70) {
 			teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
 		}
 		
 	}
 	
 	public void AnimarNomeApelo() {
-		contTempoNomeApelo ++;
 		
-		if(contTempoNomeApelo == 100) {
-			contTempoNomeApelo = 0;
-		}
-		
-		if(contTempoNomeApelo == 0 || contTempoNomeApelo == 25 || contTempoNomeApelo == 50 || contTempoNomeApelo == 75) {
-			nomeHabilidade1.load(caminho + "res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade3.load(caminho + "res\\batalha\\nomeHabilidade.png");
-			nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
-		}
+		if(contTempoNomeApelo == 80) {contTempoNomeApelo = 0;} else {contTempoNomeApelo ++;}
 		
 		if(contTempoNomeApelo == 0) {
+			nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
 			nomeHabilidade1.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
-		} else if(contTempoNomeApelo == 25) {
+		} else if(contTempoNomeApelo == 20) {
+			nomeHabilidade1.load(caminho + "res\\batalha\\nomeHabilidade.png");
 			nomeHabilidade2.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
-		} else if(contTempoNomeApelo == 50) {
+		} else if(contTempoNomeApelo == 40) {
+			nomeHabilidade2.load(caminho + "res\\batalha\\nomeHabilidade.png");
 			nomeHabilidade3.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
-		} else if(contTempoNomeApelo == 75) {
+		} else if(contTempoNomeApelo == 60) {
+			nomeHabilidade3.load(caminho + "res\\batalha\\nomeHabilidade.png");
 			nomeHabilidade4.load(caminho + "res\\batalha\\Ignis\\nomeHabilidadeSelecionado.png");
 		}
 		
 	}
 	
 	public void AnimarInfoApelo() {
-		contTempoInfoApelo ++;
 		
-		if(contTempoInfoApelo == 80) {
-			contTempoInfoApelo = 0;
-		}
+		if(contTempoInfoApelo == 40) {contTempoInfoApelo = 0;} else {contTempoInfoApelo ++;}
 		
 		
-		if(contTempoInfoApelo == 0 || contTempoInfoApelo == 40 || contTempoInfoApelo == 80) {
+		if(contTempoInfoApelo == 0 || contTempoInfoApelo == 20 || contTempoInfoApelo == 40) {
 			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo1.png");
 
 			apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
@@ -519,7 +509,7 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 
-		if(contTempoInfoApelo == 20) {
+		if(contTempoInfoApelo == 10) {
 			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo2.png");
 
 			apeloApelo1.load(caminho + "res\\batalha\\apelo.png");
@@ -532,7 +522,7 @@ public class Manual extends JPanel implements ActionListener {
 			apeloInterf2.setImagem(null);
 		}
 		
-		if(contTempoInfoApelo == 60) {
+		if(contTempoInfoApelo == 30) {
 			tipoDoApelo.load(caminho + "res\\batalha\\tipoDoApelo2.png");
 
 			apeloApelo1.setImagem(null);
@@ -550,7 +540,7 @@ public class Manual extends JPanel implements ActionListener {
 	public void AnimarDescricao() {
 		contTempoDescricao ++;
 		
-		if(contTempoDescricao == 420) {
+		if(contTempoDescricao == 270) {
 			contTempoDescricao = -18;
 			textoDescricao1.setTexto(" ");
 			textoDescricao2.setTexto(" ");
@@ -573,7 +563,7 @@ public class Manual extends JPanel implements ActionListener {
 	public void AnimarCampoBatalha() {
 		contTempoCampoBatalha ++;
 		
-		if(contTempoCampoBatalha == 820) {
+		if(contTempoCampoBatalha == 500) {
 			contTempoCampoBatalha = -20;
 			apagarCoracoes();
 			
@@ -584,21 +574,21 @@ public class Manual extends JPanel implements ActionListener {
 			coracao05.setX(campoBatalha5.getX() + 116);
 		}
 		
-		if(contTempoCampoBatalha > 0 && contTempoCampoBatalha < 100) {
+		if(contTempoCampoBatalha == 0) {
 			luzCampoBatalha1.load(caminho + "res\\batalha\\Ignis\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 100 && contTempoCampoBatalha < 200) {
+		} else if(contTempoCampoBatalha == 50) {
 			luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha2.load(caminho + "res\\batalha\\Ayla\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 300 && contTempoCampoBatalha < 400) {
+		} else if(contTempoCampoBatalha == 150) {
 			luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha3.load(caminho + "res\\batalha\\Rexthor\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 400 && contTempoCampoBatalha < 500) {
+		} else if(contTempoCampoBatalha == 200) {
 			luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha4.load(caminho + "res\\batalha\\Kiki\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 500 && contTempoCampoBatalha < 600) {
+		} else if(contTempoCampoBatalha == 330) {
 			luzCampoBatalha4.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha5.load(caminho + "res\\batalha\\Arius\\luzCampoBatalha2.png");
-		} else if(contTempoCampoBatalha > 700) {
+		} else if(contTempoCampoBatalha == 430) {
 			luzCampoBatalha1.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha2.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
 			luzCampoBatalha3.load(caminho + "res\\batalha\\luzCampoBatalha1.png");
@@ -607,76 +597,76 @@ public class Manual extends JPanel implements ActionListener {
 		}
 		
 		for(int i=1; i<6; i++) {
-			if(contTempoCampoBatalha == i * 10) {
+			if(contTempoCampoBatalha == i * 5) {
 				(i == 1 ? coracao11 : coracao12).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
 		for(int i=1; i<7; i++) {
-			if(contTempoCampoBatalha == i * 10 + 100) {
+			if(contTempoCampoBatalha == i * 5 + 50) {
 				(i == 1 ? coracao21 : (i == 2 ? coracao22 : (i == 3 ? coracao23 : (i == 4 ? coracao24 : coracao25)))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
-		if(contTempoCampoBatalha == 190) {
+		if(contTempoCampoBatalha == 100) {
 			txtEfeitoFase.setY(campoBatalha2.getY() + 70/2 + 20/2);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			txtEfeitoFase.setTexto("- 2");
 			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			
-		} else if(contTempoCampoBatalha == 240) {
+		} else if(contTempoCampoBatalha == 120) {
 			txtEfeitoFase.setTexto(" ");
 			efeitoFase.setImagem(null);
 		}
 		
 
 		for(int i=5; i<7; i++) {
-			if(contTempoCampoBatalha == i * 10 + 200) {
+			if(contTempoCampoBatalha == i * 5 + 100) {
 				(i == 5 ? coracao25 : coracao24).load(caminho + "res\\batalha\\losango.png");
 			} 
 		}
 		
 		for(int i=1; i<6; i++) {
-			if(contTempoCampoBatalha == i * 10 + 300) {
+			if(contTempoCampoBatalha == i * 5 + 150) {
 				(i == 1 ? coracao31 : (i == 2 ? coracao32 : (i == 3 ? coracao33 : coracao34))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
 		for(int i=1; i<7; i++) {
-			if(contTempoCampoBatalha == i * 10 + 400) {
+			if(contTempoCampoBatalha == i * 5 + 200) {
 				(i == 1 ? coracao41 : (i == 2 ? coracao42 : (i == 3 ? coracao43 : coracao44))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
-		if(contTempoCampoBatalha == 450) {
+		if(contTempoCampoBatalha == 240) {
 			txtEfeitoFase.setY(campoBatalha4.getY() + 70/2 + 20/2);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			txtEfeitoFase.setTexto("+ 1");
 			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			
-		} else if(contTempoCampoBatalha == 480) {
+		} else if(contTempoCampoBatalha == 280) {
 			txtEfeitoFase.setTexto(" ");
 			efeitoFase.setImagem(null);
 		}
 
-		if(contTempoCampoBatalha == 490) {
+		if(contTempoCampoBatalha == 300) {
 			coracao45.load(caminho + "res\\batalha\\apelo.png");
 		} 
 		
 		for(int i=1; i<6; i++) {
-			if(contTempoCampoBatalha == i * 10 + 500) {
+			if(contTempoCampoBatalha == i * 5 + 330) {
 				(i == 1 ? coracao51 : (i == 2 ? coracao52 : (i == 3 ? coracao53 : (i == 4 ? coracao54 : coracao55)))).load(caminho + "res\\batalha\\apelo.png");
 			} 
 		}
 		
 		for(int i=1; i<5; i++) {
-			if(contTempoCampoBatalha == i * 20 + 600) {
+			if(contTempoCampoBatalha == i * 10 + 380) {
 				(i == 1 ? coracao12 : (i == 2 ? coracao23 : (i == 3 ? coracao34 : coracao45))).load(caminho + "res\\batalha\\losango.png");
 			} 
 		}
 		
 		for(int i=2; i<7; i++) {
-			if(contTempoCampoBatalha == (i-1) * 20 + 700) {
+			if(contTempoCampoBatalha == (i-1) * 10 + 430) {
 
 				(i == 2 ? coracao01 : (i == 3 ? coracao02 : (i == 4 ? coracao03 : (i == 5 ? coracao04 : coracao05)))).setX((i == 2 ? campoBatalha1 : (i == 3 ? campoBatalha2 : (i == 4 ? campoBatalha3 : (i == 5 ? campoBatalha4 : campoBatalha5)))).getX() + 116 + (5 * i));
 			}
@@ -845,13 +835,13 @@ public class Manual extends JPanel implements ActionListener {
 		tl13 = new TextLayout(nomeApelo4.getTexto(), nomeApelo1.getFonte(), frc);
 
 	    
-	    graficos.setColor(contTempoNomeApelo >= 0 && contTempoNomeApelo < 25 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
+	    graficos.setColor(contTempoNomeApelo >= 0 && contTempoNomeApelo < 20 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl10.draw(graficos, nomeApelo1.getRedX(), nomeApelo1.getRedY() + rolagemTela);
-	    graficos.setColor(contTempoNomeApelo >= 25 && contTempoNomeApelo < 50 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
+	    graficos.setColor(contTempoNomeApelo >= 20 && contTempoNomeApelo < 40 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl11.draw(graficos, nomeApelo2.getRedX(), nomeApelo2.getRedY() + rolagemTela);
-	    graficos.setColor(contTempoNomeApelo >= 50 && contTempoNomeApelo < 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
+	    graficos.setColor(contTempoNomeApelo >= 40 && contTempoNomeApelo < 60 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl12.draw(graficos, nomeApelo3.getRedX(), nomeApelo3.getRedY() + rolagemTela);
-	    graficos.setColor(contTempoNomeApelo >= 75 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
+	    graficos.setColor(contTempoNomeApelo >= 60 ? nomeApelo1.getCorTexto() : nomeApelo2.getCorTexto());
 	    tl13.draw(graficos, nomeApelo4.getRedX(), nomeApelo4.getRedY() + rolagemTela);
 	    graficos.setColor(txtLn2.getCorTexto());
 		

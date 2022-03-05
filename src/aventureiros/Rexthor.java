@@ -7,7 +7,7 @@ public class Rexthor {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{4, 3, 6, 4, 4, 0, 1}, {3, 0, 2, 0, 2, 10, 4}, {2, -1, 5, -1, 0, 6, 1}, {1, 1, 1, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7};
-	private String [] NomeApelos = {"Gancho da dor", "Esquiva", "Briga", "Sentidos aguçados", "Besuntar", "Sorte das deusas", "A tanga"};
+	private String [] NomeApelos = {"Gancho da Dor", "Esquiva", "Briga", "Sentidos Aguçados", "Besuntar", "Sorte das Deusas", "A Tanga"};
 	private String [][] ConteudoDescricao = {  {"De músculos contraídos", "Um gancho é disparado.", "Um rosto é re-esculpido", "Em um corpo desmaiado.", "Esta habilidade afeta o campo acima de você."},
 											   {"Golpes são projetados", "Em sua direção.", "Com movimentos calculados", "Você esquiva em demonstração.", " "},
 											   {"Agressão, barraco, conflito,", "Peleja, refrega, selvageria,", "Confronto, batalha, atrito,", "Sururu, requesta, pancadaria.", "Esta habilidade afeta um campo acima e um abaixo."},
