@@ -414,7 +414,7 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		painel1.load(caminho + "res\\batalha\\painel1.png");
 		
-		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
+		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 18));
 		nomeApelo1.setCorTexto((aventureiro == 0 ? (new Color (255, 60, 0)) : (aventureiro == 1 ? (new Color (255, 0, 191)) : (aventureiro == 2 ? (new Color (0, 134, 255)) : (aventureiro == 3 ? (new Color (0, 255, 141)) : (new Color (255, 0, 38)))))));
 		nomeApelo2.setCorTexto(new Color (235, 148, 150));
 		nomeApelo3.setCorTexto(new Color (198, 96, 134));
@@ -2178,7 +2178,41 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void gifApresentacao(int avent, int numApelo) {
 
-		if(avent == 0 && gifApelos[0][numApelo] == 3) {
+		if(avent == 0 && gifApelos[0][numApelo] == 1) {
+			
+			if(animacao.getDx() >= 2 && animacao.getDx() <= 48 && animacao.getDx() % 6 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
+			
+			} else if(animacao.getDx() >= 5 && animacao.getDx() <= 48 && animacao.getDx() % 3 == 0) {
+				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\1.png");
+			
+			} else if(animacao.getDx() == 50) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\2.png");
+				
+			} else if(animacao.getDx() == 56) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\3.png");
+				
+			} else if(animacao.getDx() >= 66 && animacao.getDx() <= 78 && animacao.getDx() % 6 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\4.png");
+				
+			} else if(animacao.getDx() >= 63 && animacao.getDx() <= 81 && animacao.getDx() % 3 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\5.png");
+		
+			} else if(animacao.getDx() >= 84 && animacao.getDx() <= 114 && animacao.getDx() % 6 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\6.png");
+				
+			} else if(animacao.getDx() >= 87 && animacao.getDx() <= 111 && animacao.getDx() % 3 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\7.png");
+			
+			}  else if(animacao.getDx() >= 116 && animacao.getDx() <= 140 && animacao.getDx() % 4 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\8.png");
+			
+			} else if(animacao.getDx() >= 118 && animacao.getDx() <= 138 && animacao.getDx() % 2 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\9.png");
+				
+			}
+				
+		} else if(avent == 0 && gifApelos[0][numApelo] == 3) {
 			
 			if(animacao.getDx() >= 2 && animacao.getDx() < 60 && animacao.getDx() % 6 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
