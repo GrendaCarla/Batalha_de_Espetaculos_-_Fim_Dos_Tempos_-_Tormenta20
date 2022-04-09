@@ -658,8 +658,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					contEngranagem1= 1;
 				} else {contEngranagem1++;}
 				
-				
-				
 				engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem" + contEngranagem1 + ".png");
 							
 				if(camada42.getX() == 0) { camada41.setX(esquerda == true ? -4000 : 4000);}
@@ -1731,37 +1729,38 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(resutado == 1) {
 			
-			if(contMenSalvar > 0 && contMenSalvar < 25) {
-				imgMenSalve.setX(imgMenSalve.getX() + 10);
-				imgMenSalve2.setX(imgMenSalve2.getX() + 10);
+			if(contMenSalvar > 0 && contMenSalvar < 16) {
+				imgMenSalve.setX(imgMenSalve.getX() + 15);
+				imgMenSalve2.setX(imgMenSalve2.getX() + 15);
 				
-				if(contMenSalvar > 9  && contConteudoSalvar < 11) {
-					contConteudoSalvar ++;
+				if(contMenSalvar > 5  && contConteudoSalvar < 11) {
+					contConteudoSalvar = (contConteudoSalvar == 7 ? 10 : contConteudoSalvar + 1);
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar));
 				}
 			}
 			
-			if(contMenSalvar == 22) {
+			if(contMenSalvar == 13) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
-			} else if(contMenSalvar == 24) {
+			} else if(contMenSalvar == 15) {
 				imgMenSalve2.setImagem(null);
 			}
 			
-			if(contMenSalvar == 30) {
+			if(contMenSalvar == 25) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar3.png");
 			}
 			
-			if(contMenSalvar == 31) {
+			if(contMenSalvar == 28) {
 				imgMenSalve2.load(caminho + "res\\mensagem aviso\\salvar2.png");
 				contConteudoSalvar --;
 			}
 			
 
-			if(contMenSalvar > 31 && contMenSalvar < 56) {
-				imgMenSalve.setX(imgMenSalve.getX() - 10);
-				imgMenSalve2.setX(imgMenSalve2.getX() - 10);
+			if(contMenSalvar > 26 && contMenSalvar < 42) {
+				imgMenSalve.setX(imgMenSalve.getX() - 15);
+				imgMenSalve2.setX(imgMenSalve2.getX() - 15);
 				
-				if(contMenSalvar > 35 && contConteudoSalvar > 0) {
+				if(contMenSalvar > 26 && contConteudoSalvar > 0) {
+					contConteudoSalvar = contConteudoSalvar + (contConteudoSalvar == 7 ? -2 : 0);
 					txtSalvar.setTexto(conteudoSalvar.substring(0,contConteudoSalvar --));
 				}
 				
@@ -1769,7 +1768,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtSalvar.setTexto(" ");
 				}
 			}
-			if(contMenSalvar > 56) {
+			if(contMenSalvar > 42) {
 				imgMenSalve.setImagem(null);
 				contMenSalvar = -1;
 			}

@@ -59,6 +59,7 @@ public class Icones_interativos {
 		}
 	}
 	
+	
 	public int getLarg() {
 		return larg;
 	}

@@ -7,7 +7,7 @@ public class Ayla {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{2, 5, 4, 4, 1, 6, 0, 1}, {4, 1, 0, 2, 3, 1, 0, 3}, {3, 0, -1, 1, 2, 0, 4, 5}, {0, 0, 0, 0, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce Ilusório", "Aparência Inofensiva", "Adaga Mental", "Explosão de Chamas", "Imagem Espelhada", "Sono Magico"};
+	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce Ilusório", "Aparência Inofensiva", "Adaga Mental", "Explosão de Chamas", "Imagem Espelhada", "Doces Sonhos"};
 	private String [][] ConteudoDescricao = {  {"O que é capaz de vencer o mais forte dos seres", "Do que uma mentirinha bem contada com um bocado de enganação?", "Com uma mente afiada e planejamentos condizentes", "Até uma fadinha bem charmosa irá ter sua ascensão.", "Esta habilidade afeta o primeiro campo."},
 											   {"Você gosta de cores, brilhos e pirotecnia?", "Então venha ver as maravilhosas ilusões do nosso empório!", "O público se encanta, vibra e urra de alegria", "Ao mesmo tempo que atrapalha seus amigos irrisórios.", "Esta habilidade afeta todos os campos acima de você."},
 											   {"Borboleta, urubu ou uma senhora enrugada.", "Os produtos Mary Fay te dão uma aparência convincente.", "Então venha ver nossas revendedoras altamente requisitadas", "Para trazer novas possibilidades a sua mente.", "                                                                                                                      - Empório Purpúrea."}, 
@@ -33,9 +33,12 @@ public class Ayla {
 	
 	public void sorteio () {
 
-		for(int i=0; i<8; i++) {
+		/*for(int i=0; i<8; i++) {
 	        mylist.add(i);
-		}
+		}*/
+		
+		mylist.add(0); mylist.add(3); mylist.add(5); mylist.add(7);
+		
 		Collections.shuffle(mylist);
 		
 	}
