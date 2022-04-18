@@ -228,14 +228,23 @@ public class Menu extends JPanel implements ActionListener {
 		
 		bntManual.load(caminho + "res\\Menu principal\\bntManual1.png");
 		bntCreditos.load(caminho + "res\\Menu principal\\bntCreditos1.png");
+		
+		dialogoAviso.setImagem(null);
+		sombreadorDialogoAviso.setImagem(null);
+		bntSimDialogoAviso.setImagem(null);
+		bntNaoDialogoAviso.setImagem(null);
+		
+		txtDialogoAviso.setTexto(" ");
+		txtDialogoAviso2.setTexto(" ");
+		
 	}
 
 	/* ---------------------------------------------------------------------------------------- \
-	|  									aviso novo jogo								|
+	|  									aviso novo jogo											|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void dialogoBntNovoJogo(int codigo) {
-		System.out.println("veio");
+
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
