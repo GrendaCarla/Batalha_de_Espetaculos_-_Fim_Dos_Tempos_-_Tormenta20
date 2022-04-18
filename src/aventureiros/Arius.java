@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Arius {
-	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
+	//                                   apelo,                interferÃªncia,          tipo interferÃªncia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{3, 0, 3, 5, 1, 0, 5, 5}, {2, 0, 1, 0, 5, 10, 0, 0}, {2, 4, 0, -1, 3, 6, -1, -1}, {1, 0, 0, 1, 0, 0, 1, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"Chifrada", "Estratégia em Combate", "O Mamilo Rosa", "Olimpíadas das Centrais", "Diplomacia", "5 é 20", "Gládio e Escudo", "Declamar Poema"};
-	private String [][] ConteudoDescricao = {  {"Com teus cornos perfure a tora resistente.", "Com tua força taurina erga-a no ar.", "O mais longe que puder lançe-a na tua frente,", "Então torça para o tronco ninguém acertar.", "Esta habilidade afeta o campo acima de você."},
-											   {"Somente através da violência a vitória não advêm.", "Ao compreender aqueles que acima estão", "Vantagem poderá ganhar também", "Ao ver seus movimentos com antecipação.", "Esta habilidade zera as interferências ganhadas antes da sua ação nessa rodada."},
-											   {"Ao tirar sua couraça em meio ao espetáculo", "Todos podem vê-lo e é impossível de desviar.", "Por mais que seja um órgão prosaico", "O único mamilo rosa consegue a todos hipnotizar.", "Esta habilidade afeta todos os campos acima de você."},
-											   {"Acenda sua pira do espírito esportivo", "Participando de diversos jogos consecutivos", "Como salto pela paliçada, flechada nos irmãos,", "Esconde-esconde com baratas e arremesso com explosão.", " "},
-											   {"Use a perícia diplomática na audiência", "Para que possa com ela argumentar e convencer", "Que o primeiro colocado deve apresentar a imponência", "Em sua demonstração, o que dessa vez não conseguiu fazer.", "Esta habilidade afeta o primeiro campo."},
-											   {"Jogando cinco d20 uma aposta você vai fazer.", "Não há repetição nos números contemplados.", "10 apelos você ganha se 5 o dado conceber.", "Então camarada, você está tentado?", "Esta habilidade te concede 10 apelos se o número 5 sair em um dos dados."},
-											   {"Lembre-se do seu treinamento nas legiões do império.", "Com o gládio em mãos e o escudo bem posicionado", "Demonstre suas táticas e o conhecimento bélico", "Evitando se queimar enquanto estiver derrubado.", " "},
-											   {"Se quiseres emocionar a plateia", "Terás que revelar seus sentimentos dolorosos.", "Recita-los em forma de prosa poética", "Parece certamente um dos modos mais graciosos.", " "}};
+	private String [] NomeApelos = {"Chifrada", "EstratÃ©gia em Combate", "O Mamilo Rosa", "OlimpÃ­adas das Centrais", "Diplomacia", "5 Ã© 20", "GlÃ¡dio e Escudo", "Declamar Poema"};
+	private String [][] ConteudoDescricao = {  {"Com teus cornos perfure a tora resistente.", "Com tua forÃ§a taurina erga-a no ar.", "O mais longe que puder lanÃ§e-a na tua frente,", "EntÃ£o torÃ§a para o tronco ninguÃ©m acertar.", "Esta habilidade afeta o campo acima de vocÃª."},
+											   {"Somente atravÃ©s da violÃªncia a vitÃ³ria nÃ£o advÃªm.", "Ao compreender aqueles que acima estÃ£o", "Vantagem poderÃ¡ ganhar tambÃ©m", "Ao ver seus movimentos com antecipaÃ§Ã£o.", "Esta habilidade zera as interferÃªncias ganhadas antes da sua aÃ§Ã£o nessa rodada."},
+											   {"Ao tirar sua couraÃ§a em meio ao espetÃ¡culo", "Todos podem vÃª-lo e Ã© impossÃ­vel de desviar.", "Por mais que seja um Ã³rgÃ£o prosaico", "O Ãºnico mamilo rosa consegue a todos hipnotizar.", "Esta habilidade afeta todos os campos acima de vocÃª."},
+											   {"Acenda sua pira do espÃ­rito esportivo", "Participando de diversos jogos consecutivos", "Como salto pela paliÃ§ada, flechada nos irmÃ£os,", "Esconde-esconde com baratas e arremesso com explosÃ£o.", " "},
+											   {"Use a perÃ­cia diplomÃ¡tica na audiÃªncia", "Para que possa com ela argumentar e convencer", "Que o primeiro colocado deve apresentar a imponÃªncia", "Em sua demonstraÃ§Ã£o, o que dessa vez nÃ£o conseguiu fazer.", "Esta habilidade afeta o primeiro campo."},
+											   {"Jogando cinco d20 uma aposta vocÃª vai fazer.", "NÃ£o hÃ¡ repetiÃ§Ã£o nos nÃºmeros contemplados.", "10 apelos vocÃª ganha se 5 o dado conceber.", "EntÃ£o camarada, vocÃª estÃ¡ tentado?", "Esta habilidade te concede 10 apelos se o nÃºmero 5 sair em um dos dados."},
+											   {"Lembre-se do seu treinamento nas legiÃµes do impÃ©rio.", "Com o glÃ¡dio em mÃ£os e o escudo bem posicionado", "Demonstre suas tÃ¡ticas e o conhecimento bÃ©lico", "Evitando se queimar enquanto estiver derrubado.", " "},
+											   {"Se quiseres emocionar a plateia", "TerÃ¡s que revelar seus sentimentos dolorosos.", "Recita-los em forma de prosa poÃ©tica", "Parece certamente um dos modos mais graciosos.", " "}};
 	
-	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
-													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
-													{"Isso é ótimo, obviamente será uma boa maneira de adquirir novos conhecimentos, como mestre", "Luriel me dizia 'a prática e a observação de técnicas de outrem contribui muito para o", "aprimoramento... blá, blá, blá'.", "As apresentações SEM interferência ganharão +1 de apelo."},
-													{"Bem, eu estava indo mostrar a nada-mais-que-a-verdade a maravilhosa plantação de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se à vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que nada-mais-que-a-verdade se interessará bastante no que tem a dizer."},
-													{"Saudações, você esta querendo me desafiar para uma disputa amistosa novamente?", " ", " ", " "}};
+	private String [][] ConteudoEscolhaAdversario = {{"SaudaÃ§Ãµes andarilho, gostaria de falar comigo?", "Por acaso vocÃª tambÃ©m segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "NÃ£o?"},
+													{"VocÃª esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
+													{"Isso Ã© Ã³timo, obviamente serÃ¡ uma boa maneira de adquirir novos conhecimentos, como mestre", "Luriel me dizia 'a prÃ¡tica e a observaÃ§Ã£o de tÃ©cnicas de outrem contribui muito para o", "aprimoramento... blÃ¡, blÃ¡, blÃ¡'.", "As apresentaÃ§Ãµes SEM interferÃªncia ganharÃ£o +1 de apelo."},
+													{"Bem, eu estava indo mostrar a nada-mais-que-a-verdade a maravilhosa plantaÃ§Ã£o de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se Ã  vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que nada-mais-que-a-verdade se interessarÃ¡ bastante no que tem a dizer."},
+													{"SaudaÃ§Ãµes, vocÃª esta querendo me desafiar para uma disputa amistosa novamente?", " ", " ", " "}};
 
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
@@ -71,4 +71,3 @@ public class Arius {
 		return ConteudoEscolhaAdversario;
 	}
 }
-

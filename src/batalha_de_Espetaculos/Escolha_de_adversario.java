@@ -29,7 +29,7 @@ import batalha_de_Espetaculos.Modelo.Texto;
 public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  Escolha_de_adversario È a tela a onde os jogadores escolheram qual dos c„es das colinas  |
+	|  Escolha_de_adversario √© a tela a onde os jogadores escolheram qual dos c√£es das colinas  |
 	|  iram jogar contra.																		|
 	\ ---------------------------------------------------------------------------------------- */
 
@@ -85,7 +85,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private boolean ativarBoss = false;
 	
-	// ------------------------------------------- AtivaÁ„o direcional ---------------------------------------------
+	// ------------------------------------------- Ativa√ß√£o direcional ---------------------------------------------
 	
 	private boolean cima = false;
 	private boolean baixo = false;
@@ -100,7 +100,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private boolean animarApertoTecla = false;
 	
-	// ------------------------ imagens dos Ìcones aventureiros ------------------------------
+	// ------------------------ imagens dos √≠cones aventureiros ------------------------------
 	
 	private Icones_interativos iconeBoss = new Icones_interativos(510, 70);
 	private Icones_interativos iconeIgnis = new Icones_interativos(2600, iconeBoss.getY());
@@ -118,7 +118,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos imgLogoAyla = new Icones_interativos(0, 0);
 
 	
-	// ------------------------ informaÁıes dos aventureiros ------------------------------
+	// ------------------------ informa√ß√µes dos aventureiros ------------------------------
 	
 	private Ignis ignis = new Ignis();
 	private Ayla ayla = new Ayla();
@@ -126,7 +126,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Kiki kiki = new Kiki();
 	private Arius arius = new Arius();
 	
-	// ------------------------ imagens e texto do di·logo com os c„es ------------------------------
+	// ------------------------ imagens e texto do di√°logo com os c√£es ------------------------------
 	
 	private Icones_interativos sombreadorDialogo = new Icones_interativos(0, 0);
 	private Icones_interativos barraDeDialogo = new Icones_interativos(0, 640 - 220);
@@ -149,14 +149,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean tibarCoroa = true;
 	private boolean bntSimNao = true;
 	private int ativarAnimacaoVelaAyla = 0;
-	private int contAnimacaoVelaAyla = 0;
 	private int contAnimacaoJosefine = 0;
 	
 	// ------------------------ imagens de estrelas para batalhas vencidas ------------------------------
 	
 	private boolean [] derrotados = {false, false, false, false, false}; //{true, true, true, true, true}; // 
 	
-	// ------------------------ imagens e textos do di·logo de aviso ------------------------------
+	// ------------------------ imagens e textos do di√°logo de aviso ------------------------------
 	
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
@@ -180,7 +179,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
 	
-	// -------------------- imagens de decoraÁ„o do di·logo com o boss ---------------------
+	// -------------------- imagens de decora√ß√£o do di√°logo com o boss ---------------------
 	
 	private Icones_interativos estrelaFim1 = new Icones_interativos(10, 413);
 	private Icones_interativos estrelaFim2 = new Icones_interativos(1234 - 196, 412);
@@ -208,7 +207,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private int contTempo = 0;
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  							coloca as informaÁıes iniciais									|
+	|  							coloca as informa√ß√µes iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
@@ -415,7 +414,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  									Vai para a tela de CrÈditos								|
+	|  									Vai para a tela de Cr√©ditos								|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void dialogoBntCreditos(int codigo) {
@@ -451,7 +450,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
-			txtDialogoAviso.setTexto("Se vocÍ voltar perder· o progreÁo nesse save.");
+			txtDialogoAviso.setTexto("Se voc√™ voltar perder√° o progre√ßo nesse save.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
 		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
@@ -549,14 +548,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  							dispara quando as teclas s„o  pressionadas						|
+	|  							dispara quando as teclas s√£o  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
-		if(janela != null && janela.getTitle() == "Escolha de Advers·rio") {
+		if(janela != null && janela.getTitle() == "Escolha de Advers√°rio") {
 			int codigo = tecla.getKeyCode();
 			
 			// -------------------- capturar teclado-------------------- \
@@ -599,7 +598,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntCreditos.setImagem(null);
 
 				}
-			// ----------------------- muda a seleÁ„o das opÁıes do menu -------------------------- \
+			// ----------------------- muda a sele√ß√£o das op√ß√µes do menu -------------------------- \
 			}else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == true && dialogoAviso.getImagem() == null) {
 				
 				if(contEngranagem1== 2) {
@@ -635,19 +634,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 				
 			
-			// ---------- encaminha para a funÁ„o que controla o bot„o do Menu do menu ------\
+			// ---------- encaminha para a fun√ß√£o que controla o bot√£o do Menu do menu ------\
 			}else if(mostrarMenu == true && contMenu == 0){
 				dialogoBntMenu(codigo);
 			
-			// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
+			// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 1){
 				dialogoBntManual(codigo);
 			
-				// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
+				// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 2){
 				dialogoBntCreditos(codigo);
 			
-			// ---------- encaminha para a funÁ„o que controla o bot„o voltar do menu --------- \
+			// ---------- encaminha para a fun√ß√£o que controla o bot√£o voltar do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 3) {
 				dialogoBntVoltar(codigo);
 			
@@ -839,7 +838,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}	
 			}
 			
-			// ---------- muda a seleÁ„o dos botıes sim, n„o, coroa e sem coroa na barra de di·logo dos c„es --------- \
+			// ---------- muda a sele√ß√£o dos bot√µes sim, n√£o, coroa e sem coroa na barra de di√°logo dos c√£es --------- \
 			else if((codigo == KeyEvent.VK_RIGHT || codigo == KeyEvent.VK_LEFT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && bntSimDialogo.getImagem() != null) {
 				
 				if(contEngranagem1== 2) {
@@ -861,7 +860,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 			}
 			
-			// --------------- quando o di·logo È fechado ele limpa as imagens e textos --------------- \
+			// --------------- quando o di√°logo √© fechado ele limpa as imagens e textos --------------- \
 			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && ((bntSimDialogo.getImagem() != null ? (bntSimNao == false && ((derrotados[2] == true  && contTeclaBatalha == 4  && contDialogo == 1) || (derrotados[0] == true  && contTeclaBatalha == 8  && contDialogo == 1) || (derrotados[3] == true  && contTeclaBatalha == 2  && contDialogo == 1) || (derrotados[1] == true  && contTeclaBatalha == 0  && contDialogo == 1) || (derrotados[4] == true  && contTeclaBatalha == 6  && contDialogo == 1)))  : (bntSimNao == false && ((contTeclaBatalha == 4 && contDialogo == 2) || (contTeclaBatalha == 8 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 0 && contDialogo == 3) || (contTeclaBatalha == 6 && contDialogo == 3))) || (contTeclaBatalha == 12 && contDialogo == 1)|| (contTeclaBatalha == 4 && contDialogo == 4 && mudaCorLn4 == false)))) {
 				
 				contEngranagem2 = !contEngranagem2;
@@ -870,7 +869,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				limparDialogo();
 			}
 			
-			// ----------------------- di·logo com os c„es das colinas ------------------------ \
+			// ----------------------- di√°logo com os c√£es das colinas ------------------------ \
 			else if(codigo == KeyEvent.VK_Z && teclaZ.getImagem() != null && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && ((contTeclaBatalha == 4 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 8 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 0 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 6 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 12 && contDialogo < 1))) {
 				
 				contEngranagem2 = !contEngranagem2;
@@ -1288,8 +1287,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\cadeadoGrande1.png");
 							
-							txtDialogoLn1.setTexto("ParabÈns!!! vocÍ conseguiu vencer os 5 C„es das Colinas, infelizmente o jogo n„o");
-							txtDialogoLn2.setTexto("est· completo ainda e vocÍ ter· que esperar um pouco mais.");
+							txtDialogoLn1.setTexto("Parab√©ns!!! voc√™ conseguiu vencer os 5 C√£es das Colinas, infelizmente o jogo n√£o");
+							txtDialogoLn2.setTexto("est√° completo ainda e voc√™ ter√° que esperar um pouco mais.");
 							txtDialogoLn3.setTexto(" ");
 							txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");
 							
@@ -1342,7 +1341,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void KeyReleased (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-		if(janela != null && janela.getTitle() == "Escolha de Advers·rio") {
+		if(janela != null && janela.getTitle() == "Escolha de Advers√°rio") {
 			
 			int codigo = tecla.getKeyCode();
 			
@@ -1413,7 +1412,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  				limpa as informaÁıes e imagens dos di·logos com os c„es						|
+	|  				limpa as informa√ß√µes e imagens dos di√°logos com os c√£es						|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void limparDialogo() {
@@ -1458,7 +1457,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  	quando o jogador vence alguma batalha estrelas aparecem para marcar essa vitÛria		|
+	|  	quando o jogador vence alguma batalha estrelas aparecem para marcar essa vit√≥ria		|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void mostrarEstrela() {
@@ -1778,8 +1777,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	public void animarVelas() {
-		
-		contAnimacaoVelaAyla ++;
 	
 		objetoDeFundo1.setY(objetoDeFundo1.getY() + (ativarAnimacaoVelaAyla == 1 ? 1 : -1));
 		objetoDeFundo2.setY(objetoDeFundo2.getY() + (ativarAnimacaoVelaAyla == 1 ? -1 : 1));
