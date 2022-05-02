@@ -49,12 +49,12 @@ public class Creditos extends JPanel implements ActionListener {
 	private boolean mudaImagem = false;
 	
 	
-	/* ------------------------------- Cr√©ditos ---------------------------------*/
+	/* ------------------------------- CrÈditos ---------------------------------*/
 	
-	private Texto txtLn1 = new Texto(1234/2 - 70, 80, "CR√âDITOS");
+	private Texto txtLn1 = new Texto(1234/2 - 70, 80, "CR…DITOS");
 	private Texto txtLn2 = new Texto(170, txtLn1.getY() + 60, "Leonel Caldela / @leonelcaldela                                                                         Mutuca / Mestre");
 	private Texto txtLn3 = new Texto(txtLn2.getX(), txtLn2.getY() + 30, "Schaeppi / @Schaeppi                                                                                                 Ignis Crae");
-	private Texto txtLn4 = new Texto(txtLn2.getX(), txtLn3.getY() + 30, "Karen Soarele / @karensoarele                                                         Aylarianna \"Ayla\" Purp√∫rea");
+	private Texto txtLn4 = new Texto(txtLn2.getX(), txtLn3.getY() + 30, "Karen Soarele / @karensoarele                                                         Aylarianna \"Ayla\" Purp˙rea");
 	private Texto txtLn5 = new Texto(txtLn2.getX(), txtLn4.getY() + 30, "Rex / @Rex2099                                                                                                             Rexthor");
 	private Texto txtLn6 = new Texto(txtLn2.getX(), txtLn5.getY() + 30, "Katiucha Barcelos / @Katiucha                                                              Kir'zanaath \"Kiki\" Odello");
 	private Texto txtLn7 = new Texto(txtLn2.getX(), txtLn6.getY() + 30, "Guilherme Dei Svaldi / @guilhermesvaldi                                          Arius Gorgonius Dubitatius");
@@ -64,11 +64,11 @@ public class Creditos extends JPanel implements ActionListener {
 	private Texto txtLn9 = new Texto(txtLn2.getX() - 30, txtLn8.getY() + 58, "Gren / @LembreDePiscar                      Desenvolvedor / Programador / Ilustrador / Designer de Som");
 
 	
-	private Texto txtLn10 = new Texto(96, txtLn9.getY() + 80, "Esse jogo √© um fangame da Campanha de RPG Fim dos Tempos, ou seja, o mundo e os personagens n√£o s√£o");
-	private Texto txtLn11 = new Texto(txtLn10.getX() + 16, txtLn10.getY() + 30, "de minha autoria e os criadores n√£o s√£o respons√°veis pelas bobagens criadas a partir de sua obra.");
+	private Texto txtLn10 = new Texto(96, txtLn9.getY() + 80, "Esse jogo È um fangame da Campanha de RPG Fim dos Tempos, ou seja, o mundo e os personagens n„o s„o");
+	private Texto txtLn11 = new Texto(txtLn10.getX() + 16, txtLn10.getY() + 30, "de minha autoria e os criadores n„o s„o respons·veis pelas bobagens criadas a partir de sua obra.");
 	
 	private Texto txtLn12 = new Texto(141, txtLn11.getY() + 50, "E quero fazer um agradecimento super especial para todos que acompanham a mesa, porque muitas");
-	private Texto txtLn13 = new Texto(txtLn12.getX() + 110, txtLn12.getY() + 30, "das melhores coisas da campanha vieram da intera√ß√£o e criatividade de voc√™s.");
+	private Texto txtLn13 = new Texto(txtLn12.getX() + 110, txtLn12.getY() + 30, "das melhores coisas da campanha vieram da interaÁ„o e criatividade de vocÍs.");
 
 	/* ------------------------------- enfeite ---------------------------------*/
 
@@ -99,7 +99,7 @@ public class Creditos extends JPanel implements ActionListener {
 
 		contorno.load(caminho + "res\\contorno.png");
 		
-		/* ------------------------------- Cr√©ditos ---------------------------------*/
+		/* ------------------------------- CrÈditos ---------------------------------*/
 		
 		txtLn1.setFonte(new Font("Arial", Font.PLAIN, 27));
 		txtLn1.setCorTexto(new Color (255, 255, 255));
@@ -153,7 +153,7 @@ public class Creditos extends JPanel implements ActionListener {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(tela2);
-		        janelaPrincipal.setTitle("Escolha de Advers√°rio");
+		        janelaPrincipal.setTitle("Escolha de Advers·rio");
 		        tela2.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 		        timer.stop();
@@ -187,7 +187,7 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		graficos.drawImage(fundo.getImagem(), fundo.getRedX(), fundo.getRedY(), fundo.getLarg(), fundo.getAlt(), this);
 
-		/* ------------------------------- Cr√©ditos ---------------------------------*/
+		/* ------------------------------- CrÈditos ---------------------------------*/
 
 		tl1 = new TextLayout(txtLn1.getTexto(), txtLn1.getFonte(), frc);
 		tl2 = new TextLayout(txtLn2.getTexto(), txtLn2.getFonte(), frc);

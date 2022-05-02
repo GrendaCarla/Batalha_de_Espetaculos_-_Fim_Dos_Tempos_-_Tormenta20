@@ -21,7 +21,7 @@ import batalha_de_Espetaculos.Modelo.Texto;
 public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  Escolha_de_personagem √© a tela a onde os jogadores escolheram qual dos c√£es das colinas  |
+	|  Escolha_de_personagem È a tela a onde os jogadores escolheram qual dos c„es das colinas  |
 	|  iram jogar durante todo o jogo.															|
 	\ ---------------------------------------------------------------------------------------- */
 
@@ -102,7 +102,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos bntManual = new Icones_interativos(bntMenu.getX(),bntMenu.getY() + 115);
 	private Icones_interativos bntCreditos = new Icones_interativos(bntMenu.getX(), bntManual.getY() + 115);
 
-	// ------------------------ imagens e textos do di√°logo de aviso ------------------------------
+	// ------------------------ imagens e textos do di·logo de aviso ------------------------------
 
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
@@ -117,7 +117,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private int contMenu = 0;
 
 	/* ---------------------------------------------------------------------------------------- \
-	|  							coloca as informa√ß√µes iniciais									|
+	|  							coloca as informaÁıes iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
 		this.telaMenu = PaginaAnterior;
@@ -154,7 +154,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		luz1.setImagem(null); luz2.setImagem(null); luz3.setImagem(null);
 		luz4.setImagem(null); luz5.setImagem(null);
 		
-		// ------------------------ imagens e textos do di√°logo de aviso ------------------------------
+		// ------------------------ imagens e textos do di·logo de aviso ------------------------------
 
 		txtDialogoAviso.setFonte(new Font("Arial", Font.PLAIN, 28));
 		txtDialogoAviso.setCorTexto(new Color (235, 230, 233));
@@ -254,7 +254,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  									Vai para a tela de Cr√©ditos								|
+	|  									Vai para a tela de CrÈditos								|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void dialogoBntCreditos(int codigo) {
@@ -275,7 +275,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  		 					dispara quando as teclas s√£o  pressionadas						|
+	|  		 					dispara quando as teclas s„o  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -308,7 +308,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					bntCreditos.setImagem(null);
 				}
 				
-			// --------------- muda a sele√ß√£o das op√ß√µes do menu ------------- \
+			// --------------- muda a seleÁ„o das opÁıes do menu ------------- \
 			}else if((codigo == KeyEvent.VK_DOWN || codigo == KeyEvent.VK_UP) && mostrarMenu == true && dialogoAviso.getImagem() == null) {
 				
 				if(contEngranagem1 == 2) {
@@ -339,19 +339,19 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 						break;
 				}
 				
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o do menu ---------\
+			// ---------- encaminha para a funÁ„o que controla o bot„o do menu ---------\
 			}else if(mostrarMenu == true && contMenu == 0){
 				dialogoBntMenu(codigo);
 			
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
+			// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 1){
 				dialogoBntManual(codigo);
 				
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
+			// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 2){
 				dialogoBntCreditos(codigo);
 			
-			// ---------- muda a sele√ß√£o dos personagens para esquerda --------- \
+			// ---------- muda a seleÁ„o dos personagens para esquerda --------- \
 			}else if(codigo == KeyEvent.VK_LEFT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 				
 				if(contEngranagem1 == 2) {
@@ -367,7 +367,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				posicionarPersonagens();
 					   
 					  
-			// ---------- muda a sele√ß√£o dos personagens para direita --------- \
+			// ---------- muda a seleÁ„o dos personagens para direita --------- \
 			} else if(codigo == KeyEvent.VK_RIGHT && dialogoPersonagem.getImagem() == null && mostrarMenu == false) {
 				
 				if(contEngranagem1 == 2) {
@@ -397,9 +397,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				bntSimNaoDialgoAviso = true;
 				
 				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
-					txtdialogoPersonagem.setTexto("O aventureiro escolhido n√£oo poder√° ser trocado");
+					txtdialogoPersonagem.setTexto("O aventureiro escolhido n„oo poder· ser trocado");
 				} else {
-					txtdialogoPersonagem.setTexto("A aventureira escolhida n√£o poder√° ser trocada");
+					txtdialogoPersonagem.setTexto("A aventureira escolhida n„o poder· ser trocada");
 				}
 				txtdialogoPersonagem2.setTexto("durante o jogo.");
 				txtdialogoPersonagem3.setTexto("Deseja continuar?");
@@ -414,7 +414,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				
 				limparDialogo();
 			
-			// ------------ muda a sele√ß√£o das op√ß√µes do dialogo de aviso ---------- \
+			// ------------ muda a seleÁ„o das opÁıes do dialogo de aviso ---------- \
 			}else if((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoPersonagem.getImagem() != null && mostrarMenu == false) {
 				
 				if(contEngranagem1 == 2) {
@@ -438,7 +438,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				if(bntSimNaoDialgoAviso == false) {
 					limparDialogo();
 					
-				// ------------ vai para a tela de escolha de advers√°rio ----------- \
+				// ------------ vai para a tela de escolha de advers·rio ----------- \
 				} else {
 					boolean [] derrotados = {false, false, false, false, false};
 					
@@ -636,7 +636,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
         janelaPrincipal.remove(this);
         tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo, contEngranagem2, caminho);
         janelaPrincipal.add(tela2);
-        janelaPrincipal.setTitle("Escolha de Advers√°rio");
+        janelaPrincipal.setTitle("Escolha de Advers·rio");
         janelaPrincipal.revalidate();
         timer.stop();
 	}

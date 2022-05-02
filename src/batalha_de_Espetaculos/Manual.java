@@ -81,8 +81,8 @@ public class Manual extends JPanel implements ActionListener {
 	/* ------------------------------- Batalha ---------------------------------*/
 	
 	private Icones_interativos batalhas = new Icones_interativos(92, 300);
-	private Texto txtLn7 = new Texto(90, batalhas.getY() + 110, "1. As batalhas sÃ£o divididas em cinco turnos.");
-	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + espacoParagrafo, "2. Em cada turno vocÃª escolhe uma habilidade entre quatro.");
+	private Texto txtLn7 = new Texto(90, batalhas.getY() + 110, "1. As batalhas são divididas em cinco turnos.");
+	private Texto txtLn8 = new Texto(txtLn7.getX(), txtLn7.getY() + espacoParagrafo, "2. Em cada turno você escolhe uma habilidade entre quatro.");
 	
 		/* ------------------------------- Nome apelo ---------------------------------*/
 
@@ -99,16 +99,16 @@ public class Manual extends JPanel implements ActionListener {
 
 		/* ------------------------------- info apelo ---------------------------------*/
 
-	private Texto txtLn9 = new Texto(txtLn7.getX(), 610, "3. Os apelos      sÃ£o pontos positivos ganhados pelas apresentaÃ§Ãµes.");
+	private Texto txtLn9 = new Texto(txtLn7.getX(), 610, "3. Os apelos      são pontos positivos ganhados pelas apresentações.");
 	private Icones_interativos apelo1 = new Icones_interativos(txtLn7.getX() + 134, 595);
-	private Texto txtLn10 = new Texto(txtLn7.getX(), txtLn9.getY() + espacoParagrafo, "4. Quem obtem mais apelo no turno fica em 1Âº lugar no prÃ³ximo e quem obtem mais atÃ© o final da");
+	private Texto txtLn10 = new Texto(txtLn7.getX(), txtLn9.getY() + espacoParagrafo, "4. Quem obtem mais apelo no turno fica em 1º lugar no próximo e quem obtem mais até o final da");
 	private Texto txtLn11 = new Texto(txtLn7.getX() + 26, txtLn10.getY() + espacoLinha, "batalha ganha.");
 
-	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + espacoParagrafo, "5. As interferencias      sÃ£o pontos negativos usados nos adversÃ¡rios para retirar os apelos ganhados");
+	private Texto txtLn12 = new Texto(txtLn7.getX(), txtLn11.getY() + espacoParagrafo, "5. As interferencias      são pontos negativos usados nos adversários para retirar os apelos ganhados");
 	private Icones_interativos apelo2 = new Icones_interativos(txtLn7.getX() + 206, txtLn11.getY() + espacoParagrafo - 17);
 	private Texto txtLn13 = new Texto(txtLn7.getX() + 26, txtLn12.getY() + espacoLinha, "durante toda a batalha.");
 
-	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + espacoParagrafo, "6. A luz acesa com o sÃ­mbolo de um punho informa que a habilidade Ã© do tipo fÃ­sico.");
+	private Texto txtLn56 = new Texto(txtLn7.getX(), txtLn13.getY() + espacoParagrafo, "6. A luz acesa com o símbolo de um punho informa que a habilidade é do tipo físico.");
 
 	private Icones_interativos apelo = new Icones_interativos(1234/2 - 860/2, 880);
 
@@ -133,9 +133,9 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private int contTempoInfoApelo = 0;
 	
-		// ----------------------- DescriÃ§Ã£o -----------------------------------
+		// ----------------------- Descrição -----------------------------------
 
-	private Texto txtLn14 = new Texto(txtLn7.getX(), 1010, "7. A descriÃ§Ã£o da habilidade Ã© puramente enrrolaÃ§Ã£o. O importante Ã© a ultima linha colorida que");
+	private Texto txtLn14 = new Texto(txtLn7.getX(), 1010, "7. A descrição da habilidade é puramente enrrolação. O importante é a ultima linha colorida que");
 	private Texto txtLn15 = new Texto(txtLn7.getX() + 26, txtLn14.getY() + espacoLinha, "informa o efeito da interferencia.");	
 	
 	private Icones_interativos descricao = new Icones_interativos(1234/2 - 860/2, txtLn15.getY() + 40);
@@ -143,28 +143,28 @@ public class Manual extends JPanel implements ActionListener {
 	private Texto textoDescricao1, textoDescricao2, textoDescricao3, textoDescricao4, textoDescricao5;
 	
 	private int contTempoDescricao = 1;
-	private String conteudoDescricao = "O que Ã© capaz de vencer o mais forte dos seres"
-			+ "Do que uma mentirinha bem contada com um bocado de enganaÃ§Ã£o?"
+	private String conteudoDescricao = "O que é capaz de vencer o mais forte dos seres"
+			+ "Do que uma mentirinha bem contada com um bocado de enganação?"
 			+ "Com uma mente afiada e planejamentos condizentes" 
-			+ "AtÃ© uma fadinha bem charmosa irÃ¡ ter sua ascensÃ£o.";
+			+ "Até uma fadinha bem charmosa irá ter sua ascensão.";
 	
 	private Icones_interativos painel3 = new Icones_interativos(descricao.getX(), descricao.getY());
 	private Icones_interativos fundoPainel3 = new Icones_interativos(painel3.getX() - 15, painel3.getY() - 15);
 
 	// ----------------------------------- campo batalha -----------------------------------
 
-	private Texto txtLn16 = new Texto(txtLn7.getX(), 1340, "8. Quando a habilidade for escolhida a batalha comeÃ§a.");	
-	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn16.getY() + espacoParagrafo, "9. A animaÃ§Ã£o aparece seguida da quantidade de apelo.");
+	private Texto txtLn16 = new Texto(txtLn7.getX(), 1340, "8. Quando a habilidade for escolhida a batalha começa.");	
+	private Texto txtLn18 = new Texto(txtLn7.getX(), txtLn16.getY() + espacoParagrafo, "9. A animação aparece seguida da quantidade de apelo.");
 	private Texto txtLn20 = new Texto(txtLn7.getX(), txtLn18.getY() + espacoParagrafo, "10. Quando repetir uma habilidade em seguida,");
-	private Texto txtLn21 = new Texto(txtLn7.getX() + 40, txtLn20.getY() + espacoLinha, "receberÃ¡ uma puniÃ§Ã£o de -2      x nÃºmero da repetiÃ§Ã£o.");	
+	private Texto txtLn21 = new Texto(txtLn7.getX() + 40, txtLn20.getY() + espacoLinha, "receberá uma punição de -2      x número da repetição.");	
 	private Icones_interativos apelo3 = new Icones_interativos(txtLn7.getX() + 332, txtLn20.getY() + espacoLinha - 16);
 	private Texto txtLn22 = new Texto(txtLn7.getX(), txtLn21.getY() + espacoParagrafo, "11. Se a habilidade cumprir o efeito de chefe da");
-	private Texto txtLn23 = new Texto(txtLn7.getX() + 40, txtLn22.getY() + espacoLinha, "batalha, receberÃ¡ um +1     ou um -1     de");
+	private Texto txtLn23 = new Texto(txtLn7.getX() + 40, txtLn22.getY() + espacoLinha, "batalha, receberá um +1     ou um -1     de");
 	private Icones_interativos apelo4 = new Icones_interativos(txtLn7.getX() + 290, txtLn22.getY() + espacoLinha - 16);
 	private Icones_interativos apelo5 = new Icones_interativos(txtLn7.getX() + 412, txtLn22.getY() + espacoLinha - 16);
 	private Texto txtLn24 = new Texto(txtLn7.getX() + 40, txtLn23.getY() + espacoLinha, "acordo com o efeito.");
-	private Texto txtLn25 = new Texto(txtLn7.getX(), txtLn24.getY() + espacoParagrafo, "12. Caso a habilidade tenha interferÃªncia ela aparecerÃ¡");
-	private Texto txtLn26 = new Texto(txtLn7.getX() + 40, txtLn25.getY() + espacoLinha, "por Ãºltimo na vez do aventureiro que a lanÃ§ou.");
+	private Texto txtLn25 = new Texto(txtLn7.getX(), txtLn24.getY() + espacoParagrafo, "12. Caso a habilidade tenha interferência ela aparecerá");
+	private Texto txtLn26 = new Texto(txtLn7.getX() + 40, txtLn25.getY() + espacoLinha, "por último na vez do aventureiro que a lançou.");
 	
 	private Icones_interativos campoBatalha1 = new Icones_interativos(1234 - 430 - 80, txtLn16.getY() - 14);
 	private Icones_interativos campoBatalha2 = new Icones_interativos(campoBatalha1.getX(), campoBatalha1.getY() + 70 + 4);
@@ -181,14 +181,14 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos iconeCampoBatalha4 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha4.getY() + 3);
 	private Icones_interativos iconeCampoBatalha5 = new Icones_interativos(campoBatalha1.getX() + 25, campoBatalha5.getY() + 3);
 	
-	// coraÃ§Ãµes que mede o total de apelo e interferÃªncia de todas as rodadas 
+	// corações que mede o total de apelo e interferência de todas as rodadas 
 	private Icones_interativos coracao01 = new Icones_interativos(campoBatalha1.getX() + 116, campoBatalha1.getY() + 70/2);
 	private Icones_interativos coracao02 = new Icones_interativos(campoBatalha2.getX() + 116, campoBatalha2.getY() + 70/2);
 	private Icones_interativos coracao03 = new Icones_interativos(campoBatalha3.getX() + 116, campoBatalha3.getY() + 70/2);
 	private Icones_interativos coracao04 = new Icones_interativos(campoBatalha4.getX() + 116, campoBatalha4.getY() + 70/2);
 	private Icones_interativos coracao05 = new Icones_interativos(campoBatalha5.getX() + 116, campoBatalha5.getY() + 70/2);
 	
-	// coraÃ§Ãµes que mede o apelo e interferÃªncia da rodada
+	// corações que mede o apelo e interferência da rodada
 	private Icones_interativos coracao11 = new Icones_interativos(campoBatalha1.getX() + 128, campoBatalha1.getY() + 10); 
 	private Icones_interativos coracao12 = new Icones_interativos(coracao11.getX() + 25, coracao11.getY()); 
 	private Icones_interativos coracao13 = new Icones_interativos(coracao12.getX() + 25, coracao12.getY()); 
@@ -255,10 +255,10 @@ public class Manual extends JPanel implements ActionListener {
 
 	private int contTempoCampoBatalha = 0;
 	
-	// ----------------------- ConsideraÃ§Ãµes finais -----------------------------------
+	// ----------------------- Considerações finais -----------------------------------
 
 	private Texto txtLn39 = new Texto(txtLn7.getX(), txtLn26.getY() + espacoParagrafo, "13. Depois de cada turno os campos se reorganiza ficando em ordem decrescente de acordo com os");
-	private Texto txtLn40 = new Texto(txtLn7.getX() + 40, txtLn39.getY() + espacoLinha, "pontos. No final do 5Âº turno a batalha acaba e o aventureiro com mais pontos ganha.");
+	private Texto txtLn40 = new Texto(txtLn7.getX() + 40, txtLn39.getY() + espacoLinha, "pontos. No final do 5º turno a batalha acaba e o aventureiro com mais pontos ganha.");
 	
 	// ----------------------- Tabela de efeito de chefe -----------------------------------
 
@@ -268,15 +268,15 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Texto txtLn41 = new Texto(332, efeitoDeChefe.getY() + 106, "       ||=============================================||");
 	private Texto txtLn28 = new Texto(txtLn41.getX() - 2, txtLn41.getY() + 30, "||===||=============================================||===||");
-	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em habilidades com interferÃªncia    ||      ||");
+	private Texto txtLn29 = new Texto(txtLn28.getX(), txtLn28.getY() + 25, "||      ||      IGNIS      ||   -1   ||   Em habilidades com interferência    ||      ||");
 	private Texto txtLn30 = new Texto(txtLn28.getX(), txtLn29.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
-	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em habilidades sem interferÃªncia    ||      ||");
+	private Texto txtLn31 = new Texto(txtLn28.getX(), txtLn30.getY() + 25, "||      ||_     AYLA    _||   -1   ||   Em habilidades sem interferência    ||      ||");
 	private Texto txtLn32 = new Texto(txtLn28.getX(), txtLn31.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
-	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em habilidades fÃ­sicas                     ||      ||");
+	private Texto txtLn33 = new Texto(txtLn28.getX(), txtLn32.getY() + 25, "||      ||.  REXTHOR  ||   +1  ||   Em habilidades físicas                     ||      ||");
 	private Texto txtLn34 = new Texto(txtLn28.getX(), txtLn33.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
-	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em habilidades com interferÃªncia    ||      ||");
+	private Texto txtLn35 = new Texto(txtLn28.getX(), txtLn34.getY() + 25, "||      ||_      KIKI       ||   +1  ||   Em habilidades com interferência    ||      ||");
 	private Texto txtLn36 = new Texto(txtLn28.getX(), txtLn35.getY() + 25, "||      || ----------------- || ----._ || ------------------------------------------------- ||      ||");
-	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em habilidades sem interferÃªncia    ||      ||");
+	private Texto txtLn37 = new Texto(txtLn28.getX(), txtLn36.getY() + 25, "||      ||.     ARIUS     ||   +1  ||   Em habilidades sem interferência    ||      ||");
 	private Texto txtLn38 = new Texto(txtLn28.getX(), txtLn37.getY() + 28, "||===||=============================================||===||");
 	private Texto txtLn42 = new Texto(txtLn28.getX() + 4, txtLn38.getY() + 28, "       ||=============================================||");
 	private Texto txtLn43 = new Texto(txtLn28.getX(), txtLn42.getY() + 38, "    __||__||                                                                                ||__||__");
@@ -326,8 +326,8 @@ public class Manual extends JPanel implements ActionListener {
 		nomeHabilidade4.load(caminho + "res\\batalha\\nomeHabilidade.png");
 		
 		nomeApelo1 = new Texto(nomeHabilidade1.getX() + 20, nomeHabilidade1.getY() + 54/2 + 8, "Tapa em puristas");
-		nomeApelo2 = new Texto(nomeHabilidade2.getX() + 20, nomeHabilidade2.getY() + 54/2 + 8, "Ignis bonitÃ¢o");
-		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 20, nomeHabilidade3.getY() + 54/2 + 8, "ProvocaÃ§Ã£o petulante");
+		nomeApelo2 = new Texto(nomeHabilidade2.getX() + 20, nomeHabilidade2.getY() + 54/2 + 8, "Ignis bonitâo");
+		nomeApelo3 = new Texto(nomeHabilidade3.getX() + 20, nomeHabilidade3.getY() + 54/2 + 8, "Provocação petulante");
 		nomeApelo4 = new Texto(nomeHabilidade4.getX() + 20, nomeHabilidade4.getY() + 54/2 + 8, "Meca-Rito");
 		
 		nomeApelo1.setFonte(new Font("Arial", Font.PLAIN, 20));
@@ -363,7 +363,7 @@ public class Manual extends JPanel implements ActionListener {
 		painel2.load(caminho + "res\\batalha\\painel2.png");
 		fundoPainel2.load(caminho + "res\\manual\\fundoPainel2.png");
 		
-		// ----------------------- DescriÃ§Ã£o -----------------------------------
+		// ----------------------- Descrição -----------------------------------
 
 		descricao.load(caminho + "res\\batalha\\descricao.png");
 
@@ -732,7 +732,7 @@ public class Manual extends JPanel implements ActionListener {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(tela2);
-		        janelaPrincipal.setTitle("Escolha de AdversÃ¡rio");
+		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        tela2.setContEngranagem2(contEngranagem2);
 		        janelaPrincipal.revalidate();
 		        timer.stop();
@@ -887,7 +887,7 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(painel2.getImagem(), painel2.getRedX(), painel2.getRedY() + rolagemTela, painel2.getLarg(), painel2.getAlt(), this);
 		graficos.drawImage(fundoPainel2.getImagem(), fundoPainel2.getRedX(), fundoPainel2.getRedY() + rolagemTela, fundoPainel2.getLarg(), fundoPainel2.getAlt(), this);
 
-		// ----------------------- DescriÃ§Ã£o -----------------------------------
+		// ----------------------- Descrição -----------------------------------
 
 		graficos.drawImage(fundoPainel3.getImagem(), fundoPainel3.getRedX(), fundoPainel3.getRedY() + rolagemTela, fundoPainel3.getLarg(), fundoPainel3.getAlt(), this);
 
@@ -1064,7 +1064,7 @@ public class Manual extends JPanel implements ActionListener {
 	    tl54.draw(graficos, txtLn42.getRedX(), txtLn42.getRedY() + rolagemTela);
 	    tl55.draw(graficos, txtLn43.getRedX(), txtLn43.getRedY() + rolagemTela);
 
-		// ----------------------- ConsideraÃ§Ãµes finais -----------------------------------
+		// ----------------------- Considerações finais -----------------------------------
 
 		tl51 = new TextLayout(txtLn39.getTexto(), txtLn7.getFonte(), frc);
 		tl52 = new TextLayout(txtLn40.getTexto(), txtLn7.getFonte(), frc);

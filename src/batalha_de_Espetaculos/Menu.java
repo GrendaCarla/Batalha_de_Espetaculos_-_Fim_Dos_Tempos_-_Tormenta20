@@ -20,8 +20,8 @@ import batalha_de_Espetaculos.Modelo.Texto;
 public class Menu extends JPanel implements ActionListener {
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  Menu √© a tela inicial onde escolhem come√ßar um novo jogo ou continuar algum, tambem		|
-	|  pode acessar as manual e os cr√©ditos.													|
+	|  Menu È a tela inicial onde escolhem comeÁar um novo jogo ou continuar algum, tambem		|
+	|  pode acessar as manual e os crÈditos.													|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	private Escolha_de_personagem tela1;
@@ -50,7 +50,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	
-	// ------------------------------------------- anima√ß√£o ---------------------------------------------
+	// ------------------------------------------- animaÁ„o ---------------------------------------------
 
 	private int contAnimacao = 0;
 	private int contAnimacaoAyla = 0;
@@ -95,7 +95,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 60, teclaZ.getY());
 	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	
-	// ---------------------------- op√ß√µes do menu ------------------------------------
+	// ---------------------------- opÁıes do menu ------------------------------------
 	
 	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 528);
 	private Icones_interativos bntNovoJogo = new Icones_interativos(bntContinuar.getX() + 159 + 40, bntContinuar.getY());
@@ -104,7 +104,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 	private int contOpcoes;
 	
-	// ------------------------ imagens e textos do di√°logo de aviso ------------------------------
+	// ------------------------ imagens e textos do di·logo de aviso ------------------------------
 	
 	private Icones_interativos sombreadorDialogoAviso = new Icones_interativos(0, 0);
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
@@ -125,7 +125,7 @@ public class Menu extends JPanel implements ActionListener {
 	private int contTempoMensagemErro = 0;
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  							coloca as informa√ß√µes iniciais									|
+	|  							coloca as informaÁıes iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public Menu (boolean Engrenagem2, String Caminho) {
@@ -143,7 +143,7 @@ public class Menu extends JPanel implements ActionListener {
 
 		valorLeituraSave = salvar.LerDados(caminho);
 		
-		// ------------------------------------------- anima√ß√£o ---------------------------------------------
+		// ------------------------------------------- animaÁ„o ---------------------------------------------
 
 		ignis1.load(caminho + "res\\Bonequinho\\ignis2.png");
 		ignis2.load(caminho + "res\\Bonequinho\\ignis2.png");
@@ -256,7 +256,7 @@ public class Menu extends JPanel implements ActionListener {
 			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
-			txtDialogoAviso.setTexto("O progresso anterior ser√° apagado.");
+			txtDialogoAviso.setTexto("O progresso anterior ser· apagado.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
 		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
@@ -294,7 +294,7 @@ public class Menu extends JPanel implements ActionListener {
 	
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  		 					dispara quando as teclas s√£o  pressionadas						|
+	|  		 					dispara quando as teclas s„o  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
@@ -305,7 +305,7 @@ public class Menu extends JPanel implements ActionListener {
 			
 			if(dialogoAviso.getImagem() == null) {
 				
-				// -------------------- muda a sele√ß√£o das op√ß√µes -------------------- \
+				// -------------------- muda a seleÁ„o das opÁıes -------------------- \
 				if(codigo == KeyEvent.VK_UP) {
 					teclaCima.load(caminho + "res\\Teclado\\setaCima2.png");
 	
@@ -407,7 +407,7 @@ public class Menu extends JPanel implements ActionListener {
 			}
 			
 		}else {
-			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Advers√°rio"  || janelaPrincipal.getTitle() == "Batalha"
+			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Advers·rio"  || janelaPrincipal.getTitle() == "Batalha"
 					|| janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3" 
 					|| janelaPrincipal.getTitle() == "Creditos1" || janelaPrincipal.getTitle() == "Creditos2" || janelaPrincipal.getTitle() == "Creditos3")) {
 				
@@ -434,7 +434,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		if(!(janela != null && janela.getTitle() == "Menu")) {
 			
-			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Advers√°rio"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
+			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Advers·rio"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
 				tela1.KeyReleased(tecla);
 				
 			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "ManualM") {
@@ -490,7 +490,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		graficos.drawImage(titulo.getImagem(), titulo.getRedX(), titulo.getRedY(), titulo.getLarg(), titulo.getAlt(), this);
 
-		// ------------------------------------------- anima√ß√£o ---------------------------------------------
+		// ------------------------------------------- animaÁ„o ---------------------------------------------
 
 		graficos.drawImage(ignis1.getImagem(), ignis1.getRedX(), ignis1.getRedY(), ignis1.getLarg(), ignis1.getAlt(), this);
 		graficos.drawImage(ignis2.getImagem(), ignis2.getRedX(), ignis2.getRedY(), ignis2.getLarg(), ignis2.getAlt(), this);
@@ -504,7 +504,7 @@ public class Menu extends JPanel implements ActionListener {
 
 		graficos.drawImage(camada31.getImagem(), camada31.getRedX(), camada31.getRedY(), camada31.getLarg(), camada31.getAlt(), this);
 
-		// ---------------------------- op√ß√µes do menu ------------------------------------
+		// ---------------------------- opÁıes do menu ------------------------------------
 		
 		graficos.drawImage(bntContinuar.getImagem(), bntContinuar.getRedX(), bntContinuar.getRedY(), bntContinuar.getLarg(), bntContinuar.getAlt(), this);
 		graficos.drawImage(bntNovoJogo.getImagem(), bntNovoJogo.getRedX(), bntNovoJogo.getRedY(), bntNovoJogo.getLarg(), bntNovoJogo.getAlt(), this);

@@ -29,7 +29,7 @@ import batalha_de_Espetaculos.Modelo.Texto;
 public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  Escolha_de_adversario √© a tela a onde os jogadores escolheram qual dos c√£es das colinas  |
+	|  Escolha_de_adversario È a tela a onde os jogadores escolheram qual dos c„es das colinas  |
 	|  iram jogar contra.																		|
 	\ ---------------------------------------------------------------------------------------- */
 
@@ -83,9 +83,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean movimentoAventureiro = false;
 	private boolean respiracaoAventureiro = true;
 	
-	private boolean ativarBoss = false;
-	
-	// ------------------------------------------- Ativa√ß√£o direcional ---------------------------------------------
+	// ------------------------------------------- AtivaÁ„o direcional ---------------------------------------------
 	
 	private boolean cima = false;
 	private boolean baixo = false;
@@ -100,15 +98,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private boolean animarApertoTecla = false;
 	
-	// ------------------------ imagens dos √≠cones aventureiros ------------------------------
+	// ------------------------ imagens dos Ìcones aventureiros ------------------------------
 	
-	private Icones_interativos iconeBoss = new Icones_interativos(510, 70);
-	private Icones_interativos iconeIgnis = new Icones_interativos(2600, iconeBoss.getY());
+	private Icones_interativos iconeBoss = new Icones_interativos(510, -300);
+	private Icones_interativos iconeIgnis = new Icones_interativos(2600, 70);
 	private Icones_interativos iconeAyla = new Icones_interativos(248, iconeIgnis.getY() - 10);
 	private Icones_interativos iconeRexthor = new Icones_interativos(1420, iconeIgnis.getY());
 	private Icones_interativos iconeKiki = new Icones_interativos(824, iconeIgnis.getY());
 	private Icones_interativos iconeArius = new Icones_interativos(2020, iconeIgnis.getY() - 10);
-	
+
+	private int ativarBoss = 0;
 	private int contTeclaBatalha = 1;
 	private boolean animarIconeAventureiro = false;
 	
@@ -118,7 +117,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos imgLogoAyla = new Icones_interativos(0, 0);
 
 	
-	// ------------------------ informa√ß√µes dos aventureiros ------------------------------
+	// ------------------------ informaÁıes dos aventureiros ------------------------------
 	
 	private Ignis ignis = new Ignis();
 	private Ayla ayla = new Ayla();
@@ -126,7 +125,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Kiki kiki = new Kiki();
 	private Arius arius = new Arius();
 	
-	// ------------------------ imagens e texto do di√°logo com os c√£es ------------------------------
+	// ------------------------ imagens e texto do di·logo com os c„es ------------------------------
 	
 	private Icones_interativos sombreadorDialogo = new Icones_interativos(0, 0);
 	private Icones_interativos barraDeDialogo = new Icones_interativos(0, 640 - 220);
@@ -155,7 +154,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	private boolean [] derrotados = {false, false, false, false, false}; //{true, true, true, true, true}; // 
 	
-	// ------------------------ imagens e textos do di√°logo de aviso ------------------------------
+	// ------------------------ imagens e textos do di·logo de aviso ------------------------------
 	
 	private Icones_interativos dialogoAviso = new Icones_interativos(1234/2 - 706/2, 640/2 - 278/2 - 40);
 	private Icones_interativos bntSimDialogoAviso = new Icones_interativos(dialogoAviso.getX() + 110, dialogoAviso.getY() + 180);
@@ -179,7 +178,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean mostrarMenu = false;
 	private int contMenu = 0;
 	
-	// -------------------- imagens de decora√ß√£o do di√°logo com o boss ---------------------
+	// -------------------- imagens de decoraÁ„o do di·logo com o boss ---------------------
 	
 	private Icones_interativos estrelaFim1 = new Icones_interativos(10, 413);
 	private Icones_interativos estrelaFim2 = new Icones_interativos(1234 - 196, 412);
@@ -207,7 +206,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private int contTempo = 0;
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  							coloca as informa√ß√µes iniciais									|
+	|  							coloca as informaÁıes iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, boolean [] Derrotados, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
@@ -220,7 +219,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		this.derrotados = Derrotados;
 		this.novoJogo = NovoJogo;
 		
-		fundo.load(caminho + "res\\EscolhaDePersonagem\\fundo.png");
+		fundo.load(caminho + "res\\fundo0.png");
 		tapaResto.load(caminho + "res\\fundo2.png");
 		
 		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
@@ -414,7 +413,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  									Vai para a tela de Cr√©ditos								|
+	|  									Vai para a tela de CrÈditos								|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void dialogoBntCreditos(int codigo) {
@@ -450,7 +449,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 			bntSimNaoDialgoAviso = true;
 			
-			txtDialogoAviso.setTexto("Se voc√™ voltar perder√° o progre√ßo nesse save.");
+			txtDialogoAviso.setTexto("Se vocÍ voltar perder· o progreÁo nesse save.");
 			txtDialogoAviso2.setTexto("Deseja continuar?");
 			
 		}else if ((codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) && dialogoAviso.getImagem() != null) {
@@ -548,14 +547,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  							dispara quando as teclas s√£o  pressionadas						|
+	|  							dispara quando as teclas s„o  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	
 	public void KeyPressed (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
-		if(janela != null && janela.getTitle() == "Escolha de Advers√°rio") {
+		if(janela != null && janela.getTitle() == "Escolha de Advers·rio") {
 			int codigo = tecla.getKeyCode();
 			
 			// -------------------- capturar teclado-------------------- \
@@ -598,7 +597,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntCreditos.setImagem(null);
 
 				}
-			// ----------------------- muda a sele√ß√£o das op√ß√µes do menu -------------------------- \
+			// ----------------------- muda a seleÁ„o das opÁıes do menu -------------------------- \
 			}else if((codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) && mostrarMenu == true && dialogoAviso.getImagem() == null) {
 				
 				if(contEngranagem1== 2) {
@@ -634,19 +633,19 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 				
 			
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o do Menu do menu ------\
+			// ---------- encaminha para a funÁ„o que controla o bot„o do Menu do menu ------\
 			}else if(mostrarMenu == true && contMenu == 0){
 				dialogoBntMenu(codigo);
 			
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
+			// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 1){
 				dialogoBntManual(codigo);
 			
-				// ---------- encaminha para a fun√ß√£o que controla o bot√£o de Manual do menu ------\
+				// ---------- encaminha para a funÁ„o que controla o bot„o de Manual do menu ------\
 			}else if(mostrarMenu == true && contMenu == 2){
 				dialogoBntCreditos(codigo);
 			
-			// ---------- encaminha para a fun√ß√£o que controla o bot√£o voltar do menu --------- \
+			// ---------- encaminha para a funÁ„o que controla o bot„o voltar do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 3) {
 				dialogoBntVoltar(codigo);
 			
@@ -663,6 +662,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				else if(camada41.getX() == 0) { camada42.setX(esquerda == true ? -4000 : 4000);}
 				
 				int camada4Atual = (camada41.getX() < camada42.getX() ? camada41.getX() : camada42.getX());
+				
+				System.out.println(contTeclaBatalha);
 								
 				if(esquerda == true && direita == true) {
 					
@@ -674,17 +675,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(esquerda == true) {
 								
 						teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
-	
-						if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || (ativarBoss == true && camada4Atual == -3424) || camada4Atual == -3936) {
-							if(camada4Atual != -2876) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
+						
+						if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || ((ativarBoss == 1 || ativarBoss == 3) && camada4Atual == -3424) || camada4Atual == -3936) {
+							if(camada4Atual != -2876 && ativarBoss != 2) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
 							contTeclaBatalha --;
 							
-						} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || (ativarBoss == true && camada4Atual == -3076) || camada4Atual == -3548){
+						} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || ((ativarBoss == 1 || ativarBoss == 3) && camada4Atual == -3076) || camada4Atual == -3548){
 							teclaZ.setImagem(null);
 							contTeclaBatalha --;
 						}
 			
-						if(ativarBoss == false && (camada4Atual == -3424 || camada4Atual == -3076)) {
+						if((ativarBoss == 0 || ativarBoss == 2) && (camada4Atual == -3424 || camada4Atual == -3076)) {
 							contTeclaBatalha --;
 						}
 						
@@ -692,7 +693,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 												
 						if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
 							if((camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
-								if(!(ativarBoss == false && camada4Atual > -3424 && camada4Atual < -3076)) {
+								if(!((ativarBoss == 0 || ativarBoss == 2)  && camada4Atual > -3424 && camada4Atual < -3076)) {
 									teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 								}
 								
@@ -716,6 +717,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						camada41.setX(camada41.getX() + 4);
 						camada42.setX(camada42.getX() + 4);
 						
+						iconeBoss.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) - 400);
 						iconeIgnis.setX(camada4Atual + 2600 + 4);
 						iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 244 + 4);
 						iconeRexthor.setX(camada4Atual + 1420 + 4);
@@ -743,16 +745,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						teclaZ.setX(camada4Atual + (camada4Atual < -3496 ? 4292 : (camada4Atual < -3024 ? 3830 : (camada4Atual < -2432 ? 3242 : (camada4Atual < -1848 ? 2652 : (camada4Atual < -1260 ? 2074 : (camada4Atual < -668 ? 1472 : (camada4Atual < -80 ? 878 : 0))))))));
 						
 						//faz a tecla Z aparecer quando o personagem chega na montainha
-						if(camada4Atual == -3500 || (ativarBoss == true && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
-							if(camada4Atual != -2436) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
+						if(camada4Atual == -3500 || ((ativarBoss == 1 || ativarBoss == 3) && camada4Atual == -3028) || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
+							if(camada4Atual != -2436 && ativarBoss != 2) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");}
 							contTeclaBatalha ++;
 							
-						} else if(camada4Atual == -3896 || (ativarBoss == true && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
+						} else if(camada4Atual == -3896 || ((ativarBoss == 1 || ativarBoss == 3) && camada4Atual == -3396) || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
 							teclaZ.setImagem(null);
 							contTeclaBatalha ++;
 						}
 						
-						if(ativarBoss == false && (camada4Atual == -3028 || camada4Atual == -3396)) {
+						if((ativarBoss == 0 || ativarBoss == 2) && (camada4Atual == -3028 || camada4Atual == -3396)) {
 							contTeclaBatalha ++;
 						}
 											
@@ -761,7 +763,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) > 4) {
 							if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
 								
-								if(!(ativarBoss == false && camada4Atual > -3396 && camada4Atual < -3028)) {
+								if(!((ativarBoss == 0 || ativarBoss == 2) && camada4Atual > -3396 && camada4Atual < -3028)) {
 									teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 								}
 									
@@ -785,6 +787,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						camada41.setX(camada41.getX() - 4);
 						camada42.setX(camada42.getX() - 4);
 						
+						iconeBoss.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) - 400 );
 						iconeIgnis.setX(camada4Atual + 2600 - 4);
 						iconeAyla.setX((camada41.getX() > 2000 || camada41.getX() < -3000 ? camada42.getX() : camada41.getX()) + 248 );
 						iconeRexthor.setX(camada4Atual + 1420 - 4);
@@ -838,7 +841,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}	
 			}
 			
-			// ---------- muda a sele√ß√£o dos bot√µes sim, n√£o, coroa e sem coroa na barra de di√°logo dos c√£es --------- \
+			// ---------- muda a seleÁ„o dos botıes sim, n„o, coroa e sem coroa na barra de di·logo dos c„es --------- \
 			else if((codigo == KeyEvent.VK_RIGHT || codigo == KeyEvent.VK_LEFT) && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && bntSimDialogo.getImagem() != null) {
 				
 				if(contEngranagem1== 2) {
@@ -860,7 +863,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 			}
 			
-			// --------------- quando o di√°logo √© fechado ele limpa as imagens e textos --------------- \
+			// --------------- quando o di·logo È fechado ele limpa as imagens e textos --------------- \
 			else if(codigo == KeyEvent.VK_Z && mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() != null && ((bntSimDialogo.getImagem() != null ? (bntSimNao == false && ((derrotados[2] == true  && contTeclaBatalha == 4  && contDialogo == 1) || (derrotados[0] == true  && contTeclaBatalha == 8  && contDialogo == 1) || (derrotados[3] == true  && contTeclaBatalha == 2  && contDialogo == 1) || (derrotados[1] == true  && contTeclaBatalha == 0  && contDialogo == 1) || (derrotados[4] == true  && contTeclaBatalha == 6  && contDialogo == 1)))  : (bntSimNao == false && ((contTeclaBatalha == 4 && contDialogo == 2) || (contTeclaBatalha == 8 && contDialogo == 2) || (contTeclaBatalha == 2 && contDialogo == 3) || (contTeclaBatalha == 0 && contDialogo == 3) || (contTeclaBatalha == 6 && contDialogo == 3))) || (contTeclaBatalha == 12 && contDialogo == 1)|| (contTeclaBatalha == 4 && contDialogo == 4 && mudaCorLn4 == false)))) {
 				
 				contEngranagem2 = !contEngranagem2;
@@ -869,15 +872,17 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				limparDialogo();
 			}
 			
-			// ----------------------- di√°logo com os c√£es das colinas ------------------------ \
-			else if(codigo == KeyEvent.VK_Z && teclaZ.getImagem() != null && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && ((contTeclaBatalha == 4 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 8 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 0 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 6 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 12 && contDialogo < 1))) {
+			// ----------------------- di·logo com os c„es das colinas ------------------------ \
+			else if(codigo == KeyEvent.VK_Z && teclaZ.getImagem() != null && mostrarMenu == false && dialogoAviso.getImagem() == null && saveAviso.getImagem() == null && ativarBoss != 2 && ((contTeclaBatalha == 4 && (derrotados[2] == true ? (contDialogo == 0) : (contDialogo < 4))) || (contTeclaBatalha == 8 && (derrotados[0] == true ? (contDialogo == 0) : (contDialogo < 2))) || (contTeclaBatalha == 2 && (derrotados[3] == true ? (contDialogo == 0) : (contDialogo < 2  || (contDialogo < 3 && bntSimNao == false)))) || (contTeclaBatalha == 0 && (derrotados[1] == true ? (contDialogo == 0) : (contDialogo < 5))) || (contTeclaBatalha == 6 && (derrotados[4] == true ? (contDialogo == 0) : (contDialogo < 3))) || (contTeclaBatalha == 12 && contDialogo < 1))) {
 				
 				contEngranagem2 = !contEngranagem2;
 				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 				
-				sombreadorDialogo.load(caminho + "res\\sombreador.png");
-				barraDeDialogo.load(caminho + "res\\escolhaDeAdversario\\barraDeDialogo.png");
-				contDialogo++;
+				if(contTeclaBatalha != 12 || ativarBoss == 3) {
+					sombreadorDialogo.load(caminho + "res\\sombreador.png");
+					barraDeDialogo.load(caminho + "res\\escolhaDeAdversario\\barraDeDialogo.png");
+					contDialogo++;
+				}
 				
 				
 				// rexthor
@@ -1276,27 +1281,33 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 					    break;
 					case 12: // Boss
-						imagemDoDialogo.setX(1234/2 - 400/2);
-						imagemDoDialogo.setY(10);
 						
-						if(derrotados[0] == true || derrotados[1] == true || derrotados[2] == true || derrotados[3] == true || derrotados[4] == true) {
+						if(ativarBoss == 3) {
+							imagemDoDialogo.setX(1234/2 - 400/2);
+							imagemDoDialogo.setY(10);
 							
-							txtDialogoLn1.setX(184);
-							txtDialogoLn2.setX(296);
-							txtDialogoLn4.setX(290);
+							if(derrotados[0] == true || derrotados[1] == true || derrotados[2] == true || derrotados[3] == true || derrotados[4] == true) {
+								
+								txtDialogoLn1.setX(184);
+								txtDialogoLn2.setX(296);
+								txtDialogoLn4.setX(290);
+								
+								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\cadeadoGrande1.png");
+								
+								txtDialogoLn1.setTexto("ParabÈns!!! vocÍ conseguiu vencer os 5 C„es das Colinas, infelizmente o jogo n„o");
+								txtDialogoLn2.setTexto("est· completo ainda e vocÍ ter· que esperar um pouco mais.");
+								txtDialogoLn3.setTexto(" ");
+								txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");
+								
+								estrelaFim1.load(caminho + "res\\Creditos\\estrela3.png");
+								estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\cadeadoGrande1.png");
-							
-							txtDialogoLn1.setTexto("Parab√©ns!!! voc√™ conseguiu vencer os 5 C√£es das Colinas, infelizmente o jogo n√£o");
-							txtDialogoLn2.setTexto("est√° completo ainda e voc√™ ter√° que esperar um pouco mais.");
-							txtDialogoLn3.setTexto(" ");
-							txtDialogoLn4.setTexto("Muito obrigado por ter jogado e espero que tenha se divertido.");
-							
-							estrelaFim1.load(caminho + "res\\Creditos\\estrela3.png");
-							estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
-							
+							}
+						} else {
+							ativarBoss = 2;
 						}
-					 break;
+						
+						break;
 				}
 			}
 			
@@ -1341,7 +1352,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void KeyReleased (java.awt.event.KeyEvent tecla){
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-		if(janela != null && janela.getTitle() == "Escolha de Advers√°rio") {
+		if(janela != null && janela.getTitle() == "Escolha de Advers·rio") {
 			
 			int codigo = tecla.getKeyCode();
 			
@@ -1412,7 +1423,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  				limpa as informa√ß√µes e imagens dos di√°logos com os c√£es						|
+	|  				limpa as informaÁıes e imagens dos di·logos com os c„es						|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void limparDialogo() {
@@ -1457,7 +1468,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
-	|  	quando o jogador vence alguma batalha estrelas aparecem para marcar essa vit√≥ria		|
+	|  	quando o jogador vence alguma batalha estrelas aparecem para marcar essa vitÛria		|
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void mostrarEstrela() {
@@ -1479,7 +1490,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		} 
 			
 		if(derrotados[0] == true && derrotados[1] == true && derrotados[2] == true && derrotados[3] == true && derrotados[4] == true) {
-			ativarBoss = true;
+			ativarBoss = 1;
 		}
 	}
 	
@@ -1509,8 +1520,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 		graficos.drawImage(teclaEsquerda.getImagem(), teclaEsquerda.getRedX(), teclaEsquerda.getRedY(), teclaEsquerda.getLarg(), teclaEsquerda.getAlt(), this);
 		graficos.drawImage(teclaDireita.getImagem(), teclaDireita.getRedX(), teclaDireita.getRedY(), teclaDireita.getLarg(), teclaDireita.getAlt(), this);
-		graficos.drawImage(teclaZ.getImagem(), teclaZ.getRedX(), teclaZ.getRedY(), teclaZ.getLarg(), teclaZ.getAlt(), this);
 		
+		graficos.drawImage(teclaZ.getImagem(), teclaZ.getRedX(), teclaZ.getRedY(), teclaZ.getLarg(), teclaZ.getAlt(), this);
+
 		//------------------------------------ icones ----------------------------------------------
 
 		graficos.drawImage(iconeBoss.getImagem(), iconeBoss.getRedX(), iconeBoss.getRedY(), iconeBoss.getLarg(), iconeBoss.getAlt(), this);
@@ -1626,6 +1638,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			MostrarLogo();
 		}
 		
+		if(ativarBoss == 2) {
+			descerPeixe();
+		}
+		
 		repaint();
 	}
 	
@@ -1708,6 +1724,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(iconeIgnis.getImagem() != null || iconeAyla.getImagem() != null || iconeRexthor.getImagem() != null || iconeKiki.getImagem() != null || iconeArius.getImagem() != null) {
 			
 			if(contTempo % 2 == 0) {
+				
+				iconeBoss.setY(iconeBoss.getY() + (animarIconeAventureiro == false ? 1 : -1));
+				
 				iconeIgnis.setY(iconeIgnis.getY() + (animarIconeAventureiro == false ? 1 : -1));
 				iconeAyla.setY(iconeAyla.getY() + (animarIconeAventureiro == false ? 1 : -1));
 				iconeRexthor.setY(iconeRexthor.getY() + (animarIconeAventureiro == false ? 1 : -1));
@@ -1833,6 +1852,61 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\saco2.png");
 		} 
 	
+	}
+	
+	public void descerPeixe() {
+		
+		if(iconeBoss.getImagem() == null) {
+			iconeBoss.load(caminho + "res\\Insignia\\peixe voador.png");
+			teclaZ.setImagem(null);
+			
+		} else if(iconeBoss.getY() < 24) {
+			iconeBoss.setY(iconeBoss.getY() + 2);
+			
+			
+			fundo.setX(fundo.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			tapaResto.setX(tapaResto.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			engrenagem1.setX(engrenagem1.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			engrenagem2.setX(engrenagem2.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+
+			contorno.setX(contorno.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada11.setX(camada11.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada21.setX(camada21.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			camada22.setX(camada22.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada31.setX(camada31.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada41.setX(camada41.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			camada42.setX(camada42.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada51.setX(camada51.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			camada52.setX(camada52.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			camada6.setX(camada6.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			iconeAventureiro.setX(iconeAventureiro.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			teclaEsquerda.setX(teclaEsquerda.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			teclaDireita.setX(teclaDireita.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			teclaZ.setX(teclaZ.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+
+			iconeBoss.setX(iconeBoss.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeIgnis.setX(iconeIgnis.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeAyla.setX(iconeAyla.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeRexthor.setX(iconeRexthor.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeKiki.setX(iconeKiki.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeArius.setX(iconeArius.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+		
+			
+		} else {
+			teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
+			ativarBoss = 3;
+		}
+		
 	}
 	
 	

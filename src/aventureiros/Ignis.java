@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Ignis {
-	//									 apelo,                interferÃªncia,          tipo interferÃªncia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
+	//									 apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{6, 0, 7, 4, 5, 3, 3, 5}, {0, 0, 0, 2, 0, 0, 2, 0}, {-1, 4, -1, 0, -1, -1, 5, -1}, {0, 0, 1, 0, 1, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"Discurso no Jutsu", "Canalizar Reparos", "Tapa em Puristas", "Ignis BonitÃ£o", "IntocÃ¡vel", "PÃ© no Peito e Escudada na Cara", "ProvocaÃ§Ã£o Petulante", "Meca-Rito"};
-	private String [][] ConteudoDescricao = {{"Esta Ã© tua deixa, Ã³ paladino redentor das chamas.", "Em caminhos tortos e aos tropeÃ§os teus inimigos percorrem.", "Reflexivo Ã©s teu canto que nova oportunidade proclamas.", "Reverbere-o para que os terrÃ­veis futuros impossibilidade apenas se tornem.", " "},
-											 {"Se em teu ferroso corpo aÃ§Ãµes forem desferidas", "O marcando com ranhuras e amassados,", "EntÃ£o em seu cerne a escaldante chama deve ser expelida", "Para regredir as lacunas atÃ© teu completo reparo.", "Esta habilidade zera as interferÃªncias ganhada antes da sua aÃ§Ã£o nessa rodada."},
-											 {"De ideias distorcidas e atos vis sÃ£o alimentados.", "Mesmo com tamanha ojeriza ofereceu-lhes a redenÃ§Ã£o.", "Ao se recusarem crianÃ§as e idosos nÃ£o foram poupados.", "Brandindo o escudo e o fuÃª sucedeu-lhes somente a rÃ­spida puniÃ§Ã£o.", " "}, 
-											 {"NÃ£o hÃ¡ tempo a ser perdido,", "Todos anseiam sua apariÃ§Ã£o.", "Bem formoso, harmÃ´nico e esculpido", "Ficou teu queixo, Ã³ BONITÃƒO.", "Esta habilidade afeta todos os campos acima de vocÃª."},
-											 {"Desafie a todos que quiserem a prova tirar pessoalmente", "Das histÃ³rias sobre sua defesa robusta e imaculada.", "Venham ferozes ao teu escudo de encontro a ave ardente", "Para que a contagem contÃ­nua possa em um ser aumentada.", " "},
-											 {"VÃ³s sabeis que preferis a defesa aos ataques danosos,", "Mas em alguns casos a forÃ§a hÃ¡ de ser usada,", "Como em zumbis da Tormenta e puristas odiosos,", "Mas em outras situaÃ§Ãµes sÃ³ machuca, nÃ£o mata.", " "},
-											 {"Provoque todos ao alcance que inimizades tens com vosco.", "FaÃ§a gestos chamativos e gritos arrogantes.", "Defenda-se de seus pontapÃ©s, golpes e socos", "Protegendo tua matilha um tanto petulante.", "Esta habilidade afeta um campo acima e um abaixo de vocÃª."}, 
-											 {"Ã‰s um adorÃ¡vel mecaniculo bestial que se juntou a tua patota.", "Saltita e corre arrancando-te sorrisos radiantes,", "Quando agitado e enÃ©rgico destrÃ³i o que estÃ¡ em vossa volta", "E ao lado sempre pode vÃª-lo nas rinhas e masmorras inconstantes.", " "}};
+	private String [] NomeApelos = {"Discurso no Jutsu", "Canalizar Reparos", "Tapa em Puristas", "Ignis Bonitão", "Intocável", "Pé no Peito e Escudada na Cara", "Provocação Petulante", "Meca-Rito"};
+	private String [][] ConteudoDescricao = {{"Esta é tua deixa, ó paladino redentor das chamas.", "Em caminhos tortos e aos tropeços teus inimigos percorrem.", "Reflexivo és teu canto que nova oportunidade proclamas.", "Reverbere-o para que os terríveis futuros impossibilidade apenas se tornem.", " "},
+											 {"Se em teu ferroso corpo ações forem desferidas", "O marcando com ranhuras e amassados,", "Então em seu cerne a escaldante chama deve ser expelida", "Para regredir as lacunas até teu completo reparo.", "Esta habilidade zera as interferências ganhada antes da sua ação nessa rodada."},
+											 {"De ideias distorcidas e atos vis são alimentados.", "Mesmo com tamanha ojeriza ofereceu-lhes a redenção.", "Ao se recusarem crianças e idosos não foram poupados.", "Brandindo o escudo e o fuê sucedeu-lhes somente a ríspida punição.", " "}, 
+											 {"Não há tempo a ser perdido,", "Todos anseiam sua aparição.", "Bem formoso, harmônico e esculpido", "Ficou teu queixo, ó BONITÃO.", "Esta habilidade afeta todos os campos acima de você."},
+											 {"Desafie a todos que quiserem a prova tirar pessoalmente", "Das histórias sobre sua defesa robusta e imaculada.", "Venham ferozes ao teu escudo de encontro a ave ardente", "Para que a contagem contínua possa em um ser aumentada.", " "},
+											 {"Vós sabeis que preferis a defesa aos ataques danosos,", "Mas em alguns casos a força há de ser usada,", "Como em zumbis da Tormenta e puristas odiosos,", "Mas em outras situações só machuca, não mata.", " "},
+											 {"Provoque todos ao alcance que inimizades tens com vosco.", "Faça gestos chamativos e gritos arrogantes.", "Defenda-se de seus pontapés, golpes e socos", "Protegendo tua matilha um tanto petulante.", "Esta habilidade afeta um campo acima e um abaixo de você."}, 
+											 {"És um adorável mecaniculo bestial que se juntou a tua patota.", "Saltita e corre arrancando-te sorrisos radiantes,", "Quando agitado e enérgico destrói o que está em vossa volta", "E ao lado sempre pode vê-lo nas rinhas e masmorras inconstantes.", " "}};
 
 	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Elmer me disse que deseja falar comigo sobre algo?", " ", " ", " "},
-				 {"Ah! Sim, as competiÃ§Ãµes que a Ayla criou para aumentar o engajamento com povo das centrais,", "mesmo nÃ£o compreendendo totalmente seu real propÃ³sito prometi que aceitaria todos os", "desafios feitos a mim.", "As apresentaÃ§Ãµes COM interferÃªncia ganharÃ£o -1 de apelo."},
-				 {"Se nÃ£o tem nada a tratar comigo, fique a vontade para conhecer a cede da ordem da redenÃ§Ã£o.", "Me acompanhe e eu lhe apresentarei a todos os membros.", "Aquele ali que vocÃª jÃ¡ conheceu Ã© o Elmer, ele foi o primeiro membro que recrutei...", " "},
-				 {"Boa tarde! Ã‰ bom te encontrar novamente por aqui.", "EstÃ¡ querendo outra competiÃ§Ã£o amistosa comigo?", " ", " "}};
+				 {"Ah! Sim, as competições que a Ayla criou para aumentar o engajamento com povo das centrais,", "mesmo não compreendendo totalmente seu real propósito prometi que aceitaria todos os", "desafios feitos a mim.", "As apresentações COM interferência ganharão -1 de apelo."},
+				 {"Se não tem nada a tratar comigo, fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei a todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", " "},
+				 {"Boa tarde! É bom te encontrar novamente por aqui.", "Está querendo outra competição amistosa comigo?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

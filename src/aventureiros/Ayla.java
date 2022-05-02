@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Ayla {
-	//                                   apelo,                interferÃªncia,          tipo interferÃªncia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
+	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{2, 5, 4, 4, 1, 6, 0, 1}, {4, 1, 0, 2, 3, 1, 0, 3}, {3, 0, -1, 1, 2, 0, 4, 5}, {0, 0, 0, 0, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
-	private String [] NomeApelos = {"EnganaÃ§Ã£o", "IlusÃ£o", "Disfarce IlusÃ³rio", "AparÃªncia Inofensiva", "Adaga Mental", "ExplosÃ£o de Chamas", "Imagem Espelhada", "Doces Sonhos"};
-	private String [][] ConteudoDescricao = {  {"O que Ã© capaz de vencer o mais forte dos seres", "Do que uma mentirinha bem contada com um bocado de enganaÃ§Ã£o?", "Com uma mente afiada e planejamentos condizentes", "AtÃ© uma fadinha bem charmosa irÃ¡ ter sua ascensÃ£o.", "Esta habilidade afeta o primeiro campo."},
-											   {"VocÃª gosta de cores, brilhos e pirotecnia?", "EntÃ£o venha ver as maravilhosas ilusÃµes do nosso empÃ³rio!", "O pÃºblico se encanta, vibra e urra de alegria", "Ao mesmo tempo que atrapalha seus amigos irrisÃ³rios.", "Esta habilidade afeta todos os campos acima de vocÃª."},
-											   {"Borboleta, urubu ou uma senhora enrugada.", "Os produtos Mary Fay te dÃ£o uma aparÃªncia convincente.", "EntÃ£o venha ver nossas revendedoras altamente requisitadas", "Para trazer novas possibilidades a sua mente.", "                                                                                                                      - EmpÃ³rio PurpÃºrea."}, 
-											   {"Aylarianna PurpÃºrea, a fada mais honesta de Arton", "Ã‰ encantadora, cheirosa e a prÃ³pria perfeiÃ§Ã£o.", "Sua aparÃªncia inofensiva com alguns toques de batom", "Ã‰ capaz de ganha seu amor, seu afeto e sua devoÃ§Ã£o.", "Esta habilidade afeta todos os campos abaixo de vocÃª."},
-											   {"VocÃª manifesta disparando em seguida", "Uma adaga abstrata.", "Em uma mente desprotegida", "PermanecerÃ¡ temporariamente cravada.", "Esta habilidade afeta o campo acima de vocÃª."},
-											   {"Incinere os alvos que aparecem em sua frente,", "FaÃ§a a plateia urrar em fervor,", "Ofusque os oponentes com sua luz incandescente", "E inflame a torcida com seu show estarrecedor.", "Esta habilidade afeta todos os campos acima de vocÃª."},
-											   {"Crie cÃ³pias de si mesma com uma perfeiÃ§Ã£o impressionante", "E as espalhe por todos os lados.", "Instaure a confusÃ£o em seus atacantes", "Evitando seus golpes inesperados.", "Esta habilidade zera as interferÃªncias ganhadas antes da sua aÃ§Ã£o nessa rodada."}, 
-											   {"Descansar Ã© necessÃ¡rio depois de um dia corriqueiro.", "Por suas trocas de \"afeto\" e \"amizade\"", "VocÃª deve um favor aos seus companheiros", "Dando-os um momento de paz e tranquilidade.", "Esta habilidade afeta um campo acima e um abaixo de vocÃª."}};
+	private String [] NomeApelos = {"Enganação", "Ilusão", "Disfarce Ilusório", "Aparência Inofensiva", "Adaga Mental", "Explosão de Chamas", "Imagem Espelhada", "Doces Sonhos"};
+	private String [][] ConteudoDescricao = {  {"O que é capaz de vencer o mais forte dos seres", "Do que uma mentirinha bem contada com um bocado de enganação?", "Com uma mente afiada e planejamentos condizentes", "Até uma fadinha bem charmosa irá ter sua ascensão.", "Esta habilidade afeta o primeiro campo."},
+											   {"Você gosta de cores, brilhos e pirotecnia?", "Então venha ver as maravilhosas ilusões do nosso empório!", "O público se encanta, vibra e urra de alegria", "Ao mesmo tempo que atrapalha seus amigos irrisórios.", "Esta habilidade afeta todos os campos acima de você."},
+											   {"Borboleta, urubu ou uma senhora enrugada.", "Os produtos Mary Fay te dão uma aparência convincente.", "Então venha ver nossas revendedoras altamente requisitadas", "Para trazer novas possibilidades a sua mente.", "                                                                                                                      - Empório Purpúrea."}, 
+											   {"Aylarianna Purpúrea, a fada mais honesta de Arton", "É encantadora, cheirosa e a própria perfeição.", "Sua aparência inofensiva com alguns toques de batom", "É capaz de ganha seu amor, seu afeto e sua devoção.", "Esta habilidade afeta todos os campos abaixo de você."},
+											   {"Você manifesta disparando em seguida", "Uma adaga abstrata.", "Em uma mente desprotegida", "Permanecerá temporariamente cravada.", "Esta habilidade afeta o campo acima de você."},
+											   {"Incinere os alvos que aparecem em sua frente,", "Faça a plateia urrar em fervor,", "Ofusque os oponentes com sua luz incandescente", "E inflame a torcida com seu show estarrecedor.", "Esta habilidade afeta todos os campos acima de você."},
+											   {"Crie cópias de si mesma com uma perfeição impressionante", "E as espalhe por todos os lados.", "Instaure a confusão em seus atacantes", "Evitando seus golpes inesperados.", "Esta habilidade zera as interferências ganhadas antes da sua ação nessa rodada."}, 
+											   {"Descansar é necessário depois de um dia corriqueiro.", "Por suas trocas de \"afeto\" e \"amizade\"", "Você deve um favor aos seus companheiros", "Dando-os um momento de paz e tranquilidade.", "Esta habilidade afeta um campo acima e um abaixo de você."}};
 
 	private String [][] ConteudoEscolhaAdversario = {{"Minhas boas-vindas a Ayla Corporation, como posso ajudar?", "Gostaria de falar com a Srta. Ayla?", "Vejamos...", "- Ayla Corporation, em breve rebranding"},
-													 {"VocÃª tem hora marcada?", " ", " ", " "},
+													 {"Você tem hora marcada?", " ", " ", " "},
 													 {"Muito bem! Me acompanhe por favor.", " ", " ", " "},
-													 {"Minhas sinceras desculpas, mas a Srta. Ayla sÃ³ recebe com hora marcada.", " ", " ", " "},
-													 {"OlÃ¡, vocÃª Ã© a pessoa que estÃ¡ desejando me ver?", "Deixe-me adivinhar, vocÃª quer se tornar uma consultora de beleza aqui no meu empÃ³rio.", "NÃ£o?",  " "},
-													 {"HiHiHIhIhIhiHi eu sÃ³ estava brincando, vocÃª quer me desafiar para uma competiÃ§Ã£o, certo?", "Eu aceito o desafio, mas durante o caminho deixa-me falar sobre os benefÃ­cios de se tornar", "consult...", "As apresentaÃ§Ãµes SEM interferÃªncia ganharÃ£o -1 de apelo."},
-													 {"OlÃ¡, como Ã© bom te ver novamente, tem interesse em mais uma competiÃ§Ã£o junto com", "um plano de carreira completo?", " ", " "}};
+													 {"Minhas sinceras desculpas, mas a Srta. Ayla só recebe com hora marcada.", " ", " ", " "},
+													 {"Olá, você é a pessoa que está desejando me ver?", "Deixe-me adivinhar, você quer se tornar uma consultora de beleza aqui no meu empório.", "Não?",  " "},
+													 {"HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma competição, certo?", "Eu aceito o desafio, mas durante o caminho deixa-me falar sobre os benefícios de se tornar", "consult...", "As apresentações SEM interferência ganharão -1 de apelo."},
+													 {"Olá, como é bom te ver novamente, tem interesse em mais uma competição junto com", "um plano de carreira completo?", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

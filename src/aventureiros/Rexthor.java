@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Rexthor {
-	//                                   apelo,                interferÃªncia,          tipo interferÃªncia (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
+	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
 	private int [][] valores = {{4, 3, 6, 4, 4, 0, 1}, {3, 0, 2, 0, 2, 10, 4}, {2, -1, 5, -1, 0, 6, 1}, {1, 1, 1, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7};
-	private String [] NomeApelos = {"Gancho da Dor", "Esquiva", "Briga", "Sentidos AguÃ§ados", "Besuntar", "Sorte das Deusas", "A Tanga"};
-	private String [][] ConteudoDescricao = {  {"De mÃºsculos contraÃ­dos", "Um gancho Ã© disparado.", "Um rosto Ã© re-esculpido", "Em um corpo desmaiado.", "Esta habilidade afeta o campo acima de vocÃª."},
-											   {"Golpes sÃ£o projetados", "Em sua direÃ§Ã£o.", "Com movimentos calculados", "VocÃª esquiva em demonstraÃ§Ã£o.", " "},
-											   {"AgressÃ£o, barraco, conflito,", "Peleja, refrega, selvageria,", "Confronto, batalha, atrito,", "Sururu, requesta, pancadaria.", "Esta habilidade afeta um campo acima e um abaixo."},
+	private String [] NomeApelos = {"Gancho da Dor", "Esquiva", "Briga", "Sentidos Aguçados", "Besuntar", "Sorte das Deusas", "A Tanga"};
+	private String [][] ConteudoDescricao = {  {"De músculos contraídos", "Um gancho é disparado.", "Um rosto é re-esculpido", "Em um corpo desmaiado.", "Esta habilidade afeta o campo acima de você."},
+											   {"Golpes são projetados", "Em sua direção.", "Com movimentos calculados", "Você esquiva em demonstração.", " "},
+											   {"Agressão, barraco, conflito,", "Peleja, refrega, selvageria,", "Confronto, batalha, atrito,", "Sururu, requesta, pancadaria.", "Esta habilidade afeta um campo acima e um abaixo."},
 											   {"Com seus olhos encobertos", "Se concentre no ambiente,", "Com seus sentidos despertos", "Sobreviva aos ataques subsequentes.", " "},
-											   {"Quando o calor jÃ¡ te confunde", "Ã‰ bom dar uma hidratada,", "Com baby Ã³leo se besunte", "Deixando sua matilha enjoada.", "Esta habilidade afeta todos campos acima de vocÃª."},
-											   {"Jogando cinco d20 uma aposta vocÃª vai fazer.", "NÃ£o hÃ¡ repetiÃ§Ã£o nos nÃºmeros contemplados.", "10 apelos vocÃª ganha se 20 o dado conceber.", "EntÃ£o camarada, vocÃª estÃ¡ tentado?", "Esta habilidade te concede 10 apelos se o nÃºmero 20 sair em um dos dados."},
-											   {"Sua tanga guarda objetos", "Que nem sempre sÃ£o sua propriedade,", "Uma vez das vestes liberto", "O dono cai para insanidade.", "Esta habilidade afeta todos os campos abaixo de vocÃª."}};
+											   {"Quando o calor já te confunde", "É bom dar uma hidratada,", "Com baby óleo se besunte", "Deixando sua matilha enjoada.", "Esta habilidade afeta todos campos acima de você."},
+											   {"Jogando cinco d20 uma aposta você vai fazer.", "Não há repetição nos números contemplados.", "10 apelos você ganha se 20 o dado conceber.", "Então camarada, você está tentado?", "Esta habilidade te concede 10 apelos se o número 20 sair em um dos dados."},
+											   {"Sua tanga guarda objetos", "Que nem sempre são sua propriedade,", "Uma vez das vestes liberto", "O dono cai para insanidade.", "Esta habilidade afeta todos os campos abaixo de você."}};
 	
-	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que vocÃª estÃ¡ querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
-			   										 {"Ã‰ melhor vocÃª ficar esperto mesmo.", " ", " ", " "},
-			   										 {"Seguinte, que tal fazermos uma aposta?", "Vou jogar uma moeda, se vocÃª ganhar eu luto com vocÃª, mas se eu ganhar vocÃª vai ter que", "carregar esses sacos para mim, fechado?", " "},
-			   										 {"EntÃ£o, coroa ou sem coroa?", " ", " ", " "},
-			   										 {"Ok, vocÃª venceu dessa vez, mas nÃ£o vai ficar se achando.", " ", " ", "As apresentaÃ§Ãµes do TIPO FÃ­sico ganharÃ£o +1 de apelo."},
-			   										 {"HA! As deusas estÃ£o do meu lado mermÃ£o.", "Pode comeÃ§ar levando esses sacos aqui.", " ", " "},
-			   										 {"Ai esta vocÃª. EntÃ£o, vamos comeÃ§ar logo com a minha revanche?", "Porque eu tenho hora pra limpar esse chÃ£o com a sua cara.", " ", " "}};
+	private String [][] ConteudoEscolhaAdversario = {{"Estou vendo na sua cara que você está querendo arranjar briga.", "Quer vim pro fight?", " ", " "},
+			   										 {"É melhor você ficar esperto mesmo.", " ", " ", " "},
+			   										 {"Seguinte, que tal fazermos uma aposta?", "Vou jogar uma moeda, se você ganhar eu luto com você, mas se eu ganhar você vai ter que", "carregar esses sacos para mim, fechado?", " "},
+			   										 {"Então, coroa ou sem coroa?", " ", " ", " "},
+			   										 {"Ok, você venceu dessa vez, mas não vai ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
+			   										 {"HA! As deusas estão do meu lado mermão.", "Pode começar levando esses sacos aqui.", " ", " "},
+			   										 {"Ai esta você. Então, vamos começar logo com a minha revanche?", "Porque eu tenho hora pra limpar esse chão com a sua cara.", " ", " "}};
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	
