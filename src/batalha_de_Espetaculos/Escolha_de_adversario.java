@@ -1864,42 +1864,38 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			iconeBoss.setY(iconeBoss.getY() + 2);
 			
 			
-			fundo.setX(fundo.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			tapaResto.setX(tapaResto.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeBoss.setDy(iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 5 : -5));
 			
-			engrenagem1.setX(engrenagem1.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			engrenagem2.setX(engrenagem2.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			
+			fundo.setX(fundo.getX() + iconeBoss.getDy());
+			tapaResto.setX(tapaResto.getX() + iconeBoss.getDy());
+			
+			engrenagem1.setX(engrenagem1.getX() + iconeBoss.getDy());
+			engrenagem2.setX(engrenagem2.getX() + iconeBoss.getDy());
+			contorno.setX(contorno.getX() + iconeBoss.getDy());
+			
+			camada11.setX(camada11.getX() + iconeBoss.getDy());
+			camada21.setX(camada21.getX() + iconeBoss.getDy());
+			camada22.setX(camada22.getX() + iconeBoss.getDy());
+			camada31.setX(camada31.getX() + iconeBoss.getDy());
+			camada41.setX(camada41.getX() + iconeBoss.getDy());
+			camada42.setX(camada42.getX() + iconeBoss.getDy());
+			camada51.setX(camada51.getX() + iconeBoss.getDy());
+			camada52.setX(camada52.getX() + iconeBoss.getDy());
+			camada6.setX(camada6.getX() + iconeBoss.getDy());
+			
+			iconeAventureiro.setX(iconeAventureiro.getX() + iconeBoss.getDy());
+			
+			teclaEsquerda.setX(teclaEsquerda.getX() + iconeBoss.getDy());
+			teclaDireita.setX(teclaDireita.getX() + iconeBoss.getDy());
+			teclaZ.setX(teclaZ.getX() + iconeBoss.getDy());
 
-			contorno.setX(contorno.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada11.setX(camada11.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada21.setX(camada21.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			camada22.setX(camada22.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada31.setX(camada31.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada41.setX(camada41.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			camada42.setX(camada42.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada51.setX(camada51.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			camada52.setX(camada52.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			camada6.setX(camada6.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			iconeAventureiro.setX(iconeAventureiro.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			teclaEsquerda.setX(teclaEsquerda.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			teclaDireita.setX(teclaDireita.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			
-			teclaZ.setX(teclaZ.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-
-			iconeBoss.setX(iconeBoss.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			iconeIgnis.setX(iconeIgnis.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			iconeAyla.setX(iconeAyla.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			iconeRexthor.setX(iconeRexthor.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			iconeKiki.setX(iconeKiki.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
-			iconeArius.setX(iconeArius.getX() + (iconeBoss.getY() < -170 || iconeBoss.getY() > -4 ? (iconeBoss.getY() % 2 == 0 ? 2 : -2) : (iconeBoss.getY() % 2 == 0 ? 4 : -4)));
+			iconeBoss.setX(iconeBoss.getX() + iconeBoss.getDy());
+			iconeIgnis.setX(iconeIgnis.getX() + iconeBoss.getDy());
+			iconeAyla.setX(iconeAyla.getX() + iconeBoss.getDy());
+			iconeRexthor.setX(iconeRexthor.getX() + iconeBoss.getDy());
+			iconeKiki.setX(iconeKiki.getX() + iconeBoss.getDy());
+			iconeArius.setX(iconeArius.getX() + iconeBoss.getDy());
 		
 			
 		} else {

@@ -30,9 +30,12 @@ public class Kiki {
 	}
 	
 	public void sorteio () {
-		for(int i=0; i<8; i++) {
+		/*for(int i=0; i<8; i++) {
 	        mylist.add(i);
-		}
+		}*/
+		
+		mylist.add(0); mylist.add(1); mylist.add(3); mylist.add(6);
+		
 		Collections.shuffle(mylist);
 		
 	}
