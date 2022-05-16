@@ -662,9 +662,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				else if(camada41.getX() == 0) { camada42.setX(esquerda == true ? -4000 : 4000);}
 				
 				int camada4Atual = (camada41.getX() < camada42.getX() ? camada41.getX() : camada42.getX());
-				
-				System.out.println(contTeclaBatalha);
-								
+												
 				if(esquerda == true && direita == true) {
 					
 					pararMovimento();
