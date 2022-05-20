@@ -316,11 +316,11 @@ public class Batalha extends JPanel implements ActionListener {
 	//                            Rexthor           Arius
 	private int [][] dados = {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
 	
-	private Icones_interativos imgDado1 = new Icones_interativos(tamanhoContorno + 760/2 - 578/2, tamanhoContorno + 30);
-	private Icones_interativos imgDado2 = new Icones_interativos(imgDado1.getX() + 120, imgDado1.getY());
-	private Icones_interativos imgDado3 = new Icones_interativos(imgDado2.getX() + 120, imgDado1.getY());
-	private Icones_interativos imgDado4 = new Icones_interativos(imgDado3.getX() + 120, imgDado1.getY());
-	private Icones_interativos imgDado5 = new Icones_interativos(imgDado4.getX() + 120, imgDado1.getY());
+	private Icones_interativos imgDado1 = new Icones_interativos(tamanhoContorno + 550, tamanhoContorno + 400);
+	private Icones_interativos imgDado2 = new Icones_interativos(tamanhoContorno + 640, tamanhoContorno + 270);
+	private Icones_interativos imgDado3 = new Icones_interativos(tamanhoContorno + 870, tamanhoContorno + 200);
+	private Icones_interativos imgDado4 = new Icones_interativos(tamanhoContorno + 860, tamanhoContorno + 470);
+	private Icones_interativos imgDado5 = new Icones_interativos(tamanhoContorno + 1050, tamanhoContorno + 330);
 	
 	// ---------------------------------- animação inicial --------------------------------
 	
@@ -1891,32 +1891,14 @@ public class Batalha extends JPanel implements ActionListener {
 		// ------------------------------- 6: jogar d20 ----------------------------------
 		}else if(tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 6) {
 			
-			imgDado1.setDx(imgDado1.getDx() + 1);
-			
-			if(imgDado1.getDx() < 110) {
-				imgDado1.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] + ".png");
-				imgDado2.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] + ".png");
-				imgDado3.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] + ".png");
-				imgDado4.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] + ".png");
-				imgDado5.load(caminho + "res\\batalha\\" + (ordemAventRodada[vezDoAventureiro] == 2 ? "Rexthor" : "Arius") + "\\dados\\" + dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] + ".png");
-			
-			} else if(imgDado1.getDx() == 110) {
-				imgDado1.setImagem(null);
-				imgDado2.setImagem(null);
-				imgDado3.setImagem(null);
-				imgDado4.setImagem(null);
-				imgDado5.setImagem(null);
-				imgDado1.setDx(0);
-
-				if((ordemAventRodada[vezDoAventureiro] == 2 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[vezDoAventureiro] == 4 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 5))) {
-					
-					valorApelo[ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
-					animacaoFileira = vezDoAventureiro * 2;
-				}
+			if((ordemAventRodada[vezDoAventureiro] == 2 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 20 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 20)) || (ordemAventRodada[vezDoAventureiro] == 4 && (dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][0] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][1] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][2] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][3] == 5 || dados[ordemAventRodada[vezDoAventureiro] == 2 ? 0 : 1][4] == 5))) {
 				
-				efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
-				
+				valorApelo[ordemAventRodada[vezDoAventureiro]] = valorInterferencia[ordemAventRodada[vezDoAventureiro]];
+				animacaoFileira = vezDoAventureiro * 2;
 			}
+			
+			efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] ++;
+			
 		}
 	}
 	
@@ -2975,8 +2957,72 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			} else if(animacao.getDx() >= 111 && animacao.getDx() <= 140 && animacao.getDx() % 3 == 0) {
 				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\19.png");
-			
 			}
+			
+		} else if(avent == 4 && gifApelos[4][numApelo] == 6) {
+			
+			if(animacao.getDx() == 20) {
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
+			
+			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 58) {
+				animacaoObj1.setY(animacaoObj1.getY() - 1);
+				
+				if(animacao.getDx() % 6 == 0) {
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				} else if(animacao.getDx() % 3 == 0) {
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+				}
+				
+				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
+			
+			} else if(animacao.getDx() == 59) {
+				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\5.png");
+				animacaoObj2.setImagem(null);
+				animacaoObj3.setImagem(null);
+			
+			} else if(animacao.getDx() >= 60 && animacao.getDx() <= 92) {
+				animacao.setLarg(animacao.getLarg() + 4);
+				animacao.setAlt(animacao.getAlt() + 2);
+				
+				if(animacao.getDx() % 4 == 0) {
+					animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\5.png");
+					
+				} else if(animacao.getDx() % 2 == 0) {
+					animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\6.png");
+				}
+				
+				animacaoObj1.setLarg(animacao.getLarg());
+				animacaoObj1.setAlt(animacao.getAlt());
+				
+				animacaoObj1.setX(animacao.getX());
+				animacaoObj1.setY(animacao.getY());
+				
+			} else if(animacao.getDx() == 94) {
+				animacao.setX(tamanhoContorno); animacao.setY(tamanhoContorno + 2);
+				animacaoObj1.setImagem(null);
+				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\7.png");
+			
+			} else if(animacao.getDx() == 96) {
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\8.png");
+				imgDado1.load(caminho + "res\\batalha\\Arius\\dados\\" + dados[1][0] + ".png");
+				imgDado2.load(caminho + "res\\batalha\\Arius\\dados\\" + dados[1][1] + ".png");
+				imgDado3.load(caminho + "res\\batalha\\Arius\\dados\\" + dados[1][2] + ".png");
+				imgDado4.load(caminho + "res\\batalha\\Arius\\dados\\" + dados[1][3] + ".png");
+				imgDado5.load(caminho + "res\\batalha\\Arius\\dados\\" + dados[1][4] + ".png");
+				
+			} else if(animacao.getDx() == 140) {
+				imgDado1.setImagem(null);
+				imgDado2.setImagem(null);
+				imgDado3.setImagem(null);
+				imgDado4.setImagem(null);
+				imgDado5.setImagem(null);
+			}
+			
 		}
 		
 		else if(avent == 2) {
