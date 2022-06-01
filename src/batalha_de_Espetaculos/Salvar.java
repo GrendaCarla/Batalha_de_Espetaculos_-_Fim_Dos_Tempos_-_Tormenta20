@@ -10,16 +10,17 @@ import java.io.PrintWriter;
 public class Salvar {
 	
 	private int aventureiro;
-	private boolean [] vitorias = new boolean[5];
+	private int [][] tabelaInteracao = new int[5][5];
 	private String caminho;
 	
-	public int SalvarDados (boolean [] etapa, int aventureiro, String Caminho) {
+	public int SalvarDados (int [][] tabela, int aventureiro, String Caminho) {
 		this.caminho = Caminho;
 		
 		try {
 			
 			File file1 = new File(caminho + "res\\Save.txt");
 			
+			//se o arquivo de save não existir ele cria um
 			if(!file1.exists()){
 				file1.createNewFile();
 			}
@@ -27,10 +28,20 @@ public class Salvar {
 			FileWriter caminhoTxt = new FileWriter(file1);
 			PrintWriter salvarTxt = new PrintWriter(caminhoTxt);
 			
-			for(int i=0; i<5; i++) {
-				salvarTxt.printf(etapa[i] == false ? "0" : "1");
+			salvarTxt.println(aventureiro+"");
+			
+
+			for(int lin=0; lin<5; lin++) {
+					
+				for(int col=0; col<5; col++) {
+					if(col != 4) {
+						salvarTxt.printf(tabela[lin][col] + "");
+					} else {
+						salvarTxt.println(tabela[lin][col] + "");
+					}
+				}
 			}
-			salvarTxt.printf(aventureiro+"");
+			
 		    
 		    salvarTxt.close();
 		    
@@ -48,6 +59,7 @@ public class Salvar {
 		try {
 			File file1 = new File(caminho + "res\\Save.txt");
 			
+			//se o arquivo de save não existir
 			if(!file1.exists()){
 				return -1;
 			} else {
@@ -55,29 +67,58 @@ public class Salvar {
 				BufferedReader buffRead = new BufferedReader(new FileReader(file1));
 				String linha = buffRead.readLine();
 				
-				buffRead.close();
-				
+				//se não tiver nada no arquivo
 				if(linha == null) {
 					return -1;
 				}
+				
+				//se tiver algum caracter não numerico
 				if(linha.matches("-?\\d+") == false) {
 					return -4;
 				}
 				
-				for(int i=0; i<5; i++) {
+				//ve qual aventureiro foi escolido anteriormente, se não o resultado é -1
+				if(Integer.parseInt(linha) >= 0 && Integer.parseInt(linha) <= 4) {
+					aventureiro = Integer.parseInt(linha);
 					
-					if(Integer.parseInt(linha.substring(i, i+1)) == 0 || Integer.parseInt(linha.substring(i, i+1)) == 1) {
-						vitorias[i] = (Integer.parseInt(linha.substring(i, i+1)) == 0 ? false : true);
+				} else {
+					return -3;
+				}
+				
+				//pega os valores das linhas e colunas.
+				
+				/* 			 primeira| vitórias | derrotas | abandono | ultimo resutado			   |
+				 * ignis	| 0 ou 1 |   >=0	|   >=0	   |   >=0	  | 0=nao, 1=vit, 2=der, 3=aba |
+				 * ayla		|		 |			|		   |		  |							   |
+				 * rexthor	|		 |			|		   |		  |							   |
+				 * kiki		|		 |			|		   |		  |							   |
+				 * arius	|		 |			|		   |		  |							   |
+				 */
+				
+				for(int lin=0; lin<5; lin++) {
+
+					linha = buffRead.readLine();
+					
+					if(linha.length() == 5) {
+						
+						for(int col=0; col<5; col++) {
+							
+							if(col == 0 && (Integer.parseInt(linha.substring(0, 1)) == 0 || Integer.parseInt(linha.substring(0, 1)) == 1)) {
+								tabelaInteracao[lin][col] = Integer.parseInt(linha.substring(0, 1));
+								
+							} else if(col != 0 && Integer.parseInt(linha.substring(col, col+1)) >= 0) {
+								tabelaInteracao[lin][col] = Integer.parseInt(linha.substring(col, col+1));
+							
+							} else {
+								return -3;
+							}
+						}
 					} else {
 						return -3;
 					}
 				}
 				
-				if(Integer.parseInt(linha.substring(5, 6)) >= 0 && Integer.parseInt(linha.substring(5, 6)) < 6) {
-					aventureiro = Integer.parseInt(linha.substring(5, 6));
-				} else {
-					return -3;
-				}
+				buffRead.close();
 				
 				return 0;
 			}
@@ -93,7 +134,7 @@ public class Salvar {
 		
 		File file1 = new File(caminho + "res\\Save.txt");
 		
-		if(!file1.exists()){
+		if(file1.exists()){
 			file1.delete();
 		}
 	}
@@ -103,8 +144,8 @@ public class Salvar {
 		return aventureiro;
 	}
 	
-	public boolean[] getVitorias() {
-		return vitorias;
+	public int[][] getTabelaInteracao() {
+		return tabelaInteracao;
 	}
 
 	

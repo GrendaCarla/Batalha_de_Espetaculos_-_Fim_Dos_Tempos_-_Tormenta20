@@ -17,10 +17,32 @@ public class Ignis {
 											 {"Provoque todos ao alcance que inimizades tens com vosco.", "Faça gestos chamativos e gritos arrogantes.", "Defenda-se de seus pontapés, golpes e socos", "Protegendo tua matilha um tanto petulante.", "Esta habilidade afeta um campo acima e um abaixo de você."}, 
 											 {"És um adorável mecaniculo bestial que se juntou a tua patota.", "Saltita e corre arrancando-te sorrisos radiantes,", "Quando agitado e enérgico destrói o que está em vossa volta", "E ao lado sempre pode vê-lo nas rinhas e masmorras inconstantes.", " "}};
 
+	// ------------------------------ primeira interação ---------------------------------
 	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Elmer me disse que deseja falar comigo sobre algo?", " ", " ", " "},
 				 {"Ah! Sim, as competições que a Ayla criou para aumentar o engajamento com povo das centrais,", "mesmo não compreendendo totalmente seu real propósito prometi que aceitaria todos os", "desafios feitos a mim.", "As apresentações COM interferência ganharão -1 de apelo."},
 				 {"Se não tem nada a tratar comigo, fique a vontade para conhecer a cede da ordem da redenção.", "Me acompanhe e eu lhe apresentarei a todos os membros.", "Aquele ali que você já conheceu é o Elmer, ele foi o primeiro membro que recrutei...", " "},
-				 {"Boa tarde! É bom te encontrar novamente por aqui.", "Está querendo outra competição amistosa comigo?", " ", " "}};
+				 {"Boa tarde! É bom te encontrar novamente por aqui.", "Está querendo outra competição amistosa comigo?", " ", " "},
+	// 4º linha --------------------- teve o primeiro contato mas não batalhou = |1|0|0|0|0| -------------------
+				 {"teve o primeiro contato mas não batalhou", " ", " ", " "},
+	// ------------------------------ desistiu no meio da última luta = |1|0|0|1|3| -------------------
+				 {"desistiuno no meio da última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta = |1|0|1|0|2| -------------------
+				 {"perdeu na última luta", " ", " ", " "},
+	// ------------------------------ 1º vitória na última luta = |1|1|0|0|1| -------------------
+				 {"1º vitória na última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
+				 {"perdeu na última luta, mas tem 1 vitória", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com 3 ou menos derrotas = |1|2|3|0|1| -------------------
+				 {"2º vitória na última luta com menos de 3 derrotas", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com mais de 3 derrotas = |1|2|4|0|1| -------------------
+				 {"2º vitória na última luta com mais de 3 derrotas", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
+				 {"derrota na última luta com 2 vitórias", " ", " ", " "},
+	// ------------------------------ 3º ou mais vitórias na última luta = |1|3|0|0|1| -------------------
+				 {"3º ou mais vitórias na última luta", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 3 ou mais vitórias = |1|3|1|0|2| -------------------
+				 {"derrota na última luta com 3 ou mais vitórias", " ", " ", " "}};
+
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	

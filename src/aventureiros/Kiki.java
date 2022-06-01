@@ -17,12 +17,34 @@ public class Kiki {
 											   {"Desafie quem quiser para uma competição de birita", "Mostrando a sua habilidade de maior conquista.", "Ao ser vitoriósa aproveite seu bucho cheio", "Vomitando como um sátiro bem em cima de seus companheiros.", "Esta habilidade afeta todos os campos acima de você."},
 											   {"Seu estilo de higiene é bem questionável,", "Adquirindo assim um poder incomensurável.", "Não se pode fazer desfeita com o que tens em mãos,", "Então levante o braço e libere a putrefação.", "Esta habilidade afeta todos os campos abaixo de você."}};	
 	
+	// ------------------------------ primeira interação --------------------------------- kiki summer eletrohits
 	private String [][] ConteudoEscolhaAdversario = {{"Boa tarde! Você esta querendo me enfrentar em uma competição de apresentações?", "Você acredita que possui MAIS TALENTO DO QUE EU a ponto de me desafiar?", " ", " "},
 													{"Sério?", "Eu só estava brincando com você, adoraria um duelo que obviamente ganharia, afinal, sou uma", "barda de muitos, muitos talentos e habilidades como meus fãs podem atestar.", "Pois bem, nossa disputa será adiada por enquanto, mas ela IRÁ acontecer em algum momento."},
 													{"Mas, ei.", "Eu percebo que você não é daqui, de onde você veio, que negócios você tem a tratar nas colinas", "centrais para percorrer todo esse caminho, talvez um amor antigo ou um segredo terrível.", "Me conte tudo e não poupe detalhes."},
 													{"A D O R E I seu entusiasmo.", "Que venha a apresentação MAIS APAIXONANTE capaz de inflamar as emoções do público.", " ", "As apresentações COM interferência ganharão +1 de apelo."},
-													{"Daquela vez você me derrotou, mas essa história ainda não chegou ao seu fim, eu quero uma", "R E V A N C H E. Vai aceitar ou vai arregar?", " ", " "}};
-
+													{"Daquela vez você me derrotou, mas essa história ainda não chegou ao seu fim, eu quero uma", "R E V A N C H E. Vai aceitar ou vai arregar?", " ", " "},
+	// 5º linha --------------------- teve o primeiro contato mas não batalhou = |1|0|0|0|0| -------------------
+													{"teve o primeiro contato mas não batalhou", " ", " ", " "},
+	// ------------------------------ desistiu no meio da última luta = |1|0|0|1|3| -------------------
+													{"desistiuno no meio da última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta = |1|0|1|0|2| -------------------
+													{"perdeu na última luta", " ", " ", " "},
+	// ------------------------------ 1º vitória na última luta = |1|1|0|0|1| -------------------
+													{"1º vitória na última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
+													{"perdeu na última luta, mas tem 1 vitória", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com 3 ou menos derrotas = |1|2|3|0|1| -------------------
+													{"2º vitória na última luta com menos de 3 derrotas", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com mais de 3 derrotas = |1|2|4|0|1| -------------------
+													{"2º vitória na última luta com mais de 3 derrotas", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
+													{"derrota na última luta com 2 vitórias", " ", " ", " "},
+	// ------------------------------ 3º ou mais vitórias na última luta = |1|3|0|0|1| -------------------
+													{"3º ou mais vitórias na última luta", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 3 ou mais vitórias = |1|3|1|0|2| -------------------
+													{"derrota na última luta com 3 ou mais vitórias", " ", " ", " "}};
+	
+	
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	
 	public Kiki() {

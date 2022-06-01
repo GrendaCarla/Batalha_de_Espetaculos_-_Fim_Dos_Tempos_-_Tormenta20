@@ -115,6 +115,9 @@ public class Menu extends JPanel implements ActionListener {
 	private Texto txtDialogoAviso2 = new Texto(dialogoAviso.getX() + 250, txtDialogoAviso.getY() + 50, " ");
 	
 	private Boolean bntSimNaoDialgoAviso = true;
+	
+	private Boolean quebraConfianca = false;
+	private String txtQuebraConfianca;
 
 	// ---------------------------- save ------------------------------------
 	
@@ -229,14 +232,45 @@ public class Menu extends JPanel implements ActionListener {
 		bntManual.load(caminho + "res\\Menu principal\\bntManual1.png");
 		bntCreditos.load(caminho + "res\\Menu principal\\bntCreditos1.png");
 		
-		dialogoAviso.setImagem(null);
-		sombreadorDialogoAviso.setImagem(null);
-		bntSimDialogoAviso.setImagem(null);
-		bntNaoDialogoAviso.setImagem(null);
+		if(valorLeituraSave == 0 && salvar.getTabelaInteracao()[salvar.getAventureiro()][3] > 6) {
+			txtQuebraConfianca = (salvar.getAventureiro() == 0 ? "IGNIS" : (salvar.getAventureiro() == 1 ? "AYLA" : (salvar.getAventureiro() == 2 ? "REXTHOR" : (salvar.getAventureiro() == 3 ? "KIKI" : "ARIUS"))))
+					+ "  NÃO  GOSTA  MAIS  DE  VOCÊ!";
+			quebraConfianca = true;
+			
+		} else {
 		
-		txtDialogoAviso.setTexto(" ");
-		txtDialogoAviso2.setTexto(" ");
+			dialogoAviso.setImagem(null);
+			sombreadorDialogoAviso.setImagem(null);
+			bntSimDialogoAviso.setImagem(null);
+			bntNaoDialogoAviso.setImagem(null);
+			
+			txtDialogoAviso.setTexto(" ");
+			txtDialogoAviso2.setTexto(" ");
+		}
+	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  					Encerrar jogo por quebra de confiança com os personagens				|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public void fecharQuebrarConfianca(){
 		
+		dialogoAviso.setDx(dialogoAviso.getDx() + 1);
+		
+		if(dialogoAviso.getDx() == 1) {
+			sombreadorDialogoAviso.load(caminho + "res\\sombreador.png");
+			dialogoAviso.load(caminho + "res\\mensagem aviso\\dialogo.png");
+			txtDialogoAviso2.setX(1234/2 - txtQuebraConfianca.length()*7 + (salvar.getAventureiro() == 2 ? -20 : 0));
+			
+		} else if(txtQuebraConfianca.length()*2 > dialogoAviso.getDx() && dialogoAviso.getDx() % 2 == 0){
+			txtDialogoAviso2.setTexto(txtQuebraConfianca.substring(0, dialogoAviso.getDx()/2) + " ");
+			
+		} else if(dialogoAviso.getDx() == 80) {
+			salvar.ApagarDados(caminho);
+			
+			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+			janelaPrincipal.dispose();
+		}
 	}
 
 	/* ---------------------------------------------------------------------------------------- \
@@ -244,7 +278,7 @@ public class Menu extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void dialogoBntNovoJogo(int codigo) {
-
+		
 		if(dialogoAviso.getImagem() == null && codigo == KeyEvent.VK_Z) {
 			
 			contEngranagem2 = !contEngranagem2;
@@ -558,6 +592,9 @@ public class Menu extends JPanel implements ActionListener {
 
 			if(valorLeituraSave != 0 && valorLeituraSave != -1 && contTempoMensagemErro < 141) {
 				MostrarMensagemDeErro();
+				
+			} else if(quebraConfianca == true) {
+				fecharQuebrarConfianca();
 			}
 			
 			Animar();
@@ -647,8 +684,7 @@ public class Menu extends JPanel implements ActionListener {
         janelaPrincipal.setTitle("Escolha de Personagem");
         
         if(NovoJogo == false) {
-        	salvar.LerDados(caminho);
-        	tela1.chamarTela2(salvar.getAventureiro(), salvar.getVitorias());
+        	tela1.chamarTela2(salvar.getAventureiro(), salvar.getTabelaInteracao());
         }
         
         janelaPrincipal.revalidate();

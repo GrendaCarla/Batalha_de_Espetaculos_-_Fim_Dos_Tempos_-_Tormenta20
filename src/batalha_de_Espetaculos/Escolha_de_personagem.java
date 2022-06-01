@@ -440,9 +440,13 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					
 				// ------------ vai para a tela de escolha de adversário ----------- \
 				} else {
-					boolean [] derrotados = {false, false, false, false, false};
+					int [][] TabelaInteracao = {{0, 0, 0, 0, 0},
+										   {0, 0, 0, 0, 0},
+										   {0, 0, 0, 0, 0},
+										   {0, 0, 0, 0, 0},
+										   {0, 0, 0, 0, 0}};
 					
-			        chamarTela2(contTeclaAven, derrotados);
+			        chamarTela2(contTeclaAven, TabelaInteracao);
 			        
 			        limparDialogo();
 				}
@@ -630,11 +634,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void chamarTela2(int ContTeclaAven, boolean [] Derrotados) {
+	public void chamarTela2(int ContTeclaAven, int [][] TabelaInteracao) {
 		
 		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, Derrotados, novoJogo, contEngranagem2, caminho);
+        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, TabelaInteracao, novoJogo, contEngranagem2, caminho);
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
         janelaPrincipal.revalidate();

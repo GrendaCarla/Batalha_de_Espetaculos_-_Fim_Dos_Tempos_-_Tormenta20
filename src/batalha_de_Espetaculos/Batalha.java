@@ -703,6 +703,12 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
+		        
+		        tela2.setTabelaInteracao(adversario, 3, tela2.getTabelaInteracao()[adversario][3] + 1);
+		        tela2.setTabelaInteracao(adversario, 4, 3);
+		        
+		        salvar.SalvarDados(tela2.getTabelaInteracao(), aventureiro, caminho);
+		        
 		        telaMenu.setContEngranagem2(contEngranagem2);
 		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 		        telaMenu.Restaurar();
@@ -807,15 +813,35 @@ public class Batalha extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
-			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-	        janelaPrincipal.remove(this);
-	        janelaPrincipal.add(tela2);
-	        janelaPrincipal.setTitle("Escolha de Adversário");
-	        tela2.LimparTela3();
-	        tela2.setContEngranagem2(contEngranagem2);
-	        tela2.setNumAdversarioAnterior(adversario);
+	        tela2.setTabelaInteracao(adversario, 3, tela2.getTabelaInteracao()[adversario][3] + 1);
+	        tela2.setTabelaInteracao(adversario, 4, 3);
+	        salvar.SalvarDados(tela2.getTabelaInteracao(), aventureiro, caminho);
+	        
+			if(tela2.getTabelaInteracao()[aventureiro][3] > 6) {
+		        janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+		        janelaPrincipal.remove(this);
+		        janelaPrincipal.add(telaMenu);
+		        janelaPrincipal.setTitle("Menu");
+		        
+		        telaMenu.setContEngranagem2(contEngranagem2);
+		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
+		        telaMenu.Restaurar();
+			
+			}else {
+				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+		        janelaPrincipal.remove(this);
+		        janelaPrincipal.add(tela2);
+		        janelaPrincipal.setTitle("Escolha de Adversário");
+		        
+		        tela2.LimparTela3();
+		        tela2.setContEngranagem2(contEngranagem2);
+		        tela2.setNumAdversarioAnterior(adversario);
+			}
+	        
+	        
 	        janelaPrincipal.revalidate();
 	        timer.stop();
+	        
 		}
 	}
 	
@@ -1221,11 +1247,14 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        
 		        if(ordemAventRodada[0] == aventureiro) {
-	        		if(tela2.getDerrotados()[adversario] == false) {
-	        			tela2.setDerrotados(adversario, true);
-	        		}
+		        	tela2.setTabelaInteracao(adversario, 1, tela2.getTabelaInteracao()[adversario][1] + 1);
+		        	tela2.setTabelaInteracao(adversario, 4, 1);
+		        	
+		        } else {
+		        	tela2.setTabelaInteracao(adversario, 2, tela2.getTabelaInteracao()[adversario][2] + 1);
+		        	tela2.setTabelaInteracao(adversario, 4, 2);
 		        }
-	
+	        	
 		        tela2.mostrarEstrela();
 		        tela2.LimparTela3();
 		        tela2.setContEngranagem2(contEngranagem2);
@@ -3023,6 +3052,40 @@ public class Batalha extends JPanel implements ActionListener {
 				imgDado5.setImagem(null);
 			}
 			
+		} else if(avent == 4 && gifApelos[4][numApelo] == 7) {
+			
+			if(animacao.getDx() == 20) {
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
+			
+			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 59) {
+				animacaoObj1.setY(animacaoObj1.getY() - 1);
+				
+				if(animacao.getDx() % 6 == 0) {
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				} else if(animacao.getDx() % 3 == 0) {
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+				}
+				
+				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
+			
+			} else if(animacao.getDx() == 60) {
+				animacaoObj1.setY(animacao.getY());
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\5.png");
+				animacao.setImagem(null); 
+				animacaoObj2.setImagem(null);
+				animacaoObj3.setImagem(null);
+				
+			} else if(animacao.getDx() >= 61 && animacao.getDx() <= 140 && animacao.getDx() % 2 == 0) {
+				animacaoObj1.setX(animacaoObj1.getX() -10);
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + 
+				(gifApelos[4][numApelo]) + "\\" + (Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 0 ? 5 : 
+				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 2 ? 6 : 
+				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 4 ? 7 : 
+				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 6 ? 8 : 9)))) + ".png");
+			}
 		}
 		
 		else if(avent == 2) {

@@ -22,8 +22,30 @@ public class Rexthor {
 			   										 {"Então, coroa ou sem coroa?", " ", " ", " "},
 			   										 {"Ok, você venceu dessa vez, mas não vai ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
 			   										 {"HA! As deusas estão do meu lado mermão.", "Pode começar levando esses sacos aqui.", " ", " "},
-			   										 {"Ai esta você. Então, vamos começar logo com a minha revanche?", "Porque eu tenho hora pra limpar esse chão com a sua cara.", " ", " "}};
-
+			   										 {"Ai esta você. Então, vamos começar logo com a minha revanche?", "Porque eu tenho hora pra limpar esse chão com a sua cara.", " ", " "},
+	// 7º linha --------------------- teve o primeiro contato mas não batalhou = |1|0|0|0|0| -------------------
+			   										 {"teve o primeiro contato mas não batalhou", " ", " ", " "},
+	// ------------------------------ desistiu no meio da última luta = |1|0|0|1|3| -------------------
+			   										 {"desistiuno no meio da última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta = |1|0|1|0|2| -------------------
+			   										 {"perdeu na última luta", " ", " ", " "},
+	// ------------------------------ 1º vitória na última luta = |1|1|0|0|1| -------------------
+			   										 {"1º vitória na última luta", " ", " ", " "},
+	// ------------------------------ perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
+			   										 {"perdeu na última luta, mas tem 1 vitória", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com 3 ou menos derrotas = |1|2|3|0|1| -------------------
+			   										 {"2º vitória na última luta com menos de 3 derrotas", " ", " ", " "},
+	// ------------------------------ 2º vitória na última luta com mais de 3 derrotas = |1|2|4|0|1| -------------------
+			   										 {"2º vitória na última luta com mais de 3 derrotas", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
+			   										 {"derrota na última luta com 2 vitórias", " ", " ", " "},
+	// ------------------------------ 3º ou mais vitórias na última luta = |1|3|0|0|1| -------------------
+			   										 {"3º ou mais vitórias na última luta", " ", " ", " "},
+	// ------------------------------ derrota na última luta com 3 ou mais vitórias = |1|3|1|0|2| -------------------
+			   										 {"derrota na última luta com 3 ou mais vitórias", " ", " ", " "}};
+	
+	
+	
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();
 	
 	public Rexthor() {
