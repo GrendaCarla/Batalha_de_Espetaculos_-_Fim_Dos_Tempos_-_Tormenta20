@@ -37,18 +37,18 @@ public class Ayla {
 													 {"- Certo.", " ", " ", " "},
 	// 14---------------------------- se a Ayla for a escolhida e perdeu na última luta com 0 vitórias = |1|0|1|0|2| -------------------
 													 {"- Eu vou falar de uma vez, nossa última disputa em casa não foi muito boa.", "- Cometemos alguns errinhos aqui e ali, mas mesmo não vencendo, eu tenho boas notícias!", "- EEEEEEEEEEEEEEEEEEEEE!", " "},
-													 {"- Ouve um aumento de 3% no interesse das pessoas pelos produtos do Empório Purpúrea.", "- Claro, isso não é muito, é até bem ruim, mas pense nos números que alcançarei quando tiver", "minha vitória.", " "},
-													 {"- Artonianos vindos aos montes gastar seus tibares no meu empório, filas quilométricas dando", "voltas no forte, novas filiais abrindo em toda Arton eng- ganhando ainda mais.", "- E para completar, UMA PISCINA DE MOEDAS DE OURO!", " "},
-													 {"- Você vai me ajudar, digo, nos ajudar a bater essa meta?", " ", " ", " "},
+													 {"- Ouve um aumento colossal no interesse pelos produtos Purpúrea e, como uma fada que", "tomou a caridosa missão de compartilhar por um preço a beleza com o mundo, estou muito", "feliz de ter deixado minha terra natal, Pondsmânia, e feito artonianos virem aos montes gastar", "seus tibares no meu empório, fazerem filas quilométricas dando voltas no forte e abrir novas"},
+													 {"filiais em toda Arton que eng- ganhão ainda mais.", "- Mas se alguém disser que ganhamos só 3% e perdemos feio na última luta não acredita", "porque é tudo mentira, provavelmente da minha irmã gemia maligna e invejosa.", " "},
+													 {"- Então, você vai me ajudar a completar minha missão de pura caridade com fins lucrativos?", " ", " ", " "},
 													 {"- EEEEEEEEEEEEEEEEEEEEE!", "- Sabia que poderia contar com você!", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
-													 {"- Tudo bem, eu estou bem.", "- Sua resposta não me decepcionou nem um pouco, não sei do que você esta falando.", " ", " "},
+													 {"- Tudo bem, eu estou bem.", "- Sua resposta não me decepcionou nem um pouco, não sei do que você está falando.", " ", " "},
 	// 20---------------------------- se a Ayla for a escolhida e 1º vitória na última luta = |1|1|0|0|1| -------------------
 													 {"- Pela esplendorosa vitória que conquistamos, eu, Ayla, resolvi te dar A oportunidade da sua", "vida, nesse caso é se tornar parte da empresa que mais vem crescendo nas colinas centrais!", "- Mas para isso se concretizar você tera que se por a prova e mostrar todo o seu potencial.", "- Vença junto a mim três vezes cada um dos Cães das Colinas."},
 													 {"- O que me diz, terá orgulho de anunciar para todos que faz parte dessa grandiosa família", "ou dirá que não sabe apreciar uma dádiva quando ela aparece em sua frente?", " ", " "},
 													 {"- Que bom que escolheu se juntar a nós!", " ", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
 	// 23---------------------------- se a Ayla for a escolhida e perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
 													 {"- Sente-se por favor.", "- Olha, eu estou começando a suspeitar que me enganei sobre você.", "- Nossa parceria não está dando certo, até que íamos bem, mas de repente, BUM, perdemos", "horrivelmente."},
-													 {"- Espera, você esta me dizendo que quer outra chance?", "- Nessa empresa damos 110%, nós tramam- trabalhamos enquanto os outros dormem, não", "existe barreiras físicas ou morais que não voamos por cima. Diga-me, você tem o que é preciso?", "- Ótimo, então levanta essa cabeça e grave nossa marca no coração do povo!"},
+													 {"- Espera, você está me dizendo que quer outra chance?", "- Nessa empresa damos 110%, nós tramam- trabalhamos enquanto os outros dormem, não", "existe barreiras físicas ou morais que não voamos por cima. Diga-me, você tem o que é preciso?", "- Ótimo, então levanta essa cabeça e grave nossa marca no coração do povo!"},
 													 {"- Mas assim, eu to com uma lista de poções para fazer e preciso saber se eu coloco a água", "para esquentar agora ou não. Então, vamos ganhar algumas lutas?", " ", " "},
 													 {"- Maravilha!", " ", " ", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Tudo bem, te vejo depois para dar uma volta.", " ", " ", " "},

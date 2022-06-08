@@ -3073,19 +3073,27 @@ public class Batalha extends JPanel implements ActionListener {
 			
 			} else if(animacao.getDx() == 60) {
 				animacaoObj1.setY(animacao.getY());
+				animacaoObj1.setX(tamanhoContorno + 200);
 				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\5.png");
-				animacao.setImagem(null); 
+				animacao.load(caminho + "res\\batalha\\fundoAnimacao1.png");
 				animacaoObj2.setImagem(null);
 				animacaoObj3.setImagem(null);
 				
-			} else if(animacao.getDx() >= 61 && animacao.getDx() <= 140 && animacao.getDx() % 2 == 0) {
+			} else if(animacao.getDx() >= 61 && animacao.getDx() <= 123 && animacao.getDx() % 2 == 0) {
 				animacaoObj1.setX(animacaoObj1.getX() -10);
 				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + 
 				(gifApelos[4][numApelo]) + "\\" + (Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 0 ? 5 : 
 				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 2 ? 6 : 
 				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 4 ? 7 : 
 				(Integer. parseInt((animacao.getDx()+ "").substring((animacao.getDx()+"").length() - 1, (animacao.getDx()+"").length())) == 6 ? 8 : 9)))) + ".png");
+			
+			} else if(animacao.getDx() >= 124 && animacao.getDx() <= 128 && animacao.getDx() % 2 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\" + (animacao.getDx() == 124 ? 10 : (animacao.getDx() == 126 ? 11 : 12)) + ".png");
+			
+			} else if(animacao.getDx() >= 130 && animacao.getDx() <= 140 && (animacao.getDx() - 1) % 3 == 0) {
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\" + (animacao.getDx() == 130 ? 13 : (animacao.getDx() == 133 ? 14 : 15)) + ".png");
 			}
+			
 		}
 		
 		else if(avent == 2) {
