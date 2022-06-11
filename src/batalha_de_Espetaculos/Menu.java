@@ -436,7 +436,7 @@ public class Menu extends JPanel implements ActionListener {
 					}
 				}
 				
-			} else if(dialogoAviso.getImagem() != null) {
+			} else if(dialogoAviso.getImagem() != null && quebraConfianca == false) {
 				dialogoBntNovoJogo(codigo);
 			}
 			

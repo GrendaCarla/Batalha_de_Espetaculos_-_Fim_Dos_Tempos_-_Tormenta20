@@ -325,7 +325,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	}
 	
 	public void setTabelaInteracao(int linha, int coluna, int resultado) {
-		this.TabelaInteracao[linha][coluna] = resultado;
+		this.TabelaInteracao[linha][coluna] = (resultado > 9 ? 9 : resultado);
 	}
 	
 	public int [][] getTabelaInteracao() {
@@ -673,7 +673,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else {
 					bntSimNao = !bntSimNao;
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim" + (bntSimNao == true? "1" : "2") + ".png");
-					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bnt" + (aventureiro == 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1 ?"Sim" : "Nao") + (bntSimNao == true? "2" : "1") + ".png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bnt" + ((aventureiro == 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1) || (aventureiro != 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1 && contDialogo == 6) ?"Sim" : "Nao") + (bntSimNao == true? "2" : "1") + ".png");
 				}
 			}
 			
@@ -1812,13 +1812,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				ativarAnimacaoVelaAyla = 1;
 				
-				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
 				
 				objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 				objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 				objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
-				
-				txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
 				
 				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[72][0]);
 				txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[72][1]);
@@ -1827,29 +1825,38 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 			} else if(contDialogo == 2) {
 				
-				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 				
 				txtDialogoLn2.setY(txtDialogoLn2.getY() + 8);
 				
 				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[73][0]);
-				txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[73][1]);
-				txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[73][2]);
-				txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[73][3]);
+				txtDialogoLn2.setTexto(" ");
+				txtDialogoLn3.setTexto(" ");
+				txtDialogoLn4.setTexto(" ");
 				
 			} else if(contDialogo == 3) {
 				
 				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 				
-				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[74][0]);
-				txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[74][1]);
-				txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[74][2]);
-				txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[74][3]);
+				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[73][1]);
+				txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[73][2]);
+				txtDialogoLn3.setTexto(" ");
+				txtDialogoLn4.setTexto(" ");
+				
+			} else if(contDialogo == 4) {
+				
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
+				
+				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[73][3]);
+				txtDialogoLn2.setTexto(" ");
+				txtDialogoLn3.setTexto(" ");
+				txtDialogoLn4.setTexto(" ");
 				
 				bntSimNao = false;
 				encerrarDialogo = true;
 			}
 		
-		// se a personagem escolhida for a Ayla
+// -------- se a personagem escolhida for a Ayla -------------------------------------------------
 		} else if(aventureiro == 1) {
 			// se for a primeira interação
 			if(TabelaInteracao[1][0] == 0) {
@@ -1864,7 +1871,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla4.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[0][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[0][1]);
@@ -1911,30 +1918,65 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
-					
 					if(bntSimNao == true) {
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[3][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[3][2]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+				} else if(contDialogo == 5) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[3][2]);
+						txtDialogoLn3.setTexto(" ");
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[3][3]);
 						
 						mudaCorLn4 = true;
-					} else {
 						
-						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[4][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[4][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[4][3]);
+						TabelaInteracao[1][0] = 1;
+						salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+						encerrarDialogo = true;
+						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[4][2]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 					}
 					
+				} else if(contDialogo == 6) {
+				
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+
 					TabelaInteracao[1][0] = 1;
 					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
 					encerrarDialogo = true;
-					
 				}
+				
 			// se o jogador dessidir não batalhar na primeira interação
 			} else if(TabelaInteracao[1][0] == 1 && TabelaInteracao[1][4] == 0) {
 				
@@ -1950,48 +1992,86 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
-					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[5][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[5][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[5][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[5][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 2) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[5][2]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 2) {
+				} else if(contDialogo == 3) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						
-						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 						
-						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[6][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[6][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[6][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[6][3]);
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+				} else if(contDialogo == 4) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[3][2]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[3][3]);
 						
 						mudaCorLn4 = true;
+						encerrarDialogo = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
 						
-						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[7][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[7][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[7][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[7][3]);
-						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[4][2]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 					}
+					
+				} else if(contDialogo == 5) {
+				
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					encerrarDialogo = true;
 				}
+				
 			// se o jogador dessistiu <= 5 vezes na ultima batalha com a ayla
 			} else if(TabelaInteracao[1][4] == 3 && TabelaInteracao[1][3] <= 5) {
 				
@@ -2006,7 +2086,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
@@ -2014,36 +2094,67 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[8][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[8][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[8][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[8][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				}else if(contDialogo == 2) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[8][2]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 2) {
+				} else if(contDialogo == 3) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					if(bntSimNao == true) {
 						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						
-						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
-						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[9][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[9][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[9][2]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+						
+					} else {
+						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[10][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+						
+					}
+					
+				} else if(contDialogo == 4) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					if(bntSimNao == true) {
+						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla6.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[9][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[9][2]);
+						txtDialogoLn3.setTexto(" ");
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[9][3]);
 						
 						mudaCorLn4 = true;
 					} else {
 						
-						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[10][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[10][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[10][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[10][3]);
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[10][1]);
+						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[10][2]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 						
 					}
 					
@@ -2063,7 +2174,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla6.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
@@ -2086,6 +2197,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[12][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[12][1]);
@@ -2119,43 +2231,59 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[14][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[14][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[14][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[14][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
-				}else if(contDialogo == 2) {
+				} else if(contDialogo == 2) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[14][2]);
+					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[14][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 3) {
 					
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); 
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[15][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[15][1]);
 					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[15][2]);
 					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[15][3]);
 					
-				}else if(contDialogo == 3) {
-					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+				}else if(contDialogo == 4) {
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[16][0]);
-					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[16][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[16][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[16][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
-				}else if(contDialogo == 4) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+				}else if(contDialogo == 5) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 4); 
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[16][1]);
+					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[16][2]);
+					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[16][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				}else if(contDialogo == 6) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[17][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[17][1]);
@@ -2165,13 +2293,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 5) {
+				} else if(contDialogo == 7) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
-					
+
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[18][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[18][1]);
@@ -2180,7 +2309,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
-						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[19][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[19][1]);
@@ -2204,22 +2333,29 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
-					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[20][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[20][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[20][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[20][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[20][2]);
+					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[20][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 3) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[21][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[21][1]);
@@ -2229,11 +2365,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntSim2.png");
 				
-				} else if(contDialogo == 3) {
+				} else if(contDialogo == 4) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[22][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[22][1]);
@@ -2259,7 +2395,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 					
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
 					
@@ -2274,7 +2410,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 				} else if(contDialogo == 2) {
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
+					txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[24][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[24][1]);
@@ -2282,8 +2419,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[24][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[24][4]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[25][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[25][1]);
@@ -2293,7 +2438,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 4) {
+				} else if(contDialogo == 5) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
@@ -2306,7 +2451,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[26][3]);
 						
 						mudaCorLn4 = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[27][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[27][1]);
@@ -2331,13 +2478,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[28][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[28][1]);
@@ -2345,8 +2492,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[28][3]);
 					
 				} else if(contDialogo == 2) {
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 8); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[29][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[29][1]);
@@ -2354,6 +2501,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[29][3]);
 					
 				} else if(contDialogo == 3) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[30][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[30][1]);
@@ -2367,9 +2517,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
-					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[31][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[31][1]);
@@ -2377,16 +2526,28 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[31][3]);
 						
 						mudaCorLn4 = true;
+						encerrarDialogo = true;
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[32][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[32][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[32][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[32][3]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 					}
+					
+				} else if(contDialogo == 5) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[32][1]);
+					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[32][2]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					encerrarDialogo = true;
 				}
+				
 			// derrota na última luta com 2 vitórias
 			} else if(TabelaInteracao[1][4] == 2 && TabelaInteracao[1][1] == 2) {
 				
@@ -2408,7 +2569,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[33][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[33][1]);
@@ -2417,20 +2578,31 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 				} else if(contDialogo == 2) {
 					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla9.png");
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[34][0]);
-					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[34][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[34][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[34][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[34][1]);
+					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[34][2]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 					
-				} else if(contDialogo == 3) {
+				} else if(contDialogo == 4) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[35][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[35][1]);
@@ -2439,7 +2611,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[36][0]);
@@ -2464,13 +2636,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					ativarAnimacaoVelaAyla = 1;
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 					
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[37][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[37][1]);
@@ -2480,17 +2652,28 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else if(contDialogo == 2) {
 					
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[38][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[38][1]);
-					txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[38][2]);
-					txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[38][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 3) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+					
+					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[38][2]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					bntSimNao = false;
 					encerrarDialogo = true;
 				}
 			}
-		// se a personagem escolhida [[NÃO]] for a Ayla
+			
+// -------- se a personagem escolhida [[NÃO]] for a Ayla ----------------------------------
 		} else {
 			
 			// se o jogador não tiver ganhado 3 vezes
@@ -2511,6 +2694,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else if(contDialogo == 2) {
 					
 					txtDialogoLn4.setX(80);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca3.png");
 					
 					txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[40][0]);
 					txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[40][1]);
@@ -2525,6 +2709,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
+
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[41][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[41][1]);
 						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[41][2]);
@@ -2570,6 +2756,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				if(TabelaInteracao[1][0] == 0) {
 				
 					if(contDialogo == 4) {
+						
 						imagemDoDialogo.setX(1234/2 - 480/2);
 						imagemDoDialogo.setY(40);
 						
@@ -2585,17 +2772,25 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 						objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); 
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[43][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[43][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[43][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[43][3]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 						
 					} else if(contDialogo == 5) {
-						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");	
 						
-						txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");	
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[43][2]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+						
+					} else if(contDialogo == 6) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+						txtDialogoLn3.setY(txtDialogoLn3.getY() - 2); 
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[44][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[44][1]);
@@ -2615,8 +2810,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(bntSimNao == true) {
 						
 						if(contDialogo == 4) {
-							logoAyla = true;
-							
 							imagemDoDialogo.setX(1234/2 - 480/2);
 							imagemDoDialogo.setY(40);
 							
@@ -2632,17 +2825,24 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[43][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[43][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[43][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[43][3]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
 							
 						} else if(contDialogo == 5) {
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");	
 							
-							txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[43][2]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 6) {
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");	
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[44][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[44][1]);
@@ -2650,7 +2850,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[44][3]);
 							
 							mudaCorLn4 = true;
+							
 							encerrarDialogo = true;
+							TabelaInteracao[1][0] = 1;
+							salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
 						}
 						
 					} else {
@@ -2695,13 +2898,22 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 						} else if(contDialogo == 5) {
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 8); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
-							
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");	
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[47][0]);
-							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[47][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[47][2]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 6) {
+							
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla6.png");	
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[47][1]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[47][2]);
+							txtDialogoLn3.setTexto(" ");
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[47][3]);
 							
 							mudaCorLn4 = true;
@@ -2726,6 +2938,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					if(bntSimNao == true) {
 						
 						if(contDialogo == 4) {
+							
 							imagemDoDialogo.setX(1234/2 - 480/2);
 							imagemDoDialogo.setY(40);
 							
@@ -2735,7 +2948,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla6.png");
 							
 							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
@@ -2748,7 +2961,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 						} else if(contDialogo == 5) {
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[50][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[50][1]);
@@ -2761,16 +2976,28 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 					} else {
 						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
-						
-						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[51][0]);
-						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[51][1]);
-						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[51][2]);
-						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[51][3]);
-						
-						encerrarDialogo = true;
+						if(contDialogo == 4) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca3.png");	
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[51][0]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 5) {
+								
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca2.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[51][1]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[51][2]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+							encerrarDialogo = true;
+						}
 					}
-					// perdeu na última luta com 0 vitórias
+				// perdeu na última luta com 0 vitórias
 				} else if(TabelaInteracao[1][4] == 2 && TabelaInteracao[1][1] == 0) {
 					
 					if(bntSimNao == true) {
@@ -2793,24 +3020,62 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
-							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[52][0]);
-							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[52][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[52][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[52][3]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
 							
 						} else if(contDialogo == 5) {
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
-							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[53][0]);
-							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[53][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[53][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[53][3]);
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[52][1]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
 							
 						} else if(contDialogo == 6) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[52][2]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[52][3]);
+							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[52][4]);
+							txtDialogoLn4.setTexto(" ");
+						
+						} else if(contDialogo == 7) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[53][0]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 8) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla9.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[53][1]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+						
+						} else if(contDialogo == 9) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+							txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[53][2]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[53][3]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 10) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[54][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[54][1]);
@@ -2822,6 +3087,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						}
 						
 					} else {
+						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");	
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
@@ -2836,7 +3102,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				// 1º vitória na última luta
 				} else if(TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1) {
 					
-					if(bntSimNao == true || (bntSimNao == false && contDialogo == 6)) {
+					if(bntSimNao == true || (bntSimNao == false && contDialogo == 7)) {
+						
 						if(contDialogo == 4) {
 							
 							imagemDoDialogo.setX(1234/2 - 480/2);
@@ -2848,22 +3115,31 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
+							txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[56][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[56][1]);
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[56][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[56][3]);
+							txtDialogoLn4.setTexto(" ");
 							
 						} else if(contDialogo == 5) {
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[56][3]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[56][4]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 6) {
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[57][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[57][1]);
@@ -2873,11 +3149,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 							bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntSim2.png");
 						
-						} else if(contDialogo == 6) {
+						} else if(contDialogo == 7) {
+							
 							bntSimDialogo.setImagem(null);
 							bntNaoDialogo.setImagem(null);
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[58][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[58][1]);
@@ -2885,11 +3162,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[58][3]);
 							
 							mudaCorLn4 = true;
+							bntSimNao = true;
 							encerrarDialogo = true;
 						}
 						
 					} else {
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[59][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[59][1]);
@@ -2898,7 +3177,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						encerrarDialogo = true;
 					}
-					// perdeu na última luta, mas tem 1 vitória
+				// perdeu na última luta, mas tem 1 vitória
 				} else if(TabelaInteracao[1][4] == 2 && TabelaInteracao[1][1] == 1) {
 					
 					if(bntSimNao == true) {
@@ -2921,30 +3200,47 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
-							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[60][0]);
-							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[60][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[60][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[60][3]);
-							
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+						
 						} else if(contDialogo == 5) {
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
-							txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[60][1]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[60][2]);
+							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[60][3]);
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 6) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
+							txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[61][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[61][1]);
 							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[61][2]);
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[61][3]);
 							
+						} else if(contDialogo == 7) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[61][4]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[61][5]);
+							
 							mudaCorLn4 = true;
 							encerrarDialogo = true;
 						}
 						
 					} else {
+						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");	
-						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[62][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[62][1]);
@@ -2968,7 +3264,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 							
 							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
@@ -3031,26 +3327,42 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							ativarAnimacaoVelaAyla = 1;
 							
-							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 							objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 							
-							txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
-							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[67][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[67][1]);
-							txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[67][2]);
-							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[67][3]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 5) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[67][2]);
+							txtDialogoLn2.setTexto(" ");
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(" ");
+							
+						} else if(contDialogo == 6) {
+							
+							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+							
+							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[67][3]);
+							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[67][4]);
+							txtDialogoLn3.setTexto(" ");
+							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[67][5]);
 							
 							mudaCorLn4 = true;
 							encerrarDialogo = true;
 						}
 						
+						
 					} else {
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");	
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[68][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[68][1]);
@@ -3072,13 +3384,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						ativarAnimacaoVelaAyla = 1;
 						
-						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto1.png");
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto2.png");
 						objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto3.png");
 						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() - 8); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[70][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[70][1]);
@@ -3089,12 +3401,21 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla1.png");
 						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 8);
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[71][0]);
 						txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[71][1]);
 						txtDialogoLn3.setTexto(ayla.getConteudoEscolhaAdversario()[71][2]);
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[71][3]);
+						
+					} else if(contDialogo == 6) {
+						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
+						
+						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[71][4]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 						
 						bntSimNao = false;
 						encerrarDialogo = true;
