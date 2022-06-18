@@ -3123,34 +3123,26 @@ public class Batalha extends JPanel implements ActionListener {
 	public void animarVencedor() {
 		contVencedor ++;
 		
-		if(contFogos == 56){contFogos = 1;}else{contFogos ++;}
-		
 		if(ordemAventRodada[0] == aventureiro) {
+			
+			if(contFogos == 23){contFogos = 1;}else{contFogos ++;}
 			
 			itemParabenizacaoVencedor1.setY(0);
 			
-			if(contVencedor % 6 == 0) {
+			if(contVencedor % 4 == 0) {
 				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor1.png");
-				
-			} else if((contVencedor - 3) % 6 == 0) {
-				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor2.png");
-			}
-			
-			if((contFogos % 2 != 0 && contFogos < 20) || (contFogos % 3 == 0 && contFogos >= 21)) {
-				itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\fogos\\fogos" + contFogos + ".png");
-			} 
-			
-			if((contFogos % 2 == 0 && contFogos >= 8 && contFogos <= 22) || ((contFogos -1) % 3 == 0 && contFogos >= 23)) {
-				itemParabenizacaoVencedor2.load(caminho + "res\\batalha\\fogos\\fogos" + contFogos + ".png");
-			}
-			
-			if(contVencedor % 6 == 0) {
 				itemParabenizacaoVencedor3.load(caminho + "res\\batalha\\estrelas1.png");
-			} else if(contVencedor % 3 == 0) {
+				
+			} else if(contVencedor % 2 == 0) {
+				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor2.png");
 				itemParabenizacaoVencedor3.load(caminho + "res\\batalha\\estrelas2.png");
 			}
 			
+			itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2) + ".png");
+			itemParabenizacaoVencedor2.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2 - 1) + ".png");
+		
 		} else if(contVencedor <= 40){
+			
 			parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\perdedor1.png");
 			
 			itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\sombreadoPerdedor1.png");

@@ -111,7 +111,10 @@ public class Ayla {
 													 {"- Agora, depois de toda essa agitação eu sugiro que foquem em enfrentar os outros cães das", "colinas.", "- Como eu falei anteriormente você só se juntará oficialmente a mundialmente famosa Ayla", "Corporation quando derrotarem todos os cinco Cães das Colinas três vezes.", "- Boa sorte!"},
 	// 72---------------------------- se vencer 3 vezes todos os cães das colinas -------------------
 													 {"- Após enfrentar Ignis Crae o paladino de Thyatis, Rexthor o lutador mais sortudo que existe,", "Kiki a barda de puro talento, Arius o filósofo devoto de Tanna-toh e Ayla a fada empreendedora", "mais honesta de Arton, você retorna até nós exibindo suas vitórias com orgulho.", " "},
-													 {"- E como prometido, você se tornará um de nós!", "- Agora vamos assinar o pac- contrato.", "- Não precisa ler tudo se não quiser, as letrinhas miúdas são apenas formalidade.", "- Agora oficialmente você faz parte da família Empório Purpúrea, meus parabéns!"}};
+													 {"- E como prometido, você se tornará um de nós, EEEEEEEEEEEEEEEEeee!", "- Agora vamos assinar o pac- contrato.", "- Não precisa ler tudo se não quiser, as letrinhas miúdas são apenas formalidade, HIhiHihi.", "Assinar o contrato?", "- Agora oficialmente você faz parte da família Empório Purpúrea, meus parabéns!"},
+	// 74---------------------------- se já venceu 3 vezes a ayla e falou com ela -------------------
+													 {"- Porque voltamos? Pensei que iriamos desafiar os outros cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros cães.", " ", " "}};
+
 
 	
 	
