@@ -56,7 +56,7 @@ public class Arius {
 	        mylist.add(i);
 		}*/
 		
-		mylist.add(2); mylist.add(5); mylist.add(6); mylist.add(1);
+		mylist.add(2); mylist.add(5); mylist.add(6); mylist.add(3);
 		
 		Collections.shuffle(mylist);
 		
