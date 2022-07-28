@@ -153,6 +153,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private int contAnimacaoJosephine = 0;
 	private boolean moverFundo = false;
 	private boolean mostrarContrato = false;
+	private boolean animarMutuca = false;
 	private int contFogos = -6;
 	
 	// ------------------------ imagens de estrelas para batalhas vencidas ------------------------------
@@ -1281,7 +1282,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				MostrarContrato();
 			}
 			
-			if(objetoDeFundo2.getImagem() != null && contTeclaBatalha == 0){
+			if(animarMutuca == true){
 				animarMutuca();
 				
 				if(contDialogo == 5) {
@@ -1796,72 +1797,1195 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		objetoDeFundo1.setX(-20); objetoDeFundo1.setY(-40);
 		objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto1.png");
 		
-		if(contDialogo == 1 && TabelaInteracao[3][1] != 0) {
-			imagemDoDialogo.setX(1234/2 - 300/2);
+		// -------- se a personagem escolhida for a Kiki -------------------------------------------------
+		if(aventureiro == 3) {
 			
-			imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
-			
-			txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
-			txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
-			txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[4][2]);
-			txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[4][3]);
-			
-			bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
-			bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
-			
-		} else if(contDialogo == 1) {
-			imagemDoDialogo.setX(1234/2 - 300/2);
-			
-			imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
-			
-			txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[0][0]);
-			txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[0][1]);
-			txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[0][2]);
-			txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[0][3]);
-			
-			bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
-			bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
-			
-		} else if(contDialogo == 2){
-			bntSimDialogo.setImagem(null);
-			bntNaoDialogo.setImagem(null);
-			
-			if(bntSimNao == true){
+			// 3º vitória e ja falou com a Kiki
+			if(TabelaInteracao[3][1] == 3 && TabelaInteracao[3][4] == 2) {
+				
 				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 				
-				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[3][0]);
-				txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[3][1]);
-				txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[3][2]);
-				txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[3][3]);
-				mudaCorLn4 = true;
+				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[95][0]);
+				txtDialogoLn2.setTexto(" ");
+				txtDialogoLn3.setTexto(" ");
+				txtDialogoLn4.setTexto(" ");
 				
+				bntSimNao = false;
 				encerrarDialogo = true;
-			} else {
-				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 				
-				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[1][0]);
-				txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[1][1]);
-				txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[1][2]);
-				txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[1][3]);
-			}
-		} else if(contDialogo == 3 && bntSimNao == false){
-			imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
-			
-			txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[2][0]);
-			txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[2][1]);
-			txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[2][2]);
-			txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[2][3]);
-			
-			encerrarDialogo = true;
-		}
+			// se for a primeira interação
+			} else if(TabelaInteracao[3][0] == 0) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[0][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[0][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[0][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[0][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() + 2);
+										
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[1][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[1][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[1][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[1][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[2][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[2][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[2][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[2][3]);
+					
+				}else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[3][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[3][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[3][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[3][3]);
+							
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 5) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					if(bntSimNao == true) {
+						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[4][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[4][3]);
+						
+						mudaCorLn4 = true;
+						TabelaInteracao[3][0] = 1;
+						salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+						encerrarDialogo = true;
+					} else {
+						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[5][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+					
+				} else if(contDialogo == 6) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[5][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[5][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[5][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+					TabelaInteracao[3][0] = 1;
+					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+					encerrarDialogo = true;
+				}
+				
+			// se o jogador dessidir não batalhar na primeira interação
+			} else if(TabelaInteracao[3][0] == 1 && TabelaInteracao[3][4] == 0) {
+					
+				if(contDialogo == 1) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[6][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[6][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[6][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[6][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[7][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[7][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[7][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[7][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[8][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[8][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[8][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[8][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[9][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[9][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[9][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[9][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[10][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+					
+				} else if(contDialogo == 5) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[10][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[10][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[10][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+					encerrarDialogo = true;
+				}
+					
+			// se o jogador dessistiu <= 5 vezes na ultima batalha
+			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] <= 5) {
+				
+				if(contDialogo == 1) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[11][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[11][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[11][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[11][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[12][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[12][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[12][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[12][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 3) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[13][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[13][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[13][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[13][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[14][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[14][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[14][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[14][3]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// se o jogador dessistiu a 6ª vez na ultima batalha com a Kiki
+			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] == 6) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[15][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[15][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[15][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[15][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+					
+				} else if(contDialogo == 2) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[16][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[16][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[16][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[16][3]);
+						
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[18][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[18][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[18][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[18][3]);
+						
+						encerrarDialogo = true;
+					}
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[17][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[17][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[17][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[17][3]);
+					
+					mudaCorLn4 = true;
+					encerrarDialogo = true;
+				}
+				
+			// se jogagor perdeu na última luta com 0 vitórias
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 0) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[19][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[19][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[19][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[19][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[20][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[20][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[20][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[20][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[21][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[21][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[21][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[21][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[22][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[22][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[22][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[22][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[23][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+				} else if(contDialogo == 5) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[23][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[23][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[23][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+					encerrarDialogo = true;
+				}
+				
+			// 1º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 1) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[24][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[24][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[24][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[24][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[25][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[25][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[25][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[25][3]);
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[26][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[26][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[26][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[26][3]);
+					
+				} else if(contDialogo == 4) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[27][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[27][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[27][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[27][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 5) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[28][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[28][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[28][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[28][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[29][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[29][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[29][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[29][3]);
+					}
+					
+				} else if(contDialogo == 6) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[30][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[30][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[30][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[30][3]);
+					
+					encerrarDialogo = true;
+				}
 		
+			// perdeu na última luta, mas tem 1 vitória
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 1) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[31][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[31][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[31][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[31][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[32][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[32][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[32][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[32][3]);
+				
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[33][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[33][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[33][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[33][3]);
+				
+				} else if(contDialogo == 4) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[34][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[34][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[34][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[34][3]);
+					
+					mudaCorLn4 = true;
+					encerrarDialogo = true;
+				}
+				
+			// 2º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 2) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[35][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[35][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[35][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[35][3]);
+				
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 1);
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[36][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[36][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[36][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[36][3]);
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[37][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[37][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[37][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[37][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[38][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[38][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[38][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[38][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[39][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[39][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[39][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[39][3]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// derrota na última luta com 2 vitórias
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 2) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[40][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[40][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[40][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[40][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[41][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[41][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[41][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[41][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[42][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[42][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[42][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[42][3]);
+				
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 5);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[43][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[43][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[43][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[43][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); 
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[44][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[44][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[44][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[44][3]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// 3º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 3) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[45][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[45][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[45][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[45][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[46][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[46][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[46][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[46][3]);
+					
+					TabelaInteracao[3][4] = 2;
+					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+					
+					bntSimNao = false;
+					encerrarDialogo = true;
+				}
+				
+			}
+			
+// ---- se a personagem escolhida [[NÃO]] for a Kiki ----------------------------------
+		} else {
+			
+			// 3º vitória e ja falou com a Kiki
+			if(TabelaInteracao[3][1] == 3 && TabelaInteracao[3][4] == 2) {
+				
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+				
+				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[95][1]);
+				txtDialogoLn2.setTexto(" ");
+				txtDialogoLn3.setTexto(" ");
+				txtDialogoLn4.setTexto(" ");
+				
+				bntSimNao = false;
+				encerrarDialogo = true;
+				
+			// se for a primeira interação
+			} else if(TabelaInteracao[3][0] == 0) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[47][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[47][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[47][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[47][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+										
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[48][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[48][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[48][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[48][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[49][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[49][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[49][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[49][3]);
+					
+				}else if(contDialogo == 4) {
+							
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[50][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[50][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[50][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[50][3]);
+							
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 5) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[51][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[51][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[51][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[51][3]);
+						
+						mudaCorLn4 = true;
+						TabelaInteracao[3][0] = 1;
+						salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[52][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[52][1]);
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+					
+				} else if(contDialogo == 6) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[52][2]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[52][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+					TabelaInteracao[3][0] = 1;
+					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+					encerrarDialogo = true;
+				}
+				
+			// se o jogador dessidir não batalhar na primeira interação
+			} else if(TabelaInteracao[3][0] == 1 && TabelaInteracao[3][4] == 0) {
+					
+				if(contDialogo == 1) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[53][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[53][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[53][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[53][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[54][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[54][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[54][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[54][3]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[55][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[55][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[55][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[55][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[56][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[56][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[56][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[56][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[57][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+					
+				} else if(contDialogo == 5) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[57][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[57][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[57][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+					encerrarDialogo = true;
+				}
+					
+			// se o jogador dessistiu <= 5 vezes na ultima batalha
+			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] <= 5) {
+				
+				if(contDialogo == 1) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[58][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[58][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[58][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[58][3]);
+					
+				} else if(contDialogo == 2) {
+					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[59][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[59][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[59][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[59][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 3) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn4.setY(txtDialogoLn4.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[60][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[60][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[60][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[60][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[61][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[61][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[61][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[61][3]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// se o jogador dessistiu a 6ª vez na ultima batalha com a Kiki
+			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] == 6) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[62][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[62][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[62][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[62][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+					
+				} else if(contDialogo == 2) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[63][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[63][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[63][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[63][3]);
+						
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[65][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[65][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[65][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[65][3]);
+						
+						encerrarDialogo = true;
+					}
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[64][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[64][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[64][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[64][3]);
+					
+					mudaCorLn4 = true;
+					encerrarDialogo = true;
+				}
+				
+			// se jogagor perdeu na última luta com 0 vitórias
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 0) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[66][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[66][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[66][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[66][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[67][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[67][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[67][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[67][(aventureiro == 0 ? 4 : 3)]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[68][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[68][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[68][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[68][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[69][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[69][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[69][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[69][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[70][0]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
+					}
+					
+				} else if(contDialogo == 5) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[70][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[70][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[70][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+					encerrarDialogo = true;
+				}
+				
+			// 1º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 1) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[71][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[71][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[71][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[71][3]);
+				
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[72][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[72][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[72][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[72][3]);
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[73][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[73][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[73][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[73][3]);
+					
+				} else if(contDialogo == 4) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[74][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[74][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[74][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[74][3]);
+					
+				} else if(contDialogo == 5) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[75][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[75][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[75][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[75][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 6) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[76][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[76][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[76][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[76][3]);
+						
+						mudaCorLn4 = true;
+						encerrarDialogo = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[77][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[77][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[77][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[77][3]);
+					}
+					
+				} else if(contDialogo == 7) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[78][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[78][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[78][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[78][3]);
+					
+					encerrarDialogo = true;
+				}
+		
+			// perdeu na última luta, mas tem 1 vitória
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 1) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[79][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[79][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[79][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[79][3]);
+				
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 1); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[80][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[80][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[80][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[80][3]);
+					
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[81][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[81][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[81][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[81][3]);
+					
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[82][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[82][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[82][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[82][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + (aventureiro == 4 ? 0 : 4)); txtDialogoLn3.setY(txtDialogoLn3.getY() - (aventureiro == 4 ? 6 : 2));
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[83][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 4 : 1)]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 5 : 2)]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 6 : 3)]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// 2º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 2) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[84][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[84][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[84][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[84][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[85][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[85][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[85][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[85][3]);
+				
+				} else if(contDialogo == 3) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[86][(aventureiro == 0 ? 1 : 0)]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[86][(aventureiro == 1 ? 3 : 2)]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 4) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[87][(aventureiro == 1 ? 1 : 0)]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[87][2]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[87][3]);
+					
+					mudaCorLn4 = true;
+					encerrarDialogo = true;
+				}
+				
+			// derrota na última luta com 2 vitórias
+			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 2) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[88][(aventureiro == 2 ? 3 : 0)]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[88][(aventureiro == 2 ? 4 : 1)]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[88][(aventureiro == 2 ? 5 : 2)]);
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 5); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[89][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[89][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[89][(aventureiro == 4 ? 3 : 2)]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[89][4]);
+					
+				} else if(contDialogo == 3) {
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[90][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[90][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[90][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[90][3]);
+				
+					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
+					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
+				
+				} else if(contDialogo == 4) {
+					bntSimDialogo.setImagem(null);
+					bntNaoDialogo.setImagem(null);
+					
+					if(bntSimNao == true) {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[91][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[91][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[91][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[91][3]);
+						
+						mudaCorLn4 = true;
+					} else {
+						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); 
+						
+						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[92][0]);
+						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[92][1]);
+						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[92][2]);
+						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[92][3]);
+					}
+					
+					encerrarDialogo = true;
+				}
+				
+			// 3º vitória na última luta
+			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 3) {
+				
+				if(contDialogo == 1) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[93][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[93][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[93][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[93][3]);
+					
+				} else if(contDialogo == 2) {
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[94][0]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[94][1]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[94][2]);
+					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[94][3]);
+					
+					TabelaInteracao[3][4] = 2;
+					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
+					
+					bntSimNao = false;
+					encerrarDialogo = true;
+				}
+				
+			}
+						
+			
+		}
 	}
 
 	public void MostrarDialogoAyla() {
 		
-		if(TabelaInteracao[1][1] == 4) {
-		
-		} else if(TabelaInteracao[0][1] == 3 && TabelaInteracao[1][1] == 3 && TabelaInteracao[2][1] == 3 && TabelaInteracao[3][1] == 3 && TabelaInteracao[4][1] == 3) {
+		if(TabelaInteracao[0][1] == 3 && TabelaInteracao[1][1] == 3 && TabelaInteracao[2][1] == 3 && TabelaInteracao[3][1] == 3 && TabelaInteracao[4][1] == 3) {
 			
 			if(contDialogo == 1) {
 				
@@ -1874,7 +2998,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\ayla5.png");
 				objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\objeto1.png");
 				objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\mutuca1.png");
-			
+				animarMutuca = true;
 				
 				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[72][0]);
 				txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[72][1]);
@@ -1937,6 +3061,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
 				
 				bntSimNao = false;
+				animarMutuca = false;
 				encerrarDialogo = true;
 			}
 		

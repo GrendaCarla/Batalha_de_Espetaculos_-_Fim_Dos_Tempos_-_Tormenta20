@@ -2494,18 +2494,20 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj1.setY(animacaoObj1.getY() - 4);
 			}
 			
-			if(animacao.getDx() >= 72 && animacao.getDx() <= 106 && animacao.getDx() % 4 == 0) {
+			if(animacao.getDx() >= 72 && animacao.getDx() <= 104 && animacao.getDx() % 4 == 0) {
 				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\6.png");
 				
-			} else if(animacao.getDx() >= 74 && animacao.getDx() <= 106 && animacao.getDx() % 2 == 0) {
+			} else if(animacao.getDx() >= 74 && animacao.getDx() <= 104 && animacao.getDx() % 2 == 0) {
 				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\7.png");
+			
+			} else if(animacao.getDx() == 105) {
+				animacaoObj1.setImagem(null);
 			}
 			
-			if(animacao.getDx() >= 110 && animacao.getDx() <= 140 && animacao.getDx() % 8 == 0) {
+			if(animacao.getDx() >= 105 && animacao.getDx() <= 140 && animacao.getDx() % 6 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\13.png");
 				
-			} else if(animacao.getDx() >= 106 && animacao.getDx() <= 140 && animacao.getDx() % 4 == 0) {
-				animacaoObj1.setImagem(null);
+			} else if(animacao.getDx() >= 105 && animacao.getDx() <= 140 && animacao.getDx() % 3 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\14.png");
 			}
 			
@@ -2882,7 +2884,7 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj2.setImagem(null);
 				animacaoObj4.setImagem(null);
 				
-				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacaoObj1.setX(tamanhoContorno - 6); animacaoObj1.setY(tamanhoContorno + 2);
 				animacaoObj2.setX(tamanhoContorno + 20); animacaoObj2.setY(230);
 				animacaoObj3.setX(tamanhoContorno - 20); animacaoObj3.setY(tamanhoContorno + 2);
 				
@@ -2904,11 +2906,13 @@ public class Batalha extends JPanel implements ActionListener {
 			} else if(animacao.getDx() > 115 && animacao.getDx() <= 140) {
 				animacaoObj2.setY(animacaoObj2.getY() + (animacao.getDx() <= 127 || (animacao.getDx() >= 138) ? -20 : (animacao.getDx() >= 130 && animacao.getDx() <= 134 ? 22 : 0)));
 				animacaoObj2.setX(animacaoObj2.getX() + ((animacao.getDx() >= 126 && animacao.getDx() <= 130) ? 22 : (animacao.getDx() <= 134 || animacao.getDx() > 138 ? 0 : -22)));
-				
-				if(animacao.getDx() >= 119) { animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 2 == 0 ? 5 : -5));}
 			}
 			
-			if(animacao.getDx() == 132) {
+			if(animacao.getDx() >= 104) { 
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 2 == 0 ? 5 : -5));
+			}
+			
+			if(animacao.getDx() == 128) {
 				animacaoObj1.load(caminho + "res\\batalha\\Kiki\\animacao\\" + (gifApelos[3][numApelo]) + "\\16.png");
 				animacaoObj1.setLarg(animacao.getLarg()); animacaoObj1.setAlt(animacao.getAlt());
 			}
@@ -3146,15 +3150,15 @@ public class Batalha extends JPanel implements ActionListener {
 			if(animacao.getDx() >= 93 && animacao.getDx() <= 102 && animacao.getDx() % 3 == 0) {
 				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\"  + (animacao.getDx() == 93 ? 9 : (animacao.getDx() == 96 ? 10 : (animacao.getDx() == 99 ? 11 : 12))) + ".png");
 			
-			}else if(animacao.getDx() == 105) {
-				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\13.png");
-				animacaoObj1.setY(-320);
+			}else if(animacao.getDx() == 104) {
+				animacaoObj1.setY(-300);
 				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\14.png");
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\13.png");
 			
-			} else if(animacao.getDx() >= 106 && animacao.getDx() <= 113) {
+			} else if(animacao.getDx() >= 105 && animacao.getDx() <= 112) {
 				animacaoObj1.setY(animacaoObj1.getY() + 40);
 			
-			} else if(animacao.getDx() == 114) {
+			} else if(animacao.getDx() == 113) {
 				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\17.png");
 				animacaoObj1.setY(tamanhoContorno + 2);
 				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\16.png");
@@ -3166,10 +3170,74 @@ public class Batalha extends JPanel implements ActionListener {
 			} else if(animacao.getDx() >= 116 && animacao.getDx() <= 132 && animacao.getDx() % 4 == 0) {
 				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\16.png");
 				
-			} else if(animacao.getDx() == 136) {
-				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\19.png");
+			} else if(animacao.getDx() == 135 ||animacao.getDx() == 137) {
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\" + (animacao.getDx() == 135 ? 19 : 20) + ".png");
 			}
 			
+// ------------------------------------------ REXTHOR ----------------------------------------
+		}else if(avent == 2 && gifApelos[2][numApelo] == 6) {
+			
+			if(animacao.getDx() == 20) {
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
+				animacaoObj1.setX(animacaoObj1.getX() - 4);
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));
+		
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 28 && animacao.getDx() <= 30) || (animacao.getDx() >= 50 && animacao.getDx() <= 52))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -2 : 2));
+			
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 32 && animacao.getDx() <= 34) || (animacao.getDx() >= 54 && animacao.getDx() <= 56))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -1 : 1));
+			
+			} else if(animacao.getDx() == 63) {
+				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\2.png");
+				animacaoObj2.setImagem(null);
+				animacaoObj3.setImagem(null);
+			
+			} else if(animacao.getDx() >= 64 && animacao.getDx() <= 92) {
+				animacao.setLarg(animacao.getLarg() + 4);
+				animacao.setAlt(animacao.getAlt() + 2);
+				
+				if(animacao.getDx() % 4 == 0) {
+					animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\2.png");
+					
+				} else if(animacao.getDx() % 2 == 0) {
+					animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\3.png");
+				}
+				
+				animacaoObj1.setLarg(animacao.getLarg());
+				animacaoObj1.setAlt(animacao.getAlt());
+				
+				animacaoObj1.setX(animacao.getX());
+				animacaoObj1.setY(animacao.getY());
+				
+			} else if(animacao.getDx() == 94) {
+				animacao.setX(tamanhoContorno); animacao.setY(tamanhoContorno + 2);
+				animacaoObj1.setImagem(null);
+				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\4.png");
+			
+			} else if(animacao.getDx() == 96) {
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\5.png");
+				imgDado1.load(caminho + "res\\batalha\\Rexthor\\dados\\" + dados[0][0] + ".png");
+				imgDado2.load(caminho + "res\\batalha\\Rexthor\\dados\\" + dados[0][1] + ".png");
+				imgDado3.load(caminho + "res\\batalha\\Rexthor\\dados\\" + dados[0][2] + ".png");
+				imgDado4.load(caminho + "res\\batalha\\Rexthor\\dados\\" + dados[0][3] + ".png");
+				imgDado5.load(caminho + "res\\batalha\\Rexthor\\dados\\" + dados[0][4] + ".png");
+				
+			} else if(animacao.getDx() == 140) {
+				imgDado1.setImagem(null);
+				imgDado2.setImagem(null);
+				imgDado3.setImagem(null);
+				imgDado4.setImagem(null);
+				imgDado5.setImagem(null);
+			}
+		
+			
+				
 		}
 		
 		else if(avent == 2) {

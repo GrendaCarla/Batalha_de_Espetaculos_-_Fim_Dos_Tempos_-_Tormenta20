@@ -30,7 +30,7 @@ public class Ayla {
     // 8----------------------------- se a Ayla for a escolhida e desistiu <= 5 no meio da última luta = |1|0|0|1|3| -------------------
 													 {"- Como é bom estar de volta!", "- Não vejo a hora de botar a mão na massa e fazer minhas alqu- poções cheirosas.", "- Depois que eu terminar você vai querer batalhar de novo?", " "},
 													 {"- Ótimo! Mas posso te pedir um favorzinho?","- Dessa vez não desista no meio da luta, é meio chato reunir todo mundo daqui das colinas e", "ter o evento encerrado sem conclusão.", "As apresentações SEM interferência ganharão -1 de apelo."},
-													 {"- Certo, vamos dar uma volta pelas centrais depois que eu terminar.", "- Fique a vontade para visitar a loja ou falar com o Mutuca, tenho certeza que ele ira conseguir", "te conv- entreter!", " "},
+													 {"- Certo, vamos dar uma volta pelas centrais depois que eu terminar.", "- Fique a vontade para visitar a loja e falar com o Carlos Mutuca Jr., tenho certeza que ele ira", "conseguir te conv- entreter!", " "},
 	// 11---------------------------- se a Ayla for a escolhida e desistiu == 6 no meio da última luta = |1|0|0|6|3| -------------------
 													 {"- Estamos aqui novamente.","- Dessa vez você realmente quer batalhar?", " ", " "},
 													 {"- Vou falar sinceramente agora, então é melhor aproveitar porque esta oportunidade é rara.", "- Não teste minha paciência, posso ser pequena e adorável, mas se você me decepcionar mais", "uma vez... acabou.", "As apresentações SEM interferência ganharão -1 de apelo."},
@@ -65,7 +65,7 @@ public class Ayla {
 													 {"- Sério?", "- Poxa! Me desanimou, outra hora então.", " ", " "},
 	// 37---------------------------- se a Ayla for a escolhida e 3º vitória na última luta = |1|3|0|0|1| -------------------
 													 {"- Eu ainda estou eufórica com a nossa última luta, demos um show e agora todos, todos", "mesmos, estão ainda mais loucos pelos produtos Purpúrea.", "- Nossa parceria foi uma das melhores ideias que eu já tive e olha que eu tenho várias ideias", "geniais diariamente."},
-													 {"- Então, depois de toda essa agitação que tal focarmos em enfrentar os outros cães das colinas", "nos territórios deles?", "- Ótimo! Vou avisar para o Mutuca que não voltaremos tão cedo.", " "},
+													 {"- Então, depois de toda essa agitação que tal focarmos em enfrentar os outros cães das Colinas", "nos territórios deles?", "- Ótimo! Vou avisar para o Mutuca que não voltaremos tão cedo.", " "},
 	// 39---------------------------- se a Ayla [[[NÃO]]] for a escolhida e primeira interação |0|0|0|0|0 ---------------------------------
 													 {"- Minhas boas-vindas a Ayla Corporation, como posso ajudar?", "- Gostariam de falar com a Srta. Ayla?", "- Vejamos...", "- Ayla Corporation, em breve rebranding"},
 													 {"- Vocês têm hora marcada?", " ", " ", " "},
@@ -108,12 +108,12 @@ public class Ayla {
 	// 69---------------------------- se a Ayla [[[NÃO]]] for a escolhida e 3º vitória na última luta = |1|3|0|0|1| -------------------
 													 {"- Minhas boas-vindas ao Empório Purpúrea!", "- A Srta. Ayla está aguardando a presença de vocês em sua sala, prossigam.", " ", " "},
 													 {"- Eu ainda estou eufórica com a última luta, vocês deram um show e agora todos, todos", "mesmos, estão ainda mais loucos pelos produtos Purpúrea.", "- Nossa parceria foi uma das melhores ideias que eu já tive e olha que eu tenho várias ideias", "geniais diariamente."},
-													 {"- Agora, depois de toda essa agitação eu sugiro que foquem em enfrentar os outros cães das", "colinas.", "- Como eu falei anteriormente você só se juntará oficialmente a mundialmente famosa Ayla", "Corporation quando derrotarem todos os cinco Cães das Colinas três vezes.", "- Boa sorte!"},
-	// 72---------------------------- se vencer 3 vezes todos os cães das colinas -------------------
+													 {"- Agora, depois de toda essa agitação eu sugiro que foquem em enfrentar os outros Cães das", "Colinas.", "- Como eu falei anteriormente você só se juntará oficialmente a mundialmente famosa Ayla", "Corporation quando derrotarem todos os cinco Cães das Colinas três vezes.", "- Boa sorte!"},
+	// 72---------------------------- se vencer 3 vezes todos os cães das Colinas -------------------
 													 {"- Após enfrentar Ignis Crae o paladino de Thyatis, Rexthor o lutador mais sortudo que existe,", "Kiki a barda de puro talento, Arius o filósofo devoto de Tanna-toh e Ayla a fada empreendedora", "mais honesta de Arton, você retorna até nós exibindo suas vitórias com orgulho.", " "},
 													 {"- E como prometido, você se tornará um de nós, EEEEEEEEEEEEEEEEeee!", "- Agora vamos assinar o pac- contrato.", "- Não precisa ler tudo se não quiser, as letrinhas miúdas são apenas formalidade, HIhiHihi.", "Assinar o contrato?", "- Agora oficialmente você faz parte da família Empório Purpúrea, meus parabéns!"},
 	// 74---------------------------- se já venceu 3 vezes a ayla e falou com ela -------------------
-													 {"- Porque voltamos? Pensei que iriamos desafiar os outros cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros cães.", " ", " "}};
+													 {"- Porque voltamos? Pensei que iriamos desafiar os outros Cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros Cães.", " ", " "}};
 
 
 	

@@ -53,9 +53,12 @@ public class Rexthor {
 	}
 	
 	public void sorteio () {
-		for(int i=0; i<7; i++) {
+		/*for(int i=0; i<7; i++) {
 	        mylist.add(i);
-		}
+		}*/
+		
+		mylist.add(0); mylist.add(2); mylist.add(3); mylist.add(5);
+		
 		Collections.shuffle(mylist);
 		
 	}
