@@ -155,6 +155,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private boolean mostrarContrato = false;
 	private boolean animarMutuca = false;
 	private int contFogos = -6;
+	private boolean animaBataPok = false;
+	
+	private Icones_interativos animaBataPok1 = new Icones_interativos(15, 15 + 420); 
+	private Icones_interativos animaBataPok2 = new Icones_interativos(-7950 + 15, 15);
+	private Icones_interativos animaBataPok3 = new Icones_interativos(15 + 1200 - 50 - 50 - 50 - 50, 15 -2110);
+	private Icones_interativos animaBataPok4 = new Icones_interativos(15 + 1200, 15 + 420 - 50 - 50 - 50 - 50);
 	
 	// ------------------------ imagens de estrelas para batalhas vencidas ------------------------------
 	
@@ -768,23 +774,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			// ------------------------ manda para a tela de batalha ----------------------- /
 			else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && encerrarDialogo == true && (bntSimNao == true || (aventureiro == 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1)) && barraDeDialogo.getImagem() != null && contMenSalvar == -1) {
+				chamarBatalha();
 				
-				contEngranagem2 = !contEngranagem2;
-				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-				
-				int [] organizandoAventureiro = {1, 3, 2, 4, 0, 5};
-				
-				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-		        janelaPrincipal.remove(this);
-		        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho);
-		        janelaPrincipal.add(tela3);
-		        janelaPrincipal.setTitle("Batalha");
-		        janelaPrincipal.revalidate();
-		        timer.stop();
-		        
-		        limparDialogo();
-				
-		        contTeclaBatalha = 0;
 			}
 			
 			
@@ -1086,6 +1077,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		bntNaoDialogo.setY(540);
 		
 		logoAyla = false;
+		
+		animaBataPok1.setImagem(null); animaBataPok2.setImagem(null); animaBataPok3.setImagem(null); animaBataPok4.setImagem(null);
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -1113,6 +1106,26 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(TabelaInteracao[0][1] != 0 && TabelaInteracao[1][1] != 0 && TabelaInteracao[2][1] != 0 && TabelaInteracao[3][1] != 0 && TabelaInteracao[4][1] != 0) {
 			ativarBoss = 1;
 		}
+	}
+	
+	public void chamarBatalha() {
+
+		contEngranagem2 = !contEngranagem2;
+		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+		
+		int [] organizandoAventureiro = {1, 3, 2, 4, 0, 5};
+		
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho);
+        janelaPrincipal.add(tela3);
+        janelaPrincipal.setTitle("Batalha");
+        janelaPrincipal.revalidate();
+        timer.stop();
+        
+        limparDialogo();
+		
+        contTeclaBatalha = 0;
 	}
 	
 	public void paint(Graphics g) {
@@ -1166,6 +1179,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(objetoDeFundo2.getImagem(), objetoDeFundo2.getRedX(), objetoDeFundo2.getRedY(), objetoDeFundo2.getLarg(), objetoDeFundo2.getAlt(), this);
 		graficos.drawImage(objetoDeFundo1.getImagem(), objetoDeFundo1.getRedX(), objetoDeFundo1.getRedY(), objetoDeFundo1.getLarg(), objetoDeFundo1.getAlt(), this);
 		graficos.drawImage(imagemDoDialogo.getImagem(), imagemDoDialogo.getRedX(), imagemDoDialogo.getRedY(), imagemDoDialogo.getLarg(), imagemDoDialogo.getAlt(), this);
+		
+		graficos.drawImage(animaBataPok1.getImagem(), animaBataPok1.getRedX(), animaBataPok1.getRedY(), animaBataPok1.getLarg(), animaBataPok1.getAlt(), this);
+		graficos.drawImage(animaBataPok2.getImagem(), animaBataPok2.getRedX(), animaBataPok2.getRedY(), animaBataPok2.getLarg(), animaBataPok2.getAlt(), this);
+		graficos.drawImage(animaBataPok3.getImagem(), animaBataPok3.getRedX(), animaBataPok3.getRedY(), animaBataPok3.getLarg(), animaBataPok3.getAlt(), this);
+		graficos.drawImage(animaBataPok4.getImagem(), animaBataPok4.getRedX(), animaBataPok4.getRedY(), animaBataPok4.getLarg(), animaBataPok4.getAlt(), this);
+
+		
 		graficos.drawImage(barraDeDialogo.getImagem(), barraDeDialogo.getRedX(), barraDeDialogo.getRedY(), barraDeDialogo.getLarg(), barraDeDialogo.getAlt(), this);
 
 		graficos.setColor(txtDialogoLn1.getCorTexto());
@@ -1274,7 +1294,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				animarVelas();
 			}
 			
-			if(moverFundo == true){
+			if(moverFundo == true && contTeclaBatalha == 0){
 				MoverFundoDireita();
 			}
 			
@@ -1289,10 +1309,66 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					animarFogos();
 				}
 			}
+			
+			if(moverFundo == true && contTeclaBatalha == 2){
+				MoverFundoBaixo();
+			}
+			
+			if(animaBataPok == true){
+				animaBataPok();
+			}
 		}
 		
 		
 		repaint();
+	}
+	
+	public void animaBataPok() {
+		objetoDeFundo1.setDx(objetoDeFundo1.getDx() + 1);
+		
+		if(objetoDeFundo1.getDx() == 10) {
+			animaBataPok1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto5.png");
+			animaBataPok2.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto4.png");
+			animaBataPok3.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto5.png");
+			animaBataPok4.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto4.png");
+			objetoDeFundo1.setDy(1);
+			
+		} else if(objetoDeFundo1.getDx() > 10) {
+			
+			if(objetoDeFundo1.getDx() >= (14 * objetoDeFundo1.getDy() - 3) && objetoDeFundo1.getDx() <= (14 * objetoDeFundo1.getDy() - 2)){
+				animaBataPok1.setY(animaBataPok1.getY() - (420 - (100 * (objetoDeFundo1.getDy() - 1))) / 2); 
+			
+			} else if(objetoDeFundo1.getDx() >= (14 * objetoDeFundo1.getDy() - 1) && objetoDeFundo1.getDx() <= (14 * objetoDeFundo1.getDy() + 3)) {
+				animaBataPok2.setX(animaBataPok2.getX() + (1150 - (100 * (objetoDeFundo1.getDy() - 1))) / 5);
+			
+			} else if(objetoDeFundo1.getDx() >= (14 * objetoDeFundo1.getDy() + 4) && objetoDeFundo1.getDx() <= (14 * objetoDeFundo1.getDy() + 5)) {
+				animaBataPok3.setY(animaBataPok3.getY() + (370 - (100 * (objetoDeFundo1.getDy() - 1))) / 2); 
+			
+			} else if(objetoDeFundo1.getDx() >= (14 * objetoDeFundo1.getDy() + 6) && objetoDeFundo1.getDx() <= (14 * objetoDeFundo1.getDy() + 10)) {
+				animaBataPok4.setX(animaBataPok4.getX() - (1100 - (100 * (objetoDeFundo1.getDy() - 1))) / 5);
+			}
+				
+				
+			if(objetoDeFundo1.getDx() == 74) {
+				animaBataPok = false;
+				chamarBatalha();
+				
+			} else if(objetoDeFundo1.getDx() == (14 * objetoDeFundo1.getDy() - 2)) {
+				animaBataPok2.setX(animaBataPok2.getX() + 50);
+				
+			} else if(objetoDeFundo1.getDx() == (14 * objetoDeFundo1.getDy() + 3)) {
+				animaBataPok3.setY(animaBataPok3.getY() + 50);
+				
+			} else if(objetoDeFundo1.getDx() == (14 * objetoDeFundo1.getDy() + 5)) {
+				animaBataPok4.setX(animaBataPok4.getX() - 50);
+				
+			} else if(objetoDeFundo1.getDx() == (14 * objetoDeFundo1.getDy() + 10)) {
+				animaBataPok1.setY(animaBataPok1.getY() - 50);	
+				objetoDeFundo1.setDy(objetoDeFundo1.getDy() + 1);
+			
+			} 
+		}
+		
 	}
 	
 	public void animarFogos() {
@@ -1348,6 +1424,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		imagemDoDialogo.setX(imagemDoDialogo.getX() + 88);
 		
 		if(objetoDeFundo1.getX() >= 300) {
+			moverFundo = false;
+		}
+	}
+	
+	public void MoverFundoBaixo() {
+		objetoDeFundo1.setY(objetoDeFundo1.getY() - 8);
+		imagemDoDialogo.setY(imagemDoDialogo.getY() - 8);
+		
+		if(objetoDeFundo1.getY() <= -100) {
 			moverFundo = false;
 		}
 	}
@@ -1802,8 +1887,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			// 3º vitória e ja falou com a Kiki
 			if(TabelaInteracao[3][1] == 3 && TabelaInteracao[3][4] == 2) {
-				
-				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 				
 				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[95][0]);
 				txtDialogoLn2.setTexto(" ");
@@ -1825,30 +1909,39 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[0][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[0][2]);
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[0][3]);
-					
+				
 				} else if(contDialogo == 2) {
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() + 2);
 										
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[1][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[1][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[1][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[1][3]);
-					
+					txtDialogoLn4.setTexto(" ");
+				
 				} else if(contDialogo == 3) {
 					
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
-					
+										
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[2][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[2][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[2][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[2][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
-				}else if(contDialogo == 4) {
+				} else if(contDialogo == 4) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki10.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 7); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[2][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[2][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[2][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				}else if(contDialogo == 5) {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 3);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[3][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[3][1]);
@@ -1858,7 +1951,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 5) {
+				} else if(contDialogo == 6) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
@@ -1866,7 +1959,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 					if(bntSimNao == true) {
 						
-						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[4][1]);
@@ -1877,8 +1970,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						TabelaInteracao[3][0] = 1;
 						salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
 						encerrarDialogo = true;
+						
 					} else {
 						
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[5][0]);
@@ -1888,7 +1983,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 					
-				} else if(contDialogo == 6) {
+				} else if(contDialogo == 7) {
 					
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					
@@ -1906,8 +2001,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][0] == 1 && TabelaInteracao[3][4] == 0) {
 					
 				if(contDialogo == 1) {
-					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki9.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[6][0]);
@@ -1916,7 +2010,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[6][3]);
 					
 				} else if(contDialogo == 2) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[7][0]);
@@ -1925,6 +2019,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[7][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[8][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[8][1]);
@@ -1939,6 +2034,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[9][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[9][1]);
@@ -1947,7 +2043,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[10][0]);
 						txtDialogoLn2.setTexto(" ");
@@ -1955,9 +2053,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 					}
 					
-					
 				} else if(contDialogo == 5) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[10][1]);
@@ -1973,7 +2070,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				if(contDialogo == 1) {
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[11][0]);
@@ -1982,7 +2079,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[11][3]);
 					
 				} else if(contDialogo == 2) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[12][0]);
@@ -1998,7 +2095,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[13][0]);
@@ -2007,8 +2104,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[13][3]);
 						
 						mudaCorLn4 = true;
-					} else {
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[14][0]);
@@ -2024,7 +2122,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] == 6) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[15][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[15][1]);
@@ -2037,6 +2135,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else if(contDialogo == 2) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 					
 					if(bntSimNao == true) {
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
@@ -2057,6 +2156,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[17][0]);
@@ -2072,7 +2172,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 0) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[19][0]);
@@ -2081,6 +2181,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[19][3]);
 					
 				} else if(contDialogo == 2) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[20][0]);
@@ -2089,6 +2190,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[20][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[21][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[21][1]);
@@ -2103,6 +2205,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[22][0]);
@@ -2112,7 +2215,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[23][0]);
 						txtDialogoLn2.setTexto(" ");
@@ -2121,6 +2226,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 5) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[23][1]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[23][2]);
@@ -2134,7 +2240,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 1) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[24][0]);
@@ -2143,14 +2249,24 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[24][3]);
 					
 				} else if(contDialogo == 2) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[25][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[25][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[25][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[25][3]);
-					
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki11.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[25][2]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[25][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki15.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[26][0]);
@@ -2158,7 +2274,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[26][2]);
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[26][3]);
 					
-				} else if(contDialogo == 4) {
+				} else if(contDialogo == 5) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[27][0]);
@@ -2169,11 +2286,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 5) {
+				} else if(contDialogo == 6) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[28][0]);
@@ -2183,8 +2301,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
-					} else {
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[29][0]);
@@ -2193,7 +2312,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[29][3]);
 					}
 					
-				} else if(contDialogo == 6) {
+				} else if(contDialogo == 7) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki10.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[30][0]);
@@ -2208,31 +2328,73 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 1) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8);
+					objetoDeFundo1.setY(0); objetoDeFundo1.setX(10);
+					imagemDoDialogo.setY(130); imagemDoDialogo.setX(240);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki12.png");
+					moverFundo = true;
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[31][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[31][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[31][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[31][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
-					txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					objetoDeFundo1.setY(-104); objetoDeFundo1.setX(10);
 					
-					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[32][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[32][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[32][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[32][3]);
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki13.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[31][2]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[31][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 				
 				} else if(contDialogo == 3) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+					objetoDeFundo1.setY(-104); objetoDeFundo1.setX(10);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki12.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[31][4]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 4) {
+					objetoDeFundo1.setY(15); objetoDeFundo1.setX(0);
+					imagemDoDialogo.setImagem(null);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto3.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[32][0]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 5) {
+					imagemDoDialogo.setX(1234/2 - 248/2);  imagemDoDialogo.setY(20);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[32][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[32][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[32][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 6) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[33][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[33][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[33][2]);
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[33][3]);
 				
-				} else if(contDialogo == 4) {
+				} else if(contDialogo == 7) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[34][0]);
@@ -2248,7 +2410,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 2) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[35][0]);
@@ -2257,8 +2419,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[35][3]);
 				
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 1);
-					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 1); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[36][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[36][1]);
@@ -2266,6 +2428,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[36][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[37][0]);
@@ -2281,15 +2444,18 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[38][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[38][1]);
 						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[38][2]);
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[38][3]);
 						
 						mudaCorLn4 = true;
-					} else {
+						animaBataPok = true;
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[39][0]);
@@ -2305,7 +2471,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 2) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[40][0]);
@@ -2314,6 +2480,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[40][3]);
 					
 				} else if(contDialogo == 2) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[41][0]);
@@ -2322,7 +2489,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[41][3]);
 					
 				} else if(contDialogo == 3) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[42][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[42][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[42][2]);
@@ -2336,7 +2504,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 5);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[43][0]);
@@ -2346,7 +2514,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); 
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[44][0]);
@@ -2363,20 +2531,37 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				if(contDialogo == 1) {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8); 
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[45][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[45][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[45][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[45][3]);
-					
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4); 
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[45][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[45][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[45][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); 
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[46][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[46][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[46][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[46][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki14.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[46][3]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[46][4]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					TabelaInteracao[3][4] = 2;
 					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
@@ -2392,8 +2577,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			// 3º vitória e ja falou com a Kiki
 			if(TabelaInteracao[3][1] == 3 && TabelaInteracao[3][4] == 2) {
-				
-				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 				
 				txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[95][1]);
 				txtDialogoLn2.setTexto(" ");
@@ -2407,9 +2591,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][0] == 0) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");					
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[47][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[47][1]);
@@ -2417,8 +2600,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[47][3]);
 					
 				} else if(contDialogo == 2) {
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() + 2);
 										
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[48][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[48][1]);
@@ -2426,17 +2609,25 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[48][3]);
 					
 				} else if(contDialogo == 3) {
-					
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[49][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[49][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[49][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[49][3]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki10.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 7); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
-				}else if(contDialogo == 4) {
-							
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[49][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[49][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[49][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				}else if(contDialogo == 5) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 3);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[50][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[50][1]);
@@ -2446,13 +2637,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimDialogo.load(caminho + "res\\mensagem aviso\\bntSim1.png");
 					bntNaoDialogo.load(caminho + "res\\mensagem aviso\\bntNao2.png");
 				
-				} else if(contDialogo == 5) {
+				} else if(contDialogo == 6) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
 					
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[51][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[51][1]);
@@ -2463,8 +2655,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						TabelaInteracao[3][0] = 1;
 						salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
 						encerrarDialogo = true;
-					} else {
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[52][0]);
@@ -2474,7 +2667,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 					
-				} else if(contDialogo == 6) {
+				} else if(contDialogo == 7) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[52][2]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[52][3]);
@@ -2491,7 +2685,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					
 				if(contDialogo == 1) {
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki9.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[53][0]);
@@ -2500,7 +2694,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[53][3]);
 					
 				} else if(contDialogo == 2) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[54][0]);
@@ -2509,6 +2703,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[54][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[55][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[55][1]);
@@ -2523,7 +2718,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[56][0]);
@@ -2533,7 +2728,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[57][0]);
 						txtDialogoLn2.setTexto(" ");
@@ -2541,9 +2738,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 					}
 					
-					
 				} else if(contDialogo == 5) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[57][1]);
@@ -2559,7 +2755,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				if(contDialogo == 1) {
 					
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn4.setY(txtDialogoLn4.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[58][0]);
@@ -2568,7 +2764,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[58][3]);
 					
 				} else if(contDialogo == 2) {
-					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[59][0]);
@@ -2584,8 +2780,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn4.setY(txtDialogoLn4.getY() + 2);
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[60][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[60][1]);
@@ -2593,8 +2789,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[60][3]);
 						
 						mudaCorLn4 = true;
-					} else {
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[61][0]);
@@ -2610,7 +2807,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 3 && TabelaInteracao[3][3] == 6) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[62][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[62][1]);
@@ -2623,6 +2820,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				} else if(contDialogo == 2) {
 					bntSimDialogo.setImagem(null);
 					bntNaoDialogo.setImagem(null);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 					
 					if(bntSimNao == true) {
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
@@ -2643,6 +2841,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[64][0]);
@@ -2658,7 +2857,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 0) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[66][0]);
@@ -2667,6 +2866,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[66][3]);
 					
 				} else if(contDialogo == 2) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[67][0]);
@@ -2675,6 +2875,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[67][(aventureiro == 0 ? 4 : 3)]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[68][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[68][1]);
@@ -2689,6 +2890,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[69][0]);
@@ -2698,7 +2900,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
+						
 					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[70][0]);
 						txtDialogoLn2.setTexto(" ");
@@ -2707,6 +2911,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 5) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[70][1]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[70][2]);
@@ -2720,7 +2925,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 1) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[71][0]);
@@ -2729,15 +2934,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[71][3]);
 				
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[72][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[72][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[72][2]);
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[72][3]);
-					
+				
 				} else if(contDialogo == 3) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki11.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[73][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[73][1]);
@@ -2745,7 +2951,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[73][3]);
 					
 				} else if(contDialogo == 4) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki15.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[74][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[74][1]);
@@ -2753,7 +2960,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[74][3]);
 					
 				} else if(contDialogo == 5) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[75][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[75][1]);
@@ -2768,6 +2976,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[76][0]);
@@ -2777,8 +2986,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 						encerrarDialogo = true;
-					} else {
 						
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[77][0]);
@@ -2788,6 +2998,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 7) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki10.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[78][0]);
@@ -2802,7 +3013,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 1) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[79][0]);
@@ -2811,14 +3022,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[79][3]);
 				
 				} else if(contDialogo == 2) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 1); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
-					
+				
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[80][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[80][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[80][2]);
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[80][3]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[81][0]);
@@ -2834,22 +3047,45 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[82][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[82][1]);
 						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[82][2]);
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[82][3]);
 						
+						animaBataPok = true;
 						mudaCorLn4 = true;
-					} else {
+						encerrarDialogo = true;
 						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + (aventureiro == 4 ? 0 : 4)); txtDialogoLn3.setY(txtDialogoLn3.getY() - (aventureiro == 4 ? 6 : 2));
+					} else {
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[83][0]);
-						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 4 : 1)]);
-						txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 5 : 2)]);
-						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 6 : 3)]);
+						txtDialogoLn2.setTexto(" ");
+						txtDialogoLn3.setTexto(" ");
+						txtDialogoLn4.setTexto(" ");
 					}
+					
+				} else if(contDialogo == 5) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 4 : 1)]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 5 : 2)]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[83][(aventureiro == 4 ? 6 : 3)]);
+					txtDialogoLn4.setTexto(" ");
+					
+					if(aventureiro != 4) {encerrarDialogo = true;}
+					
+				} else if(contDialogo == 6) {
+					
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[83][7]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					encerrarDialogo = true;
 				}
@@ -2858,31 +3094,74 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 1 && TabelaInteracao[3][1] == 2) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					objetoDeFundo1.setY(0); objetoDeFundo1.setX(10);
+					imagemDoDialogo.setY(130); imagemDoDialogo.setX(240);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki12.png");
+					moverFundo = true;
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[84][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[84][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[84][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[84][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
+					objetoDeFundo1.setY(-104); objetoDeFundo1.setX(10);
 					
-					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[85][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[85][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[85][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[85][3]);
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki13.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[84][2]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[84][3]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 				
 				} else if(contDialogo == 3) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
+					objetoDeFundo1.setY(-104); objetoDeFundo1.setX(10);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto2.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki12.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[84][4]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 4) {
+					objetoDeFundo1.setY(15); objetoDeFundo1.setX(0);
+					imagemDoDialogo.setImagem(null);
+					
+					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto3.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[85][0]);
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 5) {
+					imagemDoDialogo.setX(1234/2 - 248/2);  imagemDoDialogo.setY(20);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[85][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[85][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[85][3]);
+					txtDialogoLn4.setTexto(" ");
+				
+				} else if(contDialogo == 6) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[86][(aventureiro == 0 ? 1 : 0)]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[86][(aventureiro == 1 ? 3 : 2)]);
 					txtDialogoLn3.setTexto(" ");
 					txtDialogoLn4.setTexto(" ");
 				
-				} else if(contDialogo == 4) {
+				} else if(contDialogo == 7) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[87][(aventureiro == 1 ? 1 : 0)]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[87][2]);
@@ -2897,7 +3176,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(TabelaInteracao[3][4] == 2 && TabelaInteracao[3][1] == 2) {
 				
 				if(contDialogo == 1) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[88][(aventureiro == 2 ? 3 : 0)]);
@@ -2906,7 +3185,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 5); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() - 3); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[89][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[89][1]);
@@ -2914,6 +3194,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[89][4]);
 					
 				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki1.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[90][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[90][1]);
@@ -2928,8 +3209,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
-						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() - 3);
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
+						txtDialogoLn2.setY(txtDialogoLn2.getY() - 5);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[91][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[91][1]);
@@ -2938,8 +3219,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
-						
-						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); 
+						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[92][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[92][1]);
@@ -2955,20 +3236,37 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				if(contDialogo == 1) {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
-					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 8); 
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[93][0]);
-					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[93][1]);
-					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[93][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[93][3]);
-					
+					txtDialogoLn2.setTexto(" ");
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
+				
 				} else if(contDialogo == 2) {
-					txtDialogoLn2.setY(txtDialogoLn2.getY() - 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4); 
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
+					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); 
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[93][1]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[93][2]);
+					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[93][3]);
+					txtDialogoLn4.setTexto(" ");
+						
+				} else if(contDialogo == 3) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
+					txtDialogoLn3.setY(txtDialogoLn3.getY() + 2); 
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[94][0]);
 					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[94][1]);
 					txtDialogoLn3.setTexto(kiki.getConteudoEscolhaAdversario()[94][2]);
-					txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[94][3]);
+					txtDialogoLn4.setTexto(" ");
+					
+				} else if(contDialogo == 4) {
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki14.png");
+					
+					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[94][3]);
+					txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[94][4]);
+					txtDialogoLn3.setTexto(" ");
+					txtDialogoLn4.setTexto(" ");
 					
 					TabelaInteracao[3][4] = 2;
 					salvar.SalvarDados(TabelaInteracao, aventureiro, caminho);
@@ -2976,10 +3274,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntSimNao = false;
 					encerrarDialogo = true;
 				}
-				
 			}
-						
-			
 		}
 	}
 
