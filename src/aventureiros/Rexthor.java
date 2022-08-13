@@ -57,7 +57,7 @@ public class Rexthor {
 	        mylist.add(i);
 		}*/
 		
-		mylist.add(0); mylist.add(2); mylist.add(3); mylist.add(5);
+		mylist.add(0); mylist.add(2); mylist.add(5); mylist.add(6);
 		
 		Collections.shuffle(mylist);
 		
