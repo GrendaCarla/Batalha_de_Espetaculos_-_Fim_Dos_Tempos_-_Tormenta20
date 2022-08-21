@@ -21,7 +21,7 @@ public class Arius {
 	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
 													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
 													{"Isso é ótimo, obviamente será uma boa maneira de adquirir novos conhecimentos, como mestre", "Luriel me dizia 'a prática e a observação de técnicas de outrem contribui muito para o", "aprimoramento... blá, blá, blá'.", "As apresentações SEM interferência ganharão +1 de apelo."},
-													{"Bem, eu estava indo mostrar a nada-mais-que-a-verdade a maravilhosa plantação de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se à vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que nada-mais-que-a-verdade se interessará bastante no que tem a dizer."},
+													{"Bem, eu estava indo mostrar a Nada Mais que a Verdade a maravilhosa plantação de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se à vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que Nada Mais que a Verdade se interessará bastante no que tem a dizer."},
 													{"Saudações, você esta querendo me desafiar para uma disputa amistosa novamente?", " ", " ", " "},
 	// 5º linha --------------------- teve o primeiro contato mas não batalhou = |1|0|0|0|0| -------------------
 													{"teve o primeiro contato mas não batalhou", " ", " ", " "},

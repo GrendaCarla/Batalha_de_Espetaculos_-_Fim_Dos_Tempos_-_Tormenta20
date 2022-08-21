@@ -3319,10 +3319,55 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj3.setX(animacaoObj3.getX() + 10);
 			}
 			
-		}
+		}else if(avent == 2 && gifApelos[2][numApelo] == 7) {
+			
+			if(animacao.getDx() == 20) {
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
+				animacaoObj1.setX(animacaoObj1.getX() - 4);
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));
 		
-		else if(avent == 2) {
-			animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (numApelo == 0? gifApelos[2][0] : (numApelo == 1? gifApelos[2][1] : (numApelo == 2? gifApelos[2][2] : gifApelos[2][3]))) + ".gif");
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 28 && animacao.getDx() <= 30) || (animacao.getDx() >= 50 && animacao.getDx() <= 52))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -2 : 2));
+			
+			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 32 && animacao.getDx() <= 34) || (animacao.getDx() >= 54 && animacao.getDx() <= 56))) {
+				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -1 : 1));
+			
+			} else if(animacao.getDx() == 63) {
+				animacaoObj1.setX(tamanhoContorno); animacaoObj1.setY(tamanhoContorno + 2);
+				animacaoObj2.setY(animacaoObj2.getY() - 350);
+				animacao.load(caminho + "res\\batalha\\fundoAnimacao2.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\3.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\4.png");
+				animacaoObj3.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\6.png");
+				
+			} else if(animacao.getDx() >= 64 && animacao.getDx() <= 80) {
+				animacaoObj2.setY(animacaoObj2.getY() + 20);
+			
+			} else if(animacao.getDx() == 84) {
+				animacaoObj2.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\5.png");
+			
+			} else if(animacao.getDx() >= 86 && animacao.getDx() <= 96) {
+				animacaoObj2.setY(animacaoObj2.getY() - 20);
+				
+			} else if(animacao.getDx() == 100) {
+				animacaoObj1.setImagem(null);
+				animacaoObj2.setImagem(null);
+				animacaoObj3.setImagem(null);
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\7.png");
+			
+			} else if(animacao.getDx() == 117) {
+				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\8.png");
+			
+			} else if(animacao.getDx() >= 118 && animacao.getDx() <= 140 && animacao.getDx() % 4 == 0) {
+				animacao.setX(animacao.getX() + 8);
+				
+			} else if(animacao.getDx() >= 118 && animacao.getDx() <= 140 && animacao.getDx() % 2 == 0) {
+				animacao.setX(animacao.getX() - 8);
+			}
+			
 		}
 	
 	}

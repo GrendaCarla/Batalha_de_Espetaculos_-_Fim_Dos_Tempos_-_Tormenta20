@@ -8,13 +8,13 @@ public class Kiki {
 	private int [][] valores = {{4, 6, 2, 1, 1, 2, 3, 1}, {0, 0, 3 , 5, 3, 4, 2, 5}, {-1, -1, 3, 3, 5, 2, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
 	private String [] NomeApelos = {"Oficio Culinária", "Talentosa", "Enganação", "Mestre das Fofocas", "Olhar Atordoante", "Desarmar Armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
-	private String [][] ConteudoDescricao = {  {"Como já é conveniente", "O ofício culinário salva o dia novamente.", "Ao ficarem sedentos com a refeição de alta qualidade,", "Nem imaginam o trabalho que dá para impedir os furtos de gorad.", " "},
+	private String [][] ConteudoDescricao = {  {"Como já é conveniente", "O ofício culinário salva o dia novamente.", "Você os tornas sedentos pela sua refeição de alta qualidade,", "Mas não se distraia em nenhum momento, pois está havendo furtos de gorad.", " "},
 											   {"Como uma pessoa de puro talento", "Mostre sua maestria com vários instrumentos.", "Deixe as colinas e o mundo ouvirem sua voz melodiosa", "Esfregando na cara dos que duvidaram que seria famosa.", " "},
 											   {"Dizer que você está enganando alguém é uma acusação infundada.", "Tu apenas ajudou a ver que nessa situação complicada", "Um aproveitamento pode vir para ambas as partes,", "Você ficando como peso da vitória enquanto o outro com a leveza da irresponsabilidade.", "Esta habilidade afeta o primeiro campo."},
 											   {"Você é capaz de fazer o primeiro colocado", "Ser de seu pedestal rebaixado.", "Usando sua espetacular e refinada técnica", "De espalhar fofocas de maneira frenética.", "Esta habilidade afeta o primeiro campo."},
 											   {"Quando olham para você fica difícil quebrar o contato,", "Não pela sua presença marcante ou por ser a alma de todo espetáculo,", "E sim pelo penetrante olhar que lanças ao seu redor", "Atordoando todos que de fortitude é o que tem de pior.", "Esta habilidade afeta um campo acima e um abaixo."},
 											   {"Então, você não é a melhor nesse quesito,", "Mas o bom é que tem vários melhores amigos", "Que ao menor sinal de um perigo mortal", "Entraria na frente do golpe fatal.", "Esta habilidade afeta o campo acima de você."},
-											   {"Desafie quem quiser para uma competição de birita", "Mostrando a sua habilidade de maior conquista.", "Ao ser vitoriósa aproveite seu bucho cheio", "Vomitando como um sátiro bem em cima de seus companheiros.", "Esta habilidade afeta todos os campos acima de você."},
+											   {"Desafie todos os cachaceiros e pinguços que na plateia avista", "Para uma competição de constituição na qual és especialista.", "Ao final, quando for vitoriosa, seu estomago deve domar,", "Porque senão como um bode em seus companheiros ira vomitar.", "Esta habilidade afeta todos os campos acima de você."},
 											   {"Seu estilo de higiene é bem questionável,", "Adquirindo assim um poder incomensurável.", "Não se pode fazer desfeita com o que tens em mãos,", "Então levante o braço e libere a putrefação.", "Esta habilidade afeta todos os campos abaixo de você."}};	
 	
 			// 0---------------------------- primeira interação se a Kiki for a escolhida ---------------------- 
@@ -64,7 +64,7 @@ public class Kiki {
 															 {"- HAHAHA você realmente acreditou no que eu falei?", "- Não te culpo, afinal, sou uma atriz brilhante.", "- Mas é muita ingenuidade sua pensar que eu não comemoraria outra vitória emocionante que", "tivemos unindo todo o nosso potencial."},
 															 {"- Um brinde a nossa conquista. Então, acho que agora é uma boa hora para propor outra", "partida, o que acha?", " ", " "},
 															 {"- Então se prepare porque vamos batalhar!", " ", " ", "As apresentações COM interferência ganharão +1 de apelo."},
-															 {"- HaHa, vejo que também gosta de fugir das responsabilidades tanto quanto eu.", "- Ei, vamos ver o que o Arius e a nada-mais-que-a-bala estão fazendo? Eles andam passando", "muito tempo junto se é que você me entende.", " "},
+															 {"- HaHa, vejo que também gosta de fugir das responsabilidades tanto quanto eu.", "- Ei, vamos ver o que o Arius e a Nada Mais que a Bala estão fazendo? Eles andam passando", "muito tempo junto se é que você me entende.", " "},
 			// 40--------------------------- se a Kiki for a escolhida e derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
 															 {"- Mais tinha que ser aquele projeto de fisiculturista!", "- É só eu me distrair por um segundo que ele vai e estraga tudo. Queria ver ele sem toda aquela", "sorte descomunal.", " "},
 															 {"- Você está rindo de mim?", "- Ei, eu não fico horas falando sem parar. Ok eu fico, mas todo mundo não cala a boca também.", "- Você já viu o Arius quando encontra algum assunto chato para falar? Ele fica pau a pau com", "o Ignis quando resolve dar bronca em todos nós."},
