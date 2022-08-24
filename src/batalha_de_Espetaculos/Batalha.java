@@ -45,6 +45,7 @@ public class Batalha extends JPanel implements ActionListener {
 
 	private Icones_interativos engrenagem1 = new Icones_interativos(-18, -8);
 	private Icones_interativos engrenagem2 = new Icones_interativos(1120, -12);
+	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	private Icones_interativos contorno = new Icones_interativos(0, 0);
 		
 	private int contEngranagem1 = 1;
@@ -174,8 +175,8 @@ public class Batalha extends JPanel implements ActionListener {
 	private Icones_interativos animacaoObj3 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 	private Icones_interativos animacaoObj4 = new Icones_interativos(tamanhoContorno, tamanhoContorno + 2);
 	
-	private int intervaloAnimacao = 6; //10
-	private int intervaloAnimacaoGif = 140; //240
+	private int intervaloAnimacao = 6; 
+	private int intervaloAnimacaoGif = 140;
 	
 	private int comecarAnimacaoCoracao = 0;
 	private int animacaoFileira = -1;
@@ -334,6 +335,16 @@ public class Batalha extends JPanel implements ActionListener {
 	private boolean comecarAnimacaoInicio = false;
 	private boolean animarAnimacao = false;
 	private boolean inverterAnimacao = false;
+	
+	// -------------------------------------------- Controles ---------------------------------------
+	
+
+	private Icones_interativos teclaVel1 = new Icones_interativos(1234 - 26, 10);
+	private Icones_interativos teclaVel2 = new Icones_interativos(teclaVel1.getX(), teclaVel1.getY() + 40);
+	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
+	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
+	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
+	private int velocidade = 2;
 		
 	// ------------------------------------------------------------------
 	
@@ -343,7 +354,7 @@ public class Batalha extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Batalha(int numAventureiro, int numAdversario, Escolha_de_adversario PaginaAnterior, Menu PaginaMenu, boolean Engrenagem2, String Caminho) {
+	public Batalha(int numAventureiro, int numAdversario, Escolha_de_adversario PaginaAnterior, Menu PaginaMenu, boolean Engrenagem2, String Caminho, int Velocidade) {
 		
 		this.tela2 = PaginaAnterior;
 		aventureiro = numAventureiro;
@@ -351,15 +362,19 @@ public class Batalha extends JPanel implements ActionListener {
 		this.telaMenu = PaginaMenu;
 		contEngranagem2 = Engrenagem2;
 		this.caminho = Caminho;
+		this.velocidade = Velocidade;
+		
+		intervaloAnimacao = 12 / (velocidade == 5 ? 6 : velocidade);
 
 		arrumarListaAventureiros();
 		
 		contorno.load(caminho + "res\\contorno.png");
 		tapaResto.load(caminho + "res\\fundo2.png");
 		fundo.load(caminho + "res\\fundo0.png");
-		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		
+		engrenagem1.load(caminho + "res\\Engrenagens\\engrenagem1.png");
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+
 		
 		animacao.setImagem(null);
 		
@@ -405,6 +420,7 @@ public class Batalha extends JPanel implements ActionListener {
 		painel4.load(caminho + "res\\batalha\\painel4.png");
 		
 		txtEfeitoFase.setCorTexto(Color.white);
+		txtEfeitoFase.setFonte(new Font("Arial", Font.PLAIN, 20));
 		
 		// ----------------------- itens relacionado com nome habilidade -----------------------------------
 		
@@ -421,27 +437,7 @@ public class Batalha extends JPanel implements ActionListener {
 		nomeApelo3.setCorTexto(new Color (198, 96, 134));
 		
 		// ----------------------- itens relacionado com Apelo -----------------------------------
-		
-		for(int i=0; i<4; i++) {
-			switch (aventureiro) {
-				case 0:
-					tipoAtaque[i] = apeloIgnis[3][i];
-					break;
-				case 1:
-					tipoAtaque[i] = apeloAyla[3][i];
-					break;
-				case 2:
-					tipoAtaque[i] = apeloRexthor[3][i];
-					break;
-				case 3:
-					tipoAtaque[i] = apeloKiki[3][i];
-					break;
-				case 4:
-					tipoAtaque[i] = apeloArius[3][i];
-					break;
-			}
-		}
-				
+			
 		apeloQuantidade.setFonte(new Font("Arial", Font.PLAIN, 20));
 		apeloQuantidade.setCorTexto(new Color (240, 148, 150));
 
@@ -478,6 +474,16 @@ public class Batalha extends JPanel implements ActionListener {
 		iconeIgnis.setDx(0);
 		comecarAnimacaoInicio = true;
 		
+		// ------------------------------------------- Controles ---------------------------------------------
+
+		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
+
+		teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+		teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+		teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+		teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+		teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
+
 		// ------------------------------------------------------------------------
 		
 		timer = new Timer(1, this);
@@ -851,7 +857,7 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	public void itensDoApelo() {
 		
-		tipoDoApelo.load(caminho + "res\\batalha\\" + ((aventureiro == 0 ? apeloIgnis[3][selecaoNomeHab] : (aventureiro == 1 ? apeloAyla[3][selecaoNomeHab] : (aventureiro == 2 ? apeloRexthor[3][selecaoNomeHab] : (aventureiro == 3 ? apeloKiki[3][selecaoNomeHab] : apeloArius[3][selecaoNomeHab])))) == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
+		tipoDoApelo.load(caminho + "res\\batalha\\" + ((aventureiro == 0 ? apeloIgnis : (aventureiro == 1 ? apeloAyla : (aventureiro == 2 ? apeloRexthor : (aventureiro == 3 ? apeloKiki : apeloArius))))[3][selecaoNomeHab] == 0 ? "tipoDoApelo1.png" : "tipoDoApelo2.png"));
 		
 		apeloApelo1.setImagem(null); apeloApelo2.setImagem(null); apeloApelo3.setImagem(null); apeloApelo4.setImagem(null); apeloApelo5.setImagem(null);
 		apeloApelo6.setImagem(null); apeloApelo7.setImagem(null); apeloApelo8.setImagem(null); apeloApelo9.setImagem(null); apeloApelo10.setImagem(null);
@@ -904,6 +910,21 @@ public class Batalha extends JPanel implements ActionListener {
 		}}}}}}}}}}
 	}
 	
+	
+	public void KeyReleased (java.awt.event.KeyEvent tecla){
+		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
+		
+		if(janela != null && janela.getTitle() == "Batalha") {
+			
+			int codigo = tecla.getKeyCode();
+			
+			if (codigo == KeyEvent.VK_ESCAPE) {
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
+			}
+		}
+	}
+	
+	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							dispara quando as teclas são  pressionadas						|
 	\ ---------------------------------------------------------------------------------------- */
@@ -914,6 +935,10 @@ public class Batalha extends JPanel implements ActionListener {
 		if(janela != null && janela.getTitle() == "Batalha") {
 			
 			int codigo = tecla.getKeyCode();
+			
+			if(codigo == KeyEvent.VK_ESCAPE) {
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
+			}
 			
 			// -------------------- abre e fecha o menu -------------------- \
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null) {
@@ -977,6 +1002,18 @@ public class Batalha extends JPanel implements ActionListener {
 						break;
 				}
 				
+			// ----------------------- altera a velocidade ------------------------ \
+			}else if(codigo == KeyEvent.VK_1 || codigo == KeyEvent.VK_2 || codigo == KeyEvent.VK_3 || codigo == KeyEvent.VK_4 || codigo == KeyEvent.VK_5) {
+				
+				velocidade = (codigo == KeyEvent.VK_1 ? 1 : (codigo == KeyEvent.VK_2 ? 2 : (codigo == KeyEvent.VK_3 ? 3 : (codigo == KeyEvent.VK_4 ? 4 : 5))));
+				
+				teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+				teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+				teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+				teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+				teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
+				
+				intervaloAnimacao = 12 / (velocidade == 5 ? 6 : velocidade);
 			
 			// ---------- encaminha para a função que controla o botão menu do menu --------- \
 			}else if(mostrarMenu == true && contMenu == 0) {
@@ -1067,51 +1104,37 @@ public class Batalha extends JPanel implements ActionListener {
 					
 					ordemAventRodada[i] = (i == ordemAventVerdadeira[0] ? 0 : (i == ordemAventVerdadeira[1] ? 1  : (i == ordemAventVerdadeira[2] ? 2  : (i == ordemAventVerdadeira[3] ? 3  : 4))));
 					
-					valorApelo[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					valorInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[1][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					valorApelo[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[0][ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab];
+					valorInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[1][ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab];
 					
-					tipoInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[2][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
-					tipoAtaque[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 1 ? apeloRexthor : (ordemAventRodada[i] == 1 ? apeloKiki : apeloArius))))[3][i != posicaoAventureiro ? arrayAleatorioHabAdver[i] : selecaoNomeHab];
+					tipoInterferencia[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[2][ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab];
+					tipoAtaque[ordemAventRodada[i]] = (ordemAventRodada[i] == 0 ? apeloIgnis : (ordemAventRodada[i] == 1 ? apeloAyla : (ordemAventRodada[i] == 2 ? apeloRexthor : (ordemAventRodada[i] == 3 ? apeloKiki : apeloArius))))[3][ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab];
 
 					pontosRodada[ordemAventRodada[i]] = valorApelo[ordemAventRodada[i]];
-										
-					numeroDosAtaques[contEtapasBatalha -1][ordemAventRodada[i]] = (ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab);
-					
+					numeroDosAtaques[contEtapasBatalha -1][ordemAventRodada[i]] = (ordemAventRodada[i] != aventureiro ? arrayAleatorioHabAdver[ordemAventRodada[i]] : selecaoNomeHab); 
 					
 					
 				// ------------------ coloca o dano de -2 no apelo atual da rodada se a habilidade for repetida -------------
-					if(contEtapasBatalha - 1 > 0 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])) {
+					
+					for(int i2=1; i2<6; i2++) {
 						
-						if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[i]])) {
-							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 8;
-							
-						} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[i]])) {
-							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 6;
-							
-						} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[i]])
-								&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[i]])) {
-							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 4;
-							
-						} else {
+						if(contEtapasBatalha == i2) {break;}
+						
+						if(contEtapasBatalha != 1 && numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[i]] == numeroDosAtaques[contEtapasBatalha - 1 - i2][ordemAventRodada[i]]) {
 							pontosRodada[ordemAventRodada[i]] = pontosRodada[ordemAventRodada[i]] - 2;
-						}
+						
+						} else {break;}
 						
 					}
-					
-					
-				// ------------- coloca o dano de -1 no apelo atual da rodada se a habilidade conflitar com o efeitodo chefe da fase ----------------
+				
+				// ------------- coloca o dano de - ou + 1 no apelo atual da rodada se a habilidade conflitar com o efeitodo chefe da fase ----------------
 					if((adversario == 0 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 1 && tipoInterferencia[ordemAventRodada[i]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[i]] == 1) || (adversario == 3 && tipoInterferencia[ordemAventRodada[i]] != -1) || (adversario == 4 && tipoInterferencia[ordemAventRodada[i]] == -1)) {
 						
 						if(adversario == 0 || adversario == 1) {
 							pontosRodada[ordemAventRodada[i]] --;
-						}
-						else {
-							pontosRodada[ordemAventRodada[i]] ++;
+							
+						}else {
+							pontosRodada[ordemAventRodada[i]] =  pontosRodada[ordemAventRodada[i]] + (pontosRodada[ordemAventRodada[i]] >= 10 ? 0 : 1);
 						}
 					}
 				
@@ -1214,20 +1237,15 @@ public class Batalha extends JPanel implements ActionListener {
 				
 				System.out.println("ordem pessoa: " + ordemAventRodada[0] + "  " + ordemAventRodada[1] + "  " + ordemAventRodada[2] + "  " + ordemAventRodada[3] + "  " + ordemAventRodada[4]);
 				System.out.println("ordem comparacao: " + ordemAventVerdadeira[0] + "  " + ordemAventVerdadeira[1] + "  " + ordemAventVerdadeira[2] + "  " + ordemAventVerdadeira[3] + "  " + ordemAventVerdadeira[4]);
-				System.out.println("valor apelo:  " +valorApelo[0] + "  " + valorApelo[1] + "  " + valorApelo[2] + "  " + valorApelo[3] + "  " + valorApelo[4]);
+				System.out.println("Nome ataque:  " + NomeApelos[0][(aventureiro != 0 ? arrayAleatorioHabAdver[0] : selecaoNomeHab)] + "  " + NomeApelos[1][(aventureiro != 1 ? arrayAleatorioHabAdver[1] : selecaoNomeHab)] + "  " + NomeApelos[2][(aventureiro != 2 ? arrayAleatorioHabAdver[2] : selecaoNomeHab)] + "  " + NomeApelos[3][(aventureiro != 3 ? arrayAleatorioHabAdver[3] : selecaoNomeHab)] + "  " + NomeApelos[4][(aventureiro != 4 ? arrayAleatorioHabAdver[4] : selecaoNomeHab)]);
+				System.out.println("Nome GIF:  " + gifApelos[0][(aventureiro != 0 ? arrayAleatorioHabAdver[0] : selecaoNomeHab)] + "  " + gifApelos[1][(aventureiro != 1 ? arrayAleatorioHabAdver[1] : selecaoNomeHab)] + "  " + gifApelos[2][(aventureiro != 2 ? arrayAleatorioHabAdver[2] : selecaoNomeHab)] + "  " + gifApelos[3][(aventureiro != 3 ? arrayAleatorioHabAdver[3] : selecaoNomeHab)] + "  " + gifApelos[4][(aventureiro != 4 ? arrayAleatorioHabAdver[4] : selecaoNomeHab)]);
+				System.out.println("valor apelo:  " + valorApelo[0] + "  " + valorApelo[1] + "  " + valorApelo[2] + "  " + valorApelo[3] + "  " + valorApelo[4]);
 				System.out.println("valor interferencia:   " + valorInterferencia[0] + "  " + valorInterferencia[1] + "  " + valorInterferencia[2] + "  " + valorInterferencia[3] + "  " + valorInterferencia[4]);
 				System.out.println("tipo interferencia:   " + tipoInterferencia[0] + "  " + tipoInterferencia[1] + "  " + tipoInterferencia[2] + "  " + tipoInterferencia[3] + "  " + tipoInterferencia[4]);
+				System.out.println("tipo ataque:   " + tipoAtaque[0] + "  " + tipoAtaque[1] + "  " + tipoAtaque[2] + "  " + tipoAtaque[3] + "  " + tipoAtaque[4]);
 				System.out.println("Pontos da partida?: " +pontosRodada[0] + "  " + pontosRodada[1] + "  " + pontosRodada[2] + "  " + pontosRodada[3] + "  " + pontosRodada[4]);
 				System.out.println("total:  " +pontosTotais[0] + "  " + pontosTotais[1] + "  " + pontosTotais[2] + "  " + pontosTotais[3] + "  " + pontosTotais[4] + "\n");
 	
-				for(int a=0; a<5; a++) {
-					System.out.println("interferencia: " + interferenciasRecebidas[a][0] + "  " + interferenciasRecebidas[a][1] + "  " + interferenciasRecebidas[a][2] + "  " + interferenciasRecebidas[a][3] + "  " + interferenciasRecebidas[a][4]);
-				}
-				
-				for(int a=0; a<5; a++) {
-					System.out.println("ataques: " + numeroDosAtaques[a][0] + "  " + numeroDosAtaques[a][1] + "  " + numeroDosAtaques[a][2] + "  " + numeroDosAtaques[a][3] + "  " + numeroDosAtaques[a][4]);
-				}
-				
 				
 				System.out.println("etapa da batalha:  " + contEtapasBatalha);
 
@@ -1514,7 +1532,15 @@ public class Batalha extends JPanel implements ActionListener {
 		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getRedX(), engrenagem1.getRedY(), engrenagem1.getLarg(), engrenagem1.getAlt(), this);
 		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
 		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
+		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY(), teclaEsc.getLarg(), teclaEsc.getAlt(), this);
+		
 		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
+
+		graficos.drawImage(teclaVel1.getImagem(), teclaVel1.getRedX(), teclaVel1.getRedY(), teclaVel1.getLarg(), teclaVel1.getAlt(), this);
+		graficos.drawImage(teclaVel2.getImagem(), teclaVel2.getRedX(), teclaVel2.getRedY(), teclaVel2.getLarg(), teclaVel2.getAlt(), this);
+		graficos.drawImage(teclaVel3.getImagem(), teclaVel3.getRedX(), teclaVel3.getRedY(), teclaVel3.getLarg(), teclaVel3.getAlt(), this);
+		graficos.drawImage(teclaVel4.getImagem(), teclaVel4.getRedX(), teclaVel4.getRedY(), teclaVel4.getLarg(), teclaVel4.getAlt(), this);
+		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY(), teclaVel5.getLarg(), teclaVel5.getAlt(), this);
 
 		g.dispose();
 		
@@ -1540,7 +1566,7 @@ public class Batalha extends JPanel implements ActionListener {
 			sumirCoracoes();
 		}
 		
-		// -------------- mexe o medidor de ganho de apelo das etapa da batalha ----------------
+		// -------------- diz o que fazer apos colocar os apelos ----------------
 		if(animacaoFileira == 20) {
 			posApelo();
 		}
@@ -1802,11 +1828,9 @@ public class Batalha extends JPanel implements ActionListener {
 	public void posApelo() {
 
 		if(efeitoChefeDeFase[ordemAventRodada[vezDoAventureiro]] == 0 && (((adversario == 0 || adversario == 3) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] != -1) || ((adversario == 1 || adversario == 4) && tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == -1) || (adversario == 2 && tipoAtaque[ordemAventRodada[vezDoAventureiro]] == 1))) {
-
 			efeitoChefeDeFase();
 			
 		} else if(efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] == 0 && (contEtapasBatalha - 1 == 0 ? false : (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]]))) {
-
 			habilidadeRepetido();
 			
 		} else if((tipoInterferencia[ordemAventRodada[vezDoAventureiro]] == 0 && efeitoInterferencias[ordemAventRodada[vezDoAventureiro]] < 4)
@@ -1938,58 +1962,41 @@ public class Batalha extends JPanel implements ActionListener {
 	\ ---------------------------------------------------------------------------------------- */
 	
 	public void habilidadeRepetido() {
-
 		efeitoFase.setDx(efeitoFase.getDx() + comecarAnimacaoCoracao);
 		
 		if(efeitoFase.getDx() == 21) {
 			
-			if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[vezDoAventureiro]])) {
-				txtEfeitoFase.setTexto("-8");
+			int numero = 0;
+			for(int i2=1; i2 < 6; i2++) {
+				if(contEtapasBatalha == i2) {break;}
 				
-			} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])) {
-				txtEfeitoFase.setTexto("-6");
+				if(numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 1 - i2][ordemAventRodada[vezDoAventureiro]]) {
+					numero = numero - 2;
+				} else {break;}
 				
-			} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])) {
-				txtEfeitoFase.setTexto("-4");
-				
-			} else {
-				txtEfeitoFase.setTexto("-2");
 			}
 			
+			txtEfeitoFase.setTexto(numero + "");
 			efeitoFase.load(caminho + "res\\batalha\\apelo.png");
 			txtEfeitoFase.setY((vezDoAventureiro == 0 ? campoBatalha1.getY() : (vezDoAventureiro == 1 ? campoBatalha2.getY() : (vezDoAventureiro == 2 ? campoBatalha3.getY() : (vezDoAventureiro == 3 ? campoBatalha4.getY() : campoBatalha5.getY())))) + 70/2 + 7);
 			efeitoFase.setY(txtEfeitoFase.getY() - 17);
 			
 		} else if(efeitoFase.getDx() == 60) {
-
+			
 			efeitoFase.setImagem(null);
 			txtEfeitoFase.setTexto(" ");
 			
-			if(contEtapasBatalha - 1 == 4 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 5][ordemAventRodada[vezDoAventureiro]])) {
-				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 8;
+			int numero = 0;
+			for(int i2=1; i2 < 6; i2++) {
+				if(contEtapasBatalha == i2) {break;}
 				
-			} else if(contEtapasBatalha - 1 == 3 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 4][ordemAventRodada[vezDoAventureiro]])) {
-				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 6;
+				if(numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 1 - i2][ordemAventRodada[vezDoAventureiro]]) {
+					numero = numero + 2;
+				} else {break;}
 				
-			} else if(contEtapasBatalha - 1 == 2 && (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 2][ordemAventRodada[vezDoAventureiro]])
-					&& (numeroDosAtaques[contEtapasBatalha - 1][ordemAventRodada[vezDoAventureiro]] == numeroDosAtaques[contEtapasBatalha - 3][ordemAventRodada[vezDoAventureiro]])) {
-				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 4;
-				
-			} else {
-				interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = 2;
 			}
 			
+			interferenciasRecebidas[ordemAventRodada[vezDoAventureiro]][ordemAventRodada[vezDoAventureiro]] = numero;
 			efeitoApeloRepetido[ordemAventRodada[vezDoAventureiro]] = 1;
 			animacaoFileira = (vezDoAventureiro == 0? 0 : vezDoAventureiro * 2) + 10;	
 			
@@ -2299,7 +2306,7 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj1.setX(animacaoObj1.getX() - 12);
 				animacaoObj2.setX(animacaoObj2.getX() + 12);
 				
-			} else if(animacao.getDx() >= 90 && animacao.getDx() % 10 == 0) {
+			} else if(animacao.getDx() >= 90 && animacao.getDx() <= 130 && animacao.getDx() % 10 == 0) {
 				
 				if(animacao.getDx() == 90) {
 					animacaoObj2.setImagem(null);
@@ -2378,18 +2385,18 @@ public class Batalha extends JPanel implements ActionListener {
 		else if(avent == 1 && gifApelos[1][numApelo] == 1) {
 
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				animacaoObj1.setX(200);
-				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\2.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\2.png");
 				animacaoObj2.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\3.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 48) {
 				animacaoObj1.setX(animacaoObj1.getX() - 2);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\1.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\1.png");
 				}
 			
 			} else if(animacao.getDx() == 49) {
@@ -2439,18 +2446,18 @@ public class Batalha extends JPanel implements ActionListener {
 		else if(avent == 1 && gifApelos[1][numApelo] == 6) {
 
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				animacaoObj1.setX(200);
-				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\2.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\2.png");
 				animacaoObj2.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\3.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 48) {
 				animacaoObj1.setX(animacaoObj1.getX() - 2);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\1.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\1.png");
 				}
 			
 			} else if(animacao.getDx() == 49) {
@@ -2515,18 +2522,18 @@ public class Batalha extends JPanel implements ActionListener {
 		} else if(avent == 1 && gifApelos[1][numApelo] == 8) {
 
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				animacaoObj1.setX(200);
-				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\2.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\2.png");
 				animacaoObj2.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\3.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 48) {
 				animacaoObj1.setX(animacaoObj1.getX() - 2);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\1.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\1.png");
 				}
 			
 			} else if(animacao.getDx() == 49) {
@@ -2669,18 +2676,18 @@ public class Batalha extends JPanel implements ActionListener {
 		}else if(avent == 1 && gifApelos[1][numApelo] == 4) {
 
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+				animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				animacaoObj1.setX(200);
-				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\2.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\2.png");
 				animacaoObj2.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\3.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 48) {
 				animacaoObj1.setX(animacaoObj1.getX() - 2);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\0.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\0.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\1.png");
+					animacao.load(caminho + "res\\batalha\\Ayla\\animacao\\1.png");
 				}
 			
 			} else if(animacao.getDx() == 49) {
@@ -2930,18 +2937,18 @@ public class Batalha extends JPanel implements ActionListener {
 		else if(avent == 4 && gifApelos[4][numApelo] == 3) {
 			
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
-				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
-				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 57) {
 				animacaoObj1.setY(animacaoObj1.getY() - 1);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\3.png");
 				}
 				
 				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
@@ -2995,18 +3002,18 @@ public class Batalha extends JPanel implements ActionListener {
 		} else if(avent == 4 && gifApelos[4][numApelo] == 6) {
 			
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
-				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
-				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
 			
-			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 58) {
+			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 57) {
 				animacaoObj1.setY(animacaoObj1.getY() - 1);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\3.png");
 				}
 				
 				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
@@ -3059,18 +3066,18 @@ public class Batalha extends JPanel implements ActionListener {
 		} else if(avent == 4 && gifApelos[4][numApelo] == 7) {
 			
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
-				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
-				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
 			
-			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 59) {
+			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 57) {
 				animacaoObj1.setY(animacaoObj1.getY() - 1);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\3.png");
 				}
 				
 				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
@@ -3102,18 +3109,18 @@ public class Batalha extends JPanel implements ActionListener {
 		} else if(avent == 4 && gifApelos[4][numApelo] == 4) {
 			
 			if(animacao.getDx() == 20) {
-				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\0.png");
-				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\1.png");
-				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+				animacao.load(caminho + "res\\batalha\\Arius\\animacao\\0.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Arius\\animacao\\1.png");
+				animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				animacaoObj3.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\4.png");
 			
 			} else if(animacao.getDx() >= 21 && animacao.getDx() <= 56) {
 				animacaoObj1.setY(animacaoObj1.getY() - 1);
 				
 				if(animacao.getDx() % 6 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\2.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\2.png");
 				} else if(animacao.getDx() % 3 == 0) {
-					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\" + (gifApelos[4][numApelo]) + "\\3.png");
+					animacaoObj2.load(caminho + "res\\batalha\\Arius\\animacao\\3.png");
 				}
 				
 				animacaoObj3.setY(animacaoObj3.getY() + (animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 28) || (animacao.getDx() >= 46)) ? 2 : (animacao.getDx() % 2 == 0 && (animacao.getDx() >= 30 && animacao.getDx() <= 44) ? -2 : 0)));
@@ -3180,7 +3187,7 @@ public class Batalha extends JPanel implements ActionListener {
 			if(animacao.getDx() == 20) {
 				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
 				animacaoObj1.setX(animacaoObj1.getX() - 4);
-				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\1.png");
 				
 			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
 				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));
@@ -3241,7 +3248,7 @@ public class Batalha extends JPanel implements ActionListener {
 			if(animacao.getDx() == 20) {
 				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
 				animacaoObj1.setX(animacaoObj1.getX() - 4);
-				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\1.png");
 				
 			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
 				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));
@@ -3277,7 +3284,7 @@ public class Batalha extends JPanel implements ActionListener {
 			if(animacao.getDx() == 20) {
 				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
 				animacaoObj1.setX(animacaoObj1.getX() - 4);
-				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\1.png");
 				
 			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
 				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));
@@ -3324,7 +3331,7 @@ public class Batalha extends JPanel implements ActionListener {
 			if(animacao.getDx() == 20) {
 				animacao.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\0.png");
 				animacaoObj1.setX(animacaoObj1.getX() - 4);
-				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\" + (gifApelos[2][numApelo]) + "\\1.png");
+				animacaoObj1.load(caminho + "res\\batalha\\Rexthor\\animacao\\1.png");
 				
 			} else if(animacao.getDx() % 2 == 0 && ((animacao.getDx() >= 22 && animacao.getDx() <= 24) || (animacao.getDx() >= 44 && animacao.getDx() <= 46))) {
 				animacaoObj1.setX(animacaoObj1.getX() + (animacao.getDx() % 4 == 0 ? -4 : 4));

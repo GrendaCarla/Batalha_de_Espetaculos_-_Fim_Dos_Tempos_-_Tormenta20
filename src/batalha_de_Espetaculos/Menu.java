@@ -95,6 +95,13 @@ public class Menu extends JPanel implements ActionListener {
 	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 60, teclaZ.getY());
 	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	
+	private Icones_interativos teclaVel1 = new Icones_interativos(1234 - 26, 10);
+	private Icones_interativos teclaVel2 = new Icones_interativos(teclaVel1.getX(), teclaVel1.getY() + 40);
+	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
+	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
+	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
+	private int velocidade = 2;
+	
 	// ---------------------------- opções do menu ------------------------------------
 	
 	private Icones_interativos bntContinuar = new Icones_interativos(1234/2 - ((159 * 4) + 120)/2, 528);
@@ -183,6 +190,12 @@ public class Menu extends JPanel implements ActionListener {
 		teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
+		
+		teclaVel1.load(caminho + "res\\Teclado\\tecla1.png");
+		teclaVel2.load(caminho + "res\\Teclado\\tecla22.png");
+		teclaVel3.load(caminho + "res\\Teclado\\tecla3.png");
+		teclaVel4.load(caminho + "res\\Teclado\\tecla4.png");
+		teclaVel5.load(caminho + "res\\Teclado\\tecla5.png");
 				
 		// ---------------------------- save ------------------------------------
 
@@ -351,7 +364,17 @@ public class Menu extends JPanel implements ActionListener {
 	
 				}else if(codigo == KeyEvent.VK_ESCAPE) {
 					teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
+				
+				}else if(codigo == KeyEvent.VK_1 || codigo == KeyEvent.VK_2 || codigo == KeyEvent.VK_3 || codigo == KeyEvent.VK_4 || codigo == KeyEvent.VK_5) {
 					
+					velocidade = (codigo == KeyEvent.VK_1 ? 1 : (codigo == KeyEvent.VK_2 ? 2 : (codigo == KeyEvent.VK_3 ? 3 : (codigo == KeyEvent.VK_4 ? 4 : 5))));
+					
+					teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+					teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+					teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+					teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+					teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
+				
 				}else if(codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT){
 					
 					if(contEngranagem1 == 2) {
@@ -452,7 +475,7 @@ public class Menu extends JPanel implements ActionListener {
 			
 			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "CreditosM") {
 				telaCreditos.KeyPressed(tecla);
-				
+			
 			} else if(janelaPrincipal == null) {
 				tela2.KeyPressed(tecla);
 			}
@@ -579,6 +602,12 @@ public class Menu extends JPanel implements ActionListener {
 		
 		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
 		
+		graficos.drawImage(teclaVel1.getImagem(), teclaVel1.getRedX(), teclaVel1.getRedY(), teclaVel1.getLarg(), teclaVel1.getAlt(), this);
+		graficos.drawImage(teclaVel2.getImagem(), teclaVel2.getRedX(), teclaVel2.getRedY(), teclaVel2.getLarg(), teclaVel2.getAlt(), this);
+		graficos.drawImage(teclaVel3.getImagem(), teclaVel3.getRedX(), teclaVel3.getRedY(), teclaVel3.getLarg(), teclaVel3.getAlt(), this);
+		graficos.drawImage(teclaVel4.getImagem(), teclaVel4.getRedX(), teclaVel4.getRedY(), teclaVel4.getLarg(), teclaVel4.getAlt(), this);
+		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY(), teclaVel5.getLarg(), teclaVel5.getAlt(), this);
+
 		g.dispose();
 	}
 
@@ -597,7 +626,24 @@ public class Menu extends JPanel implements ActionListener {
 				fecharQuebrarConfianca();
 			}
 			
-			Animar();
+			switch (velocidade) {
+				case 1: case 2:
+					Animar();
+					break;
+				case 3:
+					Animar(); Animar(); Animar();
+					break;
+				case 4:
+					Animar(); Animar(); Animar();
+					Animar(); Animar(); Animar();
+					break;
+				case 5:
+					Animar(); Animar(); Animar();
+					Animar(); Animar(); Animar();
+					Animar(); Animar(); Animar();
+					break;
+			}
+			
 		}
 		
 		repaint();
@@ -679,7 +725,7 @@ public class Menu extends JPanel implements ActionListener {
 		
 		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela1 = new Escolha_de_personagem(this, NovoJogo, contEngranagem2, caminho);
+        tela1 = new Escolha_de_personagem(this, NovoJogo, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela1);
         janelaPrincipal.setTitle("Escolha de Personagem");
         

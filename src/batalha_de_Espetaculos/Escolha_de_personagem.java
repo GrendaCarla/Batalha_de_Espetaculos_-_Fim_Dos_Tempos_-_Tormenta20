@@ -81,6 +81,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 110 - 37, 20 + 36);
 	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	
+	private int velocidade = 2;
+	
 	// -------------------------- imagens e texto do dialogo de personagem ------------------------------
 	
 	private Icones_interativos sombreadorDialogoPerso = new Icones_interativos(0, 0);
@@ -119,10 +121,11 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
-	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
+	public Escolha_de_personagem(Menu PaginaAnterior, boolean NovoJogo, boolean Engrenagem2, String Caminho, int Velocidade) {
 		this.telaMenu = PaginaAnterior;
 		this.novoJogo = NovoJogo;
 		this.caminho = Caminho;
+		this.velocidade = Velocidade;
 		
 		contEngranagem2 = Engrenagem2;
 		
@@ -638,7 +641,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		
 		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, TabelaInteracao, novoJogo, contEngranagem2, caminho);
+        tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, TabelaInteracao, novoJogo, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
         janelaPrincipal.revalidate();

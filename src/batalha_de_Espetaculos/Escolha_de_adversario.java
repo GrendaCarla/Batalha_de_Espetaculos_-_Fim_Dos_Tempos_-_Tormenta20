@@ -95,6 +95,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Icones_interativos teclaEsquerda = new Icones_interativos(40, 270);
 	private Icones_interativos teclaDireita = new Icones_interativos(1234 - teclaEsquerda.getX() - 40, teclaEsquerda.getY());
 	private Icones_interativos teclaZ = new Icones_interativos(camada41.getX() + 300, 135); 
+	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
+	
+	private Icones_interativos teclaVel1 = new Icones_interativos(1234 - 26, 10);
+	private Icones_interativos teclaVel2 = new Icones_interativos(teclaVel1.getX(), teclaVel1.getY() + 40);
+	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
+	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
+	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
+	private int velocidade = 2;
 	
 	private boolean animarApertoTecla = false;
 	
@@ -225,7 +233,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	|  							coloca as informações iniciais									|
 	\ ---------------------------------------------------------------------------------------- */
 	
-	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, int [][] TabelaInteracao, boolean NovoJogo, boolean Engrenagem2, String Caminho) {
+	public Escolha_de_adversario(int numAventureiro, Escolha_de_personagem PaginaAnterior, Menu PaginaMenu, int [][] TabelaInteracao, boolean NovoJogo, boolean Engrenagem2, String Caminho, int Velocidade) {
 		contEngranagem2 = Engrenagem2;
 		this.caminho = Caminho;
 
@@ -234,6 +242,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		this.telaMenu = PaginaMenu;
 		this.TabelaInteracao = TabelaInteracao;
 		this.novoJogo = NovoJogo;
+		this.velocidade = Velocidade;
 		
 		fundo.load(caminho + "res\\fundo0.png");
 		tapaResto.load(caminho + "res\\fundo2.png");
@@ -300,8 +309,15 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 
 		teclaEsquerda.load(caminho + "res\\Teclado\\setaEsquerda1.png");
 		teclaDireita.load(caminho + "res\\Teclado\\setaDireita1.png");
-		
+		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		teclaZ.setImagem(null);
+
+		teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+		teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+		teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+		teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+		teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
+
 
 		//-----------------------------------------------------------------------------------------------
 	
@@ -573,6 +589,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(janela != null && janela.getTitle() == "Escolha de Adversário") {
 			int codigo = tecla.getKeyCode();
 			
+			if(codigo == KeyEvent.VK_ESCAPE) {
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
+			}
+			
 			// -------------------- capturar teclado-------------------- \
 			
 			if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
@@ -586,7 +606,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					direita = true;
 				}
 			}
-						
+					
 			// -------------------- abre e fecha o menu -------------------- \
 			if(codigo == KeyEvent.VK_ESCAPE && dialogoAviso.getImagem() == null ) {
 				
@@ -770,15 +790,26 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						break;
 				}
-			}
+			
+			
+			// ----------------------- altera a velocidade ------------------------ \
+			}else if(codigo == KeyEvent.VK_1 || codigo == KeyEvent.VK_2 || codigo == KeyEvent.VK_3 || codigo == KeyEvent.VK_4 || codigo == KeyEvent.VK_5) {
+				
+				velocidade = (codigo == KeyEvent.VK_1 ? 1 : (codigo == KeyEvent.VK_2 ? 2 : (codigo == KeyEvent.VK_3 ? 3 : (codigo == KeyEvent.VK_4 ? 4 : 5))));
+				
+				teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+				teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+				teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+				teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+				teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
 			
 			// ------------------------ manda para a tela de batalha ----------------------- /
-			else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && encerrarDialogo == true && (bntSimNao == true || (aventureiro == 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1)) && barraDeDialogo.getImagem() != null && contMenSalvar == -1) {
+			}else if(codigo == KeyEvent.VK_Z  && mostrarMenu == false && dialogoAviso.getImagem() == null && encerrarDialogo == true && (bntSimNao == true || (aventureiro == 1 && contTeclaBatalha == 0 && TabelaInteracao[1][4] == 1 && TabelaInteracao[1][1] == 1)) && barraDeDialogo.getImagem() != null && contMenSalvar == -1) {
 				chamarBatalha();
 				
 			}
 			
-			
+				
 		} else{
 			// ------------------------ manda para a tela de Manual ----------------------- /
 			if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual2") {
@@ -802,16 +833,25 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			int codigo = tecla.getKeyCode();
 			
+			if (codigo == KeyEvent.VK_ESCAPE) {
+				teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
+			}
+			
 			if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
 				
-				if(codigo == KeyEvent.VK_UP) {
-					cima = false;
-				} else if(codigo == KeyEvent.VK_DOWN) {
-					baixo = false;
-				} else if(codigo == KeyEvent.VK_LEFT) {
-					esquerda = false;
-				} else if(codigo == KeyEvent.VK_RIGHT) {
-					direita = false;
+				switch (codigo) {
+					case KeyEvent.VK_UP:
+						cima = false;
+						break;
+					case KeyEvent.VK_DOWN:
+						baixo = false;
+						break;
+					case KeyEvent.VK_LEFT:
+						esquerda = false;
+						break;
+					case KeyEvent.VK_RIGHT:
+						direita = false;
+						break;
 				}
 				
 				if(aventureiro != 1 && (esquerda == false && direita == false)) {
@@ -821,6 +861,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					respiracaoAventureiro = true;
 				}
 			}
+			
+		} else {
+				tela3.KeyReleased(tecla);
 		}
 	}
 	
@@ -882,38 +925,30 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		int camada4Atual = (camada41.getX() < camada42.getX() ? camada41.getX() : camada42.getX());
 										
-		
+		System.out.println(camada4Atual);
 		respiracaoAventureiro = false;
+		
+		
+		//---------------------------------------------------
 		
 		if(esquerda == true) {
 			teclaZ.setX(camada4Atual + (camada4Atual > -520 ? 885 : (camada4Atual > -1116 ? 1480 : (camada4Atual > -1712 ? 2080 : (camada4Atual > -2296 ? 2660 : (camada4Atual > -2880 ? 3250 : (camada4Atual > -3428 ? 3837 : (camada4Atual >= -4000 ? 4300: 0))))))));
 			
 			if(camada4Atual == -516 || camada4Atual == -1112 || camada4Atual == -1708 || camada4Atual == -2292 || camada4Atual == -2876 || camada4Atual == -3424 || camada4Atual == -3936) {
-				teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 				contTeclaBatalha --;
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
 				
 			} else if(camada4Atual == -128 || camada4Atual == -716 || camada4Atual == -1312 || camada4Atual == -1896 || camada4Atual == -2488 || camada4Atual == -3076 || camada4Atual == -3548){
-				teclaZ.setImagem(null);
 				contTeclaBatalha --;
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
+			
+			} else if((Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 5) && dentroFora(camada4Atual)) {
+					
+				contTeclaBatalha = ((camada4Atual <= -3936 && camada4Atual > -4000) || (camada4Atual <= 0 && camada4Atual > -128) ? 1 : (camada4Atual <= -3548 && camada4Atual >= -3936 ? 0 : (camada4Atual < -3424 && camada4Atual > -3548 ? 13 : (camada4Atual <= -3076 && camada4Atual >= -3424 ? 12 : (camada4Atual < -2876 && camada4Atual > -3076 ? 11 : (camada4Atual <= -2488 && camada4Atual >= -2876 ? 10 : (camada4Atual < -2292 && camada4Atual > -2488 ? 9 : (camada4Atual <= -1896 && camada4Atual >= -2292 ? 8 : (camada4Atual < -1708 && camada4Atual > -1896 ? 7 : (camada4Atual <= -1312 && camada4Atual >= -1708 ? 6 : (camada4Atual < -1112 && camada4Atual > -1312 ? 5 : (camada4Atual <= -716 && camada4Atual >= -1112 ? 4 : (camada4Atual < -516 && camada4Atual > -716 ? 3 : (camada4Atual <= -128 && camada4Atual >= -516 ? 2 : contTeclaBatalha))))))))))))));
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
 			}
 			
 			if(contTeclaBatalha == -1) {contTeclaBatalha = 13;}
-									
-			if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) < 4) {
-				if((camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
-					teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-					
-					if(!((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84))) {
-						contTeclaBatalha --;
-					}
-				} else if(camada4Atual != -128 && camada4Atual != -716 && camada4Atual != -1312 && camada4Atual != -1896 && camada4Atual != -2488 && camada4Atual != -3076 && camada4Atual != -3548) {
-					teclaZ.setImagem(null);
-					
-					if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
-						contTeclaBatalha --;
-					}
-				}
-			}
 			
 			camada21.setX((camada21.getX() > 1234 ? camada22.getX() - 5992 : camada21.getX() + 6));
 			camada22.setX((camada22.getX() > 1234 ? camada21.getX() - 5992 : camada22.getX() + 6));
@@ -933,9 +968,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			camada51.setX((camada51.getX() > 1234 ? camada52.getX() - 1992 : camada51.getX() + 1));
 			camada52.setX((camada52.getX() > 1234 ? camada51.getX() - 1992 : camada52.getX() + 1));
-								
-			if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1")) {
-				
+
+			int numero = Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)));
+			
+			if(numero <= 4 || numero == 5 || numero == 6) {	
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "7.png");
 				
 				if(aventureiro == 1) {
@@ -948,35 +984,23 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 		if(direita == true) {
-									
 			teclaZ.setX(camada4Atual + (camada4Atual < -3496 ? 4292 : (camada4Atual < -3024 ? 3830 : (camada4Atual < -2432 ? 3242 : (camada4Atual < -1848 ? 2652 : (camada4Atual < -1260 ? 2074 : (camada4Atual < -668 ? 1472 : (camada4Atual < -80 ? 878 : 0))))))));
 			
 			if(camada4Atual == -3500 || camada4Atual == -3028 || camada4Atual == -2436 || camada4Atual == -1852 || camada4Atual == -1264 || camada4Atual == -672 || camada4Atual == -84) {
-				teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 				contTeclaBatalha ++;
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
 				
 			} else if(camada4Atual == -3896 || camada4Atual == -3396 || camada4Atual == -2836 || camada4Atual == -2248 || camada4Atual == -1664 || camada4Atual == -1068 || camada4Atual == -476){
-				teclaZ.setImagem(null);
 				contTeclaBatalha ++;
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
+				
+			} else if((Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) > 4) && dentroFora(camada4Atual)) {
+				
+				contTeclaBatalha = ((camada4Atual < -3896 && camada4Atual >= -4000) || (camada4Atual <= 0 && camada4Atual > -84) ? 1 : (camada4Atual <= -3500 && camada4Atual >= -3896 ? 0 : (camada4Atual < -3396 && camada4Atual > -3500 ? 13 : (camada4Atual <= -3032 && camada4Atual >= -3396 ? 12 : (camada4Atual < -2836 && camada4Atual > -3032 ? 11 : (camada4Atual <= -2436 && camada4Atual >= -2836 ? 10 : (camada4Atual < -2248 && camada4Atual > -2436 ? 9 : (camada4Atual <= -1852 && camada4Atual >= -2248 ? 8 : (camada4Atual < -1664 && camada4Atual > -1852 ? 7 : (camada4Atual <= -1264 && camada4Atual >= -1664 ? 6 : (camada4Atual < -1068 && camada4Atual > -1264 ? 5 : (camada4Atual <= -672 && camada4Atual >= -1068 ? 4 : (camada4Atual < -476 && camada4Atual > -672 ? 3 : (camada4Atual <= -84 && camada4Atual >= -476 ? 2 : contTeclaBatalha))))))))))))));
+				if(contTeclaBatalha % 2 == 0) {teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");} else {teclaZ.setImagem(null);}
 			}
-								
-			if(contTeclaBatalha == 14) {contTeclaBatalha = 0;}
 			
-			if(Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4))) > 4) {
-				if((camada4Atual > -3896 && camada4Atual < -3500) || (camada4Atual > -3396 && camada4Atual < -3028) || (camada4Atual > -2836 && camada4Atual < -2436) || (camada4Atual > -2248 && camada4Atual < -1852) || (camada4Atual > -1664 && camada4Atual < -1264) || (camada4Atual > -1068 && camada4Atual < -672) || (camada4Atual > -476 && camada4Atual < -84)) {
-					teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
-					
-					if(!((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548))) {
-						contTeclaBatalha ++;
-					}
-				} else if(camada4Atual != -3896 && camada4Atual != -3396 && camada4Atual != -2836 && camada4Atual != -2248 && camada4Atual != -1664 && camada4Atual != -1068 && camada4Atual != -476) {
-					teclaZ.setImagem(null);
-					
-					if((camada4Atual > -9 && camada4Atual < 0) || (camada4Atual > -516 && camada4Atual < -128) || (camada4Atual > -1112 && camada4Atual < -716) || (camada4Atual > -1708 && camada4Atual < -1312) || (camada4Atual > -2292 && camada4Atual < -1896) || (camada4Atual > -2876 && camada4Atual < -2488) || (camada4Atual > -3424 && camada4Atual < -3076) || (camada4Atual > -3936 && camada4Atual < -3548)) {
-						contTeclaBatalha ++;
-					}
-				}
-			}
+			if(contTeclaBatalha == 14) {contTeclaBatalha = 0;}
 			
 			camada21.setX((camada21.getX() < -6000 ? camada22.getX() + 5992 : camada21.getX() - 6));
 			camada22.setX((camada22.getX() <= -6000 ? camada21.getX() + 5992 : camada22.getX() - 6));
@@ -996,8 +1020,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			camada51.setX((camada51.getX() <= -2000 ? camada52.getX() + 1992 : camada51.getX() - 1));
 			camada52.setX((camada52.getX() <= -2000 ? camada51.getX() + 1992 : camada52.getX() - 1));
 			
-			if((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("0") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("1") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("5") || (iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)).equals("6")) {
-				
+			int numero = Integer.parseInt((iconeAventureiro.getReferencia() + "").substring(((iconeAventureiro.getReferencia() + "").length() - 5), ((iconeAventureiro.getReferencia() + "").length() - 4)));
+			
+			if(numero <= 1 || numero >= 5) {
 				iconeAventureiro.load(caminho + "res\\Bonequinho\\" + (aventureiro == 0 ? "ignis" : (aventureiro == 1 ? "ayla" : (aventureiro == 2 ? "rexthor" : (aventureiro == 3 ? "kiki" : "arius")))) + "2.png");
 				
 				if(aventureiro == 1) {
@@ -1007,9 +1032,11 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}
 			
 			animarMovimentoAventureiro(false);
-			
-		
 		}
+		
+		System.out.println(contTeclaBatalha);
+		
+		
 		// ---------- faz a ayla voar verticalmnte --------- \
 		if(aventureiro == 1) {
 			iconeAventureiro.setDy(iconeAventureiro.getY());
@@ -1034,6 +1061,22 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 	}
+	
+	/* ---------------------------------------------------------------------------------------- \
+	|  				Vê se o aventureiro esta dentro da area das batalhas						|
+	\ ---------------------------------------------------------------------------------------- */
+	
+	public boolean dentroFora(int local) {
+
+		if(!((local <= -3500 && local >= -3896) || (local <= -3032 && local >= -3396) || (local <= -2436 && local >= -2836) || (local <= -1852 && local >= -2248) || (local <= -1264 && local >= -1664) ||(local <= -672 && local >= -1068) || (local <= -84 && local >= -476))
+		== ((local <= -3548 && local >= -3936) ||(local <= -3076 && local >= -3424) || (local <= -2488 && local >= -2876) || (local <= -1896 && local >= -2292) || (local <= -1312 && local >= -1708) || (local <= -716 && local >= -1112) || (local <= -128 && local >= -516))) {
+			
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	/* ---------------------------------------------------------------------------------------- \
 	|  				limpa as informações e imagens dos diálogos com os cães						|
 	\ ---------------------------------------------------------------------------------------- */
@@ -1117,7 +1160,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
-        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho);
+        tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela3);
         janelaPrincipal.setTitle("Batalha");
         janelaPrincipal.revalidate();
@@ -1247,8 +1290,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
 
 		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
-		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
+		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY(), teclaEsc.getLarg(), teclaEsc.getAlt(), this);
 		
+		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
+
+		graficos.drawImage(teclaVel1.getImagem(), teclaVel1.getRedX(), teclaVel1.getRedY(), teclaVel1.getLarg(), teclaVel1.getAlt(), this);
+		graficos.drawImage(teclaVel2.getImagem(), teclaVel2.getRedX(), teclaVel2.getRedY(), teclaVel2.getLarg(), teclaVel2.getAlt(), this);
+		graficos.drawImage(teclaVel3.getImagem(), teclaVel3.getRedX(), teclaVel3.getRedY(), teclaVel3.getLarg(), teclaVel3.getAlt(), this);
+		graficos.drawImage(teclaVel4.getImagem(), teclaVel4.getRedX(), teclaVel4.getRedY(), teclaVel4.getLarg(), teclaVel4.getAlt(), this);
+		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY(), teclaVel5.getLarg(), teclaVel5.getAlt(), this);
+
 		g.dispose();
 	}
 
@@ -1267,7 +1318,34 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			
 			// ---------- faz o aventureiro andar horizontalmente --------- \
 			if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null && (((esquerda == true || direita == true) && !(esquerda == true && direita == true))) || (aventureiro == 1 && (cima == true || baixo == true) && !(cima == true && baixo == true) )) {
-				movimentaAventureiro(); movimentaAventureiro(); movimentaAventureiro();
+				
+				switch (velocidade) {
+					case 1:
+						movimentaAventureiro();
+						break;
+					case 2:
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						break;
+					case 3:
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						break;
+					case 4:
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						break;
+					case 5:
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						movimentaAventureiro();movimentaAventureiro(); movimentaAventureiro();
+						break;
+				}
+				
+				
+				
+				
 			} else {
 				pararMovimento();
 			}
@@ -1321,6 +1399,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		
 		repaint();
+		
 	}
 	
 	public void animaBataPok() {
