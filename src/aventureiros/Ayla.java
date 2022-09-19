@@ -27,11 +27,11 @@ public class Ayla {
 													 {"- Essas poltronas são tão confortáveis, estava morrendo de vontade de descansar as minhas", "asas.", "- Falando em vontade, já que voltamos, você decidiu se quer competir agora?", " "},
 													 {"- Ah! Que bom que você concordou.", "- Quem sabe se ganharmos esta partida eu torne você uma das prestigiosas consultoras", "Mary Fay.", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Que pena, eu estava animada pela batalha.", "- Bem, Vamos passar pela lojinha de lembranças na saída, quero te mostrar as mudanças de", "decorações que fizemos e as medalhas dos deuses que chegaram.", " "},
-    // 8----------------------------- se a Ayla for a escolhida e desistiu <= 5 no meio da última luta = |1|0|0|1|3| -------------------
+    // 8----------------------------- se a Ayla for a escolhida e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------
 													 {"- Como é bom estar de volta!", "- Não vejo a hora de botar a mão na massa e fazer minhas alqu- poções cheirosas.", "- Depois que eu terminar você vai querer batalhar de novo?", " "},
 													 {"- Ótimo! Mas posso te pedir um favorzinho?","- Dessa vez não desista no meio da luta, é meio chato reunir todo mundo daqui das colinas e", "ter o evento encerrado sem conclusão.", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Certo, vamos dar uma volta pelas centrais depois que eu terminar.", "- Fique a vontade para visitar a loja e falar com o Carlos Mutuca Jr., tenho certeza que ele ira", "conseguir te conv- entreter!", " "},
-	// 11---------------------------- se a Ayla for a escolhida e desistiu == 6 no meio da última luta = |1|0|0|6|3| -------------------
+	// 11---------------------------- se a Ayla for a escolhida e desistiu == 3 no meio da última luta = |1|0|0|6|3| -------------------
 													 {"- Estamos aqui novamente.","- Dessa vez você realmente quer batalhar?", " ", " "},
 													 {"- Vou falar sinceramente agora, então é melhor aproveitar porque esta oportunidade é rara.", "- Não teste minha paciência, posso ser pequena e adorável, mas se você me decepcionar mais", "uma vez... acabou.", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Certo.", " ", " ", " "},
@@ -111,7 +111,7 @@ public class Ayla {
 													 {"- Agora, depois de toda essa agitação eu sugiro que foquem em enfrentar os outros Cães das", "Colinas.", "- Como eu falei anteriormente você só se juntará oficialmente a mundialmente famosa Ayla", "Corporation quando derrotarem todos os cinco Cães das Colinas três vezes.", "- Boa sorte!"},
 	// 72---------------------------- se vencer 3 vezes todos os cães das Colinas -------------------
 													 {"- Após enfrentar Ignis Crae o paladino de Thyatis, Rexthor o lutador mais sortudo que existe,", "Kiki a barda de puro talento, Arius o filósofo devoto de Tanna-toh e Ayla a fada empreendedora", "mais honesta de Arton, você retorna até nós exibindo suas vitórias com orgulho.", " "},
-													 {"- E como prometido, você se tornará um de nós, EEEEEEEEEEEEEEEEeee!", "- Agora vamos assinar o pac- contrato.", "- Não precisa ler tudo se não quiser, as letrinhas miúdas são apenas formalidade, HIhiHihi.", "Assinar o contrato?", "- Agora oficialmente você faz parte da família Empório Purpúrea, meus parabéns!"},
+													 {"- E como prometido, você se tornará um de nós, EEEEEEEEEEEEEEEEE!", "- Agora vamos assinar o pac- contrato.", "- Não precisa ler tudo se não quiser, as letrinhas miúdas são apenas formalidade, HIhiHihi.", "Assinar o contrato?", "- Agora oficialmente você faz parte da família Empório Purpúrea, meus parabéns!"},
 	// 74---------------------------- se já venceu 3 vezes a ayla e falou com ela -------------------
 													 {"- Porque voltamos? Pensei que iriamos desafiar os outros Cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros Cães.", " ", " "}};
 

@@ -81,7 +81,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos teclaX = new Icones_interativos(1234 - 20 - 110 - 37, 20 + 36);
 	private Icones_interativos teclaEsc = new Icones_interativos(16, 16);
 	
-	private int velocidade = 2;
+	public int velocidade = 2;
 	
 	// -------------------------- imagens e texto do dialogo de personagem ------------------------------
 	

@@ -100,7 +100,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
 	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
 	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
-	private int velocidade = 2;
+	public int velocidade = 2;
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
@@ -152,6 +152,7 @@ public class Menu extends JPanel implements ActionListener {
 		titulo.load(caminho + "res\\Menu principal\\titulo.png");
 
 		valorLeituraSave = salvar.LerDados(caminho);
+		velocidade = salvar.getVelocidade();
 		
 		// ------------------------------------------- animação ---------------------------------------------
 
@@ -245,7 +246,7 @@ public class Menu extends JPanel implements ActionListener {
 		bntManual.load(caminho + "res\\Menu principal\\bntManual1.png");
 		bntCreditos.load(caminho + "res\\Menu principal\\bntCreditos1.png");
 		
-		if(valorLeituraSave == 0 && salvar.getTabelaInteracao()[salvar.getAventureiro()][3] > 6) {
+		if(valorLeituraSave == 0 && salvar.getTabelaInteracao()[salvar.getAventureiro()][3] > 3) {
 			txtQuebraConfianca = (salvar.getAventureiro() == 0 ? "IGNIS" : (salvar.getAventureiro() == 1 ? "AYLA" : (salvar.getAventureiro() == 2 ? "REXTHOR" : (salvar.getAventureiro() == 3 ? "KIKI" : "ARIUS"))))
 					+ "  NÃO  GOSTA  MAIS  DE  VOCÊ!";
 			quebraConfianca = true;
@@ -260,6 +261,13 @@ public class Menu extends JPanel implements ActionListener {
 			txtDialogoAviso.setTexto(" ");
 			txtDialogoAviso2.setTexto(" ");
 		}
+		
+		teclaVel1.load(caminho + "res\\Teclado\\tecla1" + (velocidade == 1 ? 2 : "") + ".png");
+		teclaVel2.load(caminho + "res\\Teclado\\tecla2" + (velocidade == 2 ? 2 : "") + ".png");
+		teclaVel3.load(caminho + "res\\Teclado\\tecla3" + (velocidade == 3 ? 2 : "") + ".png");
+		teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
+		teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
+	
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \

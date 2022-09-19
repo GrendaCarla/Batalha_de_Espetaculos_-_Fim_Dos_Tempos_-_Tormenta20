@@ -30,12 +30,12 @@ public class Kiki {
 															 {"- Então, bora batalhar?", " ", " ", " "},
 															 {"- Esse é o espirito!", "- No caminho deixa eu te contar a fofoca que Tanna-Toh me falou ontem, essa é das boas.", " ", "As apresentações COM interferência ganharão +1 de apelo."},
 															 {"- Ok, talvez seja melhor darmos uma volta primeiro.", "- Ah! Se você ver um homem de chapéu e roupas vermelhas me avisa para a gente passar longe.", "- Eu não suporto aquele bardo e o ego inflado dele, um dia desses eu vou mostrar quem é a", "melhor barda que estas colinas já viram."},
-		    // 11--------------------------- se a Kiki for a escolhida e desistiu <= 5 no meio da última luta = |1|0|0|1|3| -------------------
+		    // 11--------------------------- se a Kiki for a escolhida e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------
 															 {"- Oi, quer saber o que eu estou fazendo?", "- Eu estou transformando todos meus traumas e arrependimentos em um novo sucesso do", "álbum Kiki Summer Eletrohits, porque afinal, boas obras são feitas de péssimos sentimentos e", "se tratando de angústias e abandono eu sou uma especialista."},
 															 {"- Você quer me falar alguma coisa?", "- Ah, sim, você quer competir em outro espetáculo, estou correta?", " ", " "},
 															 {"- Então, na última vez que nos apresentamos aqui você desistiu da competição de uma hora", "para outra. Aquilo foi um total desrespeito com a plateia, com meus amigos e comigo.", "- Eu peço por favor que não faça mais.", "As apresentações COM interferência ganharão +1 de apelo."},
 															 {"- Não? Ok então.", "- Ei, por acaso você teria alguma garrafa de bebida para uma barda triste com bloqueio criativo?", " ", " "},
-			// 15--------------------------- se a Kiki for a escolhida e desistiu == 6 no meio da última luta = |1|0|0|6|3| -------------------
+			// 15--------------------------- se a Kiki for a escolhida e desistiu == 3 no meio da última luta = |1|0|0|6|3| -------------------
 															 {"- O que foi, você está querendo competir?", " ", " ", " "},
 															 {"- Mais você é muito cara de pau mesmo, resolveu sair várias vezes no meio dos shows e vem", "agora me pedir para começar um novo.", "- Talvez você não tenha notado, mas eu, Kiki, sou uma barda e nenhuma artista que se preste", "sairia no meio da apresentação por um motivo besta como o seu."},
 															 {"- Aham, você está me dizendo que vai se comportar?", "- Pois bem, saiba que eu guardo rancor e se me humilhar mais uma vez você tera um destino", "pior do que a morte.", "As apresentações COM interferência ganharão +1 de apelo."},

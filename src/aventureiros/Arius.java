@@ -17,32 +17,124 @@ public class Arius {
 											   {"Lembre-se do seu treinamento nas legiões do império.", "Com o gládio em mãos e o escudo bem posicionado", "Demonstre suas táticas e o conhecimento bélico", "Evitando se queimar caso for derrubado.", " "},
 											   {"Se quiseres emocionar a plateia", "Terás que revelar seus sentimentos dolorosos.", "Recita-los em forma de prosa poética", "Parece certamente um dos modos mais graciosos.", " "}};
 	
-	// ------------------------------ primeira interação ---------------------------------
-	private String [][] ConteudoEscolhaAdversario = {{"Saudações andarilho, gostaria de falar comigo?", "Por acaso você também segue os preceitos de Tanna-Toh e veio para um debate sobre as", "maravilhas da...", "Não?"},
-													{"Você esta querendo me desafiar para uma disputa amistosa onde demonstraremos nossas", "habilidades?", " ", " "},
-													{"Isso é ótimo, obviamente será uma boa maneira de adquirir novos conhecimentos, como mestre", "Luriel me dizia 'a prática e a observação de técnicas de outrem contribui muito para o", "aprimoramento... blá, blá, blá'.", "As apresentações SEM interferência ganharão +1 de apelo."},
-													{"Bem, eu estava indo mostrar a Nada Mais que a Verdade a maravilhosa plantação de gorad que", "os Gallobalt cultivaram aqui nas centrais, sinta-se à vontade para acompanhar-nos durante esse", "tempo. Poderia nos contar sobre os diversos lugares em que esteve? ", "Creio que Nada Mais que a Verdade se interessará bastante no que tem a dizer."},
-													{"Saudações, você esta querendo me desafiar para uma disputa amistosa novamente?", " ", " ", " "},
-	// 5º linha --------------------- teve o primeiro contato mas não batalhou = |1|0|0|0|0| -------------------
-													{"teve o primeiro contato mas não batalhou", " ", " ", " "},
-    // ------------------------------ desistiu no meio da última luta = |1|0|0|1|3| -------------------
-													{"desistiuno no meio da última luta", " ", " ", " "},
-	// ------------------------------ perdeu na última luta = |1|0|1|0|2| -------------------
-													{"perdeu na última luta", " ", " ", " "},
-	// ------------------------------ 1º vitória na última luta = |1|1|0|0|1| -------------------
-													{"1º vitória na última luta", " ", " ", " "},
-	// ------------------------------ perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
-													{"perdeu na última luta, mas tem 1 vitória", " ", " ", " "},
-	// ------------------------------ 2º vitória na última luta com 3 ou menos derrotas = |1|2|3|0|1| -------------------
-													{"2º vitória na última luta com menos de 3 derrotas", " ", " ", " "},
-	// ------------------------------ 2º vitória na última luta com mais de 3 derrotas = |1|2|4|0|1| -------------------
-													{"2º vitória na última luta com mais de 3 derrotas", " ", " ", " "},
-	// ------------------------------ derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
-													{"derrota na última luta com 2 vitórias", " ", " ", " "},
-	// ------------------------------ 3º ou mais vitórias na última luta = |1|3|0|0|1| -------------------
-													{"3º ou mais vitórias na última luta", " ", " ", " "},
-	// ------------------------------ derrota na última luta com 3 ou mais vitórias = |1|3|1|0|2| -------------------
-													{"derrota na última luta com 3 ou mais vitórias", " ", " ", " "}};
+	
+	// 0---------------------------- primeira interação se o Arius for o escolhido ---------------------- 
+	private String [][] ConteudoEscolhaAdversario = {{"- Chegamos!", "- Este é o local do qual lhe falei durante o nosso percurso.", "- Garanto que não existe lugar mais belo nas Colinas Centrais do que a plantação de gorad da", "família Gallobalt."},
+													 {"- Bem, talvez o Cemitério Errante ou o Templo do Vácuo, porem suas belezas advém de eventos", "devastadores ao contrário deste local.", "- E você sabe me dizer o porquê?", " "}, 
+													 {"- Não, não é porque anteriormente era uma enorme plantação de archibold, uma droga terrível", "que destrói inúmeras vidas por toda Arton, e Ignis, o paladino de Thyatis, deu-lhes uma", "segunda chance para consertarem suas ações, isso é pura bobagem.", " "},
+													 {"- Este sim é um belo lugar porque agora poderei desfrutar do doce sabor do gorad novamente!", "- Nossos anfitriões foram muitos gentis e me deixaram pegar um pouquinho dessa iguaria por", "toda a ajuda que os Cães das Colinas disponibilizaram ao resolver o problema com Syvarian e", "Gog-Magog, o seu peixe navio voador."},
+													 {"- E assim que for possível visitaremos Kiki para que ela use seus dons culinários e prepare para", "mim mais desse doce irresistível.", " ", " "},
+													 {"- Como assim! Eu não sou um aproveitador egoísta, ao contrário, sou um devoto de Tanna-Toh", "e ela ensina que devemos sempre compartilhar todo tipo de conhecimento para que possamos", "crescer e evoluir juntos.", "- Mas isso não se aplica ao meu gorad!"},
+													 {"- Venha, vamos nos juntar a Nada Mais que a Verdade, ela adoraria participar do nosso debate.", "- O que foi, algo está te incomodando?", " ", " "}, 
+													 {"- Ah! Você quer me propor uma disputa amistosa para compartilharmos nossas habilidades", "com os outros Cães das Colinas?", " ", " "},
+													 {"- Que ideia maravilhosa!", "- Vamos, eu gostaria muito de saber o quão bem podemos ir se começarmos a disputa com a", "vantagem.", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Então segure isso aqui para mim enquanto eu pego um pouquinho mais.", " ", " ", " "},
+	// 10---------------------------- se o Arius for o escolhido e teve o primeiro contato, mas não batalhou = |1|0|0|0|0| -------------------
+													 {"- Eu não poderia imaginar que os Gallobalts ficariam tão zangados com a quantidade de gorad", "que peguei.", " ", " "},
+													 {"- Quando estávamos partindo de Placides eu vi Ayla levando uma grande quantidade de", "suprimentos, nesse momento eu a questionei e ela me contou que aqui nas Colinas Centrais", "pouco significa tudo que puder carregar e que se recusar a fazer isso é uma grande desfeita", "com a cultura local."},
+													 {"- Talvez os Gallobalts não estejam familiarizados com esse costume já que os mais velhos", "não nasceram aqui e com certeza Ayla nunca mentiria para mim ou pegaria algo que não lhe", "pertencesse, já que é um ser de índole tão pura.", " "},
+													 {"- Mas deixando os mal-entendidos de lado, eu ainda gostaria de ver o quão bom podemos ser", "em um combate em que começamos com a vantagem, pense nas possibilidades matemáticas", "dessa variação.", " "},
+													 {"- Você se juntaria a mim nesse experimento?", " ", " ", " "},
+													 {"- Maravilha! Teremos altos debates depois da luta, vamos, vamos.", " ", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Bem, devo dizer que estou um pouco desapontado, estava muito curioso para aprender mais e", "Mestre Luriel sempre me falou que a curiosidade é a fagulha da mente e que sempre devemos...", "blá, blá, blá.", " "},												 
+    // 17--------------------------- se o Arius for o escolhido e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------
+													 {"- Saudações, não percebi sua aproximação, estava absorto em meus pensamentos relembrando", "alguns dos eventos que me trouxeram até aqui.", " ", " "},
+													 {"- Senador Glavus, meu pai, me mandou para XIV da Grande Savana, uma legião afastada na", "divisa da fronteira do Império, enquanto meu irmão mais novo ficava para combater a", "tempestade rubra cumprindo seus deveres como minotauro.", " "},
+													 {"- Lembro-me da falta de fé que possuía em mim e como só se preocupava em esconder a falha,", "eu, de nossa família.", "- De como em meio a dor e a vergonha eu prometi que iria para longe, mas voltaria com o", "conhecimento capaz de sobrepujar a Tormenta."},
+													 {"- Deixando meus pensamentos de lado por um instante, há algo que queira discutir?", "- Uma nova disputa eu presumo?", " ", " "},
+													 {"- Agora deixe-me lhe dar um conselho, quando você se propõem a participar de um espetáculo", "ou apresentação você não deve faltar com sua palavra abandonando seus deveres e", "responsabilidades.", "- Não siga meu exemplo indo para longe do forte e do Sargento Morgan para evitar de usar um"}, 
+													 {"uniforme ridículo e para não precisar encarar um futuro em que não poderei evitar de me tornar", "o espelho de meu pai.", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Bem, se não tem nada a tratar comigo, peço que me deixe a sós e mais tarde eu me reunirei", "a você novamente.", " ", " "},	
+	// 24--------------------------- se o Arius for o escolhido e desistiu == 3 no meio da última luta = |1|0|0|6|3| -------------------
+													 {"- Vamos direto ao assunto em questão. Você realmente deseja batalhar nesse exato momento?", " ", " ", " "},
+													 {"- Ouça bem porque não irei me repetir.", "- Mesmo após meus constantes avisos, você continuou faltando com sua palavra e nos", "abandonando em meio ao espetáculo.", "- Já basta, não irei mais tolerar tau comportamento desonroso de sua parte, essa será a última"},
+													 {"vez que dividiremos o campo de batalha se você prosseguir com tau comportamento, esteja", "ciente.", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Então não desperdice meu tempo com bobagens, se não iremos batalhar aqui, então vamos", "logo para o local de nossa disputa.", " ", " "},	
+	// 28--------------------------- se o Arius for o escolhido e perdeu na última luta com 0 vitórias = |1|0|1|0|2| -------------------
+													 {"- Shiiii, fale baixo.", "- Percebo que está se questionando se estou tentando ouvir uma conversa.", "- Bem, quando Arius diz \"o que uni os cães das Colinas na realidade é a fofoca\" ela não está", "totalmente errada."},
+													 {"- Arg, já se afastaram muito para poder ouvi-los, agora terei que me contentar com a metade do", "ocorrido, que dor terrível!", "- Sim, é de meu conhecimento que ouvir a conversa alheia é falta de educação, porem em", "muitas ocasiões é necessário esse subterfúgio."},
+													 {"- Por exemplo, na grande maioria das missões investigativas a obtenção de informações advém", "dessa forma, se Ayla, um ser tão puro com nobres intenções, se utiliza dessa prática para fazer", "seus atos de bondade, não vejo como seria estritamente mau essa maneira de se obter", "informações."},
+													 {"- Sim, sim, você também possui bons argumentos, todavia não detemos de mais tempo para", "prosseguirmos com esse debate.", " ", " "},
+													 {"- Preciso saber se você gostaria que começássemos uma competição amistosa agora ou não?", " ", " ", " "},
+													 {"- Estou confuso, o ", "sim", "não", " foi para agora ou para não?", "- Veja o que acontece quando ouço histórias pela metade, minha mente se divide entre a", "curiosidade e o assunto atual e começo a me embananar todo.", " "},
+													 {"- Deixe-me reformular a pergunta.", "- Você gostaria de se juntar a mim em uma competição amistosa?", " ", " "},
+													 {"- Ótimo! Durante os preparativos deixe-me dividir o que eu consegui escutar antes da sua", "chegada.", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Uma lástima devo dizer, contudo, com esse tempo de sobra poderemos retornar ao nosso", "debate sobre a moralidade em se obter informações sigilosas.", " ", " "},
+	// 37--------------------------- se o Arius for o escolhido e 1º vitória na última luta = |1|1|0|0|1| -------------------
+													 {"- Vencemos, vencemos, vencemos nossa primeira disputa e eu não acabei estirado no chão", "ardendo em chamas!", "- Deveríamos apreciar esse momento raro comemorando com músicas e poesia... Já sei, vamos", "realizar um sarau!"},
+													 {"- Infelizmente planejar tau evento mesmo que pequeno é demorado e trabalhoso, então teremos", "que realizá-lo em outra ocasião de comemoração.", "- Claro, terei que convidar a Kiki, pois ela nunca me perdoaria se eu fizesse um sarau sem sua", "presença, não importando o quão ruim fosse."},
+													 {"- Creio que Ayla também viria para poder cobrar entradas, já que ainda estou profundamente", "endividado com ela.", "- Por Tanna-toh! Esse planejamento já está começando a ficar muito complicado, pensarei", "melhor mais tarde."},
+													 {"- Por enquanto vejo que tem algo a me perguntar, o que foi? Você já quer desfrutar de outra", "competição?", " ", " "},
+													 {"- Gosto que sua confiança em nossa vitória continua a crescer, quase me esqueço de todas as", "quedas e queimaduras que já tive, quase.", " ", "As apresentações SEM interferência ganharão +1 de apelo."},
+													 {"- Então peço sua ajuda para obter algumas ideias, pois pretendo declamar poesias de minha", "autoria na festividade e bem, alguns dos meus trabalhos vindouros não são adequados para o", "público geral.", " "},
+	// 43--------------------------- se o Arius for o escolhido e perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
+													 {"- Devo dizer que você não parece está indo muito bem, o que ocorreu? Está borocoxô por nossa", "última derrota aqui?", "- Horas, não se deprima após uma falha, Mestre Luriel sempre me falava que a falha é parte", "crucial do processo de aprendizagem e que cada tentativa minha me levaria rumo ao acerto.", " ", " "},	
+													 {"- Veja, uma parte importante de mim fora roubada por uma entidade folclórica das Colinas", "Centrais, ele me induziu a fazer coisas que de outrora jamais faria.", " ", " "},
+													 {"- Entretanto, com a ajuda de meus companheiros, minha matilha, consegui recuperar o controle", "do meu corpo e da minha vida por completo e a criatura recebeu seu castigo e sua redenção,", "outrora conhecido como Ladrão de Rabos hoje é o Guardião de Rabos.", " "},
+													 {"- Eu constantemente caia em combate enquanto ardia em chamas, mas graças a minha", "perseverança eu contínuo caindo, porem meus companheiros não.", "- Então arrume sua postura, encha o peito com determinação e vamos tentar mais uma vez!", "As apresentações SEM interferência ganharão +1 de apelo."},
+	// 47--------------------------- se o Arius for o escolhido e 2º vitória na última luta  = |1|2|4|0|1| -------------------
+													 {"*Sussurros*", "- O que está achando de nossa leitura?", " ", " "},
+													 {"- Para falar a verdade, eu estou bem intrigada com a utilização de armas de pólvora e, que os", "deuses benignos me perdoe, estou com vontade de adquiri-las.", " ", " "},	
+													 {"- Nada Mais que a Verdade armas de pólvora são ilegais no reinado e você sabe.", " ", " ", " "},
+													 {"- Sei, sei sim.", "- E inclusive penso que seria engraçado se você aderi-se a elas se tornando uma vaca cowboy.", " ", " "},
+													 {"- Nada Mais que a Verdade!", "- Bem, nesse caso, se eu seguisse o rumo cômico de nossa conversa, eu diria que se você", "conseguisse adquiri-las, o seu nome deveria mudar de Nada Mais que a Verdade Reston para", "Nada Mais que a Bala Reston."},
+													 {"- Arius!", "- Sinceramente não sei o que sentir com o trocadilho do meu nome, mas sei que estou muito", "sem jeito agora.", " "},
+													 {"- Você que começou.", " ", " ", " "},
+													 {"- AAAAAAH!", "- Você me assustou chegando assim de fininho... pela nossa frente... e sem se esconder, por", "favor não faça mais isso.", "- Você quer saber o que estamos fazendo?"},
+													 {"- Nós estamos lendo um livro proibido que o Arius roubou dos Gallobalts há muito tempo atrás.", " ", " ", " "},
+													 {"- Nada Mais que a Verdade!", " ", " ", " "},
+													 {"- Desculpe Arius, mas você sabe que eu voluntario informações mesmo não sendo solicitadas.", " ", " ", " "},
+													 {"- Ela tem razão, quando nós, os Cães das Colinas, estivemos aqui pela primeira vez, eu fui", "influenciado pelo Ladrão de Rabos a roubar esse livro da biblioteca da família Gallobalt.", "- Mas juro que o devolvi! Não sei como ele veio parar em meus equipamentos de viagem", "novamente e junto com mais dois livros."},
+													 {"- Pergunte a Kiki se não acredita em minhas palavras, ela estava presente quando o devolvi.", "- Acredito que seja mais uma das artimanhas do Ladrão de Rabos.", "- Só um ser devoto de Hyninn poderia fazer tau ato de escárnio, sorte a minha que não temos", "ninguém assim nos Cães das Colinas."},
+													 {"- Deixando esse assunto de lado por agora, você gostaria de desfrutar de uma animada", "competição entre companheiros de equipe?", " ", " "},
+													 {"- Ótimo! Entretanto,", "- Já que é assim,", " antes de prosseguirmos, eu gostaria de devolver o livro novamente, contudo,", "eu estou muito envergonhado de meus atos passados para encara-los.", "- Se me permite perguntar Nada Mais que a Verdade, o que faria em meu lugar?", " "},
+													 {"- Olha, em primeiro lugar eu teria falado \"Eu vou roubar vocês\" como eu fiz com os meus pais", "quando avisei que fugiria para não participar do suicídio coletivo que minha família planejava.", "- Então me desculpe Arius, mas não sei como posso ajudá-lo.", "As apresentações SEM interferência ganharão +1 de apelo.", " "},
+	// 63--------------------------- se o Arius for a escolhido e derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
+													 {"- Olá, eu sei que você está querendo falar com o Arius e não comigo, o que faz todo o sentido", "já que não tenho muito trato social e falo demais, mas ele está ocupado agora terminando de", "escrever um pergaminho, então ao invés dele você conversaria comigo?", "- Fico genuinamente feliz com sua resposta."},
+													 {"- Olha, eu estava aqui debatendo com Arius e a nossa conversa acabou passando pelos", "Gallobalts e rumou em outra direção, porem teve algo que eu não entendi direito e não tive", "tempo de perguntar, já que ele não consegue parar de falar igual a mim.", " "},
+													 {"- Os Gallobalts são ou não incestuosos?", "- Devo dizer que estou bem constrangida por lhe fazer essa pergunta, mas eu quero realmente", "saber.", " "},
+													 {"- Porque assim, as Colinas Centrais é um lugar muito extenso e com pouca aglomeração de", "pessoas e esse tipo de lugar costuma ter casos, em contrapartida, os Gallobalts são saudáveis", "demais para serem esse tipo de família, visto que relações consanguíneas normalmente geram", "crianças feias com distúrbios genéticos."},
+													 {"- Não são?", "- Obrigada por me responder, fico extremamente aliviada, essa questão estava me matando", "metaforicamente falando e se ela persistisse eu não aquentaria e teria que ir perguntar aos", "Gallobalts o que seria uma situação muito desagradável para todos nós."},
+													 {"- Saudações, já terminei meus afazeres e vejo que você e Nada Mais que a Verdade estão tendo", "um debate bem interessante, posso me juntar a vocês?", " ", " "},
+													 {"- Infelizmente Arius já terminamos, mas você está certo, foi realmente interessante, que pena", "que você perdeu.", "- Tenho que ir agora, nos vemos depois para conversar mais.", " "},
+													 {"- Como assim! Já é a quarta vez que não consigo chegar a tempo em um debate, o que está", "acontecendo comigo?", " ", " "},
+													 {"- Então, você veio me chamar para um novo confronto com os Cães das Colinas?", " ", " ", " "},
+													 {"- Vamos depressa, não posso arriscar perder mais nada interessante por aqui.", " ", " ", " "},
+													 {"- Então... você pode me falar sobre o que vocês estavam debatendo?", " ", " ", " "},											 
+	// 74--------------------------- se o Arius for o escolhido e 3º vitória na última luta = |1|3|0|0|1| -------------------
+													 {"- Devemos nos apresar, o espetáculo já está atrasado e terei que recitar minhas poesias sozin-", " ", " ", " "},
+													 {"- A plateia não quer escutar somente suas poesias ou você esqueceu com quem dividirá o palco", "hoje?", " ", " "},
+													 {"- Kiki! É bom vê-la a salvo, já estava deveras preocupado com sua demora.", " ", " ", " "},
+													 {"- Arius, uma barda nunca chega antes ou depois, ela chega quando ela tiver que chegar.", "- E Ignis não consegue andar muito rápido como você já sabe.", " ", " "},
+													 {"- Ufa, comecei até cogitar que não quisesse mais realizar um sarau comigo e-", " ", " ", " "},
+													 {"- Mas é claro que eu quero fazer um sarau com você!", "- Eu nunca te perdoaria se você fizesse um sem mim.", " ", " "},
+													 {"- Não importando o quão ruim fosse!?", " ", " ", " "},
+													 {"- Ai você já está se excedendo, vai com calma, principalmente porque não tem como um evento", "ser ruim quando estou presente.", "- Menos aquele na vila purista, assim, eu fui excepcional, o problema era a plateia.", "- Vamos Arius, se você continuar falando nós não poderemos começar a apresentação."},
+													 {"- Mas eu não est-", " ", " ", " "},
+													 {"- Shiii, vem logo.", " ", " ", " "},												 
+	// 84--------------------------- se o Arius [[[NÃO]]] for o escolhido e primeira interação |0|0|0|0|0 ---------------------------------
+													 {" ", " ", " ", " "},	
+	// 53--------------------------- se o Arius [[[NÃO]]] for o escolhido e teve o primeiro contato, mas não batalhou = |1|0|0|0|0| -------------------
+													 {" ", " ", " ", " "},	
+	// 58--------------------------- se o Arius [[[NÃO]]] for o escolhido e desistiu <= 5 no meio da última luta = |1|0|0|1|3| -------------------
+													 {" ", " ", " ", " "},	
+	// 62--------------------------- se o Arius [[[NÃO]]] for o escolhido e desistiu == 6 no meio da última luta = |1|0|0|6|3| -------------------
+													 {" ", " ", " ", " "},	
+	// 66--------------------------- se o Arius [[[NÃO]]] for o escolhido e perdeu na última luta com 0 vitórias = |1|0|1|0|2| -------------------
+													 {" ", " ", " ", " "},	
+	// 71--------------------------- se o Arius [[[NÃO]]] for o escolhido e 1º vitória na última luta = |1|1|0|0|1| -------------------
+													 {" ", " ", " ", " "},	
+	// 79--------------------------- se o Arius [[[NÃO]]] for o escolhido e perdeu na última luta, mas tem 1 vitória = |1|1|1|0|2| -------------------
+													 {" ", " ", " ", " "},
+	// 84--------------------------- se o Arius [[[NÃO]]] for o escolhido e 2º vitória na última luta  = |1|2|4|0|1| -------------------
+													 {" ", " ", " ", " "},	
+	// 88--------------------------- se o Arius [[[NÃO]]] for o escolhido e derrota na última luta com 2 vitórias = |1|2|1|0|2| -------------------
+													 {" ", " ", " ", " "},	
+	// 93--------------------------- se o Arius [[[NÃO]]] for o escolhido e 3º vitória na última luta = |1|3|0|0|1| -------------------
+													 {" ", " ", " ", " "},	
+	// 95--------------------------- se já venceu 3 vezes o Arius e falou com ele -------------------
+													 {" ", " ", " ", " "}};
+
 
 
 	private ArrayList<Integer>  mylist = new ArrayList<Integer>();

@@ -45,8 +45,8 @@ public class Manual extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	
-	private TextLayout tl2, tl3, tl4, tl5, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
-	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27,
+	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13,
+	tl14,  tl15, tl16, tl17, tl18, tl19, tl20, tl21, tl22, tl23, tl24, tl25, tl26, tl27, tl28,
 	tl29, tl31, tl32, tl33, tl34,  tl35, tl36, tl37, tl38, tl40, tl41, tl42, tl43,
 	tl44, tl45, tl46, tl47, tl48, tl49, tl50, tl51, tl52, tl53, tl54, tl55, tl56;
 	
@@ -66,13 +66,21 @@ public class Manual extends JPanel implements ActionListener {
 	private Icones_interativos teclaZ = new Icones_interativos(teclaDireita.getX() + 170, teclaDireita.getY());
 	private Icones_interativos teclaX = new Icones_interativos(teclaZ.getX() + 170, teclaZ.getY());
 	private Icones_interativos teclaEsc = new Icones_interativos(teclaX.getX() + 170, teclaX.getY());
-
 	
+	private Icones_interativos teclaVel1 = new Icones_interativos(1234 - 26, 10);
+	private Icones_interativos teclaVel2 = new Icones_interativos(teclaVel1.getX(), teclaVel1.getY() + 40);
+	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
+	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
+	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
+
 	private Icones_interativos controles = new Icones_interativos(92, 60);
 	private Texto txtLn2 = new Texto(290, 248, "Direcionais");
 	private Texto txtLn3 = new Texto(txtLn2.getX() + 212, txtLn2.getY() - 38, "Selecionar");
 	private Texto txtLn4 = new Texto(txtLn3.getX() + 196, txtLn3.getY(), "Voltar");
 	private Texto txtLn5 = new Texto(txtLn4.getX() + 184, txtLn4.getY(), "Menu");
+	private Texto txtLn6 = new Texto(txtLn5.getX() + 130, txtLn5.getY() - 120, "Velocidade");
+	private Texto txtLn17 = new Texto(txtLn6.getX() + 46, txtLn6.getY() + 26, "do    ~~~~>");
+	private Texto txtLn19 = new Texto(txtLn17.getX() - 14, txtLn17.getY() + 24, "Jogo");
 	
 	private int contTempoControles = 0;
 	
@@ -312,6 +320,12 @@ public class Manual extends JPanel implements ActionListener {
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
 		
+		teclaVel1.load(caminho + "res\\Teclado\\tecla12.png");
+		teclaVel2.load(caminho + "res\\Teclado\\tecla2.png");
+		teclaVel3.load(caminho + "res\\Teclado\\tecla3.png");
+		teclaVel4.load(caminho + "res\\Teclado\\tecla4.png");
+		teclaVel5.load(caminho + "res\\Teclado\\tecla5.png");
+		
 		controles.load(caminho + "res\\Manual\\controles.png");
 		txtLn2.setFonte(new Font("Arial", Font.BOLD, 24));
 		txtLn2.setCorTexto(new Color (235, 230, 233));
@@ -466,6 +480,27 @@ public class Manual extends JPanel implements ActionListener {
 			teclaX.load(caminho + "res\\Teclado\\teclaX2.png");
 		} else if(contTempoControles == 70) {
 			teclaEsc.load(caminho + "res\\Teclado\\teclaEsc2.png");
+		}
+		
+		
+		if(contTempoControles % 15 == 0) {
+			teclaVel1.load(caminho + "res\\Teclado\\tecla1.png");
+			teclaVel2.load(caminho + "res\\Teclado\\tecla2.png");
+			teclaVel3.load(caminho + "res\\Teclado\\tecla3.png");
+			teclaVel4.load(caminho + "res\\Teclado\\tecla4.png");
+			teclaVel5.load(caminho + "res\\Teclado\\tecla5.png");
+		}
+		
+		if(contTempoControles == 0) {
+			teclaVel1.load(caminho + "res\\Teclado\\tecla12.png");
+		} else if(contTempoControles == 15) {
+			teclaVel2.load(caminho + "res\\Teclado\\tecla22.png");
+		} else if(contTempoControles == 30) {
+			teclaVel3.load(caminho + "res\\Teclado\\tecla32.png");
+		} else if(contTempoControles == 45) {
+			teclaVel4.load(caminho + "res\\Teclado\\tecla42.png");
+		} else if(contTempoControles == 60) {
+			teclaVel5.load(caminho + "res\\Teclado\\tecla52.png");
 		}
 		
 	}
@@ -805,11 +840,17 @@ public class Manual extends JPanel implements ActionListener {
 		tl3 = new TextLayout(txtLn3.getTexto(), txtLn2.getFonte(), frc);
 		tl4 = new TextLayout(txtLn4.getTexto(), txtLn2.getFonte(), frc);
 		tl5 = new TextLayout(txtLn5.getTexto(), txtLn2.getFonte(), frc);
+		tl6 = new TextLayout(txtLn6.getTexto(), txtLn2.getFonte(), frc);
+		tl1 = new TextLayout(txtLn17.getTexto(), txtLn2.getFonte(), frc);
+		tl28 = new TextLayout(txtLn19.getTexto(), txtLn2.getFonte(), frc);
 
 		tl2.draw(graficos, txtLn2.getRedX(), txtLn2.getRedY() + rolagemTela);
 		tl3.draw(graficos, txtLn3.getRedX(), txtLn3.getRedY() + rolagemTela);
 		tl4.draw(graficos, txtLn4.getRedX(), txtLn4.getRedY() + rolagemTela);
 		tl5.draw(graficos, txtLn5.getRedX(), txtLn5.getRedY() + rolagemTela);
+		tl6.draw(graficos, txtLn6.getRedX(), txtLn6.getRedY() + rolagemTela);
+		tl1.draw(graficos, txtLn17.getRedX(), txtLn17.getRedY() + rolagemTela);
+		tl28.draw(graficos, txtLn19.getRedX(), txtLn19.getRedY() + rolagemTela);
 		
 		/* ------------------------------- Batalha ---------------------------------*/
 		
@@ -1082,6 +1123,14 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
 		
 		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
+
+		/* ------------------------------- controle de velocidade ---------------------------------*/
+		
+		graficos.drawImage(teclaVel1.getImagem(), teclaVel1.getRedX(), teclaVel1.getRedY() + rolagemTela, teclaVel1.getLarg(), teclaVel1.getAlt(), this);
+		graficos.drawImage(teclaVel2.getImagem(), teclaVel2.getRedX(), teclaVel2.getRedY() + rolagemTela, teclaVel2.getLarg(), teclaVel2.getAlt(), this);
+		graficos.drawImage(teclaVel3.getImagem(), teclaVel3.getRedX(), teclaVel3.getRedY() + rolagemTela, teclaVel3.getLarg(), teclaVel3.getAlt(), this);
+		graficos.drawImage(teclaVel4.getImagem(), teclaVel4.getRedX(), teclaVel4.getRedY() + rolagemTela, teclaVel4.getLarg(), teclaVel4.getAlt(), this);
+		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY() + rolagemTela, teclaVel5.getLarg(), teclaVel5.getAlt(), this);
 
 		g.dispose();
 	}

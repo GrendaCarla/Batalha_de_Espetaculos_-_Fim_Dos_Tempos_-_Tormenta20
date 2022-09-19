@@ -12,8 +12,9 @@ public class Salvar {
 	private int aventureiro;
 	private int [][] tabelaInteracao = new int[5][5];
 	private String caminho;
+	private int velocidade = 2;
 	
-	public int SalvarDados (int [][] tabela, int aventureiro, String Caminho) {
+	public int SalvarDados (int [][] tabela, int aventureiro, String Caminho, int velocidade) {
 		this.caminho = Caminho;
 		
 		try {
@@ -42,7 +43,8 @@ public class Salvar {
 				}
 			}
 			
-		    
+			salvarTxt.println(velocidade+"");
+			
 		    salvarTxt.close();
 		    
 		    return 1;
@@ -118,6 +120,16 @@ public class Salvar {
 					}
 				}
 				
+				linha = buffRead.readLine();
+				
+				//pega velocidade
+				if(Integer.parseInt(linha) >= 1 && Integer.parseInt(linha) <= 5) {
+					velocidade = Integer.parseInt(linha);
+					
+				} else {
+					return -3;
+				}
+				
 				buffRead.close();
 				
 				return 0;
@@ -146,6 +158,10 @@ public class Salvar {
 	
 	public int[][] getTabelaInteracao() {
 		return tabelaInteracao;
+	}
+	
+	public int getVelocidade() {
+		return velocidade;
 	}
 
 	
