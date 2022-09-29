@@ -133,7 +133,7 @@ public class Kiki {
 															 {"- Está me perguntando se eu estou contente por vocês?", "- Eu estou radiante! conseguiram três vitórias, três espetaculares vitórias.", "- Veja! eu já até comecei a escrever uma nova música sobre o brilhantismo no palco de vocês.", " "},
 															 {"- E para comemorar, esta noite vocês não terão ração de viagem coisa nenhuma.", "- Nós vamos saborear um delicioso churrasco com tudo que tem direito feito por esta excelente", "mestre cuca.", "- Aqui, comece a encher o bucho com pão de alho e farofa que logo logo a carne sai.", "- Hoje é um dia para ser aproveitado, porque vocês darão adeus a Lala, Tanna-Toh e a mim."},
 			// 95--------------------------- se já venceu 3 vezes a Kiki e falou com ela -------------------
-															 {"- Porque voltamos? Pensei que iriamos desafiar os outros Cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros Cães.", " ", " "}};
+															 {"- Por que voltamos? Pensei que iriamos desafiar os outros Cães.", "- Vocês voltaram? Pensei que iriam desafiar os outros Cães.", " ", " "}};
 
 	
 		
