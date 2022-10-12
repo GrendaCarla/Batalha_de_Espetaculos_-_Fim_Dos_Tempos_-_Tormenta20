@@ -246,7 +246,7 @@ public class Menu extends JPanel implements ActionListener {
 		bntManual.load(caminho + "res\\Menu principal\\bntManual1.png");
 		bntCreditos.load(caminho + "res\\Menu principal\\bntCreditos1.png");
 		
-		if(valorLeituraSave == 0 && salvar.getTabelaInteracao()[salvar.getAventureiro()][3] > 3) {
+		if(valorLeituraSave == 0 && (salvar.getTabelaInteracao()[0][3] > 1 || salvar.getTabelaInteracao()[1][3] > 3 || salvar.getTabelaInteracao()[2][3] > 3 || salvar.getTabelaInteracao()[3][3] > 3 || salvar.getTabelaInteracao()[4][3] > 3)) {
 			txtQuebraConfianca = (salvar.getAventureiro() == 0 ? "IGNIS" : (salvar.getAventureiro() == 1 ? "AYLA" : (salvar.getAventureiro() == 2 ? "REXTHOR" : (salvar.getAventureiro() == 3 ? "KIKI" : "ARIUS"))))
 					+ "  NÃO  GOSTA  MAIS  DE  VOCÊ!";
 			quebraConfianca = true;

@@ -824,7 +824,7 @@ public class Batalha extends JPanel implements ActionListener {
 	        tela2.setTabelaInteracao(adversario, 4, 3);
 	        salvar.SalvarDados(tela2.getTabelaInteracao(), aventureiro, caminho, velocidade);
 	        
-			if(tela2.getTabelaInteracao()[aventureiro][3] > 3) {
+			if(tela2.getTabelaInteracao()[0][3] > 1 || tela2.getTabelaInteracao()[1][3] > 3 || tela2.getTabelaInteracao()[2][3] > 3 || tela2.getTabelaInteracao()[3][3] > 3 || tela2.getTabelaInteracao()[4][3] > 3) {
 		        janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
