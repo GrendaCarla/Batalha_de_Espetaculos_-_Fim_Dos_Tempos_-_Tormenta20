@@ -100,7 +100,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
 	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
 	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
-	public int velocidade = 2;
+	public int velocidade = 3;
 	
 	// ---------------------------- opções do menu ------------------------------------
 	

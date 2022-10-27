@@ -400,7 +400,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				bntSimNaoDialgoAviso = true;
 				
 				if(contTeclaAven == 0 || contTeclaAven == 2 || contTeclaAven == 4) {
-					txtdialogoPersonagem.setTexto("O aventureiro escolhido nãoo poderá ser trocado");
+					txtdialogoPersonagem.setTexto("O aventureiro escolhido não poderá ser trocado");
 				} else {
 					txtdialogoPersonagem.setTexto("A aventureira escolhida não poderá ser trocada");
 				}
