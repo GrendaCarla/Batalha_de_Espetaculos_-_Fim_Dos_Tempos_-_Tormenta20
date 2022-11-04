@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -25,7 +23,7 @@ public class Manual extends JPanel implements ActionListener {
 	private Escolha_de_personagem tela1;
 	private Escolha_de_adversario tela2;
 	private Batalha tela3;
-	private Menu telaMenu;
+	public Menu telaMenu;
 	
 	JFrame janelaPrincipal;
 	
@@ -443,8 +441,7 @@ public class Manual extends JPanel implements ActionListener {
 		txtLn28.setFonte(new Font("Arial", Font.PLAIN, 17));
 		
 		// ------------------------------------------------------------------------------
-
-		
+				
 		timer = new Timer(1, this);
 		timer.start();
 	}
@@ -760,6 +757,8 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela3);
 		        janelaPrincipal.setTitle("Batalha");
 		        tela3.setContEngranagem2(contEngranagem2);
+		        
+		        tela3.LimparManual();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 				
@@ -769,6 +768,8 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela2);
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        tela2.setContEngranagem2(contEngranagem2);
+		        
+		        tela2.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 				
@@ -778,6 +779,7 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela1);
 		        janelaPrincipal.setTitle("Escolha de Personagem");
 		        tela1.setContEngranagem2(contEngranagem2);
+		        tela1.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 		        
@@ -787,6 +789,11 @@ public class Manual extends JPanel implements ActionListener {
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
 		        telaMenu.setContEngranagem2(contEngranagem2);
+		        
+				telaMenu.audio.tocarClicFita();
+		        telaMenu.audio.despausarAudio1();
+		        
+		        telaMenu.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 			}
@@ -1133,6 +1140,10 @@ public class Manual extends JPanel implements ActionListener {
 		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY() + rolagemTela, teclaVel5.getLarg(), teclaVel5.getAlt(), this);
 
 		g.dispose();
+		
+		if(telaMenu != null) {
+			telaMenu.transicao.setImagem(null);
+		}
 	}
 
 

@@ -33,7 +33,7 @@ public class Batalha extends JPanel implements ActionListener {
 	
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
-	private Menu telaMenu;
+	public Menu telaMenu;
 	private Creditos telaCreditos;
 	
 	JFrame janelaPrincipal;
@@ -696,6 +696,8 @@ public class Batalha extends JPanel implements ActionListener {
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 				dialogoAviso.setImagem(null);
 				bntSimDialogoAviso.setImagem(null);
 				bntNaoDialogoAviso.setImagem(null);
@@ -704,7 +706,6 @@ public class Batalha extends JPanel implements ActionListener {
 				txtDialogoAviso2.setTexto(" ");
 				
 			} else {
-				
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 		        janelaPrincipal.remove(this);
 		        janelaPrincipal.add(telaMenu);
@@ -719,6 +720,11 @@ public class Batalha extends JPanel implements ActionListener {
 		        telaMenu.setContEngranagem2(contEngranagem2);
 		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 		        telaMenu.Restaurar();
+		        
+		        telaMenu.audio.tocarClicFita();
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao1.wav");
+				telaMenu.audio.despausarAudio1();
+				
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 			}
@@ -736,17 +742,15 @@ public class Batalha extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        telaManual = new Manual(contEngranagem2, caminho);
-	        
-	        telaManual.setTela3(this);
-	        
 	        janelaPrincipal.add(telaManual);
 	        janelaPrincipal.setTitle("Manual3");
 	        janelaPrincipal.revalidate();
 	        timer.stop();
-	        
 		}
 	}
 	
@@ -766,6 +770,9 @@ public class Batalha extends JPanel implements ActionListener {
 	        telaCreditos.setTela3(this);
 	        janelaPrincipal.add(telaCreditos);
 	        janelaPrincipal.setTitle("Creditos3");
+	        
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 		}
@@ -803,7 +810,8 @@ public class Batalha extends JPanel implements ActionListener {
 			bntNaoDialogoAviso.load(caminho + "res\\mensagem aviso\\bntnao" + (bntSimNaoDialgoAviso == true ? "2" : "1") + ".png");
 			
 		} else if(dialogoAviso.getImagem() != null && (codigo == KeyEvent.VK_X || (codigo == KeyEvent.VK_Z && bntSimNaoDialgoAviso == false))) {
-			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
@@ -817,6 +825,8 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		}else if(codigo == KeyEvent.VK_Z && dialogoAviso.getImagem() != null) {
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao1.wav");
+
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
@@ -834,6 +844,8 @@ public class Batalha extends JPanel implements ActionListener {
 		        telaMenu.setContEngranagem2(contEngranagem2);
 		        telaMenu.valorLeituraSave = salvar.LerDados(caminho);
 		        telaMenu.Restaurar();
+		        
+		        telaMenu.audio.tocarClicFita();
 			
 			}else {
 				janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -846,8 +858,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        tela2.setNumAdversarioAnterior(adversario);
 		        tela2.alterarVelocidade(velocidade);
 			}
-	        
-	        
+			
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 	        
@@ -1088,6 +1099,7 @@ public class Batalha extends JPanel implements ActionListener {
 				
 				contEngranagem2 = !contEngranagem2;
 				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 				
 				contEtapasBatalha++;
 				atualizarNomeHabili = false;
@@ -1271,6 +1283,7 @@ public class Batalha extends JPanel implements ActionListener {
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        
 		        if(ordemAventRodada[0] == aventureiro) {
+		        	telaMenu.audio.pausarFogos();
 		        	tela2.setTabelaInteracao(adversario, 1, tela2.getTabelaInteracao()[adversario][1] + 1);
 		        	tela2.setTabelaInteracao(adversario, 4, 1);
 		        	
@@ -2170,6 +2183,8 @@ public class Batalha extends JPanel implements ActionListener {
 			nomeHabilidade1.load(caminho + "res\\batalha\\" + nomeAventureiro[aventureiro]+ "\\" + (nomeHabAnterior == 0 ? "nomeHabilidadeUsadaSelecionada.png" : "nomeHabilidadeSelecionado.png"));
 			
 			selecaoNomeHab =0;
+			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\fim.wav");
 		}
 		
 		itensDoApelo();
@@ -2213,6 +2228,8 @@ public class Batalha extends JPanel implements ActionListener {
 		// ------------------------------------------ IGNIS ----------------------------------------
 		if(avent == 0 && gifApelos[0][numApelo] == 1) {
 			
+			
+			
 			if(animacao.getDx() >= 0 && animacao.getDx() <= 48 && animacao.getDx() % 4 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
 			
@@ -2245,6 +2262,8 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 				
 		} else if(avent == 0 && gifApelos[0][numApelo] == 2) {
+			
+			
 			
 			if(animacao.getDx() >= 0 && animacao.getDx() <= 38 && animacao.getDx() % 4 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
@@ -2294,6 +2313,8 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 				
 		} else if(avent == 0 && gifApelos[0][numApelo] == 3) {
+			
+			
 			
 			if(animacao.getDx() >= 0 && animacao.getDx() <= 50 && animacao.getDx() % 4 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
@@ -2352,6 +2373,8 @@ public class Batalha extends JPanel implements ActionListener {
 			}
 				
 		} else if(avent == 0 && gifApelos[0][numApelo] == 4) {
+			
+			
 			
 			if(animacao.getDx() >= 0 && animacao.getDx() <= 48 && animacao.getDx() % 4 == 0) {
 				animacao.load(caminho + "res\\batalha\\Ignis\\animacao\\" + (gifApelos[0][numApelo]) + "\\0.png");
@@ -2692,18 +2715,18 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj4.setX(tamanhoContorno); animacaoObj4.setY(tamanhoContorno + 2);
 			}
 			
-			if(animacao.getDx() >= 90 && animacao.getDx() <= 116) {
+			if(animacao.getDx() >= 90 && animacao.getDx() <= 108) {
 				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\" + (animacao.getDx() % 2 == 0 ? 24 : 25) + ".png");
 				
-			} else if(animacao.getDx() == 118) {
+			} else if(animacao.getDx() == 110) {
 				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\26.png");
 				
-			} else if(animacao.getDx() == 120) {
+			} else if(animacao.getDx() == 112) {
 				animacaoObj1.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\24.png");
 				animacaoObj2.setY(animacaoObj2.getY() - 50);
 				animacaoObj2.load(caminho + "res\\batalha\\Ayla\\animacao\\" + (gifApelos[1][numApelo]) + "\\45.png");
 				
-			} else if(animacao.getDx() >= 122 && animacao.getDx() <= 140) {
+			} else if(animacao.getDx() >= 114 && animacao.getDx() <= 140) {
 				animacaoObj2.setY(animacaoObj2.getY() + 2);
 				contMovimentoAyla = 0;
 			}
@@ -2945,10 +2968,18 @@ public class Batalha extends JPanel implements ActionListener {
 				animacaoObj3.setLarg(animacao.getLarg()); animacaoObj3.setAlt(animacao.getAlt());
 			}
 			
+			if(animacao.getDx() >= 96 && animacao.getDx() % 6 == 0) {
+				animacaoObj3.load(caminho + "res\\batalha\\Kiki\\animacao\\" + (gifApelos[3][numApelo]) + "\\15.png");
+				animacaoObj3.setLarg(animacao.getLarg()); animacaoObj3.setAlt(animacao.getAlt());
+				
+			} else if(animacao.getDx() >= 96 && animacao.getDx() % 3 == 0) {
+				animacaoObj3.load(caminho + "res\\batalha\\Kiki\\animacao\\" + (gifApelos[3][numApelo]) + "\\17.png");
+				animacaoObj3.setLarg(animacao.getLarg()); animacaoObj3.setAlt(animacao.getAlt());
+			}
+			
 			if(animacao.getDx() == 114) {
 				animacaoObj2.load(caminho + "res\\batalha\\Kiki\\animacao\\" + (gifApelos[3][numApelo]) + "\\14.png");
-				animacaoObj2.setLarg(animacao.getLarg());
-				animacaoObj2.setAlt(animacao.getAlt());
+				animacaoObj2.setLarg(animacao.getLarg()); animacaoObj2.setAlt(animacao.getAlt());
 				
 			} else if(animacao.getDx() > 115 && animacao.getDx() <= 140) {
 				animacaoObj2.setY(animacaoObj2.getY() + (animacao.getDx() <= 127 || (animacao.getDx() >= 138) ? -20 : (animacao.getDx() >= 130 && animacao.getDx() <= 134 ? 22 : 0)));
@@ -3442,6 +3473,7 @@ public class Batalha extends JPanel implements ActionListener {
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
+		timer.start();
 	}
 	
 	public void acenderLuzAventureiro() {
@@ -3459,7 +3491,10 @@ public class Batalha extends JPanel implements ActionListener {
 		
 		if(ordemAventRodada[0] == aventureiro) {
 			
-			if(contFogos == 23){contFogos = 1;}else{contFogos ++;}
+			telaMenu.audio.tocarFogos();
+			if(aventureiro == 0) {telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\aguia.wav");}
+			
+			if(contFogos == 22){contFogos = 1;}else{contFogos ++;}
 			
 			itemParabenizacaoVencedor1.setY(0);
 			
@@ -3471,9 +3506,15 @@ public class Batalha extends JPanel implements ActionListener {
 				parabenizacaoVencedor.load(caminho + "res\\batalha\\" + nomeAventureiro[ordemAventRodada[0]] + "\\vencedor2.png");
 				itemParabenizacaoVencedor3.load(caminho + "res\\batalha\\estrelas2.png");
 			}
+						
+			if(!((contFogos * 2) == 2 || (contFogos * 2) == 4 || (contFogos * 2) == 6)) {
+				itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2) + ".png");
+			} 
 			
-			itemParabenizacaoVencedor1.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2) + ".png");
-			itemParabenizacaoVencedor2.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2 - 1) + ".png");
+			if(!((contFogos * 2 - 1) == 27 || (contFogos * 2 - 1) == 41 || (contFogos * 2 - 1) == 43)) {
+				itemParabenizacaoVencedor2.load(caminho + "res\\batalha\\fogos\\fogos" + (contFogos * 2 - 1) + ".png");
+			}
+			
 		
 		} else if(contVencedor <= 40){
 			
@@ -3485,5 +3526,11 @@ public class Batalha extends JPanel implements ActionListener {
 		
 	}
 	
+	public void LimparManual() {
+		telaManual = null;
+	}
 	
+	public void LimparCreditos() {
+		telaCreditos = null;
+	}
 }

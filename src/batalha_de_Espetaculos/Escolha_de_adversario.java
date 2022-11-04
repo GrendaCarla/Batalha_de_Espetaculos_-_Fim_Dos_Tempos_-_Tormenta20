@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -37,7 +36,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	private Escolha_de_personagem tela1;
 	private Batalha tela3;
 	private Manual telaManual;
-	private Menu telaMenu;
+	public Menu telaMenu;
 	private Creditos telaCreditos;
 
 	JFrame janelaPrincipal;
@@ -353,11 +352,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		txtSalvar.setFonte(new Font("Arial", Font.BOLD, 20));
 		txtSalvar.setCorTexto(new Color (255, 255, 255));
 		
+		telaMenu.audio.pausarVoz();
+
 		SalvarJogo();
 		
 		timer = new Timer(1, this);
 		timer.start();
-		
 	}
 	
 	public void setTabelaInteracao(int linha, int coluna, int resultado) {
@@ -419,6 +419,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+			telaMenu.audio.despausarAudio1();
+			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        janelaPrincipal.add(telaMenu);
@@ -445,6 +448,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        telaManual = new Manual(contEngranagem2, caminho);
@@ -465,6 +470,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		if(codigo == KeyEvent.VK_Z ) {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
+			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
@@ -514,6 +521,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 				dialogoAviso.setImagem(null);
 				bntSimDialogoAviso.setImagem(null);
 				bntNaoDialogoAviso.setImagem(null);
@@ -522,7 +531,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				txtDialogoAviso2.setTexto(" ");
 			}
 			else {
-				
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 				if(novoJogo ==  true) {
 					chamarTela1();
 		        
@@ -600,6 +609,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
 		if(janela != null && janela.getTitle() == "Escolha de Adversário") {
+						
 			int codigo = tecla.getKeyCode();
 			
 			if(codigo == KeyEvent.VK_ESCAPE) {
@@ -609,6 +619,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			// -------------------- capturar teclado-------------------- \
 			
 			if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null) {
+				
 				if(codigo == KeyEvent.VK_UP) {
 					cima = true;
 				} else if(codigo == KeyEvent.VK_DOWN) {
@@ -738,7 +749,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				contEngranagem2 = !contEngranagem2;
 				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
-				
+
 				limparDialogo();
 			}
 			
@@ -752,6 +763,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					sombreadorDialogo.load(caminho + "res\\sombreador.png");
 					barraDeDialogo.load(caminho + "res\\escolhaDeAdversario\\barraDeDialogo.png");
 					contDialogo++;
+				}
+				
+				if(contTeclaBatalha % 2 == 0 && contDialogo == 1) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 				}
 				
 				switch (contTeclaBatalha) {
@@ -851,6 +866,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							((objetoAnimado4.getReferencia() + "").length() - 4))) == 2  ? 4 : 5) + ".png");
 					
 				} else {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
+					if(TabelaInteracao[2][4] == 1) {telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada1.wav");}
 					objetoAnimado1.setImagem(null); objetoAnimado2.setImagem(null); objetoAnimado3.setImagem(null); objetoAnimado4.setImagem(null);
 					imagemDoDialogo.setX(20); imagemDoDialogo.setY(20);
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\lama1.png");
@@ -871,6 +888,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 				
 				if(posicaoSkillCheck[2] == 5) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 					etapaMiniJogo = 0;
 					objetoAnimado1.setImagem(null); objetoAnimado2.setImagem(null); objetoAnimado3.setImagem(null); objetoAnimado4.setImagem(null);
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
@@ -942,7 +960,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				}
 			}
 			
-		} else {
+		} if(janela != null && janela.getTitle() == "Batalha") {
 				tela3.KeyReleased(tecla);
 		}
 	}
@@ -1219,6 +1237,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		posicaoCanecas[0] = 2; posicaoCanecas[1] = 3; posicaoCanecas[2] = 4; posicaoCanecas[3] = -1;
 		posicaoSkillCheck[0] = 0; posicaoSkillCheck[1] = 0; posicaoSkillCheck[2] = 0; posicaoSkillCheck[3] = 0; posicaoSkillCheck[4] = 0;
 		
+		if(TabelaInteracao[1][1] == 4) {
+			telaMenu.audio.pausarFogos();
+		}
+		
+		telaMenu.audio.pausarAudio2();
+		telaMenu.audio.pausarEfeito1();
+		
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -1260,12 +1285,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
         tela3 = new Batalha(aventureiro, organizandoAventureiro[(contTeclaBatalha == 0 ? 0 : contTeclaBatalha/2)], this, telaMenu, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela3);
         janelaPrincipal.setTitle("Batalha");
+		
         janelaPrincipal.revalidate();
         timer.stop();
         
         limparDialogo();
 		
-        contTeclaBatalha = 0;
 	}
 	
 	public void paint(Graphics g) {
@@ -1398,6 +1423,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		graficos.drawImage(teclaVel5.getImagem(), teclaVel5.getRedX(), teclaVel5.getRedY(), teclaVel5.getLarg(), teclaVel5.getAlt(), this);
 
 		g.dispose();
+		
 	}
 
 	@Override
@@ -1411,12 +1437,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		}
 		
 		if(barraDeDialogo.getImagem() == null) {
-			
+
 			animarteclado();
 			
 			// ---------- faz o aventureiro andar horizontalmente --------- \
 			if(mostrarMenu == false && dialogoAviso.getImagem() == null && barraDeDialogo.getImagem() == null && (((esquerda == true || direita == true) && !(esquerda == true && direita == true))) || (aventureiro == 1 && (cima == true || baixo == true) && !(cima == true && baixo == true) )) {
-				
+
 				switch (velocidade) {
 					case 1:
 						movimentaAventureiro();
@@ -1576,6 +1602,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				   (posicaoSkillCheck[1] >= (posicaoSkillCheck[0] - 30) && posicaoSkillCheck[1] <= (posicaoSkillCheck[0] + 40) && objetoDeFundo3.getDy() >= 40))
 				   && posicaoSkillCheck[3] == 1) {
 
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
+			if(TabelaInteracao[2][4] == 1) {telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada1.wav");}
 			objetoAnimado1.setImagem(null); objetoAnimado2.setImagem(null); objetoAnimado3.setImagem(null); objetoAnimado4.setImagem(null);
 			imagemDoDialogo.setX(20); imagemDoDialogo.setY(20);
 			imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\lama1.png");
@@ -1671,6 +1699,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				if(TabelaInteracao[2][1] == 1) {
 						
 					if(posicaoCanecas[posicaoCanecas[3]] == 3){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[(aventureiro == 2 ?(TabelaInteracao[2][4] == 1 ? 33 : 39) : (TabelaInteracao[2][4] == 1 ? 92 : 98))][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[(aventureiro == 2 ?(TabelaInteracao[2][4] == 1 ? 33 : 39) : (TabelaInteracao[2][4] == 1 ? 92 : 98))][1]);
@@ -1681,6 +1710,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
 	
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[(aventureiro == 2 ?(TabelaInteracao[2][4] == 1 ? 34 : 40) : (TabelaInteracao[2][4] == 1 ? 93 : 99))][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[(aventureiro == 2 ?(TabelaInteracao[2][4] == 1 ? 34 : 40) : (TabelaInteracao[2][4] == 1 ? 93 : 99))][1]);
@@ -1754,6 +1784,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	public void moverSarau() {
 		objetoDeFundo3.setDy(objetoDeFundo3.getDy() + 1);
 		
+		if(objetoDeFundo3.getDy() == 1) {
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\sarau.wav");
+		}
+		
 		if(contTempo % 5 == 0) {
 			objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Arius\\sarau\\objeto1.png");
 			
@@ -1790,6 +1824,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			objetoAnimado3.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto5.png");
 			objetoAnimado4.load(caminho + "res\\escolhaDeAdversario\\Kiki\\objeto4.png");
 			objetoDeFundo1.setDy(1);
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\pok.wav");
 			
 		} else if(objetoDeFundo1.getDx() > 10) {
 			
@@ -1831,7 +1866,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void animarFogos() {
 		
-		if(contFogos == -4) {objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\objeto5.png");}
+		if(contFogos == -4) {
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\estouro.wav");
+			telaMenu.audio.tocarFogos();
+			objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\objeto5.png");
+		}
+		
 		if(contFogos == 0) {objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\objeto6.png");}
 		
 		if(contFogos == 23){contFogos = 1;}else{contFogos ++;}
@@ -1903,7 +1943,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 	
 	public void MostrarLogo() {
 		
-		if(contLogoAyla == 160) {contLogoAyla = 0;} else {contLogoAyla ++;}
+		if(contLogoAyla == 200) {contLogoAyla = 0;} else {contLogoAyla ++;}
 		
 		
 		if(contLogoAyla == 80) {
@@ -2083,6 +2123,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
         tela1.setContEngranagem2(contEngranagem2);
         tela1.velocidade = velocidade;
         tela1.LimparTela2();
+        
         janelaPrincipal.revalidate();
         timer.stop();
 	}
@@ -2091,11 +2132,21 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		tela3 = null;
 	}
 	
+	public void LimparManual() {
+		telaManual = null;
+	}
+	
+	public void LimparCreditos() {
+		telaCreditos = null;
+	}
+	
 	public void alterarVelocidade (int Velocidade) {
 		velocidade = Velocidade;
 		contTempo = 0;
 
-		iconeBoss.setY(-300);
+		if(ativarBoss != 2) {
+			iconeBoss.setY((iconeBoss.getY() <= -100 ? -300 : 26));
+		}
 		iconeIgnis.setY(70);
 		iconeAyla.setY(70 - 10);
 		iconeRexthor.setY(70);
@@ -2148,6 +2199,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 		
 		if(iconeBoss.getImagem() == null) {
 			iconeBoss.load(caminho + "res\\Insignia\\peixe voador.png");
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nave.wav");
 			
 		} else if(iconeBoss.getDx() < 162) {
 			iconeBoss.setDx(iconeBoss.getDx() + 1);
@@ -2182,6 +2234,12 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			teclaEsquerda.setX(teclaEsquerda.getX() + iconeBoss.getDy());
 			teclaDireita.setX(teclaDireita.getX() + iconeBoss.getDy());
 			teclaZ.setX(teclaZ.getX() + iconeBoss.getDy());
+			teclaEsc.setX(teclaEsc.getX() + iconeBoss.getDy());
+			teclaVel1.setX(teclaVel1.getX() + iconeBoss.getDy());
+			teclaVel2.setX(teclaVel2.getX() + iconeBoss.getDy());
+			teclaVel3.setX(teclaVel3.getX() + iconeBoss.getDy());
+			teclaVel4.setX(teclaVel4.getX() + iconeBoss.getDy());
+			teclaVel5.setX(teclaVel5.getX() + iconeBoss.getDy());
 
 			iconeBoss.setX(iconeBoss.getX() + iconeBoss.getDy());
 			iconeIgnis.setX(iconeIgnis.getX() + iconeBoss.getDy());
@@ -2254,6 +2312,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[3][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[3][1]);
@@ -2261,6 +2320,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[3][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[2][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[2][1]);
@@ -2296,6 +2356,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
+
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[5][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[5][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[5][2]);
@@ -2304,6 +2366,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntSimNao = true;
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[6][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[6][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[6][2]);
@@ -2330,6 +2394,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor9.png");
 					
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[7][3]);
@@ -2338,6 +2403,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor1.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[8][0]);
@@ -2354,6 +2420,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						bntSimDialogo.setX(1234/2 - 464/2); bntSimDialogo.setY(520);
 						bntNaoDialogo.setX(1234/2 - 464/2 + 370); bntNaoDialogo.setY(520);
@@ -2368,7 +2435,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						ativarTibar = true;
 						
 					} else {
-
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[9][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[9][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[9][2]);
@@ -2386,6 +2454,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[11][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[11][1]);
@@ -2395,6 +2464,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntSimNao = true;
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[12][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[12][1]);
@@ -2420,6 +2490,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[13][3]);
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor5.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[14][0]);
@@ -2428,6 +2499,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[14][3]);
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor3.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[15][0]);
@@ -2444,6 +2516,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[16][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[16][1]);
@@ -2453,6 +2526,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[17][0]);
@@ -2484,7 +2558,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[19][3]);
 					
 				} else if(contDialogo == 3) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor7.png");
+					telaMenu.audio.tocarAudio2();
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor10.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[20][0]);
 					txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[20][1]);
@@ -2515,6 +2590,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						txtDialogoLn3.setY(txtDialogoLn3.getY() + 4); 
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[23][0]);
@@ -2523,7 +2599,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 						
 					} else {
-
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[22][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[22][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[22][2]);
@@ -2535,12 +2612,16 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor5.png");
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[23][3]);
 						txtDialogoLn2.setTexto(" ");;
 						txtDialogoLn3.setTexto(" ");
 						txtDialogoLn4.setTexto(" ");
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada1.wav");
+
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[22][4]);
 						txtDialogoLn2.setTexto(" ");
 						txtDialogoLn3.setTexto(" ");
@@ -2550,6 +2631,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 				
 				} else if(contDialogo == 4) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 					bntSimDialogo.setX(1234/2 - 464/2); bntSimDialogo.setY(520);
 					bntNaoDialogo.setX(1234/2 - 464/2 + 370); bntNaoDialogo.setY(520);
@@ -2573,6 +2655,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[25][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[25][1]);
@@ -2583,6 +2666,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[26][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[26][1]);
@@ -2640,6 +2725,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[32][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[32][1]);
@@ -2649,6 +2735,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						etapaMiniJogo = 1;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor7.png");
 
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[31][0]);
@@ -2689,6 +2776,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[37][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[37][1]);
@@ -2699,6 +2787,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						contDialogo = 5;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[38][0]);
@@ -2755,6 +2844,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[45][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[45][1]);
@@ -2763,6 +2853,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						etapaMiniJogo = 1;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor3.png");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[44][0]);
@@ -2774,6 +2865,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 				
 				} else if(contDialogo == 6) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.setX(20); imagemDoDialogo.setY(20);
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\lama1.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
@@ -2807,6 +2899,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 					if(bntSimNao == false){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[51][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[51][1]);
@@ -2815,6 +2908,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						bntSimNao = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[50][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[50][1]);
@@ -2850,6 +2944,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					etapaMiniJogo = 6;
 				
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 					imagemDoDialogo.setX(20); imagemDoDialogo.setY(30);
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\mão" + (tibarCoroa == true ? "3" : "4") + ".png");
 										
@@ -2877,6 +2972,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 5) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor8.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[58][0]);
@@ -2939,6 +3035,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[62][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[62][1]);
@@ -2946,6 +3043,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[62][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[61][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[61][1]);
@@ -2981,6 +3079,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[64][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[64][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[64][2]);
@@ -2989,6 +3089,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntSimNao = true;
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[65][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[65][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[65][2]);
@@ -3015,6 +3117,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor9.png");
 					
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[66][3]);
@@ -3023,6 +3126,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor1.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[67][0]);
@@ -3039,7 +3143,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor2.png");
 
 					if(bntSimNao == true){
-						
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						bntSimDialogo.setX(1234/2 - 464/2); bntSimDialogo.setY(520);
 						bntNaoDialogo.setX(1234/2 - 464/2 + 370); bntNaoDialogo.setY(520);
 						
@@ -3053,7 +3157,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						ativarTibar = true;
 						
 					} else {
-
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
+						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[68][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[68][1]);
 						txtDialogoLn3.setTexto(rexthor.getConteudoEscolhaAdversario()[68][2]);
@@ -3071,6 +3176,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[70][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[70][1]);
@@ -3080,6 +3186,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntSimNao = true;
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[71][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[71][1]);
@@ -3105,6 +3212,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[72][3]);
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor5.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[73][0]);
@@ -3113,6 +3221,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[73][3]);
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor3.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[74][0]);
@@ -3129,6 +3238,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[75][(aventureiro == 0 ? 1 : 0)]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[75][2]);
@@ -3138,6 +3248,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[76][0]);
@@ -3169,7 +3280,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(rexthor.getConteudoEscolhaAdversario()[78][3]);
 					
 				} else if(contDialogo == 3) {
-					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor7.png");
+					telaMenu.audio.tocarAudio2();
+					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor10.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[79][(aventureiro == 0 ? 0 : (aventureiro == 1 ? 1 : (aventureiro == 3 ? 2 : 3)))]);
 					txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[79][4]);
@@ -3200,6 +3312,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						txtDialogoLn3.setY(txtDialogoLn3.getY() + 4); 
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[82][0]);
@@ -3208,6 +3321,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[81][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[81][1]);
@@ -3220,12 +3334,14 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor5.png");
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[82][3]);
 						txtDialogoLn2.setTexto(" ");;
 						txtDialogoLn3.setTexto(" ");
 						txtDialogoLn4.setTexto(" ");
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada1.wav");
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[81][4]);
 						txtDialogoLn2.setTexto(" ");
 						txtDialogoLn3.setTexto(" ");
@@ -3235,6 +3351,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 				
 				} else if(contDialogo == 4) {
+					telaMenu.audio.pausarEfeito1();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 					bntSimDialogo.setX(1234/2 - 464/2); bntSimDialogo.setY(520);
 					bntNaoDialogo.setX(1234/2 - 464/2 + 370); bntNaoDialogo.setY(520);
@@ -3258,6 +3375,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\" + (tibar == true ? "tibarCoroa" : "tibarSemCoroa") + "1.png");
 					
 					if(tibarCoroa == tibar){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[84][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[84][1]);
@@ -3268,6 +3386,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\errou.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[85][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[85][1]);
@@ -3325,6 +3445,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[91][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[91][1]);
@@ -3334,6 +3455,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						etapaMiniJogo = 1;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor7.png");
 
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[90][0]);
@@ -3374,6 +3496,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[96][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[96][1]);
@@ -3384,6 +3507,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						contDialogo = 5;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[97][0]);
@@ -3440,6 +3564,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 
 					if(bntSimNao == true){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[104][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[104][1]);
@@ -3448,6 +3573,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						etapaMiniJogo = 1;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor3.png");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[103][0]);
@@ -3492,6 +3618,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor4.png");
 
 					if(bntSimNao == false){
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[110][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[110][1]);
@@ -3500,6 +3627,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						bntSimNao = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[109][0]);
 						txtDialogoLn2.setTexto(rexthor.getConteudoEscolhaAdversario()[109][1]);
@@ -3535,6 +3663,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					etapaMiniJogo = 6;
 				
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\acertou.wav");
 					imagemDoDialogo.setX(20); imagemDoDialogo.setY(30);
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\mão" + (tibarCoroa == true ? "3" : "4") + ".png");
 										
@@ -3562,6 +3691,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 5) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\risada2.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Rexthor\\rexthor8.png");
 
 					txtDialogoLn1.setTexto(rexthor.getConteudoEscolhaAdversario()[117][0]);
@@ -3631,6 +3761,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -3642,6 +3773,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						objetoDeFundo1.setY(350); objetoDeFundo1.setX(20);
 						objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto3.png");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
@@ -3706,6 +3838,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis7.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[8][0]);
@@ -3716,6 +3849,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis5.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[9][0]);
@@ -3739,6 +3873,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ignis.getConteudoEscolhaAdversario()[10][3]);
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarAudio2();
 					imgLogoAyla.setX(1234/2 - 500/2 - 100); imgLogoAyla.setY(20);
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto5.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto4.png");
@@ -3842,6 +3977,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[19][0]);
@@ -3852,6 +3988,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis22.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[20][0]);
@@ -3907,6 +4044,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis3.png");
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[25][0]);
 						txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[25][1]);
@@ -3916,6 +4054,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[26][0]);
 						txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[26][1]);
@@ -4022,6 +4161,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.setY(20);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.setX(1234/2 - 500/2);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
@@ -4035,6 +4175,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.setX(1234/2 - 500/2 - 100);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis1.png");
 						
@@ -4201,6 +4342,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.setX(1234/2 - 500/2 - 100);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[48][0]);
@@ -4212,6 +4354,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[49][0]);
@@ -4250,6 +4393,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ignis.getConteudoEscolhaAdversario()[51][3]);
 				
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\magico.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 					imgLogoAyla.load(caminho + "res\\escolhaDeAdversario\\Ignis\\mecarito1.png");
 
@@ -4346,6 +4490,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -4357,6 +4502,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						objetoDeFundo1.setY(350); objetoDeFundo1.setX(20);
 						objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto3.png");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
@@ -4421,6 +4567,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis7.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[66][0]);
@@ -4431,6 +4578,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis5.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[67][0]);
@@ -4454,6 +4602,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ignis.getConteudoEscolhaAdversario()[68][3]);
 					
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarAudio2();
 					imgLogoAyla.setX(1234/2 - 500/2 - 100); imgLogoAyla.setY(20);
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto5.png");
 					objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ignis\\objeto4.png");
@@ -4557,6 +4706,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[77][0]);
@@ -4567,6 +4717,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis22.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[78][0]);
@@ -4622,6 +4773,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis3.png");
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[83][0]);
 						txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[83][1]);
@@ -4631,6 +4783,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[84][0]);
 						txtDialogoLn2.setTexto(ignis.getConteudoEscolhaAdversario()[84][1]);
@@ -4737,6 +4890,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.setY(20);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.setX(1234/2 - 500/2);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
@@ -4750,6 +4904,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.setX(1234/2 - 500/2 - 100);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis1.png");
 						
@@ -4915,6 +5070,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.setX(1234/2 - 500/2 - 100);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis4.png");
 
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[106][0]);
@@ -4926,6 +5082,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 						
 						txtDialogoLn1.setTexto(ignis.getConteudoEscolhaAdversario()[107][0]);
@@ -4964,6 +5121,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(ignis.getConteudoEscolhaAdversario()[109][3]);
 				
 				} else if(contDialogo == 2) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\magico.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ignis\\ignis2.png");
 					imgLogoAyla.load(caminho + "res\\escolhaDeAdversario\\Ignis\\mecarito1.png");
 
@@ -5100,7 +5258,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					if(bntSimNao == true) {
-						
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[4][0]);
@@ -5114,7 +5272,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
-						
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
 						
@@ -5176,6 +5334,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[9][0]);
@@ -5187,6 +5346,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[10][0]);
@@ -5237,6 +5397,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 						
@@ -5248,6 +5409,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -5280,6 +5442,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[16][0]);
@@ -5288,6 +5451,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[16][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[18][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[18][1]);
@@ -5298,6 +5462,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.tocarAudio2();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
@@ -5347,6 +5512,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -5359,6 +5525,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[23][0]);
@@ -5433,6 +5600,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
@@ -5445,6 +5613,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
@@ -5586,6 +5755,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[38][0]);
@@ -5597,6 +5767,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						animarBataPok = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 6); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 						
@@ -5646,6 +5817,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 5);
 						
@@ -5656,6 +5828,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3); 
 						
@@ -5698,6 +5871,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 4) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\magico.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki14.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[46][3]);
@@ -5786,6 +5960,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki3.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[51][0]);
@@ -5799,6 +5974,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki7.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4);
 						
@@ -5860,6 +6036,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 						
@@ -5872,6 +6049,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[57][0]);
@@ -5922,6 +6100,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 						
@@ -5933,6 +6112,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -5965,6 +6145,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki5.png");
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[63][0]);
@@ -5973,6 +6154,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(kiki.getConteudoEscolhaAdversario()[63][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[65][0]);
 						txtDialogoLn2.setTexto(kiki.getConteudoEscolhaAdversario()[65][1]);
@@ -5983,6 +6165,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					}
 					
 				} else if(contDialogo == 3) {
+					telaMenu.audio.tocarAudio2();
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki6.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 					
@@ -6032,6 +6215,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -6044,6 +6228,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki8.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[70][0]);
@@ -6118,6 +6303,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
@@ -6130,6 +6316,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki16.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 						
@@ -6189,6 +6376,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[82][0]);
@@ -6201,6 +6389,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						encerrarDialogo = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						
 						txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[83][0]);
@@ -6351,6 +6540,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki17.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 5);
 						
@@ -6361,6 +6551,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						
 						mudaCorLn4 = true;
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 3);
 						
@@ -6403,6 +6594,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(" ");
 					
 				} else if(contDialogo == 4) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\magico.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Kiki\\kiki14.png");
 					
 					txtDialogoLn1.setTexto(kiki.getConteudoEscolhaAdversario()[94][3]);
@@ -6443,8 +6635,9 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[72][3]);
 				
 			} else if(contDialogo == 2) {
-				
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\eeeeeee1.wav");
 				imagemDoDialogo.setX(1234/2 - 700/2);
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\interruptorDeLuz.wav");
 				
 				objetoDeFundo2.setImagem(null);
 				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\ayla7.png");
@@ -6459,7 +6652,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				txtDialogoLn4.setTexto(" ");
 				
 			} else if(contDialogo == 3) {
-				
+				telaMenu.audio.pausarEfeito1();
 				imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\contrato\\ayla2.png");
 				
 				txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[73][1]);
@@ -6482,6 +6675,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			} else if(contDialogo == 5) {
 				bntSimDialogo.setImagem(null);
 				bntNaoDialogo.setImagem(null);
+				
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 				
 				estrelaFim1.setX(0); estrelaFim1.setY(0);
 				estrelaFim2.setX(0); estrelaFim2.setY(0);
@@ -6595,6 +6790,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][0]);
@@ -6603,6 +6799,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(" ");
 							
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
@@ -6695,6 +6892,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[3][0]);
@@ -6703,6 +6901,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(" ");
 							
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[4][0]);
@@ -6789,7 +6988,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
-							
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[9][0]);
@@ -6798,7 +6997,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(" ");
 							
 						} else {
-							
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[10][0]);
@@ -6868,11 +7067,13 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					} else if(contDialogo == 2) {
 						bntSimDialogo.setImagem(null);
 						bntNaoDialogo.setImagem(null);
-						objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto4.png");
 						
 						txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarAudio2();
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
+							objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto4.png");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[12][0]);
@@ -6882,6 +7083,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							mudaCorLn4 = true;
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[13][0]);
 							txtDialogoLn2.setTexto(ayla.getConteudoEscolhaAdversario()[13][1]);
@@ -6920,7 +7122,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 						
 					} else if(contDialogo == 2) {
-						
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\eeeeeee1.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[14][2]);
@@ -6929,7 +7131,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(" ");
 						
 					} else if(contDialogo == 3) {
-						
+						telaMenu.audio.pausarEfeito1();
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 4); 
@@ -6975,6 +7177,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\eeeeeee2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[18][0]);
@@ -6984,6 +7188,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							mudaCorLn4 = true;
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[19][0]);
@@ -7044,6 +7249,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntSimDialogo.setImagem(null);
 						bntNaoDialogo.setImagem(null);
 						
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[22][0]);
@@ -7118,6 +7324,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[26][0]);
@@ -7128,6 +7335,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							mudaCorLn4 = true;
 							
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[27][0]);
@@ -7176,7 +7384,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[29][3]);
 						
 					} else if(contDialogo == 3) {
-						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 						
@@ -7193,6 +7400,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[31][0]);
@@ -7203,6 +7411,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							mudaCorLn4 = true;
 							encerrarDialogo = true;
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[32][0]);
@@ -7212,7 +7421,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						}
 						
 					} else if(contDialogo == 5) {
-						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla2.png");
 						
 						txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[32][1]);
@@ -7251,7 +7459,6 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[33][3]);
 						
 					} else if(contDialogo == 2) {
-						
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla9.png");
 						txtDialogoLn3.setY(txtDialogoLn3.getY() + 4);
 						
@@ -7276,6 +7483,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[35][0]);
@@ -7285,6 +7493,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							
 							mudaCorLn4 = true;
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla8.png");
 							txtDialogoLn2.setY(txtDialogoLn2.getY() + 6);
 							
@@ -7386,6 +7595,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						bntNaoDialogo.setImagem(null);
 						
 						if(bntSimNao == true) {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca1.png");
 	
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[41][0]);
@@ -7394,6 +7604,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 							txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[41][3]);
 							
 						} else {
+							telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 							imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\mutuca2.png");
 							
 							txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[42][0]);
@@ -7664,6 +7875,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								txtDialogoLn4.setTexto(ayla.getConteudoEscolhaAdversario()[49][3]);
 								
 							} else if(contDialogo == 5) {
+								telaMenu.audio.tocarAudio2();
 								txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 								objetoDeFundo3.load(caminho + "res\\escolhaDeAdversario\\Ayla\\objeto4.png");
 								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla5.png");
@@ -7856,6 +8068,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 								bntSimDialogo.setImagem(null);
 								bntNaoDialogo.setImagem(null);
 								
+								telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 								imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Ayla\\ayla7.png");
 								
 								txtDialogoLn1.setTexto(ayla.getConteudoEscolhaAdversario()[58][0]);
@@ -8236,6 +8449,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -8247,6 +8461,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius10.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[9][0]);
@@ -8315,6 +8530,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[15][0]);
@@ -8325,6 +8541,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius11.png");
 
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[16][0]);
@@ -8381,6 +8598,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 						
@@ -8390,6 +8608,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[21][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius12.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[23][0]);
@@ -8431,6 +8650,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 										
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarAudio2();
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius9.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 						
@@ -8440,6 +8661,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[25][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius4.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[27][0]);
@@ -8515,6 +8737,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				} else if(contDialogo == 6) {
 					bntSimDialogo.setImagem(null); bntNaoDialogo.setImagem(null);
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius16.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
@@ -8542,6 +8766,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[35][0]);
@@ -8552,6 +8777,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[36][0]);
@@ -8616,6 +8842,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[41][0]);
@@ -8626,6 +8853,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[42][0]);
@@ -8864,6 +9092,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					imagemDoDialogo.setImagem(null);
 					
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\" + (bntSimNao == true ? "selecao2" : "nao") + ".wav");
 					objetoDeFundo1.setY(60); objetoDeFundo2.setY(20); objetoDeFundo2.setX(1234 - 730); objetoDeFundo1.setX(230);
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius7.png");
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\nadamaisqueaverdade2.png");
@@ -8990,6 +9219,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					objetoDeFundo2.setX(1234/2 - 462/2); objetoDeFundo2.setY(20);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius8.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[72][0]);
@@ -9000,6 +9230,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius11.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[73][0]);
@@ -9237,6 +9468,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 2);
 						
@@ -9248,6 +9480,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius10.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[93][0]);
@@ -9316,6 +9549,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[99][0]);
@@ -9326,6 +9560,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius11.png");
 
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[100][0]);
@@ -9382,6 +9617,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius4.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() - 2); txtDialogoLn3.setY(txtDialogoLn3.getY() - 4);
 						
@@ -9391,6 +9627,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[105][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius12.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[107][0]);
@@ -9433,6 +9670,8 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 										
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarAudio2();
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius9.png");
 						txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() - 2);
 						
@@ -9442,6 +9681,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[109][3]);
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius4.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[111][0]);
@@ -9517,6 +9757,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 				
 				} else if(contDialogo == 6) {
 					bntSimDialogo.setImagem(null); bntNaoDialogo.setImagem(null);
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 					imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius16.png");
 					txtDialogoLn2.setY(txtDialogoLn2.getY() + 4); txtDialogoLn3.setY(txtDialogoLn3.getY() + 2);
 					
@@ -9544,6 +9785,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn2.setY(txtDialogoLn2.getY() - 2);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius5.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[119][0]);
@@ -9554,6 +9796,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius1.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[120][0]);
@@ -9618,6 +9861,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[125][0]);
@@ -9628,6 +9872,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						imagemDoDialogo.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius2.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[126][0]);
@@ -9866,6 +10111,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					bntNaoDialogo.setImagem(null);
 					imagemDoDialogo.setImagem(null);
 					
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\" + (bntSimNao == true ? "selecao2" : "nao") + ".wav");
 					objetoDeFundo1.setY(60); objetoDeFundo2.setY(20); objetoDeFundo2.setX(1234 - 730); objetoDeFundo1.setX(230);
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius7.png");
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\nadamaisqueaverdade2.png");
@@ -9877,10 +10123,10 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					txtDialogoLn4.setTexto(arius.getConteudoEscolhaAdversario()[145][5]);
 					
 				} else if(contDialogo == 17) {
+					imagemDoDialogo.setImagem(null);
 					objetoDeFundo1.setY(40); objetoDeFundo2.setY(40); objetoDeFundo2.setX(1234 - 730); objetoDeFundo1.setX(230);
 					objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius11.png");
 					objetoDeFundo1.load(caminho + "res\\escolhaDeAdversario\\Arius\\nadamaisqueaverdade3.png");
-					imagemDoDialogo.setImagem(null);
 					
 					txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[146][0]);
 					txtDialogoLn2.setTexto(arius.getConteudoEscolhaAdversario()[146][1]);
@@ -9992,6 +10238,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 					objetoDeFundo2.setX(1234/2 - 462/2); objetoDeFundo2.setY(20);
 					
 					if(bntSimNao == true) {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao2.wav");
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius8.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[156][0]);
@@ -10002,6 +10249,7 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 						mudaCorLn4 = true;
 						
 					} else {
+						telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\nao.wav");
 						objetoDeFundo2.load(caminho + "res\\escolhaDeAdversario\\Arius\\arius11.png");
 						
 						txtDialogoLn1.setTexto(arius.getConteudoEscolhaAdversario()[157][0]);
@@ -10142,7 +10390,5 @@ public class Escolha_de_adversario extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
-	
 	
 }

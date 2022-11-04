@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -29,6 +30,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Manual telaManual;
 	private Creditos telaCreditos;
 	private Salvar save;
+	public Audio audio;
 	
 	JFrame janelaPrincipal;
 	
@@ -100,7 +102,7 @@ public class Menu extends JPanel implements ActionListener {
 	private Icones_interativos teclaVel3 = new Icones_interativos(teclaVel1.getX(), teclaVel2.getY() + 40);
 	private Icones_interativos teclaVel4 = new Icones_interativos(teclaVel1.getX(), teclaVel3.getY() + 40);
 	private Icones_interativos teclaVel5 = new Icones_interativos(teclaVel1.getX(), teclaVel4.getY() + 40);
-	public int velocidade = 3;
+	public int velocidade = 2;
 	
 	// ---------------------------- opções do menu ------------------------------------
 	
@@ -133,6 +135,12 @@ public class Menu extends JPanel implements ActionListener {
 	private Salvar salvar = new Salvar();
 	int valorLeituraSave;
 	private int contTempoMensagemErro = 0;
+	
+	// ---------------------------- Audio ------------------------------------
+	
+	public int ativarEfeito = 0;
+	
+	public Icones_interativos transicao = new Icones_interativos(0, 0);
 	
 	/* ---------------------------------------------------------------------------------------- \
 	|  							coloca as informações iniciais									|
@@ -205,6 +213,8 @@ public class Menu extends JPanel implements ActionListener {
 		
 		Restaurar();
 		
+		audio = new Audio(caminho);
+		
 		timer = new Timer(1, this); 
 		timer.start();
 	}
@@ -268,6 +278,7 @@ public class Menu extends JPanel implements ActionListener {
 		teclaVel4.load(caminho + "res\\Teclado\\tecla4" + (velocidade == 4 ? 2 : "") + ".png");
 		teclaVel5.load(caminho + "res\\Teclado\\tecla5" + (velocidade == 5 ? 2 : "") + ".png");
 	
+		transicao.setImagem(null);
 	}
 	
 	/* ---------------------------------------------------------------------------------------- \
@@ -332,6 +343,7 @@ public class Menu extends JPanel implements ActionListener {
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
 			if(bntSimNaoDialgoAviso == false || codigo == KeyEvent.VK_X) {
+				audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 				sombreadorDialogoAviso.setImagem(null);
 				dialogoAviso.setImagem(null);
 				bntSimDialogoAviso.setImagem(null);
@@ -342,7 +354,7 @@ public class Menu extends JPanel implements ActionListener {
 			}
 			else {
 				
-				chamarTela1(true);
+				ativarEfeito = 1;
 			}
 		}
 	}
@@ -437,32 +449,17 @@ public class Menu extends JPanel implements ActionListener {
 					
 					switch (contOpcoes) {
 						case 0:
-							chamarTela1(false);
+							ativarEfeito = -1;
 							break;
 						case 1:
+							audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 							dialogoBntNovoJogo(codigo);
 							break;
 						case 2:
-							janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-					        janelaPrincipal.remove(this);
-					        telaManual = new Manual(contEngranagem2, caminho);
-					        
-					        telaManual.setTelaMenu(this);
-					        
-					        janelaPrincipal.add(telaManual);
-					        janelaPrincipal.setTitle("ManualM");
-					        janelaPrincipal.revalidate();
+							ativarEfeito = 21;
 					        break;
 						case 3:
-							janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-					        janelaPrincipal.remove(this);
-					        telaCreditos = new Creditos(contEngranagem2, caminho);
-					        
-					        telaCreditos.setTelaMenu(this);
-					        
-					        janelaPrincipal.add(telaCreditos);
-					        janelaPrincipal.setTitle("CreditosM");
-					        janelaPrincipal.revalidate();
+							ativarEfeito = -21;
 					        break;
 					}
 				}
@@ -498,7 +495,7 @@ public class Menu extends JPanel implements ActionListener {
 		int codigo = tecla.getKeyCode();
 		
 		if(!(janela != null && janela.getTitle() == "Menu")) {
-			
+
 			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Personagem" || janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual1" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
 				tela1.KeyReleased(tecla);
 				
@@ -590,9 +587,6 @@ public class Menu extends JPanel implements ActionListener {
 		
 		graficos.drawImage(engrenagem1.getImagem(), engrenagem1.getRedX(), engrenagem1.getRedY(), engrenagem1.getLarg(), engrenagem1.getAlt(), this);
 		graficos.drawImage(engrenagem2.getImagem(), engrenagem2.getRedX(), engrenagem2.getRedY(), engrenagem2.getLarg(), engrenagem2.getAlt(), this);
-		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
-		
-		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY(), teclaEsc.getLarg(), teclaEsc.getAlt(), this);
 		
 		// ---------------------------- save ------------------------------------
 
@@ -607,6 +601,11 @@ public class Menu extends JPanel implements ActionListener {
 		
 		tl1.draw(graficos, txtDialogoAviso.getRedX(), txtDialogoAviso.getRedY());
 		tl2.draw(graficos, txtDialogoAviso2.getRedX(), txtDialogoAviso2.getRedY());
+		
+		graficos.drawImage(transicao.getImagem(), transicao.getRedX(), transicao.getRedY(), transicao.getLarg(), transicao.getAlt(), this);
+		graficos.drawImage(contorno.getImagem(), contorno.getRedX(), contorno.getRedY(), contorno.getLarg(), contorno.getAlt(), this);
+		graficos.drawImage(teclaEsc.getImagem(), teclaEsc.getRedX(), teclaEsc.getRedY(), teclaEsc.getLarg(), teclaEsc.getAlt(), this);
+		
 		
 		graficos.drawImage(tapaResto.getImagem(), tapaResto.getRedX(), tapaResto.getRedY(), tapaResto.getLarg(), tapaResto.getAlt(), this);
 		
@@ -623,7 +622,6 @@ public class Menu extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFrame janela = (JFrame) SwingUtilities.getWindowAncestor(this);
-		
 		
 		if(janela != null && janela.getTitle() == "Menu") {
 
@@ -650,6 +648,41 @@ public class Menu extends JPanel implements ActionListener {
 					Animar(); Animar(); Animar();
 					Animar(); Animar(); Animar();
 					break;
+			}
+
+			// -------------------------------- AUDIO ------------------------------
+			
+			if(ativarEfeito == 1 || ativarEfeito == -1) {
+				audio.tocarEfeito1(caminho + "res\\Audio\\selecao1.wav");
+				audio.pausarAudio1(); audio.tocarClicFita();
+				transicao.load(caminho + "res\\Menu principal\\carregamento.png");
+				
+			} else if(ativarEfeito == 21 || ativarEfeito == -21) {
+				audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+				transicao.load(caminho + "res\\Menu principal\\carregamento.png");
+			}
+			
+			if(ativarEfeito > 0) {
+				ativarEfeito++;
+			} else if(ativarEfeito < 0) {
+				ativarEfeito--;
+			}
+			
+			if(ativarEfeito == 10 || ativarEfeito == -10) {
+				chamarTela1((ativarEfeito == 10 ? true : false));
+				ativarEfeito = 0;
+				
+			} else if(ativarEfeito == 23) {
+				audio.tocarClicFita();
+				audio.pausarAudio1();
+				chamarManual();
+				ativarEfeito = 0;
+			
+			} else if(ativarEfeito == -23) {
+				audio.tocarClicFita();
+				audio.pausarAudio1();
+				chamarCreditos();
+				ativarEfeito = 0;
 			}
 			
 		}
@@ -730,12 +763,13 @@ public class Menu extends JPanel implements ActionListener {
 	
 	
 	public void chamarTela1(boolean NovoJogo) {
-		
 		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
         tela1 = new Escolha_de_personagem(this, NovoJogo, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela1);
         janelaPrincipal.setTitle("Escolha de Personagem");
+        
+        audio.pausarAudio1();
         
         if(NovoJogo == false) {
         	tela1.chamarTela2(salvar.getAventureiro(), salvar.getTabelaInteracao());
@@ -744,8 +778,36 @@ public class Menu extends JPanel implements ActionListener {
         janelaPrincipal.revalidate();
 	}
 	
+	public void chamarManual() {
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        telaManual = new Manual(contEngranagem2, caminho);
+        telaManual.setTelaMenu(this);
+        janelaPrincipal.add(telaManual);
+        janelaPrincipal.setTitle("ManualM");
+        janelaPrincipal.revalidate();
+	}
+	
+	public void chamarCreditos() {
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        janelaPrincipal.remove(this);
+        telaCreditos = new Creditos(contEngranagem2, caminho);
+        telaCreditos.setTelaMenu(this);
+        janelaPrincipal.add(telaCreditos);
+        janelaPrincipal.setTitle("CreditosM");
+        janelaPrincipal.revalidate();
+	}
+	
 	public void LimparTela1() {
 		tela1 = null;
+	}
+	
+	public void LimparManual() {
+		telaManual = null;
+	}
+	
+	public void LimparCreditos() {
+		telaCreditos = null;
 	}
 
 	public void setContEngranagem2(boolean contEngranagem2) {

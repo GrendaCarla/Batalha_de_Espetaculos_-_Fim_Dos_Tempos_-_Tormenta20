@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Rexthor {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
-	private int [][] valores = {{4, 3, 6, 4, 4, 0, 1}, {3, 0, 2, 0, 2, 10, 4}, {2, -1, 5, -1, 0, 6, 1}, {1, 1, 1, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
+	private int [][] valores = {{5, 3, 6, 4, 4, 0, 1}, {3, 0, 2, 0, 2, 10, 4}, {2, -1, 5, -1, 0, 6, 1}, {1, 1, 1, 0, 0, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7};
 	private String [] NomeApelos = {"Gancho da Dor", "Esquiva", "Briga", "Sentidos Aguçados", "Besuntar", "Sorte das Deusas", "A Tanga"};
 	private String [][] ConteudoDescricao = {  {"De músculos contraídos", "Um gancho é disparado.", "Um rosto é re-esculpido", "Em um corpo desmaiado.", "Esta habilidade afeta o campo acima de você."},
@@ -23,14 +23,14 @@ public class Rexthor {
 				   									 {"- Seguinte, eu vou jogar uma moeda, se você ganhar eu luto ao seu lado, mas se eu ganhar", "você terá que carregar todos esses sacos para mim, fechado?", " ", " "},
 				   									 {"- Então, coroa ou sem coroa?", " ", " ", " "},
 				   									 {"- Sorte de principiante, não vai ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
-				   									 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos ali do seu lado.", " ", " "},
+				   									 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos perto de você.", " ", " "},
 	// 7---------------------------- se o Rexthor for o escolhido e teve o primeiro contato, mas não batalhou = |1|0|0|0|0| -------------------
 				   									 {"- Ainda está com medo de perder para mim? Vamos lá, um pouco de exercício nunca matou", "ninguém.", "- Ele quase te matou da última vez?", "- Então pensa o seguinte, o que não te mata só te fortalece hahahaha."},
 				   									 {"- Vamos?", " ", " ", " "},
 				   									 {"- De novo essa resposta, se continuar desse jeito, ninguém irá te respeitar.", " ", " ", " "},
 			   										 {"- Então, coroa ou sem coroa?", " ", " ", " "},
 			   										 {"- Ok, você venceu dessa vez, mas não vai ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
-			   										 {"- HA! As deusas estão do meu lado!", "- já pode ir começando a levar esses sacos ali do seu lado.", " ", " "},
+			   										 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos perto de você.", " ", " "},
 	// 13--------------------------- se o Rexthor for o escolhido e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------
 			   										 {"- Camarada, o negócio deve ter ficado feio para você ter saído daquele jeito no meio da luta.", "- Mas não esquenta a cabeça com isso não, de vez em quando é preciso parar tudo antes que", "a merda aconteça.", " "},
 			   										 {"- Só tente comer mais fibra da próxima vez hahahaha.", " ", " ", " "},
@@ -92,14 +92,14 @@ public class Rexthor {
 				   									 {"- Seguinte, eu vou jogar uma moeda, se vocês ganharem eu luto, mas se eu ganhar você terá", "que carregar todos esses sacos para mim, fechado?", " ", " "},
 				   									 {"- Então, coroa ou sem coroa?", " ", " ", " "},
 				   									 {"- Sorte de principiante, não vão ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
-				   									 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos ali do seu lado.", " ", " "},
+				   									 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos perto de você.", " ", " "},
 	// 66--------------------------- se o Rexthor [[[NÃO]]] for o escolhido e teve o primeiro contato, mas não batalhou = |1|0|0|0|0| -------------------
 				   									 {"- Ainda estão com medo de perder para mim? Vamos lá, um pouco de exercício nunca matou", "ninguém.", "- Ele quase te matou da última vez?", "- Então pensa o seguinte, o que não te mata só te fortalece hahahaha."},
 				   									 {"- Vamos?", " ", " ", " "},
 				   									 {"- De novo essa resposta, se continuarem desse jeito, ninguém irá respeitar vocês.", " ", " ", " "},
 			   										 {"- Então, coroa ou sem coroa?", " ", " ", " "},
 			   										 {"- Ok, vocês venceram dessa vez, mas não vão ficar se achando.", " ", " ", "As apresentações do TIPO Físico ganharão +1 de apelo."},
-			   										 {"- HA! As deusas estão do meu lado!", "- já pode ir começando a levar esses sacos ali do seu lado.", " ", " "},
+			   										 {"- HA! As deusas estão do meu lado!", "- Já pode ir começando a levar esses sacos perto de você.", " ", " "},
 	// 72-------------------------- se o Rexthor [[[NÃO]]] for o escolhido e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------	
 			   										 {"- Camarada, o negócio deve ter ficado feio para você ter saído daquele jeito no meio da luta.", "- Mas não esquenta a cabeça com isso não, de vez em quando é preciso parar tudo antes que", "a merda aconteça.", " "},
 			   										 {"- Só tente comer mais fibra da próxima vez hahahaha.", " ", " ", " "},

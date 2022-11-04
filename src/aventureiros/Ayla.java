@@ -75,11 +75,11 @@ public class Ayla {
 													 {"- HiHiHIhIhIhiHi eu só estava brincando, você quer me desafiar para uma competição, certo?", "- Eu aceito o desafio, mas durante o caminho deixa-me falar sobre os benefícios de se tornar", "consult...", "As apresentações SEM interferência ganharão -1 de apelo."},
 	// 45----------------------------- se a Ayla [[[NÃO]]] for a escolhida e teve o primeiro contato, mas não batalhou = |1|0|0|0|0| -------------------
 													 {"- Na saída vocês podem visitar a nossa loja de lembranças, as medalhas dos deuses são bem", "populares com vários clientes.", " ", " "},
-    // 46----------------------------- se a Ayla [[[NÃO]]] for a escolhida e desistiu <= 5 no meio da última luta = |1|0|0|1|3| -------------------
+    // 46----------------------------- se a Ayla [[[NÃO]]] for a escolhida e desistiu <= 2 no meio da última luta = |1|0|0|1|3| -------------------
 													 {"- Olha só vocês aqui de novo! Vieram para mais uma disputa ou estão espionando como eu", "faço minhas alqu- poções lindas e cheirosas que realmente funcionam?", "- Hahahaha a primeira opção, claro.", " "},
 													 {"- Eu posso te pedir um favorzinho?","- Dessa vez não desista no meio da luta, é meio chato reunir todo mundo daqui das colinas e", "ter o evento encerrado sem conclusão.", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Mas vocês podem ficar a vontade para olhar os famosos produtos do Empório Purpúrea.", "- Temos uma coleção bem completa de soluções alquímicas para problemas aventurescos,", "tenho certeza que encontraram algo que nem sabiam que precisavam.", " "},
-	// 49---------------------------- se a Ayla [[[NÃO]]] for a escolhida e desistiu == 6 no meio da última luta = |1|0|0|6|3| -------------------
+	// 49---------------------------- se a Ayla [[[NÃO]]] for a escolhida e desistiu == 3 no meio da última luta = |1|0|0|6|3| -------------------
 													 {"- Já que estamos na minha sala, eu devo perguntar se realmente vocês querem batalhar?", " ", " ", " "},
 													 {"- Vou ser sincera agora, então é melhor aproveitarem porque esta oportunidade é rara.", "- Não testem minha paciência, posso ser pequena e adorável, mas se vocês me decepcionarem", "mais uma vez... acabou, sem luta e sem visita.", "As apresentações SEM interferência ganharão -1 de apelo."},
 													 {"- Se me permitem, eu gostaria de dar um conselho a vocês.", "- Ninguém gosta muito quando os espetáculos são encerrados no meio sem conclusão, pense", "bem antes de começar um novo.", " "},

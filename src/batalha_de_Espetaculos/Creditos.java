@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -23,7 +22,7 @@ public class Creditos extends JPanel implements ActionListener {
 	private Escolha_de_personagem tela1;
 	private Escolha_de_adversario tela2;
 	private Batalha tela3;
-	private Menu telaMenu;
+	public Menu telaMenu;
 	
 	JFrame janelaPrincipal;
 	
@@ -43,7 +42,7 @@ public class Creditos extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	
-	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13;
+	private TextLayout tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10, tl11, tl12, tl13, tl14;
 	
 	private int contTempo = 0;
 	private boolean mudaImagem = false;
@@ -59,12 +58,14 @@ public class Creditos extends JPanel implements ActionListener {
 	private Texto txtLn6 = new Texto(txtLn2.getX(), txtLn5.getY() + 30, "Katiucha Barcelos / @Katiucha                                                              Kir'zanaath \"Kiki\" Odello");
 	private Texto txtLn7 = new Texto(txtLn2.getX(), txtLn6.getY() + 30, "Guilherme Dei Svaldi / @guilhermesvaldi                                          Arius Gorgonius Dubitatius");
 
-	private Texto txtLn8 = new Texto(1234/2 - 148, txtLn7.getY() + 52, "Tormenta20 - Fim dos Tempos");
+	private Texto txtLn14 = new Texto(txtLn2.getX(), txtLn7.getY() + 30, "Victor Lucky / @victorlucky                                            Música de abertura de Fim dos Tempos");
+
+	private Texto txtLn8 = new Texto(1234/2 - 148, txtLn14.getY() + 52, "Tormenta20 - Fim dos Tempos");
 	
-	private Texto txtLn9 = new Texto(txtLn2.getX() - 30, txtLn8.getY() + 58, "Gren / @LembreDePiscar                      Desenvolvedor / Programador / Ilustrador / Designer de Som");
+	private Texto txtLn9 = new Texto(txtLn2.getX(), txtLn14.getY() + 100, "Gren / @LembreDePiscar                                                                                        Todo o resto");
 
 	
-	private Texto txtLn10 = new Texto(96, txtLn9.getY() + 80, "Esse jogo é um fangame da Campanha de RPG Fim dos Tempos, ou seja, o mundo e os personagens não são");
+	private Texto txtLn10 = new Texto(96, txtLn9.getY() + 60, "Esse jogo é um fangame da Campanha de RPG Fim dos Tempos, ou seja, o mundo e os personagens não são");
 	private Texto txtLn11 = new Texto(txtLn10.getX() + 16, txtLn10.getY() + 30, "de minha autoria e os criadores não são responsáveis pelas bobagens criadas a partir de sua obra.");
 	
 	private Texto txtLn12 = new Texto(141, txtLn11.getY() + 50, "E quero fazer um agradecimento super especial para todos que acompanham a mesa, porque muitas");
@@ -126,7 +127,6 @@ public class Creditos extends JPanel implements ActionListener {
 		estrelaFim1.load(caminho + "res\\Creditos\\estrela3.png");
 		estrelaFim2.load(caminho + "res\\Creditos\\estrela4.png");
 
-
 		timer = new Timer(1, this);
 		timer.start();
 	}
@@ -146,6 +146,8 @@ public class Creditos extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela3);
 		        janelaPrincipal.setTitle("Batalha");
 		        tela3.setContEngranagem2(contEngranagem2);
+		       
+		        tela3.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 				
@@ -155,6 +157,8 @@ public class Creditos extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela2);
 		        janelaPrincipal.setTitle("Escolha de Adversário");
 		        tela2.setContEngranagem2(contEngranagem2);
+
+		        tela2.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 				
@@ -164,6 +168,8 @@ public class Creditos extends JPanel implements ActionListener {
 		        janelaPrincipal.add(tela1);
 		        janelaPrincipal.setTitle("Escolha de Personagem");
 		        tela1.setContEngranagem2(contEngranagem2);
+
+		        tela1.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 		        
@@ -173,6 +179,11 @@ public class Creditos extends JPanel implements ActionListener {
 		        janelaPrincipal.add(telaMenu);
 		        janelaPrincipal.setTitle("Menu");
 		        telaMenu.setContEngranagem2(contEngranagem2);
+		        
+		        telaMenu.audio.tocarClicFita();
+		        telaMenu.audio.despausarAudio1();
+		        
+		        telaMenu.LimparCreditos();
 		        janelaPrincipal.revalidate();
 		        timer.stop();
 				
@@ -198,6 +209,7 @@ public class Creditos extends JPanel implements ActionListener {
 		tl7 = new TextLayout(txtLn7.getTexto(), txtLn2.getFonte(), frc);
 		tl8 = new TextLayout(txtLn8.getTexto(), txtLn2.getFonte(), frc);
 		tl9 = new TextLayout(txtLn9.getTexto(), txtLn2.getFonte(), frc);
+		tl14 = new TextLayout(txtLn14.getTexto(), txtLn2.getFonte(), frc);
 		tl10 = new TextLayout(txtLn10.getTexto(), txtLn2.getFonte(), frc);
 		tl11 = new TextLayout(txtLn11.getTexto(), txtLn2.getFonte(), frc);
 		tl12 = new TextLayout(txtLn12.getTexto(), txtLn2.getFonte(), frc);
@@ -217,6 +229,7 @@ public class Creditos extends JPanel implements ActionListener {
 		
 		graficos.setColor(txtLn1.getCorTexto());
 		tl9.draw(graficos, txtLn9.getRedX(), txtLn9.getRedY());
+		tl14.draw(graficos, txtLn14.getRedX(), txtLn14.getRedY());
 		tl10.draw(graficos, txtLn10.getRedX(), txtLn10.getRedY());
 		tl11.draw(graficos, txtLn11.getRedX(), txtLn11.getRedY());
 		
@@ -246,6 +259,9 @@ public class Creditos extends JPanel implements ActionListener {
 
 		g.dispose();
 		
+		if(telaMenu != null) {
+			telaMenu.transicao.setImagem(null);
+		}
 	}
 
 	@Override
@@ -283,6 +299,7 @@ public class Creditos extends JPanel implements ActionListener {
 
 	public void setTela1(Escolha_de_personagem tela1) {
 		this.tela1 = tela1;
+		
 	}
 
 	public void setTela3(Batalha tela3) {

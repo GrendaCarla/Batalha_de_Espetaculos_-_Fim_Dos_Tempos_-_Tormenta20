@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Kiki {
 	//                                   apelo,                interferência,          tipo interferência (-1: sem efeito, 0: todos acima, 1: todos abaixo, 2: um acima, 3: primeiro, 4: zera seus pontos negativos, 5: um acima e um abaixo, 6: jogar d20)
-	private int [][] valores = {{4, 6, 2, 1, 1, 2, 3, 1}, {0, 0, 3 , 5, 3, 4, 2, 5}, {-1, -1, 3, 3, 5, 2, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
+	private int [][] valores = {{5, 6, 2, 1, 1, 2, 3, 1}, {0, 0, 3 , 5, 3, 4, 2, 5}, {-1, -1, 3, 3, 5, 2, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0}}; //tipo apelo 0= nao fisico, 1= fisico
 	private int [] gifApelos = {1, 2, 3, 4, 5, 6, 7, 8};
 	private String [] NomeApelos = {"Oficio Culinária", "Talentosa", "Enganação", "Mestre das Fofocas", "Olhar Atordoante", "Desarmar Armadilha", "Pinga, Cachaça e Tequila", "Suvaqueira"};
 	private String [][] ConteudoDescricao = {  {"Como já é conveniente", "O ofício culinário salva o dia novamente.", "Você os tornas sedentos pela sua refeição de alta qualidade,", "Mas não se distraia em nenhum momento, pois está havendo furtos de gorad.", " "},

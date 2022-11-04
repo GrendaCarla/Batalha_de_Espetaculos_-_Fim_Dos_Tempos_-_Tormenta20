@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 
 	private Escolha_de_adversario tela2;
 	private Manual telaManual;
-	private Menu telaMenu;
+	public Menu telaMenu;
 	private Creditos telaCreditos;
 	
 	boolean novoJogo;
@@ -61,6 +62,7 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	private Icones_interativos iconeArius = new Icones_interativos(iconeKiki.getX() + 232 + 8, iconeIgnis.getY());
 		
 	private int contTeclaAven = 0;
+	private Random aleatorio = new Random();
 	
 	// ------------------------------------------- painel ---------------------------------------------
 
@@ -169,6 +171,10 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		teclaZ.load(caminho + "res\\Teclado\\teclaZ1.png");
 		teclaX.load(caminho + "res\\Teclado\\teclaX1.png");
 		teclaEsc.load(caminho + "res\\Teclado\\teclaEsc1.png");
+		
+		if(novoJogo == true) {
+			telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Ignis.wav");
+		}
 				
 		timer = new Timer(1, this);
 		timer.start();
@@ -192,18 +198,23 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		switch(contTeclaAven) {
 			case 0:
 				iconeIgnis.load(caminho + "res\\escolhaDePersonagem\\ignis2.png");
+				telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Ignis.wav");
 				break;
 			case 1:
 				iconeAyla.load(caminho + "res\\escolhaDePersonagem\\ayla2.png");
+				telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Ayla.wav");
 				break;
 			case 2:
 				iconeRexthor.load(caminho + "res\\escolhaDePersonagem\\rexthor2.png");
+				telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Rexthor" + (aleatorio.nextInt(3) + 1 == 1 ? 1 : 2) + ".wav");
 				break;
 			case 3:
 				iconeKiki.load(caminho + "res\\escolhaDePersonagem\\kiki2.png");
+				telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Kiki.wav");
 				break;
 			case 4:
 				iconeArius.load(caminho + "res\\escolhaDePersonagem\\arius2.png");
+				telaMenu.audio.tocarApresentacao(caminho + "res\\Audio\\Arius.wav");
 				break;
 		}
 	}
@@ -220,12 +231,18 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarClicFita();
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+			telaMenu.audio.pausarVoz();
+			telaMenu.audio.despausarAudio1();
+			
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        janelaPrincipal.add(telaMenu);
 	        janelaPrincipal.setTitle("Menu");
 	        telaMenu.Restaurar();
 	        telaMenu.LimparTela1();
+	        
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 		
@@ -244,6 +261,9 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+			telaMenu.audio.pausarVoz();
+
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        telaManual = new Manual(contEngranagem2, caminho);
@@ -266,12 +286,16 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 			contEngranagem2 = !contEngranagem2;
 			engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
 			
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
+			telaMenu.audio.pausarVoz();
+
 			janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 	        janelaPrincipal.remove(this);
 	        telaCreditos = new Creditos(contEngranagem2, caminho);
 	        telaCreditos.setTela1(this);
 	        janelaPrincipal.add(telaCreditos);
 	        janelaPrincipal.setTitle("Creditos1");
+	        
 	        janelaPrincipal.revalidate();
 	        timer.stop();
 		}
@@ -408,7 +432,8 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				txtdialogoPersonagem3.setTexto("Deseja continuar?");
 			
 			// --------------- fecha o dialogo de aviso ao apertar X -------------- \
-			}else if(codigo == KeyEvent.VK_X && mostrarMenu == false) {
+			}else if(codigo == KeyEvent.VK_X && mostrarMenu == false && dialogoPersonagem.getImagem() != null) {
+				telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 
 				contEngranagem2 = !contEngranagem2;
 				engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");
@@ -439,15 +464,16 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 				
 				// --------------- fecha o dialogo de aviso ------------- \
 				if(bntSimNaoDialgoAviso == false) {
+					telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao3.wav");
 					limparDialogo();
 					
 				// ------------ vai para a tela de escolha de adversário ----------- \
 				} else {
 					int [][] TabelaInteracao = {{0, 0, 0, 0, 0},
-										   {0, 0, 0, 0, 0},
-										   {0, 0, 0, 0, 0},
-										   {0, 0, 0, 0, 0},
-										   {0, 0, 0, 0, 0}};
+										   		{0, 0, 0, 0, 0},
+										   		{0, 0, 0, 0, 0},
+										   		{0, 0, 0, 0, 0},
+										   		{0, 0, 0, 0, 0}};
 					
 			        chamarTela2(contTeclaAven, TabelaInteracao);
 			        
@@ -514,8 +540,14 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 					break;
 			}
 			
-		} else  {
-			tela2.KeyReleased(tecla);
+		} else if(!(janela != null && janela.getTitle() == "Escolha de Personagem")) {
+
+			if(janelaPrincipal != null && (janelaPrincipal.getTitle() == "Escolha de Adversário"  || janelaPrincipal.getTitle() == "Batalha" || janelaPrincipal.getTitle() == "Manual2" || janelaPrincipal.getTitle() == "Manual3")) {
+				tela2.KeyReleased(tecla);
+				
+			} else if(janelaPrincipal != null && janelaPrincipal.getTitle() == "Manual1") {
+				telaManual.KeyReleased(tecla);
+			}
 		}
 	}
 	
@@ -639,11 +671,16 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 	
 	public void chamarTela2(int ContTeclaAven, int [][] TabelaInteracao) {
 		
-		JFrame janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+		if(novoJogo == true) {
+			telaMenu.audio.tocarEfeito1(caminho + "res\\Audio\\selecao1.wav");
+		}
+		
+		janelaPrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
         janelaPrincipal.remove(this);
         tela2 = new Escolha_de_adversario(ContTeclaAven, this, telaMenu, TabelaInteracao, novoJogo, contEngranagem2, caminho, velocidade);
         janelaPrincipal.add(tela2);
         janelaPrincipal.setTitle("Escolha de Adversário");
+                
         janelaPrincipal.revalidate();
         timer.stop();
 	}
@@ -652,7 +689,14 @@ public class Escolha_de_personagem extends JPanel implements ActionListener {
 		tela2 = null;
 	}
 	
-
+	public void LimparManual() {
+		telaManual = null;
+	}
+	
+	public void LimparCreditos() {
+		telaCreditos = null;
+	}
+	
 	public void setContEngranagem2(boolean contEngranagem2) {
 		this.contEngranagem2 = contEngranagem2;
 		engrenagem2.load(caminho + "res\\Engrenagens\\engrenagem" + (contEngranagem2 == false ? "3" : "4") + ".png");	
