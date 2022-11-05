@@ -38,11 +38,11 @@ Este projeto é um <b>jogo feito por fãs</b> baseado na campanha de RPG Fim Dos
 </br>
 <h2 align="center">Manual</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150149636-5d49646c-5d09-4a6a-a6cc-5a4f5bf1da91.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200118168-b6793b0c-952d-42fd-8e51-65dd76f3f471.gif"></div>
 
 </br>
 <h2 align="center">Créditos</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150134601-c56e4c34-8977-4dab-ad36-1b5465f21d58.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200118125-97be2fa5-b750-41f9-9429-2384c72f8e05.gif"></div>
 
 <!-- [upload] -->
