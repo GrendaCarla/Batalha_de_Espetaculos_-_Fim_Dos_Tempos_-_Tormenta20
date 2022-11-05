@@ -13,7 +13,7 @@
 
 </br></br>
 
-Este projeto é um <b>jogo feito por fãs</b> baseado na campanha de RPG Fim Dos Tempos do cenário de Tormenta 20 no formato de Pokémon Contest (ao invez dos bichos se moerem no soco eles sobem no salto para fazerem apresentações). Ele está sendo desenvolvido por <a href="https://github.com/GrendaCarla">Grenda Silva</a> em linguagem <b>Java</b> e não tem nenhuma pretenção de seguir a linha temporal dos eventos da mesa.
+Este projeto é um <b>jogo feito por fã</b> baseado na campanha de RPG Fim Dos Tempos do cenário de Tormenta 20 no formato de Pokémon Contest (ao invez dos bichos se moerem no soco eles sobem no salto para fazerem apresentações). Ele está sendo desenvolvido por <a href="https://github.com/GrendaCarla">Grenda Silva</a> em linguagem <b>Java</b> e não tem nenhuma pretenção de seguir a linha temporal dos eventos da mesa.
 
 </br>
 <h2 align="center">Menu</h2>
