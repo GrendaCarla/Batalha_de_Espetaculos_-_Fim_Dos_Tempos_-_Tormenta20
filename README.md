@@ -27,26 +27,21 @@ Este projeto é um <b>jogo feito por fã</b> baseado na campanha de RPG Fim Dos 
 </br>
 <h2 align="center">Escolha de Personagem</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150651457-5dea4ed8-a5f7-4b54-8c76-36974da6455d.gif"></div>
-
-</br>
-<h2 align="center">Escolha de Batalhas</h2>
-
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150160782-e3057f97-6d4a-49b3-8a00-51e47c5a6752.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200197812-ba8bb3c5-5166-44c3-8015-48239e1713ea.gif"></div>
 
 </br>
 <h2 align="center">Batalha</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150154928-0f3a2163-90cf-4110-b53a-c0938256f147.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200197949-c150c809-0014-4be6-9ccb-4c277b4b5c8b.gif"></div>
 
 </br>
 <h2 align="center">Manual</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200118168-b6793b0c-952d-42fd-8e51-65dd76f3f471.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200198354-ff6b33d2-6dd6-4765-8162-ea8f6db51a4b.gif"></div>
 
 </br>
 <h2 align="center">Créditos</h2>
 
-<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200118125-97be2fa5-b750-41f9-9429-2384c72f8e05.gif"></div>
+<div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/200198459-f49e3b70-0e88-40fb-813b-4190ad85ef90.gif"></div>
 
 <!-- [upload] -->
