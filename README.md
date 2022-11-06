@@ -16,6 +16,10 @@
 Este projeto é um <b>jogo feito por fã</b> baseado na campanha de RPG Fim Dos Tempos do cenário de Tormenta 20 no formato de Pokémon Contest (ao invez dos bichos se moerem no soco eles sobem no salto para fazerem apresentações). Ele está sendo desenvolvido por <a href="https://github.com/GrendaCarla">Gren</a> em linguagem <b>Java</b> e não tem nenhuma pretensão de seguir a linha temporal dos eventos da mesa.
 
 </br>
+<h2 align="left">Download do Jogo:</h2> https://lembredepiscar.itch.io/batalha-de-espetaculos-fim-dos-tempos-tormenta20
+
+</br>
+</br>
 <h2 align="center">Menu</h2>
 
 <div align="center"><img height="400" src="https://user-images.githubusercontent.com/80162033/150165274-10d3897f-091f-40d1-8be3-c282a38816f3.gif"></div>
